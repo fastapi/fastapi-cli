@@ -1,0 +1,19 @@
+[project]
+name = "fastapi-cli"
+version = "0.0.1"
+description = ""
+authors = [
+    {name = "Sebastián Ramírez", email = "tiangolo@gmail.com"},
+]
+dependencies = []
+requires-python = ">=3.7"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true

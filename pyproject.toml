@@ -1,14 +1,49 @@
 [project]
 name = "fastapi-cli"
-version = "0.0.1"
-description = ""
+dynamic = ["version"]
+description = "Run FastAPI applications from the command line."
 authors = [
     {name = "Sebastián Ramírez", email = "tiangolo@gmail.com"},
 ]
-dependencies = []
 requires-python = ">=3.7"
 readme = "README.md"
 license = {text = "MIT"}
+classifiers = [
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development",
+    "Typing :: Typed",
+    "Development Status :: 4 - Beta",
+    "Framework :: FastAPI",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = []
+
+[project.optional-dependencies]
+standard = []
+
+[project.urls]
+Documentation = "https://fastapi.tiangolo.com"
+homepage = "https://github.com/tiangolo/fastapi-cli"
+Repository = "https://github.com/tiangolo/fastapi-cli"
+
+[project.scripts]
+fastapi = "fastapi_cli.cli:main"
 
 [build-system]
 requires = ["pdm-backend"]
@@ -16,4 +51,81 @@ build-backend = "pdm.backend"
 
 
 [tool.pdm]
+version = { source = "file", path = "src/fastapi_cli/__init__.py" }
 distribution = true
+
+[tool.pdm.build]
+source-includes = [
+    "tests/",
+    "requirements*.txt",
+    "scripts/",
+    ]
+
+[tool.tiangolo._internal-slim-build.packages.fastapi-cli-slim.project]
+name = "fastapi-cli-slim"
+
+[tool.tiangolo._internal-slim-build.packages.fastapi-cli]
+include-optional-dependencies = ["standard"]
+
+[tool.tiangolo._internal-slim-build.packages.fastapi-cli.project]
+optional-dependencies = {}
+
+[tool.pytest.ini_options]
+addopts = [
+  "--strict-config",
+  "--strict-markers",
+]
+xfail_strict = true
+junit_family = "xunit2"
+
+[tool.coverage.run]
+parallel = true
+data_file = "coverage/.coverage"
+source = [
+    "src",
+    "tests",
+]
+context = '${CONTEXT}'
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "@overload",
+    'if __name__ == "__main__":',
+    "if TYPE_CHECKING:",
+]
+
+[tool.mypy]
+strict = true
+
+# [[tool.mypy.overrides]]
+# module = "shellingham"
+# ignore_missing_imports = true
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+    "W191", # indentation contains tabs
+]
+
+# [tool.ruff.lint.per-file-ignores]
+# "__init__.py" = ["F401"]
+
+
+[tool.ruff.lint.isort]
+known-third-party = ["typer", "fastapi"]
+
+[tool.ruff.lint.pyupgrade]
+# Preserve types, even if a file imports `from __future__ import annotations`.
+keep-runtime-typing = true

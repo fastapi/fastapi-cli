@@ -32,10 +32,15 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "License :: OSI Approved :: MIT License",
 ]
-dependencies = []
+dependencies = [
+    "typer >= 0.12.3",
+]
 
 [project.optional-dependencies]
-standard = []
+standard = [
+    "fastapi",
+    "uvicorn[standard] >= 0.29.0",
+]
 
 [project.urls]
 Documentation = "https://fastapi.tiangolo.com"

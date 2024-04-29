@@ -129,9 +129,7 @@ def get_app_name(*, mod_data: ModuleData, app_name: Union[str, None] = None) -> 
         obj = getattr(mod, name)
         if isinstance(obj, FastAPI):
             return name
-    raise FastAPICLIException(
-        "Could not find FastAPI object in module, try using --app"
-    )
+    raise FastAPICLIException("Could not find FastAPI app in module, try using --app")
 
 
 def get_import_string(
@@ -152,13 +150,13 @@ def get_import_string(
     import_panel = Padding(
         Panel(
             import_example,
-            title="[b green]Importable FastAPI object[/b green]",
+            title="[b green]Importable FastAPI app[/b green]",
             expand=False,
             padding=(1, 2),
         ),
         1,
     )
-    logger.info("Found importable FastAPI object")
+    logger.info("Found importable FastAPI app")
     print(import_panel)
     import_string = f"{mod_data.module_import_str}:{use_app_name}"
     logger.info(f"Using import string [b green]{import_string}[/b green]")

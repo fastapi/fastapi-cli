@@ -91,6 +91,9 @@ source = [
     "tests",
 ]
 context = '${CONTEXT}'
+omit = [
+    "tests/assets/*",
+]
 
 [tool.coverage.report]
 exclude_lines = [

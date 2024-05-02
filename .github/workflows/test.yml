@@ -57,7 +57,6 @@ jobs:
         uses: mxschmitt/action-tmate@v3
         # TODO: revert this
         # if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled == 'true' }}
-        if: ${{ github.event.inputs.debug_enabled == 'true' }}
         with:
           limit-access-to-actor: true
       - name: Install Dependencies

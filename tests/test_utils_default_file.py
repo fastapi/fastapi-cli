@@ -26,11 +26,9 @@ def test_single_file_main(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path main.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert (
-        "/fastapi-cli/tests/assets/default_files/default_main/main.py" in captured.out
-    )
+    assert "/tests/assets/default_files/default_main/main.py" in captured.out
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets/default_files/default_main" in captured.out
+    assert "/tests/assets/default_files/default_main" in captured.out
     assert "╭─ Python module file ─╮" in captured.out
     assert "│  🐍 main.py" in captured.out
     assert "Importing module main" in captured.out
@@ -55,9 +53,9 @@ def test_single_file_app(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path app.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "/fastapi-cli/tests/assets/default_files/default_app/app.py" in captured.out
+    assert "/tests/assets/default_files/default_app/app.py" in captured.out
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets/default_files/default_app" in captured.out
+    assert "/tests/assets/default_files/default_app" in captured.out
     assert "╭─ Python module file ─╮" in captured.out
     assert "│  🐍 app.py" in captured.out
     assert "Importing module app" in captured.out
@@ -82,9 +80,9 @@ def test_single_file_api(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path api.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "/fastapi-cli/tests/assets/default_files/default_api/api.py" in captured.out
+    assert "/tests/assets/default_files/default_api/api.py" in captured.out
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets/default_files/default_api" in captured.out
+    assert "/tests/assets/default_files/default_api" in captured.out
     assert "╭─ Python module file ─╮" in captured.out
     assert "│  🐍 api.py" in captured.out
     assert "Importing module api" in captured.out

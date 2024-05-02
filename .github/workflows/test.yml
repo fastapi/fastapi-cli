@@ -19,7 +19,9 @@ on:
       debug_enabled:
         description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
         required: false
-        default: 'false'
+        # TODO: remove this
+        # default: 'false'
+        default: 'true'
 
 jobs:
   test:

@@ -18,13 +18,13 @@ def test_package_app_root(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path package/mod/app.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/package/mod/app.py" in captured.out
+    assert "tests/assets/package/mod/app.py" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─ Python package file structure ─╮" in captured.out
     assert "│  📁 package" in captured.out
     assert "│  ├── 🐍 __init__.py" in captured.out
@@ -46,13 +46,13 @@ def test_package_api_root(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path package/mod/api.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/package/mod/api.py" in captured.out
+    assert "tests/assets/package/mod/api.py" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─ Python package file structure ─╮" in captured.out
     assert "│  📁 package" in captured.out
     assert "│  ├── 🐍 __init__.py" in captured.out
@@ -74,13 +74,13 @@ def test_package_other_root(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path package/mod/other.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/package/mod/other.py" in captured.out
+    assert "tests/assets/package/mod/other.py" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─ Python package file structure ─╮" in captured.out
     assert "│  📁 package" in captured.out
     assert "│  ├── 🐍 __init__.py" in captured.out
@@ -102,13 +102,13 @@ def test_package_app_mod(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path app.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/package/mod/app.py" in captured.out
+    assert "tests/assets/package/mod/app.py" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─ Python package file structure ─╮" in captured.out
     assert "│  📁 package" in captured.out
     assert "│  ├── 🐍 __init__.py" in captured.out
@@ -130,13 +130,13 @@ def test_package_api_mod(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path api.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/package/mod/api.py" in captured.out
+    assert "tests/assets/package/mod/api.py" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─ Python package file structure ─╮" in captured.out
     assert "│  📁 package" in captured.out
     assert "│  ├── 🐍 __init__.py" in captured.out
@@ -158,13 +158,13 @@ def test_package_other_mod(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path other.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/package/mod/other.py" in captured.out
+    assert "tests/assets/package/mod/other.py" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─ Python package file structure ─╮" in captured.out
     assert "│  📁 package" in captured.out
     assert "│  ├── 🐍 __init__.py" in captured.out
@@ -186,13 +186,13 @@ def test_package_app_above(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path assets/package/mod/app.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/package/mod/app.py" in captured.out
+    assert "tests/assets/package/mod/app.py" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─ Python package file structure ─╮" in captured.out
     assert "│  📁 package" in captured.out
     assert "│  ├── 🐍 __init__.py" in captured.out
@@ -214,13 +214,13 @@ def test_package_api_parent(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path assets/package/mod/api.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/package/mod/api.py" in captured.out
+    assert "tests/assets/package/mod/api.py" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─ Python package file structure ─╮" in captured.out
     assert "│  📁 package" in captured.out
     assert "│  ├── 🐍 __init__.py" in captured.out
@@ -242,13 +242,13 @@ def test_package_other_parent(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path assets/package/mod/other.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/package/mod/other.py" in captured.out
+    assert "tests/assets/package/mod/other.py" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─ Python package file structure ─╮" in captured.out
     assert "│  📁 package" in captured.out
     assert "│  ├── 🐍 __init__.py" in captured.out
@@ -270,13 +270,13 @@ def test_package_mod_init_inside(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path __init__.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/package/mod/__init__.py" in captured.out
+    assert "tests/assets/package/mod/__init__.py" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─ Python package file structure ─╮" in captured.out
     assert "│  📁 package" in captured.out
     assert "│  ├── 🐍 __init__.py" in captured.out
@@ -297,13 +297,13 @@ def test_package_mod_dir(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path package/mod" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/package/mod" in captured.out
+    assert "tests/assets/package/mod" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─ Python package file structure ─╮" in captured.out
     assert "│  📁 package" in captured.out
     assert "│  ├── 🐍 __init__.py" in captured.out
@@ -324,13 +324,13 @@ def test_package_init_inside(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path __init__.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/package/__init__.py" in captured.out
+    assert "tests/assets/package/__init__.py" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─ Python package file structure ─╮" in captured.out
     assert "│  📁 package" in captured.out
     assert "│  └── 🐍 __init__.py" in captured.out
@@ -349,13 +349,13 @@ def test_package_dir_inside_package(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path .." in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/package" in captured.out
+    assert "tests/assets/package" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─ Python package file structure ─╮" in captured.out
     assert "│  📁 package" in captured.out
     assert "│  └── 🐍 __init__.py" in captured.out
@@ -374,13 +374,13 @@ def test_package_dir_above_package(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path assets/package" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/package" in captured.out
+    assert "tests/assets/package" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─ Python package file structure ─╮" in captured.out
     assert "│  📁 package" in captured.out
     assert "│  └── 🐍 __init__.py" in captured.out
@@ -399,13 +399,13 @@ def test_package_dir_explicit_app(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path package" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/package" in captured.out
+    assert "tests/assets/package" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─ Python package file structure ─╮" in captured.out
     assert "│  📁 package" in captured.out
     assert "│  └── 🐍 __init__.py" in captured.out
@@ -418,7 +418,8 @@ def test_package_dir_explicit_app(capsys: CaptureFixture[str]) -> None:
 
 def test_broken_package_dir(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path):
-        with pytest.raises(ImportError):
+        # TODO (when deprecating Python 3.8): remove ValueError
+        with pytest.raises((ImportError, ValueError)):
             get_import_string(path=Path("broken_package/mod/app.py"))
 
     captured = capsys.readouterr()

@@ -17,20 +17,18 @@ def test_single_file_main(capsys: CaptureFixture[str]) -> None:
     old_sys_path = sys.path.copy()
     with changing_dir(root_path):
         sys.path.insert(0, str(root_path))
-        app = importlib.import_module("app")
+        mod = importlib.import_module("main")
 
-        importlib.reload(app)
+        importlib.reload(mod)
         import_string = get_import_string()
         assert import_string == "main:app"
 
     captured = capsys.readouterr()
     assert "Using path main.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert (
-        "/fastapi-cli/tests/assets/default_files/default_main/main.py" in captured.out
-    )
+    assert "/tests/assets/default_files/default_main/main.py" in captured.out
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets/default_files/default_main" in captured.out
+    assert "/tests/assets/default_files/default_main" in captured.out
     assert "╭─ Python module file ─╮" in captured.out
     assert "│  🐍 main.py" in captured.out
     assert "Importing module main" in captured.out
@@ -46,18 +44,18 @@ def test_single_file_app(capsys: CaptureFixture[str]) -> None:
     old_sys_path = sys.path.copy()
     with changing_dir(root_path):
         sys.path.insert(0, str(root_path))
-        app = importlib.import_module("app")
+        mod = importlib.import_module("app")
 
-        importlib.reload(app)
+        importlib.reload(mod)
         import_string = get_import_string()
         assert import_string == "app:app"
 
     captured = capsys.readouterr()
     assert "Using path app.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "/fastapi-cli/tests/assets/default_files/default_app/app.py" in captured.out
+    assert "/tests/assets/default_files/default_app/app.py" in captured.out
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets/default_files/default_app" in captured.out
+    assert "/tests/assets/default_files/default_app" in captured.out
     assert "╭─ Python module file ─╮" in captured.out
     assert "│  🐍 app.py" in captured.out
     assert "Importing module app" in captured.out
@@ -73,18 +71,18 @@ def test_single_file_api(capsys: CaptureFixture[str]) -> None:
     old_sys_path = sys.path.copy()
     with changing_dir(root_path):
         sys.path.insert(0, str(root_path))
-        app = importlib.import_module("app")
+        mod = importlib.import_module("api")
 
-        importlib.reload(app)
+        importlib.reload(mod)
         import_string = get_import_string()
         assert import_string == "api:app"
 
     captured = capsys.readouterr()
     assert "Using path api.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "/fastapi-cli/tests/assets/default_files/default_api/api.py" in captured.out
+    assert "/tests/assets/default_files/default_api/api.py" in captured.out
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets/default_files/default_api" in captured.out
+    assert "/tests/assets/default_files/default_api" in captured.out
     assert "╭─ Python module file ─╮" in captured.out
     assert "│  🐍 api.py" in captured.out
     assert "Importing module api" in captured.out

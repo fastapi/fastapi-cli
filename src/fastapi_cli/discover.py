@@ -101,7 +101,7 @@ def get_module_data_from_path(path: Path) -> ModuleData:
 def get_app_name(*, mod_data: ModuleData, app_name: Union[str, None] = None) -> str:
     try:
         mod = importlib.import_module(mod_data.module_import_str)
-    except ImportError as e:
+    except (ImportError, ValueError) as e:
         logger.error(f"Import error: {e}")
         logger.warning(
             "Ensure all the package directories have an [blue]__init__.py[/blue] file"

@@ -18,13 +18,13 @@ def test_single_file_app(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path single_file_app.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "/fastapi-cli/tests/assets/single_file_app.py" in captured.out
+    assert "/tests/assets/single_file_app.py" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭── Python module file ───╮" in captured.out
     assert "│  🐍 single_file_app.py" in captured.out
     assert "Importing module single_file_app" in captured.out
@@ -42,13 +42,13 @@ def test_single_file_api(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path single_file_api.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/single_file_api.py" in captured.out
+    assert "tests/assets/single_file_api.py" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭── Python module file ───╮" in captured.out
     assert "│  🐍 single_file_api.py" in captured.out
     assert "Importing module single_file_api" in captured.out
@@ -66,13 +66,13 @@ def test_single_file_other(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path single_file_other.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/single_file_other.py" in captured.out
+    assert "tests/assets/single_file_other.py" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭─── Python module file ────╮" in captured.out
     assert "│  🐍 single_file_other.py" in captured.out
     assert "Importing module single_file_other" in captured.out
@@ -92,13 +92,13 @@ def test_single_file_explicit_object(capsys: CaptureFixture[str]) -> None:
     captured = capsys.readouterr()
     assert "Using path single_file_app.py" in captured.out
     assert "Resolved absolute path" in captured.out
-    assert "fastapi-cli/tests/assets/single_file_app.py" in captured.out
+    assert "tests/assets/single_file_app.py" in captured.out
     assert (
         "Searching for package file structure from directories with __init__.py files"
         in captured.out
     )
     assert "Importing from" in captured.out
-    assert "fastapi-cli/tests/assets" in captured.out
+    assert "tests/assets" in captured.out
     assert "╭── Python module file ───╮" in captured.out
     assert "│  🐍 single_file_app.py" in captured.out
     assert "Importing module single_file_app" in captured.out

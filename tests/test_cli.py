@@ -27,6 +27,7 @@ def test_dev() -> None:
                 "port": 8000,
                 "reload": True,
                 "root_path": "",
+                "proxy_headers": True,
             }
         assert "Using import string single_file_app:app" in result.output
         assert (
@@ -55,6 +56,7 @@ def test_dev_args() -> None:
                     "/api",
                     "--app",
                     "api",
+                    "--no-proxy-headers",
                 ],
             )
             assert result.exit_code == 0, result.output
@@ -66,6 +68,7 @@ def test_dev_args() -> None:
                 "port": 8080,
                 "reload": False,
                 "root_path": "/api",
+                "proxy_headers": False,
             }
         assert "Using import string single_file_app:api" in result.output
         assert (
@@ -90,6 +93,7 @@ def test_run() -> None:
                 "port": 8000,
                 "reload": False,
                 "root_path": "",
+                "proxy_headers": True,
             }
         assert "Using import string single_file_app:app" in result.output
         assert (
@@ -118,6 +122,7 @@ def test_run_args() -> None:
                     "/api",
                     "--app",
                     "api",
+                    "--no-proxy-headers",
                 ],
             )
             assert result.exit_code == 0, result.output
@@ -129,6 +134,7 @@ def test_run_args() -> None:
                 "port": 8080,
                 "reload": False,
                 "root_path": "/api",
+                "proxy_headers": False,
             }
         assert "Using import string single_file_app:api" in result.output
         assert (

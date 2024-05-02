@@ -17,7 +17,7 @@ def test_single_file_main(capsys: CaptureFixture[str]) -> None:
     old_sys_path = sys.path.copy()
     with changing_dir(root_path):
         sys.path.insert(0, str(root_path))
-        import app
+        app = importlib.import_module("app")
 
         importlib.reload(app)
         import_string = get_import_string()
@@ -46,7 +46,7 @@ def test_single_file_app(capsys: CaptureFixture[str]) -> None:
     old_sys_path = sys.path.copy()
     with changing_dir(root_path):
         sys.path.insert(0, str(root_path))
-        import app
+        app = importlib.import_module("app")
 
         importlib.reload(app)
         import_string = get_import_string()
@@ -73,7 +73,7 @@ def test_single_file_api(capsys: CaptureFixture[str]) -> None:
     old_sys_path = sys.path.copy()
     with changing_dir(root_path):
         sys.path.insert(0, str(root_path))
-        import app
+        app = importlib.import_module("app")
 
         importlib.reload(app)
         import_string = get_import_string()

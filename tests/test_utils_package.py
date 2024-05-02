@@ -418,7 +418,8 @@ def test_package_dir_explicit_app(capsys: CaptureFixture[str]) -> None:
 
 def test_broken_package_dir(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path):
-        with pytest.raises(ImportError):
+        # TODO (when deprecating Python 3.8): remove ValueError
+        with pytest.raises((ImportError, ValueError)):
             get_import_string(path=Path("broken_package/mod/app.py"))
 
     captured = capsys.readouterr()

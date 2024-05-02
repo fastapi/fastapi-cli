@@ -39,16 +39,16 @@ jobs:
       - name: Decompress source distribution
         run: |
           cd dist
-          tar xvf fastapi-cli*.tar.gz
+          tar xvf fastapi_cli*.tar.gz
       - name: Install test dependencies
         run: |
-          cd dist/fastapi-cli*/
+          cd dist/fastapi_cli*/
           pip install -r requirements-tests.txt
       - name: Run source distribution tests
         run: |
-          cd dist/fastapi-cli*/
+          cd dist/fastapi_cli*/
           bash scripts/test.sh
       - name: Build wheel distribution
         run: |
           cd dist
-          pip wheel --no-deps fastapi-cli*.tar.gz
+          pip wheel --no-deps fastapi_cli*.tar.gz

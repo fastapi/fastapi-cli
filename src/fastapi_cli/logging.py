@@ -13,6 +13,7 @@ def setup_logging(terminal_width: Union[int, None] = None) -> None:
         rich_tracebacks=True,
         tracebacks_show_locals=True,
         markup=True,
+        show_path=False,
         console=console,
     )
     rich_handler.setFormatter(logging.Formatter("%(message)s"))

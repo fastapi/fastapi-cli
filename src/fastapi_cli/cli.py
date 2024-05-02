@@ -54,6 +54,7 @@ def _run(
     root_path: str = "",
     command: str,
     app: Union[str, None] = None,
+    proxy_headers: bool = False,
 ) -> None:
     try:
         use_uvicorn_app = get_import_string(path=path, app_name=app)
@@ -85,6 +86,7 @@ def _run(
         port=port,
         reload=reload,
         root_path=root_path,
+        proxy_headers=proxy_headers,
     )
 
 
@@ -127,6 +129,12 @@ def dev(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
         ),
     ] = None,
+    proxy_headers: Annotated[
+        bool,
+        typer.Option(
+            help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
+        ),
+    ] = True,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [yellow]development[/yellow] mode. 🧪
@@ -161,6 +169,7 @@ def dev(
         root_path=root_path,
         app=app,
         command="dev",
+        proxy_headers=proxy_headers,
     )
 
 
@@ -203,6 +212,12 @@ def run(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
         ),
     ] = None,
+    proxy_headers: Annotated[
+        bool,
+        typer.Option(
+            help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
+        ),
+    ] = True,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [green]production[/green] mode. 🚀
@@ -237,6 +252,7 @@ def run(
         root_path=root_path,
         app=app,
         command="run",
+        proxy_headers=proxy_headers,
     )
 
 

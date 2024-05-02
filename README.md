@@ -18,7 +18,7 @@
 
 ---
 
-Run FastAPI applications from the command line with FastAPI CLI. 🚀
+Run and manage FastAPI apps from the command line with FastAPI CLI. 🚀
 
 ## Description
 

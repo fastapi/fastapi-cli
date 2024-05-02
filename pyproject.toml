@@ -1,7 +1,7 @@
 [project]
 name = "fastapi-cli"
 dynamic = ["version"]
-description = "Run FastAPI applications from the command line."
+description = "Run and manage FastAPI apps from the command line with FastAPI CLI. 🚀"
 authors = [
     {name = "Sebastián Ramírez", email = "tiangolo@gmail.com"},
 ]

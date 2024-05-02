@@ -15,7 +15,7 @@ identifiers:
 repository-code: 'https://github.com/tiangolo/fastapi-cli'
 url: 'https://fastapi.tiangolo.com'
 abstract: >-
-  Run FastAPI applications from the command line.
+  Run and manage FastAPI apps from the command line with FastAPI CLI. 🚀
 keywords:
   - fastapi
   - typer

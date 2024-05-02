@@ -105,10 +105,9 @@ exclude_lines = [
 
 [tool.mypy]
 strict = true
-
-# [[tool.mypy.overrides]]
-# module = "shellingham"
-# ignore_missing_imports = true
+exclude = [
+    "tests/assets/*",
+]
 
 [tool.ruff.lint]
 select = [

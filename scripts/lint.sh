@@ -3,6 +3,6 @@
 set -e
 set -x
 
-mypy src tests scripts
+mypy src tests
 ruff check src tests scripts
 ruff format src tests --check

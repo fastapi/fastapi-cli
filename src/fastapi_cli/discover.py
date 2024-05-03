@@ -36,6 +36,9 @@ def get_default_path() -> Path:
     path = Path("app/api.py")
     if path.is_file():
         return path
+    path = Path("app/__main__.py")
+    if path.is_file():
+        return path
     raise FastAPICLIException(
         "Could not find a default file to run, please provide an explicit path"
     )

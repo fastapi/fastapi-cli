@@ -151,6 +151,7 @@ def dev(
     - [blue]app/main.py[/blue]
     - [blue]app/app.py[/blue]
     - [blue]app/api.py[/blue]
+    - [blue]app/__main__.py[/blue]
 
     It also detects the directory that needs to be added to the [bold]PYTHONPATH[/bold] to make the app importable and adds it.
 

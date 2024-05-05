@@ -26,6 +26,7 @@ def test_dev() -> None:
                 "host": "127.0.0.1",
                 "port": 8000,
                 "reload": True,
+                "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
             }
@@ -67,6 +68,7 @@ def test_dev_args() -> None:
                 "host": "192.168.0.2",
                 "port": 8080,
                 "reload": False,
+                "workers": None,
                 "root_path": "/api",
                 "proxy_headers": False,
             }
@@ -92,6 +94,7 @@ def test_run() -> None:
                 "host": "0.0.0.0",
                 "port": 8000,
                 "reload": False,
+                "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
             }
@@ -133,6 +136,7 @@ def test_run_args() -> None:
                 "host": "192.168.0.2",
                 "port": 8080,
                 "reload": False,
+                "workers": None,
                 "root_path": "/api",
                 "proxy_headers": False,
             }

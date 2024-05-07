@@ -13,6 +13,7 @@ from fastapi_cli.discover import get_import_string
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
+from .config import CommandWithProjectConfig
 from .logging import setup_logging
 
 app = typer.Typer(rich_markup_mode="rich")
@@ -92,12 +93,13 @@ def _run(
     )
 
 
-@app.command()
+@app.command(cls=CommandWithProjectConfig)
 def dev(
     path: Annotated[
         Union[Path, None],
         typer.Argument(
-            help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried."
+            help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried.",
+            envvar=["FASTAPI_DEV_PATH", "FASTAPI_PATH"],
         ),
     ] = None,
     *,
@@ -175,12 +177,13 @@ def dev(
     )
 
 
-@app.command()
+@app.command(cls=CommandWithProjectConfig)
 def run(
     path: Annotated[
         Union[Path, None],
         typer.Argument(
-            help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried."
+            help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried.",
+            envvar=["FASTAPI_RUN_PATH", "FASTAPI_PATH"],
         ),
     ] = None,
     *,
@@ -266,4 +269,4 @@ def run(
 
 
 def main() -> None:
-    app()
+    app(auto_envvar_prefix="FASTAPI")

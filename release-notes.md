@@ -10,6 +10,10 @@
 
 * 📝 Add note about Uvicorn as the high-performance server running underneath. PR [#9](https://github.com/tiangolo/fastapi-cli/pull/9) by [@tiangolo](https://github.com/tiangolo).
 
+### Internal
+
+* ⬆ Bump mypy from 1.4.1 to 1.10.0. PR [#7](https://github.com/tiangolo/fastapi-cli/pull/7) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ## 0.0.2
 
 First public working version. 🚀

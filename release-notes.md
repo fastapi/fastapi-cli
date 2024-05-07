@@ -6,6 +6,10 @@
 
 * ✨ Add optional `--workers` CLI option, and fix CI for test-redistribute. PR [#12](https://github.com/tiangolo/fastapi-cli/pull/12) by [@PokkaKiyo](https://github.com/PokkaKiyo).
 
+### Upgrades
+
+* ➖ Relax Uvicorn pin. PR [#16](https://github.com/tiangolo/fastapi-cli/pull/16) by [@tiangolo](https://github.com/tiangolo).
+
 ### Docs
 
 * 📝 Add note about Uvicorn as the high-performance server running underneath. PR [#9](https://github.com/tiangolo/fastapi-cli/pull/9) by [@tiangolo](https://github.com/tiangolo).

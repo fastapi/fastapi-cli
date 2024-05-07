@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump actions/cache from 3 to 4. PR [#5](https://github.com/tiangolo/fastapi-cli/pull/5) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pypa/gh-action-pypi-publish from 1.8.11 to 1.8.14. PR [#2](https://github.com/tiangolo/fastapi-cli/pull/2) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
 ## 0.0.3

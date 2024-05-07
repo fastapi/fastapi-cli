@@ -2,7 +2,7 @@
 
 pytest >=4.4.0,<8.0.0
 coverage[toml] >=6.2,<8.0
-mypy ==1.4.1
+mypy ==1.10.0
 ruff ==0.2.0
 # Needed explicitly by fastapi-cli-slim
 fastapi-slim

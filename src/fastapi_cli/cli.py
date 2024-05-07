@@ -119,12 +119,6 @@ def dev(
             help="Enable auto-reload of the server when (code) files change. This is [bold]resource intensive[/bold], use it only during development."
         ),
     ] = True,
-    workers: Annotated[
-        Union[int, None],
-        typer.Option(
-            help="Use multiple worker processes. Mutually exclusive with the --reload flag."
-        ),
-    ] = None,
     root_path: Annotated[
         str,
         typer.Option(
@@ -174,7 +168,6 @@ def dev(
         host=host,
         port=port,
         reload=reload,
-        workers=workers,
         root_path=root_path,
         app=app,
         command="dev",

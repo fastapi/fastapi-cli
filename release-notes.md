@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.3
+
 ### Features
 
 * ✨ Add optional `--workers` CLI option, and fix CI for test-redistribute. PR [#12](https://github.com/tiangolo/fastapi-cli/pull/12) by [@PokkaKiyo](https://github.com/PokkaKiyo).

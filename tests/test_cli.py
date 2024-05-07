@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
 import uvicorn
 from fastapi_cli.cli import app
 from typer.testing import CliRunner
@@ -80,6 +81,47 @@ def test_dev_args() -> None:
         assert "│  API docs: http://192.168.0.2:8080/docs" in result.output
         assert "│  Running in development mode, for production use:" in result.output
         assert "│  fastapi run" in result.output
+
+
+def test_project_run() -> None:
+    with changing_dir(assets_path / "projects/configured_app"):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["run"])
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "server:application",
+                "host": "0.0.0.0",
+                "port": 8000,
+                "reload": False,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+            }
+
+
+@pytest.mark.parametrize(
+    ("command", "kwargs"),
+    [
+        ("run", {"host": "0.0.0.0", "port": 8001, "workers": 4}),
+        ("dev", {"host": "127.0.0.1", "port": 8002, "workers": None}),
+    ],
+)
+def test_project_run_subconfigure(command: str, kwargs: dict) -> None:
+    with changing_dir(assets_path / "projects/configured_app_subtable"):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, [command])
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "app:app",
+                "reload": True,
+                "root_path": "",
+                "proxy_headers": True,
+                **kwargs,
+            }
 
 
 def test_run() -> None:

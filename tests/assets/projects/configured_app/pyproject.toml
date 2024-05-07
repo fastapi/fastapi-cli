@@ -1,0 +1,3 @@
+[tool.fastapi.cli]
+path = "server.py"
+app = "application"

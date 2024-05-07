@@ -1,0 +1,11 @@
+[tool.fastapi.cli]
+# global option
+port = 8001
+
+[tool.fastapi.cli.run]
+reload = true
+workers = 4
+
+[tool.fastapi.cli.dev]
+# overrides global option
+port = 8002

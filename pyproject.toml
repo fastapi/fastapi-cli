@@ -39,7 +39,7 @@ dependencies = [
 [project.optional-dependencies]
 standard = [
     "fastapi",
-    "uvicorn[standard] >= 0.29.0",
+    "uvicorn[standard] >= 0.15.0",
 ]
 
 [project.urls]

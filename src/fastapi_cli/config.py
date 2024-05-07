@@ -37,10 +37,6 @@ def read_pyproject_file(keys: Sequence[str]) -> dict[str, Any] | None:
 class CommandWithProjectConfig(TyperCommand):
     """Command class which loads parameters from a pyproject.toml file.
 
-    It will search the current directory and all parent directories for
-    a `pyproject.toml` file, then change directories to that file so all paths
-    defined in it remain relative to it.
-
     The table `tool.fastapi.cli` will be used. An additional subtable for the
     running command will also be used. e.g. `tool.fastapi.cli.dev`. Options
     on subcommand tables will override options from the cli table.

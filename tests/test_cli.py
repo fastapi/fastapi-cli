@@ -53,8 +53,6 @@ def test_dev_args() -> None:
                     "--port",
                     "8080",
                     "--no-reload",
-                    "--workers",
-                    "4",
                     "--root-path",
                     "/api",
                     "--app",
@@ -70,7 +68,7 @@ def test_dev_args() -> None:
                 "host": "192.168.0.2",
                 "port": 8080,
                 "reload": False,
-                "workers": 4,
+                "workers": None,
                 "root_path": "/api",
                 "proxy_headers": False,
             }
@@ -179,6 +177,7 @@ def test_dev_help() -> None:
     assert "Enable auto-reload of the server when (code) files change." in result.output
     assert "The root path is used to tell your app" in result.output
     assert "The name of the variable that contains the FastAPI app" in result.output
+    assert "Use multiple worker processes." not in result.output
 
 
 def test_run_help() -> None:
@@ -199,6 +198,7 @@ def test_run_help() -> None:
     assert "Enable auto-reload of the server when (code) files change." in result.output
     assert "The root path is used to tell your app" in result.output
     assert "The name of the variable that contains the FastAPI app" in result.output
+    assert "Use multiple worker processes." in result.output
 
 
 def test_callback_help() -> None:

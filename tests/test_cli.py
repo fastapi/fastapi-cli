@@ -216,7 +216,7 @@ def test_version() -> None:
             "Package not found: No package metadata was found for fastapi"
         )
         try:
-            runner.invoke(app, ["--version"])
+            result = runner.invoke(app, ["--version"])
             assert result.exit_code == 0, result.output
         except FastAPICLIException as e:
             assert (

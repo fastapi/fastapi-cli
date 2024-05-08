@@ -25,21 +25,17 @@ logger = getLogger(__name__)
 
 def version_callback(value: bool) -> None:
     if value:
-        fastapi_version = None
-        python_version = platform.python_version() or None
-        fastapi_cli_version = version("fastapi-cli") or __version__
-
         try:
             fastapi_version = version("fastapi")
+            fastapi_cli_version = version("fastapi-cli") or __version__
+
             print(f"FastAPI version: [green]{fastapi_version}[/green]")
+            print(f"FastAPI CLI version: [green]{fastapi_cli_version}[/green]")
         except PackageNotFoundError:
             pass
 
-        if python_version:
-            print(f"Python version: [green]{python_version}[/green]")
-
-        if fastapi_cli_version:
-            print(f"FastAPI CLI version: [green]{fastapi_cli_version}[/green]")
+        python_version = platform.python_version()
+        print(f"Python version: [green]{python_version}[/green]")
 
         raise typer.Exit()
 

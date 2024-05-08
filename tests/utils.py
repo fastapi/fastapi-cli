@@ -19,9 +19,9 @@ def changing_dir(directory: Union[str, Path]) -> Generator[None, None, None]:
 
 
 @contextmanager
-def importing(names: Union[str, list[str]]) -> Generator[None, None, None]:
+def importing(names: list[str]) -> Generator[None, None, None]:
     for name in names:
-        if name in sys.modules:
+        if name in sys.modules:  # pragma: no cover
             warnings.warn(
                 f"{name} is already imported",
                 category=UserWarning,
@@ -30,8 +30,6 @@ def importing(names: Union[str, list[str]]) -> Generator[None, None, None]:
     try:
         yield
     finally:
-        if isinstance(names, str):
-            names = [names]
         for name in names:
             if name in sys.modules:
                 del sys.modules[name]

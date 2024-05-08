@@ -210,6 +210,16 @@ def test_run_error() -> None:
         assert "Path does not exist non_existing_file.py" in result.output
 
 
+def test_project_config_error() -> None:
+    with changing_dir(assets_path / "projects/bad_configured_app"):
+        result = runner.invoke(app, ["run"])
+        assert result.exit_code == 2, result.output
+        assert (
+            "Error parsing pyproject.toml: key 'tool.fastapi.cli.run.port'"
+            in result.output
+        )
+
+
 def test_dev_help() -> None:
     result = runner.invoke(app, ["dev", "--help"])
     assert result.exit_code == 0, result.output

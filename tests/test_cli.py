@@ -212,12 +212,12 @@ def test_version() -> None:
     result = runner.invoke(app, ["--version"])
     assert result.exit_code == 0, result.output
 
-    if result.output not in '':
+    if result.output not in "":
         assert "FastAPI version:" in result.output
         assert "FastAPI CLI version:" in result.output
         assert "Python version:" in result.output
     else:
-        assert '' in result.output
+        assert "" in result.output
 
 
 def test_script() -> None:

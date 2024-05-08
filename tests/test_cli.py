@@ -210,9 +210,16 @@ def test_callback_help() -> None:
 
 def test_version() -> None:
     result = runner.invoke(app, ["--version"])
+
+    assert (
+        result.exit_code == 0
+    ), f"Command execution failed with exit code {result.exit_code}"
+
     expected_strings = ["FastAPI version:", "FastAPI CLI version:", "Python version:"]
-    found_expected = any(expected in result.output for expected in expected_strings)
-    assert found_expected, f"None of the expected strings {expected_strings} found in output: {result.output}"
+    for expected in expected_strings:
+        assert (
+            expected in result.output
+        ), f"Expected string '{expected}' not found in output:\n{result.output}"
 
 
 def test_script() -> None:

@@ -16,35 +16,30 @@ from fastapi_cli.exceptions import FastAPICLIException
 
 logger = getLogger(__name__)
 
-
-def get_default_path() -> Path:
-    path = Path("main.py")
-    if path.is_file():
-        return path
-    path = Path("app.py")
-    if path.is_file():
-        return path
-    path = Path("api.py")
-    if path.is_file():
-        return path
-    path = Path("app/main.py")
-    if path.is_file():
-        return path
-    path = Path("app/app.py")
-    if path.is_file():
-        return path
-    path = Path("app/api.py")
-    if path.is_file():
-        return path
-    raise FastAPICLIException(
-        "Could not find a default file to run, please provide an explicit path"
-    )
-
-
 @dataclass
 class ModuleData:
     module_import_str: str
     extra_sys_path: Path
+
+
+def get_default_path() -> Path:
+    possible_paths = [
+        "main.py",
+        "app.py",
+        "api.py",
+        "app/main.py",
+        "app/app.py",
+        "app/api.py"
+    ]
+
+    for path_str in possible_paths:
+        path = Path(path_str)
+        if path.is_file():
+            return path
+
+    raise FastAPICLIException(
+        "Could not find a default file to run, please provide an explicit path"
+    )
 
 
 def get_module_data_from_path(path: Path) -> ModuleData:

@@ -1,9 +1,11 @@
+import typer
+import uvicorn
+import platform
+
 from logging import getLogger
 from pathlib import Path
 from typing import Any, Union
 
-import typer
-import uvicorn
 from rich import print
 from rich.padding import Padding
 from rich.panel import Panel
@@ -11,6 +13,7 @@ from typing_extensions import Annotated
 
 from fastapi_cli.discover import get_import_string
 from fastapi_cli.exceptions import FastAPICLIException
+from importlib.metadata import version
 
 from . import __version__
 from .logging import setup_logging
@@ -23,7 +26,12 @@ logger = getLogger(__name__)
 
 def version_callback(value: bool) -> None:
     if value:
-        print(f"FastAPI CLI version: [green]{__version__}[/green]")
+        fastapi_version = version("fastapi")
+        python_version = platform.python_version()
+        fastapi_cli_version = version("fastapi-cli")
+        print(f"Python version: [green]{python_version}[/green]")
+        print(f"FastAPI version: [green]{fastapi_version}[/green]")
+        print(f"FastAPI CLI version: [green]{fastapi_cli_version}[/green]")
         raise typer.Exit()
 
 
@@ -263,7 +271,6 @@ def run(
         command="run",
         proxy_headers=proxy_headers,
     )
-
 
 def main() -> None:
     app()

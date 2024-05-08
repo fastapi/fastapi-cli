@@ -14,6 +14,7 @@ from typing_extensions import Annotated
 from fastapi_cli.discover import get_import_string
 from fastapi_cli.exceptions import FastAPICLIException
 
+from . import __version__
 from .logging import setup_logging
 
 app = typer.Typer(rich_markup_mode="rich")
@@ -26,7 +27,7 @@ def version_callback(value: bool) -> None:
     if value:
         fastapi_version = version("fastapi")
         python_version = platform.python_version()
-        fastapi_cli_version = version("fastapi-cli")
+        fastapi_cli_version = version("fastapi-cli") or __version__
         print(f"Python version: [green]{python_version}[/green]")
         print(f"FastAPI version: [green]{fastapi_version}[/green]")
         print(f"FastAPI CLI version: [green]{fastapi_cli_version}[/green]")

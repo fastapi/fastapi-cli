@@ -1,11 +1,11 @@
-import typer
-import uvicorn
 import platform
-
+from importlib.metadata import version
 from logging import getLogger
 from pathlib import Path
 from typing import Any, Union
 
+import typer
+import uvicorn
 from rich import print
 from rich.padding import Padding
 from rich.panel import Panel
@@ -13,9 +13,7 @@ from typing_extensions import Annotated
 
 from fastapi_cli.discover import get_import_string
 from fastapi_cli.exceptions import FastAPICLIException
-from importlib.metadata import version
 
-from . import __version__
 from .logging import setup_logging
 
 app = typer.Typer(rich_markup_mode="rich")
@@ -271,6 +269,7 @@ def run(
         command="run",
         proxy_headers=proxy_headers,
     )
+
 
 def main() -> None:
     app()

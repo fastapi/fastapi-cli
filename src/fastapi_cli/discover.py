@@ -16,6 +16,7 @@ from fastapi_cli.exceptions import FastAPICLIException
 
 logger = getLogger(__name__)
 
+
 @dataclass
 class ModuleData:
     module_import_str: str
@@ -29,7 +30,7 @@ def get_default_path() -> Path:
         "api.py",
         "app/main.py",
         "app/app.py",
-        "app/api.py"
+        "app/api.py",
     ]
 
     for path_str in possible_paths:

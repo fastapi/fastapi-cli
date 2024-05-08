@@ -212,7 +212,7 @@ def test_version() -> None:
     result = runner.invoke(app, ["--version"])
     assert result.exit_code == 0, result.output
 
-    if result.output:
+    if result.output is not None:
         assert "FastAPI version:" in result.output
         assert "FastAPI CLI version:" in result.output
         assert "Python version:" in result.output

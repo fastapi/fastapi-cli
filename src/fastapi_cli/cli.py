@@ -32,7 +32,9 @@ def version_callback(value: bool) -> None:
             print(f"FastAPI version: [green]{fastapi_version}[/green]")
             print(f"FastAPI CLI version: [green]{fastapi_cli_version}[/green]")
         except PackageNotFoundError:
-            pass
+            raise FastAPICLIException(
+                "Could not find package FastAPI or FastAPI CLI"
+            )
 
         python_version = platform.python_version()
         print(f"Python version: [green]{python_version}[/green]")

@@ -211,9 +211,10 @@ def test_callback_help() -> None:
 def test_version() -> None:
     result = runner.invoke(app, ["--version"])
     assert result.exit_code == 0, result.output
-    assert "Python version:" in result.output
-    assert "FastAPI CLI version:" in result.output
+    print(result.output)
     assert "FastAPI version:" in result.output
+    assert "FastAPI CLI version:" in result.output
+    assert "Python version:" in result.output
 
 
 def test_script() -> None:

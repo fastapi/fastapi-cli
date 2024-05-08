@@ -217,6 +217,7 @@ def test_version() -> None:
         )
         try:
             runner.invoke(app, ["--version"])
+            assert result.exit_code == 0, result.output
         except FastAPICLIException as e:
             assert (
                 str(e)
@@ -235,10 +236,10 @@ def test_version() -> None:
         )
 
         result = runner.invoke(app, ["--version"])
+        assert result.exit_code == 0, result.output
         assert "FastAPI version: 0.111.0" in result.output
         assert "FastAPI CLI version: 0.0.3" in result.output
         assert "Python version: 3.12.3" in result.output
-        assert result.exit_code == 0, result.output
 
 
 def test_script() -> None:

@@ -1,10 +1,8 @@
-import importlib.util
 import subprocess
 import sys
 from pathlib import Path
 from unittest.mock import patch
 
-import pytest
 import uvicorn
 from fastapi_cli.cli import app
 from typer.testing import CliRunner
@@ -212,9 +210,6 @@ def test_callback_help() -> None:
 
 def test_version() -> None:
     result = runner.invoke(app, ["--version"])
-    if importlib.util.find_spec("fastapi") is None:
-        pytest.skip("FastAPI is not installed, skipping this test.")
-
     assert result.exit_code == 0, result.output
     assert "Python version:" in result.output
     assert "FastAPI CLI version:" in result.output

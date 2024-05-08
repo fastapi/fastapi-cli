@@ -1,5 +1,5 @@
 import platform
-from importlib.metadata import version
+from importlib.metadata import PackageNotFoundError, version
 from logging import getLogger
 from pathlib import Path
 from typing import Any, Union
@@ -25,12 +25,15 @@ logger = getLogger(__name__)
 
 def version_callback(value: bool) -> None:
     if value:
-        fastapi_version = version("fastapi") or None
+        fastapi_version = None
         python_version = platform.python_version() or None
         fastapi_cli_version = version("fastapi-cli") or __version__
 
-        if fastapi_version:
+        try:
+            fastapi_version = version("fastapi")
             print(f"FastAPI version: [green]{fastapi_version}[/green]")
+        except PackageNotFoundError:
+            pass
 
         if python_version:
             print(f"Python version: [green]{python_version}[/green]")

@@ -216,6 +216,10 @@ def test_version() -> None:
         assert "FastAPI version:" in result.output
         assert "FastAPI CLI version:" in result.output
         assert "Python version:" in result.output
+    else:
+        assert "FastAPI version:" not in result.output
+        assert "FastAPI CLI version:" not in result.output
+        assert "Python version:" not in result.output
 
 
 def test_script() -> None:

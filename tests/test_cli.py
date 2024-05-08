@@ -1,10 +1,12 @@
 import subprocess
 import sys
+from importlib.metadata import PackageNotFoundError
 from pathlib import Path
 from unittest.mock import patch
 
 import uvicorn
 from fastapi_cli.cli import app
+from fastapi_cli.exceptions import FastAPICLIException
 from typer.testing import CliRunner
 
 from tests.utils import changing_dir
@@ -209,8 +211,34 @@ def test_callback_help() -> None:
 
 
 def test_version() -> None:
-    result = runner.invoke(app, ["--version"])
-    assert result.exit_code == 0, result.output
+    with patch("fastapi_cli.cli") as mock_version:
+        mock_version.side_effect = PackageNotFoundError(
+            "Package not found: No package metadata was found for fastapi"
+        )
+        try:
+            runner.invoke(app, ["--version"])
+        except FastAPICLIException as e:
+            assert (
+                str(e)
+                == "Package not found: Package not found: No package metadata was found for fastapi"
+            )
+            assert e.__cause__ is not None
+            assert isinstance(e.__cause__, PackageNotFoundError)
+
+    with patch("fastapi_cli.cli") as mock_version:
+        mock_version.side_effect = (
+            lambda pkg: "0.11.1"
+            if pkg == "fastapi"
+            else "0.3.1"
+            if pkg == "fastapi-cli"
+            else None
+        )
+
+        result = runner.invoke(app, ["--version"])
+        assert "FastAPI version: 0.111.0" in result.output
+        assert "FastAPI CLI version: 0.0.3" in result.output
+        assert "Python version: 3.12.3" in result.output
+        assert result.exit_code == 0, result.output
 
 
 def test_script() -> None:

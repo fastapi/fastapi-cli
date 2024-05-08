@@ -1,6 +1,9 @@
+from __future__ import annotations
+
 import subprocess
 import sys
 from pathlib import Path
+from typing import Any
 from unittest.mock import patch
 
 import pytest
@@ -108,7 +111,7 @@ def test_project_run() -> None:
         ("dev", {"host": "127.0.0.1", "port": 8002, "workers": None}),
     ],
 )
-def test_project_run_subconfigure(command: str, kwargs: dict) -> None:
+def test_project_run_subconfigure(command: str, kwargs: dict[str, Any]) -> None:
     with changing_dir(assets_path / "projects/configured_app_subtable"):
         with patch.object(uvicorn, "run") as mock_run:
             result = runner.invoke(app, [command])

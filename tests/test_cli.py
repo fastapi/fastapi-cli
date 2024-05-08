@@ -3,7 +3,7 @@ from __future__ import annotations
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, Generator
 from unittest.mock import patch
 
 import pytest
@@ -11,11 +11,17 @@ import uvicorn
 from fastapi_cli.cli import app
 from typer.testing import CliRunner
 
-from tests.utils import changing_dir
+from tests.utils import changing_dir, importing
 
 runner = CliRunner()
 
 assets_path = Path(__file__).parent / "assets"
+
+
+@pytest.fixture(autouse=True)
+def single_file_app_fixture() -> Generator[None, None, None]:
+    with importing(["single_file_app", "server", "app"]):
+        yield
 
 
 def test_dev() -> None:

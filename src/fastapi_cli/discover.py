@@ -18,24 +18,20 @@ logger = getLogger(__name__)
 
 
 def get_default_path() -> Path:
-    path = Path("main.py")
-    if path.is_file():
-        return path
-    path = Path("app.py")
-    if path.is_file():
-        return path
-    path = Path("api.py")
-    if path.is_file():
-        return path
-    path = Path("app/main.py")
-    if path.is_file():
-        return path
-    path = Path("app/app.py")
-    if path.is_file():
-        return path
-    path = Path("app/api.py")
-    if path.is_file():
-        return path
+    potential_paths = (
+        "main.py",
+        "app.py",
+        "api.py",
+        "app/main.py",
+        "app/app.py",
+        "app/api.py",
+    )
+
+    for full_path in potential_paths:
+        path = Path(full_path)
+        if path.is_file():
+            return path
+
     raise FastAPICLIException(
         "Could not find a default file to run, please provide an explicit path"
     )

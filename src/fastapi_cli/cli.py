@@ -1,6 +1,7 @@
+import importlib
 from logging import getLogger
 from pathlib import Path
-from typing import Any, Union
+from typing import Any, Final, Union
 
 import typer
 import uvicorn
@@ -14,6 +15,8 @@ from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
 from .logging import setup_logging
+
+DEFAULT_DOCS_URL: Final[str] = "/docs"
 
 app = typer.Typer(rich_markup_mode="rich")
 
@@ -45,6 +48,13 @@ def callback(
     """
 
 
+def _get_docs_url(uvicorn_path: str) -> str:
+    module_path, app_name = uvicorn_path.split(sep=":")
+    module = importlib.import_module(module_path)
+    app = getattr(module, app_name)
+    return app.docs_url
+
+
 def _run(
     path: Union[Path, None] = None,
     *,
@@ -62,7 +72,16 @@ def _run(
     except FastAPICLIException as e:
         logger.error(str(e))
         raise typer.Exit(code=1) from None
-    serving_str = f"[dim]Serving at:[/dim] [link]http://{host}:{port}[/link]\n\n[dim]API docs:[/dim] [link]http://{host}:{port}/docs[/link]"
+
+    docs_url = _get_docs_url(use_uvicorn_app)
+
+    api_docs_string = (
+        f"API docs:[/dim] [link]http://{host}:{port}{docs_url}[/link]"
+        if docs_url
+        else ""
+    )
+
+    serving_str = f"[dim]Serving at:[/dim] [link]http://{host}:{port}[/link]\n\n[dim]{api_docs_string}"
 
     if command == "dev":
         panel = Panel(

@@ -1,7 +1,7 @@
 import importlib
 from logging import getLogger
 from pathlib import Path
-from typing import Any, Final, Union
+from typing import Any, Union
 
 import typer
 import uvicorn
@@ -15,8 +15,6 @@ from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
 from .logging import setup_logging
-
-DEFAULT_DOCS_URL: Final[str] = "/docs"
 
 app = typer.Typer(rich_markup_mode="rich")
 

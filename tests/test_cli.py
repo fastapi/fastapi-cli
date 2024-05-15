@@ -4,7 +4,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import uvicorn
-from fastapi_cli.cli import DEFAULT_DOCS_URL, app
+from fastapi_cli.cli import app
 from typer.testing import CliRunner
 
 from tests.utils import changing_dir
@@ -274,7 +274,7 @@ def test_dev_and_fastapi_app_without_docs_url_set_should_show_default_url_in_std
             "╭────────── FastAPI CLI - Development mode ───────────╮" in result.output
         )
         assert "│  Serving at: http://127.0.0.1:8000" in result.output
-        assert f"│  API docs: http://127.0.0.1:8000{DEFAULT_DOCS_URL}" in result.output
+        assert "│  API docs: http://127.0.0.1:8000/docs" in result.output
         assert "│  Running in development mode, for production use:" in result.output
         assert "│  fastapi run" in result.output
 
@@ -330,6 +330,64 @@ def test_run_and_fastapi_app_without_docs_url_set_should_show_default_url_in_std
             "╭─────────── FastAPI CLI - Production mode ───────────╮" in result.output
         )
         assert "│  Serving at: http://0.0.0.0:8000" in result.output
-        assert f"│  API docs: http://0.0.0.0:8000{DEFAULT_DOCS_URL}" in result.output
+        assert "│  API docs: http://0.0.0.0:8000/docs" in result.output
         assert "│  Running in production mode, for development use:" in result.output
         assert "│  fastapi dev" in result.output
+
+
+def test_run_and_fastapi_app_docs_url_set_to_none_should_not_show_api_docs_section() -> (
+    None
+):
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["run", "without_docs_url_none.py"])
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "without_docs_url_none:app",
+                "host": "0.0.0.0",
+                "port": 8000,
+                "reload": False,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+            }
+        assert "Using import string without_docs_url_none:app" in result.output
+        assert (
+            "╭─────────── FastAPI CLI - Production mode ───────────╮" in result.output
+        )
+        assert "│  Serving at: http://0.0.0.0:8000" in result.output
+        assert "│  Running in production mode, for development use:" in result.output
+        assert "│  fastapi dev" in result.output
+
+        assert "│  API docs" not in result.output
+
+
+def test_dev_and_fastapi_app_docs_url_set_to_none_should_not_show_api_docs_section() -> (
+    None
+):
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["dev", "without_docs_url_none.py"])
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "without_docs_url_none:app",
+                "host": "127.0.0.1",
+                "port": 8000,
+                "reload": True,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+            }
+        assert "Using import string without_docs_url_none:app" in result.output
+        assert (
+            "╭────────── FastAPI CLI - Development mode ───────────"
+        ) in result.output
+        assert "│  Serving at: http://127.0.0.1:8000" in result.output
+        assert "│  Running in development mode, for production use:" in result.output
+        assert "│  fastapi run" in result.output
+
+        assert "│  API docs" not in result.output

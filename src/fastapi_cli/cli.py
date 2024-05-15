@@ -47,7 +47,7 @@ def callback(
     """
 
 
-def _get_docs_url(uvicorn_path: str) -> str | None:
+def _get_docs_url(uvicorn_path: str) -> Union[str, None]:
     module_path, app_name = uvicorn_path.split(sep=":")
     module = importlib.import_module(module_path)
     fastapi_app: FastAPI = getattr(module, app_name)

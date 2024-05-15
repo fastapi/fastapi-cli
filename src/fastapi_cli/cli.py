@@ -5,6 +5,7 @@ from typing import Any, Union
 
 import typer
 import uvicorn
+from fastapi import FastAPI
 from rich import print
 from rich.padding import Padding
 from rich.panel import Panel
@@ -46,11 +47,11 @@ def callback(
     """
 
 
-def _get_docs_url(uvicorn_path: str) -> str:
+def _get_docs_url(uvicorn_path: str) -> str | None:
     module_path, app_name = uvicorn_path.split(sep=":")
     module = importlib.import_module(module_path)
-    app = getattr(module, app_name)
-    return app.docs_url
+    fastapi_app: FastAPI = getattr(module, app_name)
+    return fastapi_app.docs_url
 
 
 def _run(

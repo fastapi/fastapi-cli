@@ -1,22 +1,15 @@
 import importlib
 import sys
 from pathlib import Path
-from typing import Generator
 
 import pytest
 from fastapi_cli.discover import get_import_string
 from fastapi_cli.exceptions import FastAPICLIException
 from pytest import CaptureFixture
 
-from .utils import changing_dir, importing
+from .utils import changing_dir
 
 assets_path = Path(__file__).parent / "assets"
-
-
-@pytest.fixture(autouse=True)
-def single_file_app_fixture() -> Generator[None, None, None]:
-    with importing(["app", "api", "main"]):
-        yield
 
 
 def test_single_file_main(capsys: CaptureFixture[str]) -> None:

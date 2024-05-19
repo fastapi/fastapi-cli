@@ -5,7 +5,6 @@ from logging import getLogger
 from pathlib import Path
 from typing import Union
 
-from fastapi import FastAPI
 from rich import print
 from rich.padding import Padding
 from rich.panel import Panel
@@ -15,6 +14,11 @@ from rich.tree import Tree
 from fastapi_cli.exceptions import FastAPICLIException
 
 logger = getLogger(__name__)
+
+try:
+    from fastapi import FastAPI
+except ImportError:  # pragma: no cover
+    FastAPI = None  # type: ignore[misc, assignment]
 
 
 def get_default_path() -> Path:
@@ -107,6 +111,10 @@ def get_app_name(*, mod_data: ModuleData, app_name: Union[str, None] = None) -> 
             "Ensure all the package directories have an [blue]__init__.py[/blue] file"
         )
         raise
+    if not FastAPI:  # type: ignore[truthy-function]
+        raise FastAPICLIException(
+            "Could not import FastAPI, try running 'pip install fastapi'"
+        ) from None
     object_names = dir(mod)
     object_names_set = set(object_names)
     if app_name:

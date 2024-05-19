@@ -21,7 +21,7 @@ logger = getLogger(__name__)
 
 try:
     import uvicorn
-except ImportError:
+except ImportError:  # pragma: no cover
     uvicorn = None  # type: ignore[assignment]
 
 

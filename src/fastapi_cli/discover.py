@@ -17,7 +17,7 @@ logger = getLogger(__name__)
 
 try:
     from fastapi import FastAPI
-except ImportError:
+except ImportError:  # pragma: no cover
     FastAPI = None  # type: ignore[misc, assignment]
 
 

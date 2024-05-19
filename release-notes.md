@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Fixes
+
+* 🔧 Make FastAPI and Uvicorn optional dependencies, to avoid circular dependencies. PR [#25](https://github.com/tiangolo/fastapi-cli/pull/25) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * ⬆ Bump actions/cache from 3 to 4. PR [#5](https://github.com/tiangolo/fastapi-cli/pull/5) by [@dependabot[bot]](https://github.com/apps/dependabot).

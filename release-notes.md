@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* 👷 Update Upload/Download artifacts GitHub Actions. PR [#26](https://github.com/tiangolo/fastapi-cli/pull/26) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.4
 
 ### Fixes

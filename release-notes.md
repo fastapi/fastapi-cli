@@ -2,6 +2,22 @@
 
 ## Latest Changes
 
+### Refactors
+
+* ♻️ Simplify code in `src/fastapi_cli/discover.py`. PR [#22](https://github.com/tiangolo/fastapi-cli/pull/22) by [@pedroimpulcetto](https://github.com/pedroimpulcetto).
+
+### Internal
+
+* ⬆ Bump ruff from 0.4.3 to 0.4.4. PR [#23](https://github.com/tiangolo/fastapi-cli/pull/23) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Enable CI tests for Python 3.12. PR [#27](https://github.com/tiangolo/fastapi-cli/pull/27) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update Upload/Download artifacts GitHub Actions. PR [#26](https://github.com/tiangolo/fastapi-cli/pull/26) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.0.4
+
+### Fixes
+
+* 🔧 Make FastAPI and Uvicorn optional dependencies, to avoid circular dependencies. PR [#25](https://github.com/tiangolo/fastapi-cli/pull/25) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * ⬆ Bump actions/cache from 3 to 4. PR [#5](https://github.com/tiangolo/fastapi-cli/pull/5) by [@dependabot[bot]](https://github.com/apps/dependabot).

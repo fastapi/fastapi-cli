@@ -22,6 +22,11 @@ app = typer.Typer(rich_markup_mode="rich")
 setup_logging()
 logger = getLogger(__name__)
 
+try:
+    import uvicorn
+except ImportError:  # pragma: no cover
+    uvicorn = None  # type: ignore[assignment]
+
 
 def version_callback(value: bool) -> None:
     if value:
@@ -99,6 +104,10 @@ def _run(
             style="green",
         )
     print(Padding(panel, 1))
+    if not uvicorn:
+        raise FastAPICLIException(
+            "Could not import Uvicorn, try running 'pip install uvicorn'"
+        ) from None
     uvicorn.run(
         app=use_uvicorn_app,
         host=host,

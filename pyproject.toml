@@ -70,10 +70,12 @@ source-includes = [
 name = "fastapi-cli-slim"
 
 [tool.tiangolo._internal-slim-build.packages.fastapi-cli]
-include-optional-dependencies = ["standard"]
+# No default dependencies included for now
+include-optional-dependencies = []
 
 [tool.tiangolo._internal-slim-build.packages.fastapi-cli.project]
-optional-dependencies = {}
+# No custom optional dependencies for now
+# optional-dependencies = {}
 
 [tool.pytest.ini_options]
 addopts = [

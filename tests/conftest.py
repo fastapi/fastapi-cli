@@ -38,7 +38,7 @@ def asset_import_cleaner() -> Generator[None, None, None]:
         for name in new_imports:
             try:
                 mod_file = inspect.getfile(sys.modules[name])
-            except TypeError:
+            except TypeError:  # pragma: no cover
                 # builtin, ignore
                 pass
             else:

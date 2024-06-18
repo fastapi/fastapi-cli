@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 
 
-class App(FastAPI):
-    ...
+class App(FastAPI): ...
 
 
 def create_app() -> App:

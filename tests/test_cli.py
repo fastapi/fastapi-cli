@@ -96,6 +96,8 @@ def test_dev_args() -> None:
                     "--app",
                     "api",
                     "--no-proxy-headers",
+                    "--log-config",
+                    "log_config.yaml",
                 ],
             )
             assert result.exit_code == 0, result.output
@@ -110,7 +112,7 @@ def test_dev_args() -> None:
                 "root_path": "/api",
                 "proxy_headers": False,
                 "forwarded_allow_ips": None,
-                "log_config": get_uvicorn_log_config(),
+                "log_config": "log_config.yaml",
             }
         assert "Using import string: single_file_app:api" in result.output
         assert "Starting development server 🚀" in result.output
@@ -263,6 +265,8 @@ def test_run_args() -> None:
                     "--app",
                     "api",
                     "--no-proxy-headers",
+                    "--log-config",
+                    "log_config.yaml",
                 ],
             )
             assert result.exit_code == 0, result.output
@@ -277,7 +281,7 @@ def test_run_args() -> None:
                 "root_path": "/api",
                 "proxy_headers": False,
                 "forwarded_allow_ips": None,
-                "log_config": get_uvicorn_log_config(),
+                "log_config": "log_config.yaml",
             }
 
         assert "Using import string: single_file_app:api" in result.output
@@ -375,6 +379,10 @@ def test_dev_help() -> None:
     assert "The root path is used to tell your app" in result.output
     assert "The name of the variable that contains the FastAPI app" in result.output
     assert "Use multiple worker processes." not in result.output
+    assert (
+        "Logging configuration file. Supported formats: .ini, .json, .yaml."
+        in result.output
+    )
 
 
 def test_run_help() -> None:
@@ -396,6 +404,10 @@ def test_run_help() -> None:
     assert "The root path is used to tell your app" in result.output
     assert "The name of the variable that contains the FastAPI app" in result.output
     assert "Use multiple worker processes." in result.output
+    assert (
+        "Logging configuration file. Supported formats: .ini, .json, .yaml."
+        in result.output
+    )
 
 
 def test_callback_help() -> None:

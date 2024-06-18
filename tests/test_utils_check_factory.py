@@ -17,7 +17,8 @@ def test_check_typed_factory() -> None:
 
 
 def test_check_typed_factory_inherited() -> None:
-    class MyApp(FastAPI): ...
+    class MyApp(FastAPI):
+        ...
 
     def create_app() -> MyApp:
         return MyApp()  # pragma: no cover

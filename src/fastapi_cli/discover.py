@@ -3,7 +3,7 @@ import sys
 from dataclasses import dataclass
 from logging import getLogger
 from pathlib import Path
-from typing import Any, Callable, Union, get_type_hints
+from typing import Any, Callable, Tuple, Union, get_type_hints
 
 from rich import print
 from rich.padding import Padding
@@ -100,7 +100,7 @@ def get_module_data_from_path(path: Path) -> ModuleData:
 
 def get_app_name(
     *, mod_data: ModuleData, app_name: Union[str, None] = None
-) -> tuple[str, bool]:
+) -> Tuple[str, bool]:
     try:
         mod = importlib.import_module(mod_data.module_import_str)
     except (ImportError, ValueError) as e:
@@ -154,7 +154,7 @@ def check_factory(fn: Callable[[], Any]) -> bool:
 
 def get_import_string(
     *, path: Union[Path, None] = None, app_name: Union[str, None] = None
-) -> tuple[str, bool]:
+) -> Tuple[str, bool]:
     if not path:
         path = get_default_path()
     logger.info(f"Using path [blue]{path}[/blue]")

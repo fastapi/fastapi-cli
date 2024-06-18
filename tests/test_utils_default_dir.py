@@ -12,8 +12,9 @@ assets_path = Path(__file__).parent / "assets"
 
 def test_app_dir_main(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path / "default_files" / "default_app_dir_main"):
-        import_string = get_import_string()
+        import_string, is_factory = get_import_string()
         assert import_string == "app.main:app"
+        assert is_factory is False
 
     captured = capsys.readouterr()
     assert "Using path app/main.py" in captured.out
@@ -36,8 +37,9 @@ def test_app_dir_main(capsys: CaptureFixture[str]) -> None:
 
 def test_app_dir_app(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path / "default_files" / "default_app_dir_app"):
-        import_string = get_import_string()
+        import_string, is_factory = get_import_string()
         assert import_string == "app.app:app"
+        assert is_factory is False
 
     captured = capsys.readouterr()
     assert "Using path app/app.py" in captured.out
@@ -58,8 +60,9 @@ def test_app_dir_app(capsys: CaptureFixture[str]) -> None:
 
 def test_app_dir_api(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path / "default_files" / "default_app_dir_api"):
-        import_string = get_import_string()
+        import_string, is_factory = get_import_string()
         assert import_string == "app.api:app"
+        assert is_factory is False
 
     captured = capsys.readouterr()
     assert "Using path app/api.py" in captured.out

@@ -62,7 +62,7 @@ def _run(
     proxy_headers: bool = False,
 ) -> None:
     try:
-        use_uvicorn_app = get_import_string(path=path, app_name=app)
+        use_uvicorn_app, is_factory = get_import_string(path=path, app_name=app)
     except FastAPICLIException as e:
         logger.error(str(e))
         raise typer.Exit(code=1) from None
@@ -97,6 +97,7 @@ def _run(
         workers=workers,
         root_path=root_path,
         proxy_headers=proxy_headers,
+        factory=is_factory,
     )
 
 

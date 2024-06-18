@@ -20,8 +20,9 @@ def test_single_file_main(capsys: CaptureFixture[str]) -> None:
         mod = importlib.import_module("main")
 
         importlib.reload(mod)
-        import_string = get_import_string()
+        import_string, is_factory = get_import_string()
         assert import_string == "main:app"
+        assert is_factory is False
 
     captured = capsys.readouterr()
     assert "Using path main.py" in captured.out
@@ -47,8 +48,9 @@ def test_single_file_app(capsys: CaptureFixture[str]) -> None:
         mod = importlib.import_module("app")
 
         importlib.reload(mod)
-        import_string = get_import_string()
+        import_string, is_factory = get_import_string()
         assert import_string == "app:app"
+        assert is_factory is False
 
     captured = capsys.readouterr()
     assert "Using path app.py" in captured.out
@@ -74,8 +76,9 @@ def test_single_file_api(capsys: CaptureFixture[str]) -> None:
         mod = importlib.import_module("api")
 
         importlib.reload(mod)
-        import_string = get_import_string()
+        import_string, is_factory = get_import_string()
         assert import_string == "api:app"
+        assert is_factory is False
 
     captured = capsys.readouterr()
     assert "Using path api.py" in captured.out

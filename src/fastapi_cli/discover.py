@@ -3,7 +3,7 @@ import sys
 from dataclasses import dataclass
 from logging import getLogger
 from pathlib import Path
-from typing import Union
+from typing import Any, Callable, Union, get_type_hints
 
 from rich import print
 from rich.padding import Padding
@@ -98,7 +98,9 @@ def get_module_data_from_path(path: Path) -> ModuleData:
     )
 
 
-def get_app_name(*, mod_data: ModuleData, app_name: Union[str, None] = None) -> str:
+def get_app_name(
+    *, mod_data: ModuleData, app_name: Union[str, None] = None
+) -> tuple[str, bool]:
     try:
         mod = importlib.import_module(mod_data.module_import_str)
     except (ImportError, ValueError) as e:
@@ -119,26 +121,40 @@ def get_app_name(*, mod_data: ModuleData, app_name: Union[str, None] = None) -> 
                 f"Could not find app name {app_name} in {mod_data.module_import_str}"
             )
         app = getattr(mod, app_name)
+        is_factory = False
         if not isinstance(app, FastAPI):
-            raise FastAPICLIException(
-                f"The app name {app_name} in {mod_data.module_import_str} doesn't seem to be a FastAPI app"
-            )
-        return app_name
-    for preferred_name in ["app", "api"]:
+            is_factory = check_factory(app)
+            if not is_factory:
+                raise FastAPICLIException(
+                    f"The app name {app_name} in {mod_data.module_import_str} doesn't seem to be a FastAPI app"
+                )
+        return app_name, is_factory
+    for preferred_name in ["app", "api", "create_app", "create_api"]:
         if preferred_name in object_names_set:
             obj = getattr(mod, preferred_name)
             if isinstance(obj, FastAPI):
-                return preferred_name
+                return preferred_name, False
+            if check_factory(obj):
+                return preferred_name, True
     for name in object_names:
         obj = getattr(mod, name)
         if isinstance(obj, FastAPI):
-            return name
+            return name, False
     raise FastAPICLIException("Could not find FastAPI app in module, try using --app")
+
+
+def check_factory(fn: Callable[[], Any]) -> bool:
+    """Checks whether the return-type of a factory function is FastAPI"""
+    # if not callable(fn):
+    #    return False
+    type_hints = get_type_hints(fn)
+    return_type = type_hints.get("return")
+    return return_type is not None and issubclass(return_type, FastAPI)
 
 
 def get_import_string(
     *, path: Union[Path, None] = None, app_name: Union[str, None] = None
-) -> str:
+) -> tuple[str, bool]:
     if not path:
         path = get_default_path()
     logger.info(f"Using path [blue]{path}[/blue]")
@@ -147,7 +163,7 @@ def get_import_string(
         raise FastAPICLIException(f"Path does not exist {path}")
     mod_data = get_module_data_from_path(path)
     sys.path.insert(0, str(mod_data.extra_sys_path))
-    use_app_name = get_app_name(mod_data=mod_data, app_name=app_name)
+    use_app_name, is_factory = get_app_name(mod_data=mod_data, app_name=app_name)
     import_example = Syntax(
         f"from {mod_data.module_import_str} import {use_app_name}", "python"
     )
@@ -164,4 +180,4 @@ def get_import_string(
     print(import_panel)
     import_string = f"{mod_data.module_import_str}:{use_app_name}"
     logger.info(f"Using import string [b green]{import_string}[/b green]")
-    return import_string
+    return import_string, is_factory

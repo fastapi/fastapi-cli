@@ -145,8 +145,6 @@ def get_app_name(
 
 def check_factory(fn: Callable[[], Any]) -> bool:
     """Checks whether the return-type of a factory function is FastAPI"""
-    # if not callable(fn):
-    #    return False
     type_hints = get_type_hints(fn)
     return_type = type_hints.get("return")
     return return_type is not None and issubclass(return_type, FastAPI)

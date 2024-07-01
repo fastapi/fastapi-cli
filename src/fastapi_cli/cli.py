@@ -1,7 +1,7 @@
 import os
 from logging import getLogger
 from pathlib import Path
-from typing import Any, Union, Dict
+from typing import Any, Dict, Union
 
 import typer
 from rich import print

@@ -32,7 +32,7 @@ def version_callback(value: bool) -> None:
         raise typer.Exit()
 
 
-def create_structure(structure: Dict[str, Any], base_path: str = ""):
+def create_structure(structure: Dict[str, Any], base_path: str = "") -> None:
     """
     Recursively creates a directory structure and files based on the provided dictionary.
 
@@ -341,7 +341,7 @@ def run(
 
 
 @app.command()
-def init(name: str = typer.Option("fastapi_project", help="Name of the project")):
+def init(name: str = typer.Option("fastapi_project", help="Name of the project")) -> Any:
     """Initialize a new FastAPI project with example code"""
     project_structure = {
         name: {

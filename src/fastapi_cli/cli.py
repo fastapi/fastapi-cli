@@ -341,7 +341,9 @@ def run(
 
 
 @app.command()
-def init(name: str = typer.Option("fastapi_project", help="Name of the project")) -> Any:
+def init(
+    name: str = typer.Option("fastapi_project", help="Name of the project"),
+) -> Any:
     """Initialize a new FastAPI project with example code"""
     project_structure = {
         name: {

@@ -8,12 +8,12 @@ from rich.padding import Padding
 from rich.panel import Panel
 from typing_extensions import Annotated
 
-from fastapi_cli.discover import get_import_string
+from fastapi_cli.discover import get_import_string, get_api_spec
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
 from .logging import setup_logging
-
+from .utils import generate_markdown
 app = typer.Typer(rich_markup_mode="rich")
 
 setup_logging()
@@ -272,6 +272,53 @@ def run(
         proxy_headers=proxy_headers,
     )
 
+@app.command()
+def doc(
+    path: Annotated[
+        Union[Path, None],
+        typer.Argument(
+            help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried."
+        ),
+    ] = None,
+    *,
+    app: Annotated[
+        Union[str, None],
+        typer.Option(
+            help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
+        ),
+    ] = None,
+    title: Annotated[
+        Union[str, None],
+        typer.Option(
+            help="The title to use for the generated markdown file. If not provided, it is detected automatically."
+        )
+    ] = None,
+    ) -> None:
+    """
+    Generate [bold]FastAPI[/bold] API docs. 📚
+
+    It uses openapi spec to generate a markdown.
+    """
+    try:
+        fastapi_app = get_import_string(path=path, app_name=app)
+    except FastAPICLIException as e:
+        logger.error(str(e))
+        raise typer.Exit(code=1) from None
+    spec = get_api_spec(fastapi_app)
+    markdown = generate_markdown(spec, title)
+    panel = Panel(
+        f"{markdown}",
+        title="Generated Markdown",
+        expand=False,
+        padding=(1, 2),
+        style="white on black",
+    )
+    print(Padding(panel, 3))
+    if not title:
+        title = markdown.split("\n")[0].replace("#", "").strip()
+    title = title.replace(" ", "_")
+    with open(f"{title.upper()}.md", "w") as f:
+        f.write(markdown)
 
 def main() -> None:
     app()

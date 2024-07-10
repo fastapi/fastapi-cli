@@ -8,12 +8,13 @@ from rich.padding import Padding
 from rich.panel import Panel
 from typing_extensions import Annotated
 
-from fastapi_cli.discover import get_import_string, get_api_spec
+from fastapi_cli.discover import get_api_spec, get_import_string
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
 from .logging import setup_logging
 from .utils import generate_markdown
+
 app = typer.Typer(rich_markup_mode="rich")
 
 setup_logging()
@@ -272,6 +273,7 @@ def run(
         proxy_headers=proxy_headers,
     )
 
+
 @app.command()
 def doc(
     path: Annotated[
@@ -291,9 +293,9 @@ def doc(
         Union[str, None],
         typer.Option(
             help="The title to use for the generated markdown file. If not provided, it is detected automatically."
-        )
+        ),
     ] = None,
-    ) -> None:
+) -> None:
     """
     Generate [bold]FastAPI[/bold] API docs. 📚
 
@@ -319,6 +321,7 @@ def doc(
     title = title.replace(" ", "_")
     with open(f"{title.upper()}.md", "w") as f:
         f.write(markdown)
+
 
 def main() -> None:
     app()

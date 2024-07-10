@@ -34,7 +34,9 @@ def generate_markdown(api_spec, title):
                     schema = param.get("schema", {})
                     schema_str = f"`type: {schema.get('type', 'N/A')}`<br>`title: {schema.get('title', 'N/A')}`"
                     if "description" in schema:
-                        schema_str += f"<br>`description: {schema.get('description', 'N/A')}`"
+                        schema_str += (
+                            f"<br>`description: {schema.get('description', 'N/A')}`"
+                        )
                     if "enum" in schema:
                         schema_str += f"<br>`enum: {schema.get('enum')}`"
                     if "default" in schema:
@@ -50,7 +52,7 @@ def generate_markdown(api_spec, title):
             if request_body:
                 md.append("**Request Body:**")
                 md.append(f"- **Required:** {request_body.get('required', False)}")
-                md.append(f"- **Content:**")
+                md.append("- **Content:**")
                 content = request_body.get("content", {})
                 for content_type, content_schema in content.items():
                     md.append(f"  - **{content_type}:**")
@@ -72,7 +74,9 @@ def generate_markdown(api_spec, title):
                     for content_type, content_schema in content.items():
                         schema_ref = content_schema.get("schema", {}).get("$ref", "N/A")
                         content_str += f"{content_type}: `schema: [{schema_ref.split('/')[-1]}](#{schema_ref.split('/')[-1].lower()})`<br>"
-                    md.append(f"| {status} | {description} | {content_str.strip('<br>')} |")
+                    md.append(
+                        f"| {status} | {description} | {content_str.strip('<br>')} |"
+                    )
 
     # Components
     components = api_spec.get("components", {}).get("schemas", {})
@@ -83,7 +87,9 @@ def generate_markdown(api_spec, title):
             md.append(f"##### {schema_name}")
             md.append(f"- **Type:** {schema_details.get('type', 'N/A')}")
             if "required" in schema_details:
-                md.append(f"- **Required:** {', '.join(schema_details.get('required', []))}")
+                md.append(
+                    f"- **Required:** {', '.join(schema_details.get('required', []))}"
+                )
             md.append(f"- **Title:** {schema_details.get('title', 'N/A')}")
             md.append("- **Properties:**")
             properties = schema_details.get("properties", {})

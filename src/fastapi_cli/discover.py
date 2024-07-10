@@ -1,10 +1,10 @@
 import importlib
+import inspect
 import sys
 from dataclasses import dataclass
 from logging import getLogger
 from pathlib import Path
 from typing import Union
-import inspect
 
 from rich import print
 from rich.padding import Padding
@@ -168,13 +168,17 @@ def get_import_string(
     logger.info(f"Using import string [b green]{import_string}[/b green]")
     return import_string
 
+
 def get_api_spec(import_string: str) -> dict:
     app_module, app_name = import_string.replace("/", ".").rsplit(":", 1)
     app = getattr(__import__(app_module, fromlist=[app_name]), app_name)
     signature = inspect.signature(get_openapi)
-    props = {prop.name: getattr(app, prop.name, None) for prop in signature.parameters.values()}
-    
+    props = {
+        prop.name: getattr(app, prop.name, None)
+        for prop in signature.parameters.values()
+    }
+
     props["webhooks"] = None
     spec = get_openapi(**props)
-    
+
     return spec

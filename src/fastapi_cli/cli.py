@@ -11,7 +11,6 @@ from . import __version__
 from .app import app
 from .logging import setup_logging
 
-
 setup_logging()
 logger = getLogger(__name__)
 

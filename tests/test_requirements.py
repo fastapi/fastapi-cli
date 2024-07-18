@@ -16,7 +16,7 @@ def test_no_uvicorn() -> None:
     import fastapi_cli.cli
     import uvicorn
 
-    fastapi_cli.cli.uvicorn = None  # type: ignore[attr-defined, assignment]
+    fastapi_cli.cli.uvicorn = None  # type: ignore[attr-defined]
 
     with changing_dir(assets_path):
         result = runner.invoke(fastapi_cli.cli.app, ["dev", "single_file_app.py"])

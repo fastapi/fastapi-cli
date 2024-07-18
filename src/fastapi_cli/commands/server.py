@@ -8,7 +8,6 @@ from rich.padding import Padding
 from rich.panel import Panel
 from typing_extensions import Annotated
 
-from fastapi_cli.app import app
 from fastapi_cli.discover import get_import_string
 from fastapi_cli.exceptions import FastAPICLIException
 
@@ -72,7 +71,6 @@ def _run(
     )
 
 
-@app.command()
 def dev(
     path: Annotated[
         Union[Path, None],
@@ -155,7 +153,6 @@ def dev(
     )
 
 
-@app.command()
 def run(
     path: Annotated[
         Union[Path, None],

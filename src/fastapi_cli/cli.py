@@ -5,14 +5,19 @@ import typer
 from rich import print
 from typing_extensions import Annotated
 
-from fastapi_cli.commands import server  # noqa: F401
+from fastapi_cli.commands import server
 
 from . import __version__
-from .app import app
 from .logging import setup_logging
 
 setup_logging()
 logger = getLogger(__name__)
+
+
+app = typer.Typer(rich_markup_mode="rich")  # noqa: F811
+
+app.command()(server.run)
+app.command()(server.dev)
 
 
 def version_callback(value: bool) -> None:

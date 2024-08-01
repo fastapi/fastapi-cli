@@ -44,8 +44,8 @@ standard = [
 
 [project.urls]
 Documentation = "https://fastapi.tiangolo.com"
-homepage = "https://github.com/tiangolo/fastapi-cli"
-Repository = "https://github.com/tiangolo/fastapi-cli"
+homepage = "https://github.com/fastapi/fastapi-cli"
+Repository = "https://github.com/fastapi/fastapi-cli"
 
 [project.scripts]
 fastapi = "fastapi_cli.cli:main"

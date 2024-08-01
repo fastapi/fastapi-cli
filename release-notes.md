@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Breaking Changes
+
+* ♻️ Add `fastapi-cli[standard]` including Uvicorn, make `fastapi-cli` and `fastapi-cli-slim` have the same packages. PR [#55](https://github.com/fastapi/fastapi-cli/pull/55) by [@tiangolo](https://github.com/tiangolo).
+
 ### Refactors
 
 * ♻️ Simplify code in `src/fastapi_cli/discover.py`. PR [#22](https://github.com/tiangolo/fastapi-cli/pull/22) by [@pedroimpulcetto](https://github.com/pedroimpulcetto).

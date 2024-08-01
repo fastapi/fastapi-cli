@@ -16,6 +16,7 @@
 
 ### Internal
 
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#28](https://github.com/fastapi/fastapi-cli/pull/28) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump mypy from 1.10.0 to 1.11.1. PR [#53](https://github.com/fastapi/fastapi-cli/pull/53) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pypa/gh-action-pypi-publish from 1.8.14 to 1.9.0. PR [#34](https://github.com/fastapi/fastapi-cli/pull/34) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Update issue-manager.yml GitHub Action permissions. PR [#54](https://github.com/tiangolo/fastapi-cli/pull/54) by [@tiangolo](https://github.com/tiangolo).

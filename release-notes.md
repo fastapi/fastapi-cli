@@ -16,6 +16,7 @@
 
 ### Internal
 
+* ⬆ Bump pypa/gh-action-pypi-publish from 1.8.14 to 1.9.0. PR [#34](https://github.com/fastapi/fastapi-cli/pull/34) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Update issue-manager.yml GitHub Action permissions. PR [#54](https://github.com/tiangolo/fastapi-cli/pull/54) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump ruff from 0.4.4 to 0.4.5. PR [#29](https://github.com/tiangolo/fastapi-cli/pull/29) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.4.3 to 0.4.4. PR [#23](https://github.com/tiangolo/fastapi-cli/pull/23) by [@dependabot[bot]](https://github.com/apps/dependabot).

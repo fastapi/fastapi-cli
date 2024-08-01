@@ -16,6 +16,7 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.4.5 to 0.5.5. PR [#52](https://github.com/fastapi/fastapi-cli/pull/52) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔧 Remove Python 3.7 from PyPI classifiers. PR [#48](https://github.com/fastapi/fastapi-cli/pull/48) by [@patrick91](https://github.com/patrick91).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#28](https://github.com/fastapi/fastapi-cli/pull/28) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump mypy from 1.10.0 to 1.11.1. PR [#53](https://github.com/fastapi/fastapi-cli/pull/53) by [@dependabot[bot]](https://github.com/apps/dependabot).

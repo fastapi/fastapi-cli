@@ -38,7 +38,6 @@ dependencies = [
 
 [project.optional-dependencies]
 standard = [
-    "fastapi",
     "uvicorn[standard] >= 0.15.0",
 ]
 
@@ -68,14 +67,6 @@ source-includes = [
 
 [tool.tiangolo._internal-slim-build.packages.fastapi-cli-slim.project]
 name = "fastapi-cli-slim"
-
-[tool.tiangolo._internal-slim-build.packages.fastapi-cli]
-# No default dependencies included for now
-include-optional-dependencies = []
-
-[tool.tiangolo._internal-slim-build.packages.fastapi-cli.project]
-# No custom optional dependencies for now
-# optional-dependencies = {}
 
 [tool.pytest.ini_options]
 addopts = [

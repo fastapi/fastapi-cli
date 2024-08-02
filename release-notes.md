@@ -2,17 +2,42 @@
 
 ## Latest Changes
 
+## 0.0.5
+
 ### Breaking Changes
 
 * ♻️ Add `fastapi-cli[standard]` including Uvicorn, make `fastapi-cli` and `fastapi-cli-slim` have the same packages. PR [#55](https://github.com/fastapi/fastapi-cli/pull/55) by [@tiangolo](https://github.com/tiangolo).
+* ➕ Keep Uvicorn in default dependencies. PR [#57](https://github.com/fastapi/fastapi-cli/pull/57) by [@tiangolo](https://github.com/tiangolo).
+
+#### Summary
+
+Install with:
+
+```bash
+pip install "fastapi[standard]"
+```
+
+Or if for some reason installing only the FastAPI CLI:
+
+```bash
+pip install "fastapi-cli[standard]"
+```
+
+#### Technical Details
+
+Before this, `fastapi-cli` would include Uvicorn and `fastapi-cli-slim` would not include Uvicorn.
+
+In a future version, `fastapi-cli` will not include Uvicorn unless it is installed with `fastapi-cli[standard]`.
+
+FastAPI version 0.112.0 has a `fastapi[standard]` and that one includes `fastapi-cli[standard]`.
+
+Before, you would install `pip install fastapi`, or `pip install fastapi-cli`. Now you should include the `standard` optional dependencies (unless you want to exclude one of those): `pip install "fastapi[standard]"`.
+
+In a future version, `fastapi-cli` will not include Uvicorn unless it is installed with `fastapi-cli[standard]`.
 
 ### Refactors
 
 * ♻️ Simplify code in `src/fastapi_cli/discover.py`. PR [#22](https://github.com/tiangolo/fastapi-cli/pull/22) by [@pedroimpulcetto](https://github.com/pedroimpulcetto).
-
-### Upgrades
-
-* ➕ Keep Uvicorn in default dependencies. PR [#57](https://github.com/fastapi/fastapi-cli/pull/57) by [@tiangolo](https://github.com/tiangolo).
 
 ### Docs
 

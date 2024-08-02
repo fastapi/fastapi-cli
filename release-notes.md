@@ -10,6 +10,10 @@
 
 * ♻️ Simplify code in `src/fastapi_cli/discover.py`. PR [#22](https://github.com/tiangolo/fastapi-cli/pull/22) by [@pedroimpulcetto](https://github.com/pedroimpulcetto).
 
+### Upgrades
+
+* ➕ Keep Uvicorn in default dependencies. PR [#57](https://github.com/fastapi/fastapi-cli/pull/57) by [@tiangolo](https://github.com/tiangolo).
+
 ### Docs
 
 * 🚚 Rename repo references to new GitHub FastAPI org. PR [#56](https://github.com/fastapi/fastapi-cli/pull/56) by [@tiangolo](https://github.com/tiangolo).

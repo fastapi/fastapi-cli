@@ -1,6 +1,7 @@
+import asyncio
 from logging import getLogger
 from pathlib import Path
-from typing import Any, Union
+from typing import Any, Literal, Optional, Union
 
 import typer
 from rich import print
@@ -15,7 +16,7 @@ from . import __version__
 from .logging import setup_logging
 
 app = typer.Typer(rich_markup_mode="rich")
-
+WSProtocolType = Literal["auto", "none", "websockets", "wsproto"]
 setup_logging()
 logger = getLogger(__name__)
 
@@ -60,6 +61,12 @@ def _run(
     command: str,
     app: Union[str, None] = None,
     proxy_headers: bool = False,
+    ws: type[asyncio.Protocol] | WSProtocolType = "auto",
+    ws_max_size: int = 16777216,
+    ws_max_queue: int = 32,
+    ws_ping_interval: Optional[float] = 20.0,
+    ws_ping_timeout: Optional[float] = 20.0,
+    ws_per_message_deflate: bool = True,
 ) -> None:
     try:
         use_uvicorn_app = get_import_string(path=path, app_name=app)
@@ -97,6 +104,12 @@ def _run(
         workers=workers,
         root_path=root_path,
         proxy_headers=proxy_headers,
+        ws=ws,
+        ws_max_size=ws_max_size,
+        ws_max_queue=ws_max_queue,
+        ws_ping_interval=ws_ping_interval,
+        ws_ping_timeout=ws_ping_timeout,
+        ws_per_message_deflate=ws_per_message_deflate,
     )
 
 
@@ -145,6 +158,30 @@ def dev(
             help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
         ),
     ] = True,
+    ws: Annotated[
+        bool,
+        typer.Option(help="The WebSocket protocol."),
+    ] = True,
+    ws_max_size: Annotated[
+        int,
+        typer.Option(help="WebSocket max size message in bytes."),
+    ] = 16777216,
+    ws_max_queue: Annotated[
+        int,
+        typer.Option(help="The maximum length of the WebSocket message queue."),
+    ] = 100,
+    ws_ping_interval: Annotated[
+        Optional[float],
+        typer.Option(help="WebSocket ping interval in seconds."),
+    ] = 20.0,
+    ws_ping_timeout: Annotated[
+        Optional[float],
+        typer.Option(help="WebSocket ping timeout in seconds."),
+    ] = 20.0,
+    ws_per_message_deflate: Annotated[
+        bool,
+        typer.Option(help="WebSocket per-message-deflate compression"),
+    ] = True,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [yellow]development[/yellow] mode. 🧪
@@ -180,6 +217,12 @@ def dev(
         app=app,
         command="dev",
         proxy_headers=proxy_headers,
+        ws=ws,
+        ws_max_size=ws_max_size,
+        ws_max_queue=ws_max_queue,
+        ws_ping_interval=ws_ping_interval,
+        ws_ping_timeout=ws_ping_timeout,
+        ws_per_message_deflate=ws_per_message_deflate,
     )
 
 
@@ -234,6 +277,30 @@ def run(
             help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
         ),
     ] = True,
+    ws: Annotated[
+        bool,
+        typer.Option(help="The WebSocket protocol."),
+    ] = True,
+    ws_max_size: Annotated[
+        int,
+        typer.Option(help="WebSocket max size message in bytes."),
+    ] = 16777216,
+    ws_max_queue: Annotated[
+        int,
+        typer.Option(help="The maximum length of the WebSocket message queue."),
+    ] = 100,
+    ws_ping_interval: Annotated[
+        Optional[float],
+        typer.Option(help="WebSocket ping interval in seconds."),
+    ] = 20.0,
+    ws_ping_timeout: Annotated[
+        Optional[float],
+        typer.Option(help="WebSocket ping timeout in seconds."),
+    ] = 20.0,
+    ws_per_message_deflate: Annotated[
+        bool,
+        typer.Option(help="WebSocket per-message-deflate compression"),
+    ] = True,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [green]production[/green] mode. 🚀
@@ -270,6 +337,12 @@ def run(
         app=app,
         command="run",
         proxy_headers=proxy_headers,
+        ws=ws,
+        ws_max_size=ws_max_size,
+        ws_max_queue=ws_max_queue,
+        ws_ping_interval=ws_ping_interval,
+        ws_ping_timeout=ws_ping_timeout,
+        ws_per_message_deflate=ws_per_message_deflate,
     )
 
 

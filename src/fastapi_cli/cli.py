@@ -1,4 +1,5 @@
 import asyncio
+from enum import Enum
 from logging import getLogger
 from pathlib import Path
 from typing import Any, Literal, Optional, Union
@@ -16,7 +17,15 @@ from . import __version__
 from .logging import setup_logging
 
 app = typer.Typer(rich_markup_mode="rich")
-WSProtocolType = Literal["auto", "none", "websockets", "wsproto"]
+
+
+class WSProtocolType(str, Enum):
+    auto = "auto"
+    none = "none"
+    websockets = "websockets"
+    wsproto = "wsproto"
+
+
 setup_logging()
 logger = getLogger(__name__)
 
@@ -159,9 +168,11 @@ def dev(
         ),
     ] = True,
     ws: Annotated[
-        bool,
-        typer.Option(help="The WebSocket protocol."),
-    ] = True,
+        WSProtocolType,
+        typer.Option(
+            help="The WebSocket protocol.", case_sensitive=False, show_choices=True
+        ),
+    ] = WSProtocolType.auto,
     ws_max_size: Annotated[
         int,
         typer.Option(help="WebSocket max size message in bytes."),
@@ -169,7 +180,7 @@ def dev(
     ws_max_queue: Annotated[
         int,
         typer.Option(help="The maximum length of the WebSocket message queue."),
-    ] = 100,
+    ] = 32,
     ws_ping_interval: Annotated[
         Optional[float],
         typer.Option(help="WebSocket ping interval in seconds."),
@@ -278,9 +289,11 @@ def run(
         ),
     ] = True,
     ws: Annotated[
-        bool,
-        typer.Option(help="The WebSocket protocol."),
-    ] = True,
+        WSProtocolType,
+        typer.Option(
+            help="The WebSocket protocol.", case_sensitive=False, show_choices=True
+        ),
+    ] = WSProtocolType.auto,
     ws_max_size: Annotated[
         int,
         typer.Option(help="WebSocket max size message in bytes."),
@@ -288,7 +301,7 @@ def run(
     ws_max_queue: Annotated[
         int,
         typer.Option(help="The maximum length of the WebSocket message queue."),
-    ] = 100,
+    ] = 32,
     ws_ping_interval: Annotated[
         Optional[float],
         typer.Option(help="WebSocket ping interval in seconds."),

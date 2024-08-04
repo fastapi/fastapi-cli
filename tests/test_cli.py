@@ -4,9 +4,9 @@ from pathlib import Path
 from unittest.mock import patch
 
 import uvicorn
-from fastapi_cli.cli import app
 from typer.testing import CliRunner
 
+from src.fastapi_cli.cli import app
 from tests.utils import changing_dir
 
 runner = CliRunner()
@@ -58,6 +58,8 @@ def test_dev_args() -> None:
                     "--app",
                     "api",
                     "--no-proxy-headers",
+                    "--ws",
+                    "auto",
                 ],
             )
             assert result.exit_code == 0, result.output
@@ -71,6 +73,12 @@ def test_dev_args() -> None:
                 "workers": None,
                 "root_path": "/api",
                 "proxy_headers": False,
+                "ws": "auto",
+                "ws_max_size": 16777216,
+                "ws_max_queue": 32,
+                "ws_ping_interval": 20.0,
+                "ws_ping_timeout": 20.0,
+                "ws_per_message_deflate": True,
             }
         assert "Using import string single_file_app:api" in result.output
         assert (
@@ -128,6 +136,8 @@ def test_run_args() -> None:
                     "--app",
                     "api",
                     "--no-proxy-headers",
+                    "--ws",
+                    "websockets",
                 ],
             )
             assert result.exit_code == 0, result.output
@@ -141,6 +151,12 @@ def test_run_args() -> None:
                 "workers": 2,
                 "root_path": "/api",
                 "proxy_headers": False,
+                "ws": "websockets",
+                "ws_max_size": 16777216,
+                "ws_max_queue": 32,
+                "ws_ping_interval": 20.0,
+                "ws_ping_timeout": 20.0,
+                "ws_per_message_deflate": True,
             }
         assert "Using import string single_file_app:api" in result.output
         assert (

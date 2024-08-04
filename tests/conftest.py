@@ -2,7 +2,7 @@ import sys
 from typing import Generator
 
 import pytest
-from fastapi_cli.logging import setup_logging
+from src.fastapi_cli.logging import setup_logging
 from typer import rich_utils
 
 

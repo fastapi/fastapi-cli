@@ -2,7 +2,7 @@ import asyncio
 from enum import Enum
 from logging import getLogger
 from pathlib import Path
-from typing import Any, Literal, Optional, Union
+from typing import Any, Union
 
 import typer
 from rich import print
@@ -73,8 +73,8 @@ def _run(
     ws: type[asyncio.Protocol] | WSProtocolType = "auto",
     ws_max_size: int = 16777216,
     ws_max_queue: int = 32,
-    ws_ping_interval: Optional[float] = 20.0,
-    ws_ping_timeout: Optional[float] = 20.0,
+    ws_ping_interval: float = 20.0,
+    ws_ping_timeout: float = 20.0,
     ws_per_message_deflate: bool = True,
 ) -> None:
     try:
@@ -182,11 +182,11 @@ def dev(
         typer.Option(help="The maximum length of the WebSocket message queue."),
     ] = 32,
     ws_ping_interval: Annotated[
-        Optional[float],
+        float,
         typer.Option(help="WebSocket ping interval in seconds."),
     ] = 20.0,
     ws_ping_timeout: Annotated[
-        Optional[float],
+        float,
         typer.Option(help="WebSocket ping timeout in seconds."),
     ] = 20.0,
     ws_per_message_deflate: Annotated[
@@ -303,11 +303,11 @@ def run(
         typer.Option(help="The maximum length of the WebSocket message queue."),
     ] = 32,
     ws_ping_interval: Annotated[
-        Optional[float],
+        float,
         typer.Option(help="WebSocket ping interval in seconds."),
     ] = 20.0,
     ws_ping_timeout: Annotated[
-        Optional[float],
+        float,
         typer.Option(help="WebSocket ping timeout in seconds."),
     ] = 20.0,
     ws_per_message_deflate: Annotated[

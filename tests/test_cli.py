@@ -29,6 +29,12 @@ def test_dev() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "ws": "auto",
+                "ws_max_size": 16777216,
+                "ws_max_queue": 32,
+                "ws_ping_interval": 20.0,
+                "ws_ping_timeout": 20.0,
+                "ws_per_message_deflate": True,
             }
         assert "Using import string single_file_app:app" in result.output
         assert (
@@ -105,6 +111,12 @@ def test_run() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "ws": "auto",
+                "ws_max_size": 16777216,
+                "ws_max_queue": 32,
+                "ws_ping_interval": 20.0,
+                "ws_ping_timeout": 20.0,
+                "ws_per_message_deflate": True,
             }
         assert "Using import string single_file_app:app" in result.output
         assert (

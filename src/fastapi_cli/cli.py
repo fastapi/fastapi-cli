@@ -1,4 +1,3 @@
-import asyncio
 from enum import Enum
 from logging import getLogger
 from pathlib import Path
@@ -70,7 +69,7 @@ def _run(
     command: str,
     app: Union[str, None] = None,
     proxy_headers: bool = False,
-    ws: type[asyncio.Protocol] | WSProtocolType = "auto",
+    ws: WSProtocolType = WSProtocolType.auto,
     ws_max_size: int = 16777216,
     ws_max_queue: int = 32,
     ws_ping_interval: float = 20.0,
@@ -113,7 +112,7 @@ def _run(
         workers=workers,
         root_path=root_path,
         proxy_headers=proxy_headers,
-        ws=ws,
+        ws=ws.value,
         ws_max_size=ws_max_size,
         ws_max_queue=ws_max_queue,
         ws_ping_interval=ws_ping_interval,

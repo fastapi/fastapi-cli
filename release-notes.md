@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* 👷 Add GitHub Action add-to-project. PR [#65](https://github.com/fastapi/fastapi-cli/pull/65) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.5
 
 ### Breaking Changes

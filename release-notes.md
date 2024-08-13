@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 👷 Add GitHub Action label-checker. PR [#68](https://github.com/fastapi/fastapi-cli/pull/68) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Add GitHub Action labeler. PR [#67](https://github.com/fastapi/fastapi-cli/pull/67) by [@tiangolo](https://github.com/tiangolo).
 * 🔧 Update GitHub Action add-to-project. PR [#66](https://github.com/fastapi/fastapi-cli/pull/66) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Add GitHub Action add-to-project. PR [#65](https://github.com/fastapi/fastapi-cli/pull/65) by [@tiangolo](https://github.com/tiangolo).

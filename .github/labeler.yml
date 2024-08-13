@@ -1,0 +1,14 @@
+docs:
+  - changed-files:
+    - any-glob-to-any-file:
+      - README.md
+
+internal:
+  - changed-files:
+    - any-glob-to-any-file:
+      - .github/**/*
+      - scripts/**/*
+      - .gitignore
+      - .pre-commit-config.yaml
+      - pdm_build.py
+      - requirements*.txt

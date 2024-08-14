@@ -1,14 +1,23 @@
 docs:
-  - changed-files:
-    - any-glob-to-any-file:
-      - README.md
+  - all:
+    - changed-files:
+      - any-glob-to-any-file:
+        - README.md
+      - all-globs-to-all-files:
+        - '!src/**'
+        - '!pyproject.toml'
 
 internal:
-  - changed-files:
-    - any-glob-to-any-file:
-      - .github/**/*
-      - scripts/**/*
-      - .gitignore
-      - .pre-commit-config.yaml
-      - pdm_build.py
-      - requirements*.txt
+  - all:
+    - changed-files:
+      - any-glob-to-any-file:
+        - .github/**
+        - scripts/**
+        - .gitignore
+        - .pre-commit-config.yaml
+        - pdm_build.py
+        - requirements*.txt
+      - all-globs-to-all-files:
+        - README.md
+        - '!src/**'
+        - '!pyproject.toml'

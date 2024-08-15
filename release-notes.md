@@ -2,12 +2,64 @@
 
 ## Latest Changes
 
+### Internal
+
+* 👷 Update GitHub Action labeler to only add one label. PR [#70](https://github.com/fastapi/fastapi-cli/pull/70) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update GitHub Action labeler permissions and dependencies. PR [#69](https://github.com/fastapi/fastapi-cli/pull/69) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Add GitHub Action label-checker. PR [#68](https://github.com/fastapi/fastapi-cli/pull/68) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Add GitHub Action labeler. PR [#67](https://github.com/fastapi/fastapi-cli/pull/67) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Update GitHub Action add-to-project. PR [#66](https://github.com/fastapi/fastapi-cli/pull/66) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Add GitHub Action add-to-project. PR [#65](https://github.com/fastapi/fastapi-cli/pull/65) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.0.5
+
+### Breaking Changes
+
+* ♻️ Add `fastapi-cli[standard]` including Uvicorn, make `fastapi-cli` and `fastapi-cli-slim` have the same packages. PR [#55](https://github.com/fastapi/fastapi-cli/pull/55) by [@tiangolo](https://github.com/tiangolo).
+* ➕ Keep Uvicorn in default dependencies. PR [#57](https://github.com/fastapi/fastapi-cli/pull/57) by [@tiangolo](https://github.com/tiangolo).
+
+#### Summary
+
+Install with:
+
+```bash
+pip install "fastapi[standard]"
+```
+
+Or if for some reason installing only the FastAPI CLI:
+
+```bash
+pip install "fastapi-cli[standard]"
+```
+
+#### Technical Details
+
+Before this, `fastapi-cli` would include Uvicorn and `fastapi-cli-slim` would not include Uvicorn.
+
+In a future version, `fastapi-cli` will not include Uvicorn unless it is installed with `fastapi-cli[standard]`.
+
+FastAPI version 0.112.0 has a `fastapi[standard]` and that one includes `fastapi-cli[standard]`.
+
+Before, you would install `pip install fastapi`, or `pip install fastapi-cli`. Now you should include the `standard` optional dependencies (unless you want to exclude one of those): `pip install "fastapi[standard]"`.
+
+In a future version, `fastapi-cli` will not include Uvicorn unless it is installed with `fastapi-cli[standard]`.
+
 ### Refactors
 
 * ♻️ Simplify code in `src/fastapi_cli/discover.py`. PR [#22](https://github.com/tiangolo/fastapi-cli/pull/22) by [@pedroimpulcetto](https://github.com/pedroimpulcetto).
 
+### Docs
+
+* 🚚 Rename repo references to new GitHub FastAPI org. PR [#56](https://github.com/fastapi/fastapi-cli/pull/56) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
+* ⬆ Bump ruff from 0.4.5 to 0.5.5. PR [#52](https://github.com/fastapi/fastapi-cli/pull/52) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 🔧 Remove Python 3.7 from PyPI classifiers. PR [#48](https://github.com/fastapi/fastapi-cli/pull/48) by [@patrick91](https://github.com/patrick91).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#28](https://github.com/fastapi/fastapi-cli/pull/28) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump mypy from 1.10.0 to 1.11.1. PR [#53](https://github.com/fastapi/fastapi-cli/pull/53) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pypa/gh-action-pypi-publish from 1.8.14 to 1.9.0. PR [#34](https://github.com/fastapi/fastapi-cli/pull/34) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Update issue-manager.yml GitHub Action permissions. PR [#54](https://github.com/tiangolo/fastapi-cli/pull/54) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump ruff from 0.4.4 to 0.4.5. PR [#29](https://github.com/tiangolo/fastapi-cli/pull/29) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.4.3 to 0.4.4. PR [#23](https://github.com/tiangolo/fastapi-cli/pull/23) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Enable CI tests for Python 3.12. PR [#27](https://github.com/tiangolo/fastapi-cli/pull/27) by [@tiangolo](https://github.com/tiangolo).

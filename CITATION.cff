@@ -12,7 +12,7 @@ authors:
     family-names: Ramírez
     email: tiangolo@gmail.com
 identifiers:
-repository-code: 'https://github.com/tiangolo/fastapi-cli'
+repository-code: 'https://github.com/fastapi/fastapi-cli'
 url: 'https://fastapi.tiangolo.com'
 abstract: >-
   Run and manage FastAPI apps from the command line with FastAPI CLI. 🚀

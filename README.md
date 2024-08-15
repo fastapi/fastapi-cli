@@ -1,20 +1,20 @@
 # FastAPI CLI
 
-<a href="https://github.com/tiangolo/fastapi-cli/actions/workflows/test.yml" target="_blank">
-    <img src="https://github.com/tiangolo/fastapi-cli/actions/workflows/test.yml/badge.svg" alt="Test">
+<a href="https://github.com/fastapi/fastapi-cli/actions/workflows/test.yml" target="_blank">
+    <img src="https://github.com/fastapi/fastapi-cli/actions/workflows/test.yml/badge.svg" alt="Test">
 </a>
-<a href="https://github.com/tiangolo/fastapi-cli/actions/workflows/publish.yml" target="_blank">
-    <img src="https://github.com/tiangolo/fastapi-cli/actions/workflows/publish.yml/badge.svg" alt="Publish">
+<a href="https://github.com/fastapi/fastapi-cli/actions/workflows/publish.yml" target="_blank">
+    <img src="https://github.com/fastapi/fastapi-cli/actions/workflows/publish.yml/badge.svg" alt="Publish">
 </a>
-<a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/tiangolo/fastapi-cli" target="_blank">
-    <img src="https://coverage-badge.samuelcolvin.workers.dev/tiangolo/fastapi-cli.svg" alt="Coverage">
+<a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/fastapi/fastapi-cli" target="_blank">
+    <img src="https://coverage-badge.samuelcolvin.workers.dev/fastapi/fastapi-cli.svg" alt="Coverage">
 <a href="https://pypi.org/project/fastapi-cli" target="_blank">
     <img src="https://img.shields.io/pypi/v/fastapi-cli?color=%2334D058&label=pypi%20package" alt="Package version">
 </a>
 
 ---
 
-**Source Code**: <a href="https://github.com/tiangolo/fastapi-cli" target="_blank">https://github.com/tiangolo/fastapi-cli</a>
+**Source Code**: <a href="https://github.com/fastapi/fastapi-cli" target="_blank">https://github.com/fastapi/fastapi-cli</a>
 
 ---
 
@@ -24,7 +24,7 @@ Run and manage FastAPI apps from the command line with FastAPI CLI. 🚀
 
 **FastAPI CLI** is a command line program `fastapi` that you can use to serve your FastAPI app, manage your FastAPI project, and more.
 
-When you install FastAPI (e.g. with `pip install fastapi`), it includes a package called `fastapi-cli`, this package provides the `fastapi` command in the terminal.
+When you install FastAPI (e.g. with `pip install "fastapi[standard]"`), it includes a package called `fastapi-cli`, this package provides the `fastapi` command in the terminal.
 
 To run your FastAPI app for development, you can use the `fastapi dev` command:
 

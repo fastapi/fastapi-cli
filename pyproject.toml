@@ -86,17 +86,23 @@ source = [
     "tests",
 ]
 context = '${CONTEXT}'
+dynamic_context = "test_function"
 omit = [
     "tests/assets/*",
 ]
 
 [tool.coverage.report]
+show_missing = true
+sort = "-Cover"
 exclude_lines = [
     "pragma: no cover",
     "@overload",
     'if __name__ == "__main__":',
     "if TYPE_CHECKING:",
 ]
+
+[tool.coverage.html]
+show_contexts = true
 
 [tool.mypy]
 strict = true

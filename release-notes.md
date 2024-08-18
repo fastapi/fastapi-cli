@@ -6,6 +6,7 @@
 
 ### Internal
 
+* 🔧 Update coverage configs. PR [#74](https://github.com/fastapi/fastapi-cli/pull/74) by [@tiangolo](https://github.com/tiangolo).
 * 🔧 Add URLs to `pyproject.toml`, show up in PyPI. PR [#72](https://github.com/fastapi/fastapi-cli/pull/72) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Update GitHub Action labeler to only add one label. PR [#70](https://github.com/fastapi/fastapi-cli/pull/70) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Update GitHub Action labeler permissions and dependencies. PR [#69](https://github.com/fastapi/fastapi-cli/pull/69) by [@tiangolo](https://github.com/tiangolo).

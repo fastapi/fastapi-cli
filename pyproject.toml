@@ -42,9 +42,11 @@ standard = [
 ]
 
 [project.urls]
-Documentation = "https://fastapi.tiangolo.com"
-homepage = "https://github.com/fastapi/fastapi-cli"
+Homepage = "https://github.com/fastapi/fastapi-cli"
+Documentation = "https://fastapi.tiangolo.com/fastapi-cli/"
 Repository = "https://github.com/fastapi/fastapi-cli"
+Issues = "https://github.com/fastapi/fastapi-cli/issues"
+Changelog = "https://github.com/fastapi/fastapi-cli/blob/main/release-notes.md"
 
 [project.scripts]
 fastapi = "fastapi_cli.cli:main"
@@ -84,17 +86,23 @@ source = [
     "tests",
 ]
 context = '${CONTEXT}'
+dynamic_context = "test_function"
 omit = [
     "tests/assets/*",
 ]
 
 [tool.coverage.report]
+show_missing = true
+sort = "-Cover"
 exclude_lines = [
     "pragma: no cover",
     "@overload",
     'if __name__ == "__main__":',
     "if TYPE_CHECKING:",
 ]
+
+[tool.coverage.html]
+show_contexts = true
 
 [tool.mypy]
 strict = true

@@ -2,6 +2,20 @@
 
 ## Latest Changes
 
+* 👷 Do not sync labels as it overrides manually added labels. PR [#71](https://github.com/fastapi/fastapi-cli/pull/71) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* 👷 Update `latest-changes` GitHub Action. PR [#79](https://github.com/fastapi/fastapi-cli/pull/79) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Update coverage configs. PR [#74](https://github.com/fastapi/fastapi-cli/pull/74) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Add URLs to `pyproject.toml`, show up in PyPI. PR [#72](https://github.com/fastapi/fastapi-cli/pull/72) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update GitHub Action labeler to only add one label. PR [#70](https://github.com/fastapi/fastapi-cli/pull/70) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update GitHub Action labeler permissions and dependencies. PR [#69](https://github.com/fastapi/fastapi-cli/pull/69) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Add GitHub Action label-checker. PR [#68](https://github.com/fastapi/fastapi-cli/pull/68) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Add GitHub Action labeler. PR [#67](https://github.com/fastapi/fastapi-cli/pull/67) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Update GitHub Action add-to-project. PR [#66](https://github.com/fastapi/fastapi-cli/pull/66) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Add GitHub Action add-to-project. PR [#65](https://github.com/fastapi/fastapi-cli/pull/65) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.5
 
 ### Breaking Changes

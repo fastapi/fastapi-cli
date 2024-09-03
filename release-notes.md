@@ -6,6 +6,7 @@
 
 ### Internal
 
+* 💚 Set `include-hidden-files` to `True` when using the `upload-artifact` GH action. PR [#84](https://github.com/fastapi/fastapi-cli/pull/84) by [@svlandeg](https://github.com/svlandeg).
 * 👷 Update `latest-changes` GitHub Action. PR [#79](https://github.com/fastapi/fastapi-cli/pull/79) by [@tiangolo](https://github.com/tiangolo).
 * 🔧 Update coverage configs. PR [#74](https://github.com/fastapi/fastapi-cli/pull/74) by [@tiangolo](https://github.com/tiangolo).
 * 🔧 Add URLs to `pyproject.toml`, show up in PyPI. PR [#72](https://github.com/fastapi/fastapi-cli/pull/72) by [@tiangolo](https://github.com/tiangolo).

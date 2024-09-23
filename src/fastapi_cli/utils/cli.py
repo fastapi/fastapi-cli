@@ -12,7 +12,7 @@ class CustomFormatter(DefaultFormatter):
         self.toolkit = get_rich_toolkit()
 
     def formatMessage(self, record: logging.LogRecord) -> str:
-        return self.toolkit.print_as_string(record.message, tag=record.levelname)
+        return self.toolkit.print_as_string(record.getMessage(), tag=record.levelname)
 
 
 def get_uvicorn_log_config() -> Dict[str, Any]:
@@ -68,6 +68,7 @@ def get_rich_toolkit() -> RichToolkit:
             "result": "grey85",
             "progress": "on #007166",
             "error": "red",
+            "log.info": "black on blue",
         },
     )
 

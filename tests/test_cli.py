@@ -41,6 +41,40 @@ def test_dev() -> None:
             in result.output
         )
 
+        assert "🐍 single_file_app.py" in result.output
+
+
+def test_dev_package() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["dev", "nested_package/package"])
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "nested_package.package:app",
+                "host": "127.0.0.1",
+                "port": 8000,
+                "reload": True,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "log_config": get_uvicorn_log_config(),
+            }
+        assert "Using import string: nested_package.package:app" in result.output
+        assert "Starting development server 🚀" in result.output
+        assert "Server started at https://127.0.0.1:8000" in result.output
+        assert "Documentation at https://127.0.0.1:8000/docs" in result.output
+        assert (
+            "Running in development mode, for production use: fastapi run"
+            in result.output
+        )
+
+        assert "📁 package" in result.output
+        assert "└── 🐍 __init__.py" in result.output
+        assert "└── 📁 package" in result.output
+        assert "    └── 🐍 __init__.py" in result.output
+
 
 def test_dev_args() -> None:
     with changing_dir(assets_path):

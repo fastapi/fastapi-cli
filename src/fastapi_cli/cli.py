@@ -100,7 +100,8 @@ def _run(
         try:
             import_data = get_import_data(path=path, app_name=app)
         except FastAPICLIException as e:
-            logger.error(str(e))
+            toolkit.print_line()
+            toolkit.print(f"[error]{e}")
             raise typer.Exit(code=1) from None
 
         logger.debug(f"Importing from {import_data.module_data.extra_sys_path}")

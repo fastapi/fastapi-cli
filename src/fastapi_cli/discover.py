@@ -3,13 +3,7 @@ import sys
 from dataclasses import dataclass
 from logging import getLogger
 from pathlib import Path
-from typing import Union
-
-from rich import print
-from rich.padding import Padding
-from rich.panel import Panel
-from rich.syntax import Syntax
-from rich.tree import Tree
+from typing import List, Union
 
 from fastapi_cli.exceptions import FastAPICLIException
 
@@ -45,12 +39,10 @@ def get_default_path() -> Path:
 class ModuleData:
     module_import_str: str
     extra_sys_path: Path
+    module_paths: List[Path]
 
 
 def get_module_data_from_path(path: Path) -> ModuleData:
-    logger.info(
-        "Searching for package file structure from directories with [blue]__init__.py[/blue] files"
-    )
     use_path = path.resolve()
     module_path = use_path
     if use_path.is_file() and use_path.stem == "__init__":
@@ -64,37 +56,12 @@ def get_module_data_from_path(path: Path) -> ModuleData:
             extra_sys_path = parent.parent
         else:
             break
-    logger.info(f"Importing from {extra_sys_path.resolve()}")
-    root = module_paths[0]
-    name = f"🐍 {root.name}" if root.is_file() else f"📁 {root.name}"
-    root_tree = Tree(name)
-    if root.is_dir():
-        root_tree.add("[dim]🐍 __init__.py[/dim]")
-    tree = root_tree
-    for sub_path in module_paths[1:]:
-        sub_name = (
-            f"🐍 {sub_path.name}" if sub_path.is_file() else f"📁 {sub_path.name}"
-        )
-        tree = tree.add(sub_name)
-        if sub_path.is_dir():
-            tree.add("[dim]🐍 __init__.py[/dim]")
-    title = "[b green]Python module file[/b green]"
-    if len(module_paths) > 1 or module_path.is_dir():
-        title = "[b green]Python package file structure[/b green]"
-    panel = Padding(
-        Panel(
-            root_tree,
-            title=title,
-            expand=False,
-            padding=(1, 2),
-        ),
-        1,
-    )
-    print(panel)
+
     module_str = ".".join(p.stem for p in module_paths)
-    logger.info(f"Importing module [green]{module_str}[/green]")
     return ModuleData(
-        module_import_str=module_str, extra_sys_path=extra_sys_path.resolve()
+        module_import_str=module_str,
+        extra_sys_path=extra_sys_path.resolve(),
+        module_paths=module_paths,
     )
 
 
@@ -136,32 +103,30 @@ def get_app_name(*, mod_data: ModuleData, app_name: Union[str, None] = None) -> 
     raise FastAPICLIException("Could not find FastAPI app in module, try using --app")
 
 
-def get_import_string(
+@dataclass
+class ImportData:
+    app_name: str
+    module_data: ModuleData
+    import_string: str
+
+
+def get_import_data(
     *, path: Union[Path, None] = None, app_name: Union[str, None] = None
-) -> str:
+) -> ImportData:
     if not path:
         path = get_default_path()
-    logger.info(f"Using path [blue]{path}[/blue]")
-    logger.info(f"Resolved absolute path {path.resolve()}")
+
+    logger.debug(f"Using path [blue]{path}[/blue]")
+    logger.debug(f"Resolved absolute path {path.resolve()}")
+
     if not path.exists():
         raise FastAPICLIException(f"Path does not exist {path}")
     mod_data = get_module_data_from_path(path)
     sys.path.insert(0, str(mod_data.extra_sys_path))
     use_app_name = get_app_name(mod_data=mod_data, app_name=app_name)
-    import_example = Syntax(
-        f"from {mod_data.module_import_str} import {use_app_name}", "python"
-    )
-    import_panel = Padding(
-        Panel(
-            import_example,
-            title="[b green]Importable FastAPI app[/b green]",
-            expand=False,
-            padding=(1, 2),
-        ),
-        1,
-    )
-    logger.info("Found importable FastAPI app")
-    print(import_panel)
+
     import_string = f"{mod_data.module_import_str}:{use_app_name}"
-    logger.info(f"Using import string [b green]{import_string}[/b green]")
-    return import_string
+
+    return ImportData(
+        app_name=use_app_name, module_data=mod_data, import_string=import_string
+    )

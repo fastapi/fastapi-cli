@@ -29,6 +29,7 @@ def test_dev() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "factory": False,
             }
         assert "Using import string single_file_app:app" in result.output
         assert (
@@ -71,6 +72,7 @@ def test_dev_args() -> None:
                 "workers": None,
                 "root_path": "/api",
                 "proxy_headers": False,
+                "factory": False,
             }
         assert "Using import string single_file_app:api" in result.output
         assert (
@@ -97,6 +99,7 @@ def test_run() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "factory": False,
             }
         assert "Using import string single_file_app:app" in result.output
         assert (
@@ -141,6 +144,7 @@ def test_run_args() -> None:
                 "workers": 2,
                 "root_path": "/api",
                 "proxy_headers": False,
+                "factory": False,
             }
         assert "Using import string single_file_app:api" in result.output
         assert (

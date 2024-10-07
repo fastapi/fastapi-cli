@@ -2,6 +2,7 @@
 
 ## Latest Changes
 
+* 👷 Update `labeler.yml`. PR [#101](https://github.com/fastapi/fastapi-cli/pull/101) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Do not sync labels as it overrides manually added labels. PR [#71](https://github.com/fastapi/fastapi-cli/pull/71) by [@tiangolo](https://github.com/tiangolo).
 
 ### Internal

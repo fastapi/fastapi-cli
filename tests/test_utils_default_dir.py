@@ -42,7 +42,7 @@ def test_app_dir_main(
     assert f"Using import string app.{prog_name}:app" in captured.out
 
 
-def test_app_dir_non_default(monkeypatch) -> None:
+def test_app_dir_non_default(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.chdir(assets_path / "default_files" / "default_app_dir_non_default")
     with pytest.raises(FastAPICLIException) as e:
         get_import_string()

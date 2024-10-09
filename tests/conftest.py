@@ -24,7 +24,7 @@ def setup_terminal() -> None:
 
 
 @pytest.fixture(autouse=True)
-def reset_imports():
+def reset_imports() -> Generator[None, None, None]:
     modules = sys.modules.copy()
     try:
         yield

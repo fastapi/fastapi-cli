@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Optional, Union
 
 import pytest
 from fastapi_cli.discover import get_import_string
@@ -33,10 +34,10 @@ assets_path = Path(__file__).parent / "assets"
     ],
 )
 def test_package_mod_init_inside(
-    chdir_path,
-    import_path,
-    app_name,
-    expect_import_string,
+    chdir_path: str,
+    import_path: Union[Path, str],
+    app_name: Optional[str],
+    expect_import_string: str,
     monkeypatch: pytest.MonkeyPatch,
     capsys: CaptureFixture[str],
 ) -> None:

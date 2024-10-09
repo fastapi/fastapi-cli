@@ -14,7 +14,7 @@ assets_path = Path(__file__).parent / "assets"
 
 
 @pytest.fixture(autouse=True)
-def assets(monkeypatch: pytest.MonkeyPatch):
+def assets(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.chdir(assets_path)
 
 

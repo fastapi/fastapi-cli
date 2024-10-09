@@ -21,3 +21,12 @@ def setup_terminal() -> None:
     rich_utils.FORCE_TERMINAL = False
     setup_logging(terminal_width=3000)
     return
+
+
+@pytest.fixture(autouse=True)
+def reset_imports() -> Generator[None, None, None]:
+    modules = sys.modules.copy()
+    try:
+        yield
+    finally:
+        sys.modules = modules

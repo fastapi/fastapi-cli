@@ -13,12 +13,8 @@ runner = CliRunner()
 assets_path = Path(__file__).parent / "assets"
 
 
-@pytest.fixture(autouse=True)
-def assets(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_dev(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.chdir(assets_path)
-
-
-def test_dev() -> None:
     with patch.object(uvicorn, "run") as mock_run:
         result = runner.invoke(app, ["dev", "single_file_app.py"])
         assert result.exit_code == 0, result.output
@@ -41,7 +37,8 @@ def test_dev() -> None:
     assert "│  fastapi run" in result.output
 
 
-def test_dev_args() -> None:
+def test_dev_args(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.chdir(assets_path)
     with patch.object(uvicorn, "run") as mock_run:
         result = runner.invoke(
             app,
@@ -80,7 +77,8 @@ def test_dev_args() -> None:
     assert "│  fastapi run" in result.output
 
 
-def test_run() -> None:
+def test_run(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.chdir(assets_path)
     with patch.object(uvicorn, "run") as mock_run:
         result = runner.invoke(app, ["run", "single_file_app.py"])
         assert result.exit_code == 0, result.output
@@ -103,7 +101,8 @@ def test_run() -> None:
     assert "│  fastapi dev" in result.output
 
 
-def test_run_args() -> None:
+def test_run_args(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.chdir(assets_path)
     with patch.object(uvicorn, "run") as mock_run:
         result = runner.invoke(
             app,
@@ -144,7 +143,8 @@ def test_run_args() -> None:
     assert "│  fastapi dev" in result.output
 
 
-def test_run_error() -> None:
+def test_run_error(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.chdir(assets_path)
     result = runner.invoke(app, ["run", "non_existing_file.py"])
     assert result.exit_code == 1, result.output
     assert "Path does not exist non_existing_file.py" in result.output

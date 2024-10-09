@@ -1,8 +1,11 @@
+import importlib
 from logging import getLogger
 from pathlib import Path
 from typing import Any, Union
 
 import typer
+import uvicorn
+from fastapi import FastAPI
 from rich import print
 from rich.padding import Padding
 from rich.panel import Panel
@@ -49,6 +52,13 @@ def callback(
     """
 
 
+def _get_docs_url(uvicorn_path: str) -> Union[str, None]:
+    module_path, app_name = uvicorn_path.split(sep=":")
+    module = importlib.import_module(module_path)
+    fastapi_app: FastAPI = getattr(module, app_name)
+    return fastapi_app.docs_url
+
+
 def _run(
     path: Union[Path, None] = None,
     *,
@@ -66,7 +76,16 @@ def _run(
     except FastAPICLIException as e:
         logger.error(str(e))
         raise typer.Exit(code=1) from None
-    serving_str = f"[dim]Serving at:[/dim] [link]http://{host}:{port}[/link]\n\n[dim]API docs:[/dim] [link]http://{host}:{port}/docs[/link]"
+
+    docs_url = _get_docs_url(use_uvicorn_app)
+
+    api_docs_string = (
+        f"API docs:[/dim] [link]http://{host}:{port}{docs_url}[/link]"
+        if docs_url
+        else ""
+    )
+
+    serving_str = f"[dim]Serving at:[/dim] [link]http://{host}:{port}[/link]\n\n[dim]{api_docs_string}"
 
     if command == "dev":
         panel = Panel(

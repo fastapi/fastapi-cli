@@ -7,6 +7,7 @@
 
 ### Internal
 
+* 👷 Use uv in CI. PR [#105](https://github.com/fastapi/fastapi-cli/pull/105) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Update `labeler.yml`. PR [#102](https://github.com/fastapi/fastapi-cli/pull/102) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump tiangolo/issue-manager from 0.5.0 to 0.5.1. PR [#89](https://github.com/fastapi/fastapi-cli/pull/89) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Update `issue-manager.yml`. PR [#88](https://github.com/fastapi/fastapi-cli/pull/88) by [@tiangolo](https://github.com/tiangolo).

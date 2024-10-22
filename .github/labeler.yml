@@ -21,3 +21,7 @@ internal:
         - '!README.md'
         - '!src/**'
         - '!pyproject.toml'
+
+#if branch starts with feature/ then apply this label
+feature:
+ - head-branch: ['^feature', 'feature']

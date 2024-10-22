@@ -111,6 +111,8 @@ def test_dev_args() -> None:
                     "--app",
                     "api",
                     "--no-proxy-headers",
+                    "--log-config",
+                    "log_config.yaml",
                 ],
             )
             assert result.exit_code == 0, result.output
@@ -125,7 +127,7 @@ def test_dev_args() -> None:
                 "root_path": "/api",
                 "proxy_headers": False,
                 "forwarded_allow_ips": None,
-                "log_config": get_uvicorn_log_config(),
+                "log_config": "log_config.yaml",
             }
         assert "Using import string: single_file_app:api" in result.output
         assert "Starting development server 🚀" in result.output
@@ -311,7 +313,7 @@ def test_run_args() -> None:
                 "root_path": "/api",
                 "proxy_headers": False,
                 "forwarded_allow_ips": None,
-                "log_config": get_uvicorn_log_config(),
+                "log_config": "log_config.yaml",
             }
 
         assert "Using import string: single_file_app:api" in result.output

@@ -1,9 +1,10 @@
 import importlib
 import sys
+from contextlib import contextmanager
 from dataclasses import dataclass
 from logging import getLogger
 from pathlib import Path
-from typing import Union
+from typing import Iterator, Tuple, Union
 
 from rich import print
 from rich.padding import Padding
@@ -45,6 +46,18 @@ def get_default_path() -> Path:
 class ModuleData:
     module_import_str: str
     extra_sys_path: Path
+
+    @contextmanager
+    def sys_path(self) -> Iterator[str]:
+        """Context manager to temporarily alter sys.path"""
+        extra_sys_path = str(self.extra_sys_path) if self.extra_sys_path else ""
+        if extra_sys_path:
+            logger.debug("Adding %s to sys.path...", extra_sys_path)
+            sys.path.insert(0, extra_sys_path)
+            yield extra_sys_path
+        if extra_sys_path and sys.path and sys.path[0] == extra_sys_path:
+            logger.debug("Removing %s from sys.path...", extra_sys_path)
+            sys.path.pop(0)
 
 
 def get_module_data_from_path(path: Path) -> ModuleData:
@@ -136,9 +149,9 @@ def get_app_name(*, mod_data: ModuleData, app_name: Union[str, None] = None) -> 
     raise FastAPICLIException("Could not find FastAPI app in module, try using --app")
 
 
-def get_import_string(
+def get_import_string_parts(
     *, path: Union[Path, None] = None, app_name: Union[str, None] = None
-) -> str:
+) -> Tuple[ModuleData, str]:
     if not path:
         path = get_default_path()
     logger.info(f"Using path [blue]{path}[/blue]")
@@ -148,6 +161,15 @@ def get_import_string(
     mod_data = get_module_data_from_path(path)
     sys.path.insert(0, str(mod_data.extra_sys_path))
     use_app_name = get_app_name(mod_data=mod_data, app_name=app_name)
+
+    return mod_data, use_app_name
+
+
+def get_import_string(
+    *, path: Union[Path, None] = None, app_name: Union[str, None] = None
+) -> str:
+    mod_data, use_app_name = get_import_string_parts(path=path, app_name=app_name)
+    import_string = f"{mod_data.module_import_str}:{use_app_name}"
     import_example = Syntax(
         f"from {mod_data.module_import_str} import {use_app_name}", "python"
     )
@@ -162,6 +184,17 @@ def get_import_string(
     )
     logger.info("Found importable FastAPI app")
     print(import_panel)
-    import_string = f"{mod_data.module_import_str}:{use_app_name}"
+
     logger.info(f"Using import string [b green]{import_string}[/b green]")
     return import_string
+
+
+def get_app(
+    *, path: Union[Path, None] = None, app_name: Union[str, None] = None
+) -> FastAPI:
+    mod_data, use_app_name = get_import_string_parts(path=path, app_name=app_name)
+    with mod_data.sys_path():
+        mod = importlib.import_module(mod_data.module_import_str)
+    app = getattr(mod, use_app_name)
+    ## get_import_string_parts guarantees app is FastAPI object
+    return app  # type: ignore[no-any-return]

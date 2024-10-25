@@ -29,6 +29,7 @@ def test_dev() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "forwarded_allow_ips": None,
             }
         assert "Using import string single_file_app:app" in result.output
         assert (
@@ -71,6 +72,7 @@ def test_dev_args() -> None:
                 "workers": None,
                 "root_path": "/api",
                 "proxy_headers": False,
+                "forwarded_allow_ips": None,
             }
         assert "Using import string single_file_app:api" in result.output
         assert (
@@ -97,6 +99,36 @@ def test_run() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "forwarded_allow_ips": None,
+            }
+        assert "Using import string single_file_app:app" in result.output
+        assert (
+            "╭─────────── FastAPI CLI - Production mode ───────────╮" in result.output
+        )
+        assert "│  Serving at: http://0.0.0.0:8000" in result.output
+        assert "│  API docs: http://0.0.0.0:8000/docs" in result.output
+        assert "│  Running in production mode, for development use:" in result.output
+        assert "│  fastapi dev" in result.output
+
+
+def test_run_trust_proxy() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["run", "single_file_app.py", "--forwarded-allow-ips", "*"]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "single_file_app:app",
+                "host": "0.0.0.0",
+                "port": 8000,
+                "reload": False,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "forwarded_allow_ips": "*",
             }
         assert "Using import string single_file_app:app" in result.output
         assert (
@@ -141,6 +173,7 @@ def test_run_args() -> None:
                 "workers": 2,
                 "root_path": "/api",
                 "proxy_headers": False,
+                "forwarded_allow_ips": None,
             }
         assert "Using import string single_file_app:api" in result.output
         assert (

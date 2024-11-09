@@ -68,11 +68,26 @@ def _run(
     except FastAPICLIException as e:
         logger.error(str(e))
         raise typer.Exit(code=1) from None
-    serving_str = f"[dim]Serving at:[/dim] [link]http://{host}:{port}[/link]\n\n[dim]API docs:[/dim] [link]http://{host}:{port}/docs[/link]"
+
+    serving_str = f"[dim]Serving at:[/dim] [link]http://{host}:{port}[/link]\n\n"
+
+    if app.openapi_url and (app.docs_url or app.redoc_url):
+        serving_str += "[dim]API docs:[/dim] "
+
+        if app.docs_url:
+            serving_str += f"[link]http://{host}:{port}{app.docs_url}[/link]\n"
+
+        if app.docs_url and app.redoc_url:
+            serving_str += " " * 10
+
+        if app.redoc_url:
+            serving_str += f"[link]http://{host}:{port}{app.redoc_url}[/link]\n\n"
+        else:
+            serving_str += "\n"
 
     if command == "dev":
         panel = Panel(
-            f"{serving_str}\n\n[dim]Running in development mode, for production use:[/dim] \n\n[b]fastapi run[/b]",
+            f"{serving_str}[dim]Running in development mode, for production use:[/dim] \n\n[b]fastapi run[/b]",
             title="FastAPI CLI - Development mode",
             expand=False,
             padding=(1, 2),
@@ -80,7 +95,7 @@ def _run(
         )
     else:
         panel = Panel(
-            f"{serving_str}\n\n[dim]Running in production mode, for development use:[/dim] \n\n[b]fastapi dev[/b]",
+            f"{serving_str}[dim]Running in production mode, for development use:[/dim] \n\n[b]fastapi dev[/b]",
             title="FastAPI CLI - Production mode",
             expand=False,
             padding=(1, 2),
@@ -92,7 +107,7 @@ def _run(
             "Could not import Uvicorn, try running 'pip install uvicorn'"
         ) from None
     uvicorn.run(
-        app=use_uvicorn_app,
+        app=import_string,
         host=host,
         port=port,
         reload=reload,

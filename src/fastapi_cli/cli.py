@@ -58,7 +58,7 @@ def _run(
     workers: Union[int, None] = None,
     root_path: str = "",
     command: str,
-    app: Union[str, None] = None,
+    app_name: Union[str, None] = None,
     proxy_headers: bool = False,
 ) -> None:
     try:
@@ -135,7 +135,7 @@ def dev(
             help="The root path is used to tell your app that it is being served to the outside world with some [bold]path prefix[/bold] set up in some termination proxy or similar."
         ),
     ] = "",
-    app: Annotated[
+    app_name: Annotated[
         Union[str, None],
         typer.Option(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
@@ -179,7 +179,7 @@ def dev(
         port=port,
         reload=reload,
         root_path=root_path,
-        app=app,
+        app_name=app_name,
         command="dev",
         proxy_headers=proxy_headers,
     )
@@ -224,7 +224,7 @@ def run(
             help="The root path is used to tell your app that it is being served to the outside world with some [bold]path prefix[/bold] set up in some termination proxy or similar."
         ),
     ] = "",
-    app: Annotated[
+    app_name: Annotated[
         Union[str, None],
         typer.Option(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
@@ -269,7 +269,7 @@ def run(
         reload=reload,
         workers=workers,
         root_path=root_path,
-        app=app,
+        app_name=app_name,
         command="run",
         proxy_headers=proxy_headers,
     )

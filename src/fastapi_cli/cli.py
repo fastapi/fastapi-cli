@@ -8,7 +8,7 @@ from rich.padding import Padding
 from rich.panel import Panel
 from typing_extensions import Annotated
 
-from fastapi_cli.discover import get_import_string
+from fastapi_cli.discover import get_import_string_and_app
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
@@ -62,7 +62,9 @@ def _run(
     proxy_headers: bool = False,
 ) -> None:
     try:
-        use_uvicorn_app = get_import_string(path=path, app_name=app)
+        # Get import_string app to use it with uvicorn and enable reload or workers.
+        # Get FastAPI app to conditional printing API docs URLs
+        import_string, app = get_import_string_and_app(path=path, app_name=app_name)
     except FastAPICLIException as e:
         logger.error(str(e))
         raise typer.Exit(code=1) from None

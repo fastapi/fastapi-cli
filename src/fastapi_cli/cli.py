@@ -8,7 +8,7 @@ from rich.padding import Padding
 from rich.panel import Panel
 from typing_extensions import Annotated
 
-from fastapi_cli.discover import get_import_string
+from fastapi_cli.discover import get_import_string_and_app
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
@@ -58,19 +58,36 @@ def _run(
     workers: Union[int, None] = None,
     root_path: str = "",
     command: str,
-    app: Union[str, None] = None,
+    app_name: Union[str, None] = None,
     proxy_headers: bool = False,
 ) -> None:
     try:
-        use_uvicorn_app = get_import_string(path=path, app_name=app)
+        # Get import_string app to use it with uvicorn and enable reload or workers.
+        # Get FastAPI app to conditional printing API docs URLs
+        import_string, app = get_import_string_and_app(path=path, app_name=app_name)
     except FastAPICLIException as e:
         logger.error(str(e))
         raise typer.Exit(code=1) from None
-    serving_str = f"[dim]Serving at:[/dim] [link]http://{host}:{port}[/link]\n\n[dim]API docs:[/dim] [link]http://{host}:{port}/docs[/link]"
+
+    serving_str = f"[dim]Serving at:[/dim] [link]http://{host}:{port}[/link]\n\n"
+
+    if app.openapi_url and (app.docs_url or app.redoc_url):
+        serving_str += "[dim]API docs:[/dim] "
+
+        if app.docs_url:
+            serving_str += f"[link]http://{host}:{port}{app.docs_url}[/link]\n"
+
+        if app.docs_url and app.redoc_url:
+            serving_str += " " * 10
+
+        if app.redoc_url:
+            serving_str += f"[link]http://{host}:{port}{app.redoc_url}[/link]\n\n"
+        else:
+            serving_str += "\n"
 
     if command == "dev":
         panel = Panel(
-            f"{serving_str}\n\n[dim]Running in development mode, for production use:[/dim] \n\n[b]fastapi run[/b]",
+            f"{serving_str}[dim]Running in development mode, for production use:[/dim] \n\n[b]fastapi run[/b]",
             title="FastAPI CLI - Development mode",
             expand=False,
             padding=(1, 2),
@@ -78,7 +95,7 @@ def _run(
         )
     else:
         panel = Panel(
-            f"{serving_str}\n\n[dim]Running in production mode, for development use:[/dim] \n\n[b]fastapi dev[/b]",
+            f"{serving_str}[dim]Running in production mode, for development use:[/dim] \n\n[b]fastapi dev[/b]",
             title="FastAPI CLI - Production mode",
             expand=False,
             padding=(1, 2),
@@ -90,7 +107,7 @@ def _run(
             "Could not import Uvicorn, try running 'pip install uvicorn'"
         ) from None
     uvicorn.run(
-        app=use_uvicorn_app,
+        app=import_string,
         host=host,
         port=port,
         reload=reload,
@@ -133,7 +150,7 @@ def dev(
             help="The root path is used to tell your app that it is being served to the outside world with some [bold]path prefix[/bold] set up in some termination proxy or similar."
         ),
     ] = "",
-    app: Annotated[
+    app_name: Annotated[
         Union[str, None],
         typer.Option(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
@@ -177,7 +194,7 @@ def dev(
         port=port,
         reload=reload,
         root_path=root_path,
-        app=app,
+        app_name=app_name,
         command="dev",
         proxy_headers=proxy_headers,
     )
@@ -222,7 +239,7 @@ def run(
             help="The root path is used to tell your app that it is being served to the outside world with some [bold]path prefix[/bold] set up in some termination proxy or similar."
         ),
     ] = "",
-    app: Annotated[
+    app_name: Annotated[
         Union[str, None],
         typer.Option(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
@@ -267,7 +284,7 @@ def run(
         reload=reload,
         workers=workers,
         root_path=root_path,
-        app=app,
+        app_name=app_name,
         command="run",
         proxy_headers=proxy_headers,
     )

@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import pytest
-from fastapi_cli.discover import get_import_string
+from fastapi_cli.discover import get_import_string_and_app
 from fastapi_cli.exceptions import FastAPICLIException
 from pytest import CaptureFixture
 
@@ -12,7 +12,7 @@ assets_path = Path(__file__).parent / "assets"
 
 def test_app_dir_main(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path / "default_files" / "default_app_dir_main"):
-        import_string = get_import_string()
+        import_string, _ = get_import_string_and_app()
         assert import_string == "app.main:app"
 
     captured = capsys.readouterr()
@@ -36,7 +36,7 @@ def test_app_dir_main(capsys: CaptureFixture[str]) -> None:
 
 def test_app_dir_app(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path / "default_files" / "default_app_dir_app"):
-        import_string = get_import_string()
+        import_string, _ = get_import_string_and_app()
         assert import_string == "app.app:app"
 
     captured = capsys.readouterr()
@@ -58,7 +58,7 @@ def test_app_dir_app(capsys: CaptureFixture[str]) -> None:
 
 def test_app_dir_api(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path / "default_files" / "default_app_dir_api"):
-        import_string = get_import_string()
+        import_string, _ = get_import_string_and_app()
         assert import_string == "app.api:app"
 
     captured = capsys.readouterr()
@@ -81,7 +81,7 @@ def test_app_dir_api(capsys: CaptureFixture[str]) -> None:
 def test_app_dir_non_default() -> None:
     with changing_dir(assets_path / "default_files" / "default_app_dir_non_default"):
         with pytest.raises(FastAPICLIException) as e:
-            get_import_string()
+            get_import_string_and_app()
         assert (
             "Could not find a default file to run, please provide an explicit path"
             in e.value.args[0]

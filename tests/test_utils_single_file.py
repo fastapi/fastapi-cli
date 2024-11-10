@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import pytest
-from fastapi_cli.discover import get_import_string
+from fastapi_cli.discover import get_import_string_and_app
 from fastapi_cli.exceptions import FastAPICLIException
 from pytest import CaptureFixture
 
@@ -12,7 +12,7 @@ assets_path = Path(__file__).parent / "assets"
 
 def test_single_file_app(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path):
-        import_string = get_import_string(path=Path("single_file_app.py"))
+        import_string, _ = get_import_string_and_app(path=Path("single_file_app.py"))
         assert import_string == "single_file_app:app"
 
     captured = capsys.readouterr()
@@ -36,7 +36,7 @@ def test_single_file_app(capsys: CaptureFixture[str]) -> None:
 
 def test_single_file_api(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path):
-        import_string = get_import_string(path=Path("single_file_api.py"))
+        import_string, _ = get_import_string_and_app(path=Path("single_file_api.py"))
         assert import_string == "single_file_api:api"
 
     captured = capsys.readouterr()
@@ -60,7 +60,7 @@ def test_single_file_api(capsys: CaptureFixture[str]) -> None:
 
 def test_single_file_other(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path):
-        import_string = get_import_string(path=Path("single_file_other.py"))
+        import_string, _ = get_import_string_and_app(path=Path("single_file_other.py"))
         assert import_string == "single_file_other:first_other"
 
     captured = capsys.readouterr()
@@ -84,7 +84,7 @@ def test_single_file_other(capsys: CaptureFixture[str]) -> None:
 
 def test_single_file_explicit_object(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path):
-        import_string = get_import_string(
+        import_string, _ = get_import_string_and_app(
             path=Path("single_file_app.py"), app_name="second_other"
         )
         assert import_string == "single_file_app:second_other"
@@ -111,5 +111,5 @@ def test_single_file_explicit_object(capsys: CaptureFixture[str]) -> None:
 def test_single_non_existing_file() -> None:
     with changing_dir(assets_path):
         with pytest.raises(FastAPICLIException) as e:
-            get_import_string(path=assets_path / "non_existing.py")
+            get_import_string_and_app(path=assets_path / "non_existing.py")
     assert "Path does not exist" in e.value.args[0]

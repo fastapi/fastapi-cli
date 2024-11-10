@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import pytest
-from fastapi_cli.discover import get_import_string
+from fastapi_cli.discover import get_import_string_and_app
 from fastapi_cli.exceptions import FastAPICLIException
 from pytest import CaptureFixture
 
@@ -12,7 +12,7 @@ assets_path = Path(__file__).parent / "assets"
 
 def test_package_app_root(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path):
-        import_string = get_import_string(path=Path("package/mod/app.py"))
+        import_string, _ = get_import_string_and_app(path=Path("package/mod/app.py"))
         assert import_string == "package.mod.app:app"
 
     captured = capsys.readouterr()
@@ -40,7 +40,7 @@ def test_package_app_root(capsys: CaptureFixture[str]) -> None:
 
 def test_package_api_root(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path):
-        import_string = get_import_string(path=Path("package/mod/api.py"))
+        import_string, _ = get_import_string_and_app(path=Path("package/mod/api.py"))
         assert import_string == "package.mod.api:api"
 
     captured = capsys.readouterr()
@@ -68,7 +68,7 @@ def test_package_api_root(capsys: CaptureFixture[str]) -> None:
 
 def test_package_other_root(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path):
-        import_string = get_import_string(path=Path("package/mod/other.py"))
+        import_string, _ = get_import_string_and_app(path=Path("package/mod/other.py"))
         assert import_string == "package.mod.other:first_other"
 
     captured = capsys.readouterr()
@@ -96,7 +96,7 @@ def test_package_other_root(capsys: CaptureFixture[str]) -> None:
 
 def test_package_app_mod(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path / "package/mod"):
-        import_string = get_import_string(path=Path("app.py"))
+        import_string, _ = get_import_string_and_app(path=Path("app.py"))
         assert import_string == "package.mod.app:app"
 
     captured = capsys.readouterr()
@@ -124,7 +124,7 @@ def test_package_app_mod(capsys: CaptureFixture[str]) -> None:
 
 def test_package_api_mod(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path / "package/mod"):
-        import_string = get_import_string(path=Path("api.py"))
+        import_string, _ = get_import_string_and_app(path=Path("api.py"))
         assert import_string == "package.mod.api:api"
 
     captured = capsys.readouterr()
@@ -152,7 +152,7 @@ def test_package_api_mod(capsys: CaptureFixture[str]) -> None:
 
 def test_package_other_mod(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path / "package/mod"):
-        import_string = get_import_string(path=Path("other.py"))
+        import_string, _ = get_import_string_and_app(path=Path("other.py"))
         assert import_string == "package.mod.other:first_other"
 
     captured = capsys.readouterr()
@@ -180,7 +180,9 @@ def test_package_other_mod(capsys: CaptureFixture[str]) -> None:
 
 def test_package_app_above(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path.parent):
-        import_string = get_import_string(path=Path("assets/package/mod/app.py"))
+        import_string, _ = get_import_string_and_app(
+            path=Path("assets/package/mod/app.py")
+        )
         assert import_string == "package.mod.app:app"
 
     captured = capsys.readouterr()
@@ -208,7 +210,9 @@ def test_package_app_above(capsys: CaptureFixture[str]) -> None:
 
 def test_package_api_parent(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path.parent):
-        import_string = get_import_string(path=Path("assets/package/mod/api.py"))
+        import_string, _ = get_import_string_and_app(
+            path=Path("assets/package/mod/api.py")
+        )
         assert import_string == "package.mod.api:api"
 
     captured = capsys.readouterr()
@@ -236,7 +240,9 @@ def test_package_api_parent(capsys: CaptureFixture[str]) -> None:
 
 def test_package_other_parent(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path.parent):
-        import_string = get_import_string(path=Path("assets/package/mod/other.py"))
+        import_string, _ = get_import_string_and_app(
+            path=Path("assets/package/mod/other.py")
+        )
         assert import_string == "package.mod.other:first_other"
 
     captured = capsys.readouterr()
@@ -264,7 +270,7 @@ def test_package_other_parent(capsys: CaptureFixture[str]) -> None:
 
 def test_package_mod_init_inside(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path / "package/mod"):
-        import_string = get_import_string(path=Path("__init__.py"))
+        import_string, _ = get_import_string_and_app(path=Path("__init__.py"))
         assert import_string == "package.mod:app"
 
     captured = capsys.readouterr()
@@ -291,7 +297,7 @@ def test_package_mod_init_inside(capsys: CaptureFixture[str]) -> None:
 
 def test_package_mod_dir(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path):
-        import_string = get_import_string(path=Path("package/mod"))
+        import_string, _ = get_import_string_and_app(path=Path("package/mod"))
         assert import_string == "package.mod:app"
 
     captured = capsys.readouterr()
@@ -318,7 +324,7 @@ def test_package_mod_dir(capsys: CaptureFixture[str]) -> None:
 
 def test_package_init_inside(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path / "package"):
-        import_string = get_import_string(path=Path("__init__.py"))
+        import_string, _ = get_import_string_and_app(path=Path("__init__.py"))
         assert import_string == "package:app"
 
     captured = capsys.readouterr()
@@ -343,7 +349,7 @@ def test_package_init_inside(capsys: CaptureFixture[str]) -> None:
 
 def test_package_dir_inside_package(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path / "package/mod"):
-        import_string = get_import_string(path=Path("../"))
+        import_string, _ = get_import_string_and_app(path=Path("../"))
         assert import_string == "package:app"
 
     captured = capsys.readouterr()
@@ -368,7 +374,7 @@ def test_package_dir_inside_package(capsys: CaptureFixture[str]) -> None:
 
 def test_package_dir_above_package(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path.parent):
-        import_string = get_import_string(path=Path("assets/package"))
+        import_string, _ = get_import_string_and_app(path=Path("assets/package"))
         assert import_string == "package:app"
 
     captured = capsys.readouterr()
@@ -393,7 +399,9 @@ def test_package_dir_above_package(capsys: CaptureFixture[str]) -> None:
 
 def test_package_dir_explicit_app(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path):
-        import_string = get_import_string(path=Path("package"), app_name="api")
+        import_string, _ = get_import_string_and_app(
+            path=Path("package"), app_name="api"
+        )
         assert import_string == "package:api"
 
     captured = capsys.readouterr()
@@ -420,7 +428,7 @@ def test_broken_package_dir(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path):
         # TODO (when deprecating Python 3.8): remove ValueError
         with pytest.raises((ImportError, ValueError)):
-            get_import_string(path=Path("broken_package/mod/app.py"))
+            get_import_string_and_app(path=Path("broken_package/mod/app.py"))
 
     captured = capsys.readouterr()
     assert "Import error:" in captured.out
@@ -430,7 +438,7 @@ def test_broken_package_dir(capsys: CaptureFixture[str]) -> None:
 def test_package_dir_no_app() -> None:
     with changing_dir(assets_path):
         with pytest.raises(FastAPICLIException) as e:
-            get_import_string(path=Path("package/core/utils.py"))
+            get_import_string_and_app(path=Path("package/core/utils.py"))
         assert (
             "Could not find FastAPI app in module, try using --app" in e.value.args[0]
         )
@@ -439,7 +447,7 @@ def test_package_dir_no_app() -> None:
 def test_package_dir_object_not_an_app() -> None:
     with changing_dir(assets_path):
         with pytest.raises(FastAPICLIException) as e:
-            get_import_string(
+            get_import_string_and_app(
                 path=Path("package/core/utils.py"), app_name="get_hello_world"
             )
         assert (
@@ -451,5 +459,5 @@ def test_package_dir_object_not_an_app() -> None:
 def test_package_dir_object_app_name_not_found() -> None:
     with changing_dir(assets_path):
         with pytest.raises(FastAPICLIException) as e:
-            get_import_string(path=Path("package"), app_name="non_existent_app")
+            get_import_string_and_app(path=Path("package"), app_name="non_existent_app")
         assert "Could not find app name non_existent_app in package" in e.value.args[0]

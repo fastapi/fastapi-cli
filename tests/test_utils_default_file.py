@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 import pytest
-from fastapi_cli.discover import get_import_string
+from fastapi_cli.discover import get_import_string_and_app
 from fastapi_cli.exceptions import FastAPICLIException
 from pytest import CaptureFixture
 
@@ -20,7 +20,7 @@ def test_single_file_main(capsys: CaptureFixture[str]) -> None:
         mod = importlib.import_module("main")
 
         importlib.reload(mod)
-        import_string = get_import_string()
+        import_string, _ = get_import_string_and_app()
         assert import_string == "main:app"
 
     captured = capsys.readouterr()
@@ -47,7 +47,7 @@ def test_single_file_app(capsys: CaptureFixture[str]) -> None:
         mod = importlib.import_module("app")
 
         importlib.reload(mod)
-        import_string = get_import_string()
+        import_string, _ = get_import_string_and_app()
         assert import_string == "app:app"
 
     captured = capsys.readouterr()
@@ -74,7 +74,7 @@ def test_single_file_api(capsys: CaptureFixture[str]) -> None:
         mod = importlib.import_module("api")
 
         importlib.reload(mod)
-        import_string = get_import_string()
+        import_string, _ = get_import_string_and_app()
         assert import_string == "api:app"
 
     captured = capsys.readouterr()
@@ -96,7 +96,7 @@ def test_single_file_api(capsys: CaptureFixture[str]) -> None:
 def test_non_default_file(capsys: CaptureFixture[str]) -> None:
     with changing_dir(assets_path / "default_files" / "non_default"):
         with pytest.raises(FastAPICLIException) as e:
-            get_import_string()
+            get_import_string_and_app()
         assert (
             "Could not find a default file to run, please provide an explicit path"
             in e.value.args[0]

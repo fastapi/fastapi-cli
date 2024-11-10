@@ -20,7 +20,7 @@ def test_single_file_main(capsys: CaptureFixture[str]) -> None:
         mod = importlib.import_module("main")
 
         importlib.reload(mod)
-        import_string = get_import_string_and_app()
+        import_string, _ = get_import_string_and_app()
         assert import_string == "main:app"
 
     captured = capsys.readouterr()
@@ -47,7 +47,7 @@ def test_single_file_app(capsys: CaptureFixture[str]) -> None:
         mod = importlib.import_module("app")
 
         importlib.reload(mod)
-        import_string = get_import_string_and_app()
+        import_string, _ = get_import_string_and_app()
         assert import_string == "app:app"
 
     captured = capsys.readouterr()
@@ -74,7 +74,7 @@ def test_single_file_api(capsys: CaptureFixture[str]) -> None:
         mod = importlib.import_module("api")
 
         importlib.reload(mod)
-        import_string = get_import_string_and_app()
+        import_string, _ = get_import_string_and_app()
         assert import_string == "api:app"
 
     captured = capsys.readouterr()

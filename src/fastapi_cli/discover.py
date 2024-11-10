@@ -3,7 +3,7 @@ import sys
 from dataclasses import dataclass
 from logging import getLogger
 from pathlib import Path
-from typing import Union
+from typing import Tuple, Union
 
 from rich import print
 from rich.padding import Padding
@@ -100,7 +100,7 @@ def get_module_data_from_path(path: Path) -> ModuleData:
 
 def get_app_name_add_app(
     *, mod_data: ModuleData, app_name: Union[str, None] = None
-) -> tuple[str, FastAPI]:
+) -> Tuple[str, FastAPI]:
     try:
         mod = importlib.import_module(mod_data.module_import_str)
     except (ImportError, ValueError) as e:
@@ -140,7 +140,7 @@ def get_app_name_add_app(
 
 def get_import_string_and_app(
     *, path: Union[Path, None] = None, app_name: Union[str, None] = None
-) -> tuple[str, FastAPI]:
+) -> Tuple[str, FastAPI]:
     if not path:
         path = get_default_path()
     logger.info(f"Using path [blue]{path}[/blue]")

@@ -18,6 +18,6 @@ internal:
         - pdm_build.py
         - requirements*.txt
       - all-globs-to-all-files:
-        - README.md
+        - '!README.md'
         - '!src/**'
         - '!pyproject.toml'

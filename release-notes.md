@@ -2,10 +2,14 @@
 
 ## Latest Changes
 
+* 👷 Update `labeler.yml`. PR [#101](https://github.com/fastapi/fastapi-cli/pull/101) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Do not sync labels as it overrides manually added labels. PR [#71](https://github.com/fastapi/fastapi-cli/pull/71) by [@tiangolo](https://github.com/tiangolo).
 
 ### Internal
 
+* 👷 Fix smokeshow, checkout files on CI. PR [#106](https://github.com/fastapi/fastapi-cli/pull/106) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Use uv in CI. PR [#105](https://github.com/fastapi/fastapi-cli/pull/105) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update `labeler.yml`. PR [#102](https://github.com/fastapi/fastapi-cli/pull/102) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump tiangolo/issue-manager from 0.5.0 to 0.5.1. PR [#89](https://github.com/fastapi/fastapi-cli/pull/89) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Update `issue-manager.yml`. PR [#88](https://github.com/fastapi/fastapi-cli/pull/88) by [@tiangolo](https://github.com/tiangolo).
 * 💚 Set `include-hidden-files` to `True` when using the `upload-artifact` GH action. PR [#84](https://github.com/fastapi/fastapi-cli/pull/84) by [@svlandeg](https://github.com/svlandeg).

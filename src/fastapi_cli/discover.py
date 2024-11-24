@@ -19,6 +19,12 @@ try:
     from fastapi import FastAPI
 except ImportError:  # pragma: no cover
     FastAPI = None  # type: ignore[misc, assignment]
+    raise FastAPICLIException(
+        "Could not import FastAPI. Please install it with:\n"
+        "pip install fastapi\n\n"
+        "For full features, install with:\n"
+        "pip install 'fastapi[all]'"
+    )
 
 
 def get_default_path() -> Path:
@@ -37,7 +43,14 @@ def get_default_path() -> Path:
             return path
 
     raise FastAPICLIException(
-        "Could not find a default file to run, please provide an explicit path"
+        "Could not find a default FastAPI app file. Please ensure one of the following files exists:\n"
+        "- main.py\n"
+        "- app.py\n"
+        "- api.py\n"
+        "- app/main.py\n"
+        "- app/app.py\n"
+        "- app/api.py\n\n"
+        "Or provide an explicit path to your FastAPI app file using: fastapi run your_app.py"
     )
 
 

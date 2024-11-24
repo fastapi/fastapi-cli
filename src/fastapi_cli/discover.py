@@ -17,14 +17,14 @@ logger = getLogger(__name__)
 
 try:
     from fastapi import FastAPI
-except ImportError:  # pragma: no cover
+except ImportError as err:  # pragma: no cover
     FastAPI = None  # type: ignore[misc, assignment]
     raise FastAPICLIException(
         "Could not import FastAPI. Please install it with:\n"
         "pip install fastapi\n\n"
         "For full features, install with:\n"
         "pip install 'fastapi[all]'"
-    )
+    ) from err
 
 
 def get_default_path() -> Path:

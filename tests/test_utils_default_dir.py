@@ -83,6 +83,6 @@ def test_app_dir_non_default() -> None:
         with pytest.raises(FastAPICLIException) as e:
             get_import_string()
         assert (
-            "Could not find a default file to run, please provide an explicit path"
+            "Could not find a default FastAPI app file. Please ensure one of the following files exists"
             in e.value.args[0]
         )

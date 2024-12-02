@@ -45,7 +45,7 @@ def callback(
 
     Manage your [bold]FastAPI[/bold] projects, run your FastAPI apps, and more.
 
-    Read more in the docs: [link]https://fastapi.tiangolo.com/fastapi-cli/[/link].
+    Read more in the docs: [link=https://fastapi.tiangolo.com/fastapi-cli/]https://fastapi.tiangolo.com/fastapi-cli/[/link].
     """
 
 
@@ -66,7 +66,9 @@ def _run(
     except FastAPICLIException as e:
         logger.error(str(e))
         raise typer.Exit(code=1) from None
-    serving_str = f"[dim]Serving at:[/dim] [link]http://{host}:{port}[/link]\n\n[dim]API docs:[/dim] [link]http://{host}:{port}/docs[/link]"
+    url = f"http://{host}:{port}"
+    url_docs = f"{url}/docs"
+    serving_str = f"[dim]Serving at:[/dim] [link={url}]{url}[/link]\n\n[dim]API docs:[/dim] [link={url_docs}]{url_docs}[/link]"
 
     if command == "dev":
         panel = Panel(

@@ -11,6 +11,7 @@
 
 ### Internal
 
+* ⬆ Bump tiangolo/latest-changes from 0.3.1 to 0.3.2. PR [#118](https://github.com/fastapi/fastapi-cli/pull/118) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump astral-sh/setup-uv from 3 to 4. PR [#125](https://github.com/fastapi/fastapi-cli/pull/125) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mypy from 1.11.1 to 1.13.0. PR [#111](https://github.com/fastapi/fastapi-cli/pull/111) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Fix smokeshow, checkout files on CI. PR [#106](https://github.com/fastapi/fastapi-cli/pull/106) by [@tiangolo](https://github.com/tiangolo).

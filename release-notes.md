@@ -11,6 +11,7 @@
 
 ### Internal
 
+* ⬆ Update pre-commit requirement from <4.0.0,>=2.17.0 to >=2.17.0,<5.0.0. PR [#100](https://github.com/fastapi/fastapi-cli/pull/100) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pypa/gh-action-pypi-publish from 1.9.0 to 1.12.2. PR [#117](https://github.com/fastapi/fastapi-cli/pull/117) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump tiangolo/latest-changes from 0.3.1 to 0.3.2. PR [#118](https://github.com/fastapi/fastapi-cli/pull/118) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump astral-sh/setup-uv from 3 to 4. PR [#125](https://github.com/fastapi/fastapi-cli/pull/125) by [@dependabot[bot]](https://github.com/apps/dependabot).

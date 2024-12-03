@@ -34,8 +34,8 @@ def test_dev() -> None:
             }
         assert "Using import string: single_file_app:app" in result.output
         assert "Starting development server 🚀" in result.output
-        assert "Server started at https://127.0.0.1:8000" in result.output
-        assert "Documentation at https://127.0.0.1:8000/docs" in result.output
+        assert "Server started at http://127.0.0.1:8000" in result.output
+        assert "Documentation at http://127.0.0.1:8000/docs" in result.output
         assert (
             "Running in development mode, for production use: fastapi run"
             in result.output
@@ -63,8 +63,8 @@ def test_dev_package() -> None:
             }
         assert "Using import string: nested_package.package:app" in result.output
         assert "Starting development server 🚀" in result.output
-        assert "Server started at https://127.0.0.1:8000" in result.output
-        assert "Documentation at https://127.0.0.1:8000/docs" in result.output
+        assert "Server started at http://127.0.0.1:8000" in result.output
+        assert "Documentation at http://127.0.0.1:8000/docs" in result.output
         assert (
             "Running in development mode, for production use: fastapi run"
             in result.output
@@ -111,8 +111,8 @@ def test_dev_args() -> None:
             }
         assert "Using import string: single_file_app:api" in result.output
         assert "Starting development server 🚀" in result.output
-        assert "Server started at https://192.168.0.2:8080" in result.output
-        assert "Documentation at https://192.168.0.2:8080/docs" in result.output
+        assert "Server started at http://192.168.0.2:8080" in result.output
+        assert "Documentation at http://192.168.0.2:8080/docs" in result.output
         assert (
             "Running in development mode, for production use: fastapi run"
             in result.output
@@ -138,8 +138,8 @@ def test_run() -> None:
             }
         assert "Using import string: single_file_app:app" in result.output
         assert "Starting production server 🚀" in result.output
-        assert "Server started at https://0.0.0.0:8000" in result.output
-        assert "Documentation at https://0.0.0.0:8000/docs" in result.output
+        assert "Server started at http://0.0.0.0:8000" in result.output
+        assert "Documentation at http://0.0.0.0:8000/docs" in result.output
         assert (
             "Running in development mode, for production use: fastapi run"
             not in result.output
@@ -184,8 +184,8 @@ def test_run_args() -> None:
 
         assert "Using import string: single_file_app:api" in result.output
         assert "Starting production server 🚀" in result.output
-        assert "Server started at https://192.168.0.2:8080" in result.output
-        assert "Documentation at https://192.168.0.2:8080/docs" in result.output
+        assert "Server started at http://192.168.0.2:8080" in result.output
+        assert "Documentation at http://192.168.0.2:8080/docs" in result.output
         assert (
             "Running in development mode, for production use: fastapi run"
             not in result.output

@@ -1,4 +1,5 @@
 import importlib
+import inspect
 import sys
 from dataclasses import dataclass
 from logging import getLogger
@@ -17,6 +18,7 @@ logger = getLogger(__name__)
 
 try:
     from fastapi import FastAPI
+    from fastapi.openapi.utils import get_openapi
 except ImportError:  # pragma: no cover
     FastAPI = None  # type: ignore[misc, assignment]
 
@@ -165,3 +167,18 @@ def get_import_string(
     import_string = f"{mod_data.module_import_str}:{use_app_name}"
     logger.info(f"Using import string [b green]{import_string}[/b green]")
     return import_string
+
+
+def get_api_spec(import_string: str) -> dict:
+    app_module, app_name = import_string.replace("/", ".").rsplit(":", 1)
+    app = getattr(__import__(app_module, fromlist=[app_name]), app_name)
+    signature = inspect.signature(get_openapi)
+    props = {
+        prop.name: getattr(app, prop.name, None)
+        for prop in signature.parameters.values()
+    }
+
+    props["webhooks"] = None
+    spec = get_openapi(**props)
+
+    return spec

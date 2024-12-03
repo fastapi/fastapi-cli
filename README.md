@@ -36,7 +36,7 @@ $ fastapi dev main.py
    FastAPI   Starting development server 🚀
 
              Searching for package file structure from directories with __init__.py files
-             Importing from /home/user/code/fastapi-cli
+             Importing from /home/user/code/awesomeapp
 
     module   🐍 main.py
 
@@ -53,7 +53,7 @@ $ fastapi dev main.py
 
              Logs:
 
-      INFO   Will watch for changes in these directories: ['/home/user/code/fastapi-cli']
+      INFO   Will watch for changes in these directories: ['/home/user/code/awesomeapp']
       INFO   Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
       INFO   Started reloader process [4106097] using WatchFiles
       INFO   Started server process [4106120]

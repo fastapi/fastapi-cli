@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import pytest
-from fastapi_cli.discover import get_import_string
+from fastapi_cli.discover import get_app, get_import_string
 from fastapi_cli.exceptions import FastAPICLIException
 from pytest import CaptureFixture
 
@@ -421,6 +421,17 @@ def test_broken_package_dir(capsys: CaptureFixture[str]) -> None:
         # TODO (when deprecating Python 3.8): remove ValueError
         with pytest.raises((ImportError, ValueError)):
             get_import_string(path=Path("broken_package/mod/app.py"))
+
+    captured = capsys.readouterr()
+    assert "Import error:" in captured.out
+    assert "Ensure all the package directories have an __init__.py file" in captured.out
+
+
+def test_get_app_broken_package_dir(capsys: CaptureFixture[str]) -> None:
+    with changing_dir(assets_path):
+        # TODO (when deprecating Python 3.8): remove ValueError
+        with pytest.raises((ImportError, ValueError)):
+            get_app(path=Path("broken_package/mod/app.py"))
 
     captured = capsys.readouterr()
     assert "Import error:" in captured.out

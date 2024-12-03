@@ -4,9 +4,9 @@ from pathlib import Path
 from unittest.mock import patch
 
 import uvicorn
-from fastapi_cli.cli import app
 from typer.testing import CliRunner
 
+from fastapi_cli.cli import app
 from tests.utils import changing_dir
 
 runner = CliRunner()

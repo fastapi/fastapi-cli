@@ -46,7 +46,7 @@ def callback(
 
     Manage your [bold]FastAPI[/bold] projects, run your FastAPI apps, and more.
 
-    Read more in the docs: [link]https://fastapi.tiangolo.com/fastapi-cli/[/link].
+    Read more in the docs: [link=https://fastapi.tiangolo.com/fastapi-cli/]https://fastapi.tiangolo.com/fastapi-cli/[/link].
     """
 
     log_level = logging.DEBUG if verbose else logging.INFO
@@ -133,10 +133,13 @@ def _run(
             tag="app",
         )
 
+        url = f"http://{host}:{port}"
+        url_docs = f"{url}/docs"
+
         toolkit.print_line()
         toolkit.print(
-            f"Server started at [link=http://{host}:{port}]https://{host}:{port}[/]\n\n"
-            f"Documentation at [link=https://{host}:{port}/docs]https://{host}:{port}/docs[/]",
+            f"Server started at [link={url}]{url}[/]",
+            f"Documentation at [link={url_docs}]{url_docs}[/]",
             tag="server",
         )
 

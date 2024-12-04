@@ -5,6 +5,7 @@ from unittest.mock import patch
 
 import uvicorn
 from fastapi_cli.cli import app
+from fastapi_cli.utils.cli import get_uvicorn_log_config
 from typer.testing import CliRunner
 
 from tests.utils import changing_dir
@@ -29,15 +30,50 @@ def test_dev() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "log_config": get_uvicorn_log_config(),
             }
-        assert "Using import string single_file_app:app" in result.output
+        assert "Using import string: single_file_app:app" in result.output
+        assert "Starting development server 🚀" in result.output
+        assert "Server started at http://127.0.0.1:8000" in result.output
+        assert "Documentation at http://127.0.0.1:8000/docs" in result.output
         assert (
-            "╭────────── FastAPI CLI - Development mode ───────────╮" in result.output
+            "Running in development mode, for production use: fastapi run"
+            in result.output
         )
-        assert "│  Serving at: http://127.0.0.1:8000" in result.output
-        assert "│  API docs: http://127.0.0.1:8000/docs" in result.output
-        assert "│  Running in development mode, for production use:" in result.output
-        assert "│  fastapi run" in result.output
+
+        assert "🐍 single_file_app.py" in result.output
+
+
+def test_dev_package() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["dev", "nested_package/package"])
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "nested_package.package:app",
+                "host": "127.0.0.1",
+                "port": 8000,
+                "reload": True,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "log_config": get_uvicorn_log_config(),
+            }
+        assert "Using import string: nested_package.package:app" in result.output
+        assert "Starting development server 🚀" in result.output
+        assert "Server started at http://127.0.0.1:8000" in result.output
+        assert "Documentation at http://127.0.0.1:8000/docs" in result.output
+        assert (
+            "Running in development mode, for production use: fastapi run"
+            in result.output
+        )
+
+        assert "📁 package" in result.output
+        assert "└── 🐍 __init__.py" in result.output
+        assert "└── 📁 package" in result.output
+        assert "    └── 🐍 __init__.py" in result.output
 
 
 def test_dev_args() -> None:
@@ -71,15 +107,16 @@ def test_dev_args() -> None:
                 "workers": None,
                 "root_path": "/api",
                 "proxy_headers": False,
+                "log_config": get_uvicorn_log_config(),
             }
-        assert "Using import string single_file_app:api" in result.output
+        assert "Using import string: single_file_app:api" in result.output
+        assert "Starting development server 🚀" in result.output
+        assert "Server started at http://192.168.0.2:8080" in result.output
+        assert "Documentation at http://192.168.0.2:8080/docs" in result.output
         assert (
-            "╭────────── FastAPI CLI - Development mode ───────────╮" in result.output
+            "Running in development mode, for production use: fastapi run"
+            in result.output
         )
-        assert "│  Serving at: http://192.168.0.2:8080" in result.output
-        assert "│  API docs: http://192.168.0.2:8080/docs" in result.output
-        assert "│  Running in development mode, for production use:" in result.output
-        assert "│  fastapi run" in result.output
 
 
 def test_run() -> None:
@@ -97,15 +134,16 @@ def test_run() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "log_config": get_uvicorn_log_config(),
             }
-        assert "Using import string single_file_app:app" in result.output
+        assert "Using import string: single_file_app:app" in result.output
+        assert "Starting production server 🚀" in result.output
+        assert "Server started at http://0.0.0.0:8000" in result.output
+        assert "Documentation at http://0.0.0.0:8000/docs" in result.output
         assert (
-            "╭─────────── FastAPI CLI - Production mode ───────────╮" in result.output
+            "Running in development mode, for production use: fastapi run"
+            not in result.output
         )
-        assert "│  Serving at: http://0.0.0.0:8000" in result.output
-        assert "│  API docs: http://0.0.0.0:8000/docs" in result.output
-        assert "│  Running in production mode, for development use:" in result.output
-        assert "│  fastapi dev" in result.output
 
 
 def test_run_args() -> None:
@@ -141,15 +179,17 @@ def test_run_args() -> None:
                 "workers": 2,
                 "root_path": "/api",
                 "proxy_headers": False,
+                "log_config": get_uvicorn_log_config(),
             }
-        assert "Using import string single_file_app:api" in result.output
+
+        assert "Using import string: single_file_app:api" in result.output
+        assert "Starting production server 🚀" in result.output
+        assert "Server started at http://192.168.0.2:8080" in result.output
+        assert "Documentation at http://192.168.0.2:8080/docs" in result.output
         assert (
-            "╭─────────── FastAPI CLI - Production mode ───────────╮" in result.output
+            "Running in development mode, for production use: fastapi run"
+            not in result.output
         )
-        assert "│  Serving at: http://192.168.0.2:8080" in result.output
-        assert "│  API docs: http://192.168.0.2:8080/docs" in result.output
-        assert "│  Running in production mode, for development use:" in result.output
-        assert "│  fastapi dev" in result.output
 
 
 def test_run_error() -> None:

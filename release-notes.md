@@ -5,6 +5,10 @@
 * 👷 Update `labeler.yml`. PR [#101](https://github.com/fastapi/fastapi-cli/pull/101) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Do not sync labels as it overrides manually added labels. PR [#71](https://github.com/fastapi/fastapi-cli/pull/71) by [@tiangolo](https://github.com/tiangolo).
 
+### Features
+
+* ✨ Improve UI for `fastapi dev` and `fastapi run`. PR [#95](https://github.com/fastapi/fastapi-cli/pull/95) by [@patrick91](https://github.com/patrick91).
+
 ### Fixes
 
 * 🐛 Use correct syntax for links. PR [#131](https://github.com/fastapi/fastapi-cli/pull/131) by [@patrick91](https://github.com/patrick91).

@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.6
+
 ### Features
 
 * ✨ Improve UI for `fastapi dev` and `fastapi run`. PR [#95](https://github.com/fastapi/fastapi-cli/pull/95) by [@patrick91](https://github.com/patrick91).

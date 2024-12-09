@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pytest
+
 from fastapi_cli.discover import get_import_data
 from fastapi_cli.exceptions import FastAPICLIException
 

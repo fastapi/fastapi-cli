@@ -2,6 +2,11 @@
 
 ## Latest Changes
 
+### Internal
+
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#62](https://github.com/fastapi/fastapi-cli/pull/62) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump ruff from 0.5.5 to 0.8.1. PR [#128](https://github.com/fastapi/fastapi-cli/pull/128) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ## 0.0.6
 
 ### Features

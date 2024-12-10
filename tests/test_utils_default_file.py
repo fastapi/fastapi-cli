@@ -3,9 +3,10 @@ import sys
 from pathlib import Path
 
 import pytest
+from pytest import CaptureFixture
+
 from fastapi_cli.discover import get_import_data
 from fastapi_cli.exceptions import FastAPICLIException
-from pytest import CaptureFixture
 
 from .utils import changing_dir
 

@@ -2,8 +2,11 @@
 
 ## Latest Changes
 
-* 👷 Update `labeler.yml`. PR [#101](https://github.com/fastapi/fastapi-cli/pull/101) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Do not sync labels as it overrides manually added labels. PR [#71](https://github.com/fastapi/fastapi-cli/pull/71) by [@tiangolo](https://github.com/tiangolo).
+## 0.0.6
+
+### Features
+
+* ✨ Improve UI for `fastapi dev` and `fastapi run`. PR [#95](https://github.com/fastapi/fastapi-cli/pull/95) by [@patrick91](https://github.com/patrick91).
 
 ### Fixes
 
@@ -11,6 +14,8 @@
 
 ### Internal
 
+* 👷 Update `labeler.yml`. PR [#101](https://github.com/fastapi/fastapi-cli/pull/101) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Do not sync labels as it overrides manually added labels. PR [#71](https://github.com/fastapi/fastapi-cli/pull/71) by [@tiangolo](https://github.com/tiangolo).
 * 🔨 Use ruff check command in format script. PR [#121](https://github.com/fastapi/fastapi-cli/pull/121) by [@FlavienRx](https://github.com/FlavienRx).
 * ⬆ Update pre-commit requirement from <4.0.0,>=2.17.0 to >=2.17.0,<5.0.0. PR [#100](https://github.com/fastapi/fastapi-cli/pull/100) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pypa/gh-action-pypi-publish from 1.9.0 to 1.12.2. PR [#117](https://github.com/fastapi/fastapi-cli/pull/117) by [@dependabot[bot]](https://github.com/apps/dependabot).

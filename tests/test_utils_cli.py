@@ -1,6 +1,7 @@
 import logging
 
 from fastapi_cli.utils.cli import CustomFormatter, get_uvicorn_log_config
+from pytest import LogCaptureFixture
 
 
 def test_get_uvicorn_config_uses_custom_formatter() -> None:
@@ -33,3 +34,22 @@ def test_custom_formatter() -> None:
     assert "127.0.0.1" in formatted
     assert "GET / HTTP/1.1" in formatted
     assert "200" in formatted
+
+
+def test_log_config_does_not_disable_existing_loggers(
+    caplog: LogCaptureFixture,
+) -> None:
+    logger1 = logging.getLogger(__name__)
+    logger1.setLevel(logging.INFO)
+    logger1.info("Message before configuration")
+
+    logging.config.dictConfig(get_uvicorn_log_config())
+
+    logger2 = logging.getLogger(__name__)
+
+    logger1.info("Message after configuration from logger1")  # Should not appear
+    logger2.info("Message from logger2")
+
+    assert "Message before configuration" in caplog.text
+    assert "Message after configuration from logger1" in caplog.text
+    assert "Message from logger2" in caplog.text

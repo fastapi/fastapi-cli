@@ -18,6 +18,7 @@ class CustomFormatter(DefaultFormatter):
 def get_uvicorn_log_config() -> Dict[str, Any]:
     return {
         "version": 1,
+        "disable_existing_loggers": False,
         "formatters": {
             "default": {
                 "()": CustomFormatter,

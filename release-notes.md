@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* 🚨 Format new test. PR [#137](https://github.com/fastapi/fastapi-cli/pull/137) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.7
 
 ### Fixes

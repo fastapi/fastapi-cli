@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Fixes
+
+* 🐛 Do not disable existing loggers. PR [#132](https://github.com/fastapi/fastapi-cli/pull/132) by [@kraftp](https://github.com/kraftp).
+
 ### Internal
 
 * ⬆ Bump pypa/gh-action-pypi-publish from 1.12.2 to 1.12.3. PR [#134](https://github.com/fastapi/fastapi-cli/pull/134) by [@dependabot[bot]](https://github.com/apps/dependabot).

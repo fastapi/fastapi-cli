@@ -2,10 +2,6 @@
 
 ## Latest Changes
 
-### Internal
-
-* 🚨 Format new test. PR [#137](https://github.com/fastapi/fastapi-cli/pull/137) by [@tiangolo](https://github.com/tiangolo).
-
 ## 0.0.7
 
 ### Fixes
@@ -14,6 +10,7 @@
 
 ### Internal
 
+* 🚨 Format new test. PR [#137](https://github.com/fastapi/fastapi-cli/pull/137) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump pypa/gh-action-pypi-publish from 1.12.2 to 1.12.3. PR [#134](https://github.com/fastapi/fastapi-cli/pull/134) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#62](https://github.com/fastapi/fastapi-cli/pull/62) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.5.5 to 0.8.1. PR [#128](https://github.com/fastapi/fastapi-cli/pull/128) by [@dependabot[bot]](https://github.com/apps/dependabot).

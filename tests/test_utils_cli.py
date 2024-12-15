@@ -1,7 +1,8 @@
 import logging
 
-from fastapi_cli.utils.cli import CustomFormatter, get_uvicorn_log_config
 from pytest import LogCaptureFixture
+
+from fastapi_cli.utils.cli import CustomFormatter, get_uvicorn_log_config
 
 
 def test_get_uvicorn_config_uses_custom_formatter() -> None:

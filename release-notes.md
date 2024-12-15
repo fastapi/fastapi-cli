@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.7
+
 ### Fixes
 
 * 🐛 Do not disable existing loggers. PR [#132](https://github.com/fastapi/fastapi-cli/pull/132) by [@kraftp](https://github.com/kraftp).

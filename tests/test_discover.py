@@ -7,18 +7,20 @@ from fastapi_cli.discover import (
     get_import_data_from_import_string,
 )
 from fastapi_cli.exceptions import FastAPICLIException
+from tests.utils import changing_dir
 
 assets_path = Path(__file__).parent / "assets"
 
 
 def test_get_import_data_from_import_string_valid() -> None:
-    result = get_import_data_from_import_string("module.submodule:app")
+    with changing_dir(assets_path):
+        result = get_import_data_from_import_string("package.mod.app:app")
 
     assert isinstance(result, ImportData)
     assert result.app_name == "app"
-    assert result.import_string == "module.submodule:app"
-    assert result.module_data.module_import_str == "module.submodule"
-    assert result.module_data.extra_sys_path == Path(".").resolve()
+    assert result.import_string == "package.mod.app:app"
+    assert result.module_data.module_import_str == "package.mod.app"
+    assert result.module_data.extra_sys_path == Path(assets_path).resolve()
     assert result.module_data.module_paths == []
 
 

@@ -126,6 +126,9 @@ def _run(
 
         module_data = import_data.module_data
         import_string = import_data.import_string
+        openapi_url = import_data.openapi_url
+        docs_url = import_data.docs_url
+        redoc_url = import_data.redoc_url
 
         toolkit.print(f"Importing from {module_data.extra_sys_path}")
         toolkit.print_line()
@@ -152,14 +155,29 @@ def _run(
         )
 
         url = f"http://{host}:{port}"
-        url_docs = f"{url}/docs"
+        docs_str = ""
+
+        if openapi_url and (docs_url or redoc_url):
+            if docs_url:
+                docs_str += f"[link={url}{docs_url}]{url}{docs_url}[/]"
+
+            if docs_url and redoc_url:
+                docs_str += " or "
+
+            if redoc_url:
+                docs_str += f"[link={url}{redoc_url}]{url}{redoc_url}[/]"
 
         toolkit.print_line()
         toolkit.print(
             f"Server started at [link={url}]{url}[/]",
-            f"Documentation at [link={url_docs}]{url_docs}[/]",
             tag="server",
         )
+
+        if docs_str:
+            toolkit.print(
+                f"Documentation at {docs_str}",
+                tag="server",
+            )
 
         if command == "dev":
             toolkit.print_line()

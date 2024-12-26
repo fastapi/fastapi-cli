@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#138](https://github.com/fastapi/fastapi-cli/pull/138) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.8.2 to 0.8.4. PR [#139](https://github.com/fastapi/fastapi-cli/pull/139) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump astral-sh/setup-uv from 4 to 5. PR [#140](https://github.com/fastapi/fastapi-cli/pull/140) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mypy from 1.13.0 to 1.14.0. PR [#141](https://github.com/fastapi/fastapi-cli/pull/141) by [@dependabot[bot]](https://github.com/apps/dependabot).

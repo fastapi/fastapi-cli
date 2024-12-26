@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump astral-sh/setup-uv from 4 to 5. PR [#140](https://github.com/fastapi/fastapi-cli/pull/140) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mypy from 1.13.0 to 1.14.0. PR [#141](https://github.com/fastapi/fastapi-cli/pull/141) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
 ## 0.0.7

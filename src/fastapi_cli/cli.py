@@ -6,7 +6,6 @@ import typer
 from rich import print
 from rich.tree import Tree
 from typing_extensions import Annotated
-from uvicorn.config import LOGGING_CONFIG
 
 from fastapi_cli.discover import get_import_data
 from fastapi_cli.exceptions import FastAPICLIException

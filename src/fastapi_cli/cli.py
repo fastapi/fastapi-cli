@@ -86,6 +86,7 @@ def _run(
     command: str,
     app: Union[str, None] = None,
     proxy_headers: bool = False,
+    reload_dirs: Union[str, None] = None,
 ) -> None:
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
@@ -167,6 +168,7 @@ def _run(
             workers=workers,
             root_path=root_path,
             proxy_headers=proxy_headers,
+            reload_dirs=reload_dirs.split(",") if reload_dirs else None,
             log_config=get_uvicorn_log_config(),
         )
 
@@ -216,6 +218,12 @@ def dev(
             help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
         ),
     ] = True,
+    reload_dirs: Annotated[
+        Union[str, None],
+        typer.Option(
+            help="Comma separated list of directories to watch for changes in. If not provided, by default the whole current directory will be watched."
+        ),
+    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [yellow]development[/yellow] mode. 🧪
@@ -251,6 +259,7 @@ def dev(
         app=app,
         command="dev",
         proxy_headers=proxy_headers,
+        reload_dirs=reload_dirs,
     )
 
 

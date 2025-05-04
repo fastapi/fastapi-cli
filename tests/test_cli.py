@@ -31,6 +31,7 @@ def test_dev() -> None:
                 "root_path": "",
                 "proxy_headers": True,
                 "log_config": get_uvicorn_log_config(),
+                "server_header": False,
             }
         assert "Using import string: single_file_app:app" in result.output
         assert "Starting development server 🚀" in result.output
@@ -60,6 +61,7 @@ def test_dev_package() -> None:
                 "root_path": "",
                 "proxy_headers": True,
                 "log_config": get_uvicorn_log_config(),
+                "server_header": False,
             }
         assert "Using import string: nested_package.package:app" in result.output
         assert "Starting development server 🚀" in result.output
@@ -94,6 +96,7 @@ def test_dev_args() -> None:
                     "--app",
                     "api",
                     "--no-proxy-headers",
+                    "--server-header",
                 ],
             )
             assert result.exit_code == 0, result.output
@@ -108,6 +111,7 @@ def test_dev_args() -> None:
                 "root_path": "/api",
                 "proxy_headers": False,
                 "log_config": get_uvicorn_log_config(),
+                "server_header": True,
             }
         assert "Using import string: single_file_app:api" in result.output
         assert "Starting development server 🚀" in result.output
@@ -135,6 +139,7 @@ def test_run() -> None:
                 "root_path": "",
                 "proxy_headers": True,
                 "log_config": get_uvicorn_log_config(),
+                "server_header": False,
             }
         assert "Using import string: single_file_app:app" in result.output
         assert "Starting production server 🚀" in result.output
@@ -166,6 +171,7 @@ def test_run_args() -> None:
                     "--app",
                     "api",
                     "--no-proxy-headers",
+                    "--server-header",
                 ],
             )
             assert result.exit_code == 0, result.output
@@ -180,6 +186,7 @@ def test_run_args() -> None:
                 "root_path": "/api",
                 "proxy_headers": False,
                 "log_config": get_uvicorn_log_config(),
+                "server_header": True,
             }
 
         assert "Using import string: single_file_app:api" in result.output

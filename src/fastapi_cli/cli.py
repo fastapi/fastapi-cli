@@ -86,6 +86,7 @@ def _run(
     command: str,
     app: Union[str, None] = None,
     proxy_headers: bool = False,
+    server_header: bool = False,
 ) -> None:
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
@@ -168,6 +169,7 @@ def _run(
             root_path=root_path,
             proxy_headers=proxy_headers,
             log_config=get_uvicorn_log_config(),
+            server_header=server_header,
         )
 
 
@@ -216,6 +218,10 @@ def dev(
             help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
         ),
     ] = True,
+    server_header: Annotated[
+        bool,
+        typer.Option(help="Enable/Disable Server header."),
+    ] = False,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [yellow]development[/yellow] mode. 🧪
@@ -251,6 +257,7 @@ def dev(
         app=app,
         command="dev",
         proxy_headers=proxy_headers,
+        server_header=server_header,
     )
 
 
@@ -305,6 +312,10 @@ def run(
             help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
         ),
     ] = True,
+    server_header: Annotated[
+        bool,
+        typer.Option(help="Enable/Disable Server header."),
+    ] = False,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [green]production[/green] mode. 🚀
@@ -341,6 +352,7 @@ def run(
         app=app,
         command="run",
         proxy_headers=proxy_headers,
+        server_header=server_header,
     )
 
 

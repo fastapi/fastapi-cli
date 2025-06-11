@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump pypa/gh-action-pypi-publish from 1.12.3 to 1.12.4. PR [#152](https://github.com/fastapi/fastapi-cli/pull/152) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.8.4 to 0.11.2. PR [#168](https://github.com/fastapi/fastapi-cli/pull/168) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#138](https://github.com/fastapi/fastapi-cli/pull/138) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.8.2 to 0.8.4. PR [#139](https://github.com/fastapi/fastapi-cli/pull/139) by [@dependabot[bot]](https://github.com/apps/dependabot).

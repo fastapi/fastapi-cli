@@ -109,6 +109,7 @@ def _run(
 
         module_data = import_data.module_data
         import_string = import_data.import_string
+        fastapi_app = import_data.fastapi_app
 
         toolkit.print(f"Importing from {module_data.extra_sys_path}")
         toolkit.print_line()
@@ -134,14 +135,31 @@ def _run(
         )
 
         url = f"http://{host}:{port}"
-        url_docs = f"{url}/docs"
+        docs_url = ""
+
+        if fastapi_app.openapi_url and (fastapi_app.docs_url or fastapi_app.redoc_url):
+            if fastapi_app.docs_url:
+                docs_url += (
+                    f"[link={url}{fastapi_app.docs_url}]{url}{fastapi_app.docs_url}[/]"
+                )
+
+            if fastapi_app.docs_url and fastapi_app.redoc_url:
+                docs_url += " or "
+
+            if fastapi_app.redoc_url:
+                docs_url += f"[link={url}{fastapi_app.redoc_url}]{url}{fastapi_app.redoc_url}[/]"
 
         toolkit.print_line()
         toolkit.print(
             f"Server started at [link={url}]{url}[/]",
-            f"Documentation at [link={url_docs}]{url_docs}[/]",
             tag="server",
         )
+
+        if docs_url:
+            toolkit.print(
+                f"Documentation at {docs_url}",
+                tag="server",
+            )
 
         if command == "dev":
             toolkit.print_line()

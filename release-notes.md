@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.8
+
 ### Features
 
 * ➕ Add optional dependency on `fastapi-cloud-cli`. PR [#181](https://github.com/fastapi/fastapi-cli/pull/181) by [@tiangolo](https://github.com/tiangolo).

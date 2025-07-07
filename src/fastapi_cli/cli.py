@@ -25,6 +25,16 @@ except ImportError:  # pragma: no cover
     uvicorn = None  # type: ignore[assignment]
 
 
+try:
+    from fastapi_cloud_cli.cli import (
+        app as fastapi_cloud_cli,
+    )
+
+    app.add_typer(fastapi_cloud_cli)
+except ImportError:  # pragma: no cover
+    pass
+
+
 def version_callback(value: bool) -> None:
     if value:
         print(f"FastAPI CLI version: [green]{__version__}[/green]")

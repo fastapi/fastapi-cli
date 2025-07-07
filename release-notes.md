@@ -8,6 +8,16 @@
 
 * ➕ Add optional dependency on `fastapi-cloud-cli`. PR [#181](https://github.com/fastapi/fastapi-cli/pull/181) by [@tiangolo](https://github.com/tiangolo).
 
+This will allow you to deploy to [FastAPI Cloud](https://fastapicloud.com) with the `fastapi deploy` command.
+
+Installing `fastapi-cli[standard]` now includes `fastapi-cloud-cli`.
+
+If you want to install `fastapi-cli` without `fastapi-cloud-cli`, you can install instead `fastapi-cli[standard-no-fastapi-cloud-cli]`.
+
+You will normally not install `fastapi-cli` directly, but rather install FastAPI with `fastapi[standard]`, which will include `fastapi-cli[standard]`.
+
+If you want to install `fastapi` with the standard dependencies except for `fastapi-cloud-cli`, you can install instead `fastapi[standard-no-fastapi-cloud-cli]`.
+
 ### Internal
 
 * ⬆ Bump pypa/gh-action-pypi-publish from 1.12.3 to 1.12.4. PR [#152](https://github.com/fastapi/fastapi-cli/pull/152) by [@dependabot[bot]](https://github.com/apps/dependabot).

@@ -26,7 +26,7 @@ except ImportError:  # pragma: no cover
 
 
 try:
-    from fastapi_cloud_cli.cli import (  # type: ignore[import-not-found]
+    from fastapi_cloud_cli.cli import (
         app as fastapi_cloud_cli,
     )
 

@@ -1,4 +1,4 @@
--e .
+-e .[standard]
 
 pytest >=4.4.0,<9.0.0
 coverage[toml] >=6.2,<8.0

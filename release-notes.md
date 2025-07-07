@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Features
+
+* ➕ Add optional dependency on `fastapi-cloud-cli`. PR [#181](https://github.com/fastapi/fastapi-cli/pull/181) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * ⬆ Bump pypa/gh-action-pypi-publish from 1.12.3 to 1.12.4. PR [#152](https://github.com/fastapi/fastapi-cli/pull/152) by [@dependabot[bot]](https://github.com/apps/dependabot).

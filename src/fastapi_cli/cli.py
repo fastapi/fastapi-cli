@@ -96,6 +96,7 @@ def _run(
     command: str,
     app: Union[str, None] = None,
     proxy_headers: bool = False,
+    log_config: Union[Path, None] = None,
 ) -> None:
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
@@ -177,7 +178,7 @@ def _run(
             workers=workers,
             root_path=root_path,
             proxy_headers=proxy_headers,
-            log_config=get_uvicorn_log_config(),
+            log_config=get_uvicorn_log_config() if not log_config else str(log_config),
         )
 
 
@@ -226,6 +227,12 @@ def dev(
             help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
         ),
     ] = True,
+    log_config: Annotated[
+        Union[Path, None],
+        typer.Option(
+            help="Logging configuration file. Supported formats: .ini, .json, .yaml. be tried."
+        ),
+    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [yellow]development[/yellow] mode. 🧪
@@ -261,6 +268,7 @@ def dev(
         app=app,
         command="dev",
         proxy_headers=proxy_headers,
+        log_config=log_config,
     )
 
 
@@ -315,6 +323,12 @@ def run(
             help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
         ),
     ] = True,
+    log_config: Annotated[
+        Union[Path, None],
+        typer.Option(
+            help="Logging configuration file. Supported formats: .ini, .json, .yaml."
+        ),
+    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [green]production[/green] mode. 🚀
@@ -351,6 +365,7 @@ def run(
         app=app,
         command="run",
         proxy_headers=proxy_headers,
+        log_config=log_config,
     )
 
 

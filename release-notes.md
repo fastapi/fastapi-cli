@@ -2,8 +2,26 @@
 
 ## Latest Changes
 
+## 0.0.8
+
+### Features
+
+* ➕ Add optional dependency on `fastapi-cloud-cli`. PR [#181](https://github.com/fastapi/fastapi-cli/pull/181) by [@tiangolo](https://github.com/tiangolo).
+
+This will allow you to deploy to [FastAPI Cloud](https://fastapicloud.com) with the `fastapi deploy` command.
+
+Installing `fastapi-cli[standard]` now includes `fastapi-cloud-cli`.
+
+If you want to install `fastapi-cli` without `fastapi-cloud-cli`, you can install instead `fastapi-cli[standard-no-fastapi-cloud-cli]`.
+
+You will normally not install `fastapi-cli` directly, but rather install FastAPI with `fastapi[standard]`, which will include `fastapi-cli[standard]`.
+
+If you want to install `fastapi` with the standard dependencies except for `fastapi-cloud-cli`, you can install instead `fastapi[standard-no-fastapi-cloud-cli]`.
+
 ### Internal
 
+* ⬆ Bump pypa/gh-action-pypi-publish from 1.12.3 to 1.12.4. PR [#152](https://github.com/fastapi/fastapi-cli/pull/152) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.8.4 to 0.11.2. PR [#168](https://github.com/fastapi/fastapi-cli/pull/168) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#138](https://github.com/fastapi/fastapi-cli/pull/138) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.8.2 to 0.8.4. PR [#139](https://github.com/fastapi/fastapi-cli/pull/139) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump astral-sh/setup-uv from 4 to 5. PR [#140](https://github.com/fastapi/fastapi-cli/pull/140) by [@dependabot[bot]](https://github.com/apps/dependabot).

@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.10
+
 ### Features
 
 * Add CLI option `--forwarded-allow-ips`. PR [#113](https://github.com/fastapi/fastapi-cli/pull/113) by [@Riuzaky77](https://github.com/Riuzaky77).

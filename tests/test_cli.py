@@ -60,6 +60,7 @@ def test_dev_package() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: nested_package.package:app" in result.output
@@ -139,14 +140,10 @@ def test_run() -> None:
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
-        assert "Using import string single_file_app:app" in result.output
-        assert (
-            "╭─────────── FastAPI CLI - Production mode ───────────╮" in result.output
-        )
-        assert "│  Serving at: http://0.0.0.0:8000" in result.output
-        assert "│  API docs: http://0.0.0.0:8000/docs" in result.output
-        assert "│  Running in production mode, for development use:" in result.output
-        assert "│  fastapi dev" in result.output
+        assert "Using import string: single_file_app:app" in result.output
+        assert "Starting production server 🚀" in result.output
+        assert "Server started at http://0.0.0.0:8000" in result.output
+        assert "Documentation at http://0.0.0.0:8000/docs" in result.output
 
 
 def test_run_trust_proxy() -> None:

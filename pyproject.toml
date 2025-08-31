@@ -32,12 +32,17 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
 ]
 dependencies = [
-    "typer >= 0.12.3",
+    "typer >= 0.15.1",
     "uvicorn[standard] >= 0.15.0",
+    "rich-toolkit >= 0.14.8",
 ]
 
 [project.optional-dependencies]
 standard = [
+    "uvicorn[standard] >= 0.15.0",
+    "fastapi-cloud-cli >= 0.1.1",
+]
+standard-no-fastapi-cloud-cli = [
     "uvicorn[standard] >= 0.15.0",
 ]
 
@@ -47,9 +52,6 @@ Documentation = "https://fastapi.tiangolo.com/fastapi-cli/"
 Repository = "https://github.com/fastapi/fastapi-cli"
 Issues = "https://github.com/fastapi/fastapi-cli/issues"
 Changelog = "https://github.com/fastapi/fastapi-cli/blob/main/release-notes.md"
-
-[project.scripts]
-fastapi = "fastapi_cli.cli:main"
 
 [build-system]
 requires = ["pdm-backend"]

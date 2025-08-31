@@ -1,9 +1,10 @@
 from pathlib import Path
 
 import pytest
-from fastapi_cli.discover import get_import_string
-from fastapi_cli.exceptions import FastAPICLIException
 from typer.testing import CliRunner
+
+from fastapi_cli.discover import get_import_data
+from fastapi_cli.exceptions import FastAPICLIException
 
 from .utils import changing_dir
 
@@ -13,8 +14,9 @@ assets_path = Path(__file__).parent / "assets"
 
 
 def test_no_uvicorn() -> None:
-    import fastapi_cli.cli
     import uvicorn
+
+    import fastapi_cli.cli
 
     fastapi_cli.cli.uvicorn = None  # type: ignore[attr-defined, assignment]
 
@@ -31,13 +33,14 @@ def test_no_uvicorn() -> None:
 
 
 def test_no_fastapi() -> None:
-    import fastapi_cli.discover
     from fastapi import FastAPI
+
+    import fastapi_cli.discover
 
     fastapi_cli.discover.FastAPI = None  # type: ignore[attr-defined, assignment]
     with changing_dir(assets_path):
         with pytest.raises(FastAPICLIException) as exc_info:
-            get_import_string(path=Path("single_file_app.py"))
+            get_import_data(path=Path("single_file_app.py"))
         assert "Could not import FastAPI, try running 'pip install fastapi'" in str(
             exc_info.value
         )

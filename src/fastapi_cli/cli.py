@@ -1,28 +1,38 @@
-from logging import getLogger
+import logging
 from pathlib import Path
-from typing import Any, Union
+from typing import Any, List, Union
 
 import typer
 from rich import print
-from rich.padding import Padding
-from rich.panel import Panel
+from rich.tree import Tree
 from typing_extensions import Annotated
 
-from fastapi_cli.discover import get_import_string
+from fastapi_cli.discover import get_import_data
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
 from .logging import setup_logging
+from .utils.cli import get_rich_toolkit, get_uvicorn_log_config
 
 app = typer.Typer(rich_markup_mode="rich")
 
-setup_logging()
-logger = getLogger(__name__)
+logger = logging.getLogger(__name__)
+
 
 try:
     import uvicorn
 except ImportError:  # pragma: no cover
     uvicorn = None  # type: ignore[assignment]
+
+
+try:
+    from fastapi_cloud_cli.cli import (
+        app as fastapi_cloud_cli,
+    )
+
+    app.add_typer(fastapi_cloud_cli)
+except ImportError:  # pragma: no cover
+    pass
 
 
 def version_callback(value: bool) -> None:
@@ -39,14 +49,40 @@ def callback(
             "--version", help="Show the version and exit.", callback=version_callback
         ),
     ] = None,
+    verbose: bool = typer.Option(False, help="Enable verbose output"),
 ) -> None:
     """
     FastAPI CLI - The [bold]fastapi[/bold] command line app. 😎
 
     Manage your [bold]FastAPI[/bold] projects, run your FastAPI apps, and more.
 
-    Read more in the docs: [link]https://fastapi.tiangolo.com/fastapi-cli/[/link].
+    Read more in the docs: [link=https://fastapi.tiangolo.com/fastapi-cli/]https://fastapi.tiangolo.com/fastapi-cli/[/link].
     """
+
+    log_level = logging.DEBUG if verbose else logging.INFO
+
+    setup_logging(level=log_level)
+
+
+def _get_module_tree(module_paths: List[Path]) -> Tree:
+    root = module_paths[0]
+    name = f"🐍 {root.name}" if root.is_file() else f"📁 {root.name}"
+
+    root_tree = Tree(name)
+
+    if root.is_dir():
+        root_tree.add("[dim]🐍 __init__.py[/dim]")
+
+    tree = root_tree
+    for sub_path in module_paths[1:]:
+        sub_name = (
+            f"🐍 {sub_path.name}" if sub_path.is_file() else f"📁 {sub_path.name}"
+        )
+        tree = tree.add(sub_name)
+        if sub_path.is_dir():
+            tree.add("[dim]🐍 __init__.py[/dim]")
+
+    return root_tree
 
 
 def _run(
@@ -62,44 +98,89 @@ def _run(
     proxy_headers: bool = False,
     forwarded_allow_ips: Union[str, None] = None,
 ) -> None:
-    try:
-        use_uvicorn_app = get_import_string(path=path, app_name=app)
-    except FastAPICLIException as e:
-        logger.error(str(e))
-        raise typer.Exit(code=1) from None
-    serving_str = f"[dim]Serving at:[/dim] [link]http://{host}:{port}[/link]\n\n[dim]API docs:[/dim] [link]http://{host}:{port}/docs[/link]"
+    with get_rich_toolkit() as toolkit:
+        server_type = "development" if command == "dev" else "production"
 
-    if command == "dev":
-        panel = Panel(
-            f"{serving_str}\n\n[dim]Running in development mode, for production use:[/dim] \n\n[b]fastapi run[/b]",
-            title="FastAPI CLI - Development mode",
-            expand=False,
-            padding=(1, 2),
-            style="black on yellow",
+        toolkit.print_title(f"Starting {server_type} server 🚀", tag="FastAPI")
+        toolkit.print_line()
+
+        toolkit.print(
+            "Searching for package file structure from directories with [blue]__init__.py[/blue] files"
         )
-    else:
-        panel = Panel(
-            f"{serving_str}\n\n[dim]Running in production mode, for development use:[/dim] \n\n[b]fastapi dev[/b]",
-            title="FastAPI CLI - Production mode",
-            expand=False,
-            padding=(1, 2),
-            style="green",
+
+        try:
+            import_data = get_import_data(path=path, app_name=app)
+        except FastAPICLIException as e:
+            toolkit.print_line()
+            toolkit.print(f"[error]{e}")
+            raise typer.Exit(code=1) from None
+
+        logger.debug(f"Importing from {import_data.module_data.extra_sys_path}")
+        logger.debug(f"Importing module {import_data.module_data.module_import_str}")
+
+        module_data = import_data.module_data
+        import_string = import_data.import_string
+
+        toolkit.print(f"Importing from {module_data.extra_sys_path}")
+        toolkit.print_line()
+
+        root_tree = _get_module_tree(module_data.module_paths)
+
+        toolkit.print(root_tree, tag="module")
+        toolkit.print_line()
+
+        toolkit.print(
+            "Importing the FastAPI app object from the module with the following code:",
+            tag="code",
         )
-    print(Padding(panel, 1))
-    if not uvicorn:
-        raise FastAPICLIException(
-            "Could not import Uvicorn, try running 'pip install uvicorn'"
-        ) from None
-    uvicorn.run(
-        app=use_uvicorn_app,
-        host=host,
-        port=port,
-        reload=reload,
-        workers=workers,
-        root_path=root_path,
-        proxy_headers=proxy_headers,
-        forwarded_allow_ips=forwarded_allow_ips,
-    )
+        toolkit.print_line()
+        toolkit.print(
+            f"[underline]from [bold]{module_data.module_import_str}[/bold] import [bold]{import_data.app_name}[/bold]"
+        )
+        toolkit.print_line()
+
+        toolkit.print(
+            f"Using import string: [blue]{import_string}[/]",
+            tag="app",
+        )
+
+        url = f"http://{host}:{port}"
+        url_docs = f"{url}/docs"
+
+        toolkit.print_line()
+        toolkit.print(
+            f"Server started at [link={url}]{url}[/]",
+            f"Documentation at [link={url_docs}]{url_docs}[/]",
+            tag="server",
+        )
+
+        if command == "dev":
+            toolkit.print_line()
+            toolkit.print(
+                "Running in development mode, for production use: [bold]fastapi run[/]",
+                tag="tip",
+            )
+
+        if not uvicorn:
+            raise FastAPICLIException(
+                "Could not import Uvicorn, try running 'pip install uvicorn'"
+            ) from None
+
+        toolkit.print_line()
+        toolkit.print("Logs:")
+        toolkit.print_line()
+
+        uvicorn.run(
+            app=import_string,
+            host=host,
+            port=port,
+            reload=reload,
+            workers=workers,
+            root_path=root_path,
+            proxy_headers=proxy_headers,
+            forwarded_allow_ips=forwarded_allow_ips,
+            log_config=get_uvicorn_log_config(),
+        )
 
 
 @app.command()

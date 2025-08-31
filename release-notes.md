@@ -2,11 +2,70 @@
 
 ## Latest Changes
 
-* 👷 Update `labeler.yml`. PR [#101](https://github.com/fastapi/fastapi-cli/pull/101) by [@tiangolo](https://github.com/tiangolo).
-* 👷 Do not sync labels as it overrides manually added labels. PR [#71](https://github.com/fastapi/fastapi-cli/pull/71) by [@tiangolo](https://github.com/tiangolo).
+## 0.0.9
+
+### Fixes
+
+* 🔧 Remove command script `fastapi`, let it be provided by the `fastapi` package. PR [#197](https://github.com/fastapi/fastapi-cli/pull/197) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.0.8
+
+### Features
+
+* ➕ Add optional dependency on `fastapi-cloud-cli`. PR [#181](https://github.com/fastapi/fastapi-cli/pull/181) by [@tiangolo](https://github.com/tiangolo).
+
+This will allow you to deploy to [FastAPI Cloud](https://fastapicloud.com) with the `fastapi deploy` command.
+
+Installing `fastapi-cli[standard]` now includes `fastapi-cloud-cli`.
+
+If you want to install `fastapi-cli` without `fastapi-cloud-cli`, you can install instead `fastapi-cli[standard-no-fastapi-cloud-cli]`.
+
+You will normally not install `fastapi-cli` directly, but rather install FastAPI with `fastapi[standard]`, which will include `fastapi-cli[standard]`.
+
+If you want to install `fastapi` with the standard dependencies except for `fastapi-cloud-cli`, you can install instead `fastapi[standard-no-fastapi-cloud-cli]`.
 
 ### Internal
 
+* ⬆ Bump pypa/gh-action-pypi-publish from 1.12.3 to 1.12.4. PR [#152](https://github.com/fastapi/fastapi-cli/pull/152) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.8.4 to 0.11.2. PR [#168](https://github.com/fastapi/fastapi-cli/pull/168) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#138](https://github.com/fastapi/fastapi-cli/pull/138) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump ruff from 0.8.2 to 0.8.4. PR [#139](https://github.com/fastapi/fastapi-cli/pull/139) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump astral-sh/setup-uv from 4 to 5. PR [#140](https://github.com/fastapi/fastapi-cli/pull/140) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mypy from 1.13.0 to 1.14.0. PR [#141](https://github.com/fastapi/fastapi-cli/pull/141) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.0.7
+
+### Fixes
+
+* 🐛 Do not disable existing loggers. PR [#132](https://github.com/fastapi/fastapi-cli/pull/132) by [@kraftp](https://github.com/kraftp).
+
+### Internal
+
+* 🚨 Format new test. PR [#137](https://github.com/fastapi/fastapi-cli/pull/137) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump pypa/gh-action-pypi-publish from 1.12.2 to 1.12.3. PR [#134](https://github.com/fastapi/fastapi-cli/pull/134) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#62](https://github.com/fastapi/fastapi-cli/pull/62) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump ruff from 0.5.5 to 0.8.1. PR [#128](https://github.com/fastapi/fastapi-cli/pull/128) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.0.6
+
+### Features
+
+* ✨ Improve UI for `fastapi dev` and `fastapi run`. PR [#95](https://github.com/fastapi/fastapi-cli/pull/95) by [@patrick91](https://github.com/patrick91).
+
+### Fixes
+
+* 🐛 Use correct syntax for links. PR [#131](https://github.com/fastapi/fastapi-cli/pull/131) by [@patrick91](https://github.com/patrick91).
+
+### Internal
+
+* 👷 Update `labeler.yml`. PR [#101](https://github.com/fastapi/fastapi-cli/pull/101) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Do not sync labels as it overrides manually added labels. PR [#71](https://github.com/fastapi/fastapi-cli/pull/71) by [@tiangolo](https://github.com/tiangolo).
+* 🔨 Use ruff check command in format script. PR [#121](https://github.com/fastapi/fastapi-cli/pull/121) by [@FlavienRx](https://github.com/FlavienRx).
+* ⬆ Update pre-commit requirement from <4.0.0,>=2.17.0 to >=2.17.0,<5.0.0. PR [#100](https://github.com/fastapi/fastapi-cli/pull/100) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pypa/gh-action-pypi-publish from 1.9.0 to 1.12.2. PR [#117](https://github.com/fastapi/fastapi-cli/pull/117) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump tiangolo/latest-changes from 0.3.1 to 0.3.2. PR [#118](https://github.com/fastapi/fastapi-cli/pull/118) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump astral-sh/setup-uv from 3 to 4. PR [#125](https://github.com/fastapi/fastapi-cli/pull/125) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mypy from 1.11.1 to 1.13.0. PR [#111](https://github.com/fastapi/fastapi-cli/pull/111) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Fix smokeshow, checkout files on CI. PR [#106](https://github.com/fastapi/fastapi-cli/pull/106) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Use uv in CI. PR [#105](https://github.com/fastapi/fastapi-cli/pull/105) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Update `labeler.yml`. PR [#102](https://github.com/fastapi/fastapi-cli/pull/102) by [@tiangolo](https://github.com/tiangolo).

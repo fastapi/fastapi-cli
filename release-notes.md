@@ -6,6 +6,10 @@
 
 * Add CLI option `--forwarded-allow-ips`. PR [#113](https://github.com/fastapi/fastapi-cli/pull/113) by [@Riuzaky77](https://github.com/Riuzaky77).
 
+### Internal
+
+* ⬆ Bump astral-sh/setup-uv from 5 to 6. PR [#176](https://github.com/fastapi/fastapi-cli/pull/176) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ## 0.0.9
 
 ### Fixes

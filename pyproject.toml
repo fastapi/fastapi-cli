@@ -53,9 +53,6 @@ Repository = "https://github.com/fastapi/fastapi-cli"
 Issues = "https://github.com/fastapi/fastapi-cli/issues"
 Changelog = "https://github.com/fastapi/fastapi-cli/blob/main/release-notes.md"
 
-[project.scripts]
-fastapi = "fastapi_cli.cli:main"
-
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"

@@ -8,6 +8,7 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.11.2 to 0.12.11. PR [#196](https://github.com/fastapi/fastapi-cli/pull/196) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/checkout from 4 to 5. PR [#193](https://github.com/fastapi/fastapi-cli/pull/193) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/download-artifact from 4 to 5. PR [#190](https://github.com/fastapi/fastapi-cli/pull/190) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump tiangolo/latest-changes from 0.3.2 to 0.4.0. PR [#188](https://github.com/fastapi/fastapi-cli/pull/188) by [@dependabot[bot]](https://github.com/apps/dependabot).

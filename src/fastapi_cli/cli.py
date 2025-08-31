@@ -96,6 +96,7 @@ def _run(
     command: str,
     app: Union[str, None] = None,
     proxy_headers: bool = False,
+    forwarded_allow_ips: Union[str, None] = None,
 ) -> None:
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
@@ -177,6 +178,7 @@ def _run(
             workers=workers,
             root_path=root_path,
             proxy_headers=proxy_headers,
+            forwarded_allow_ips=forwarded_allow_ips,
             log_config=get_uvicorn_log_config(),
         )
 
@@ -226,6 +228,12 @@ def dev(
             help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
         ),
     ] = True,
+    forwarded_allow_ips: Annotated[
+        Union[str, None],
+        typer.Option(
+            help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
+        ),
+    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [yellow]development[/yellow] mode. 🧪
@@ -261,6 +269,7 @@ def dev(
         app=app,
         command="dev",
         proxy_headers=proxy_headers,
+        forwarded_allow_ips=forwarded_allow_ips,
     )
 
 
@@ -315,6 +324,12 @@ def run(
             help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
         ),
     ] = True,
+    forwarded_allow_ips: Annotated[
+        Union[str, None],
+        typer.Option(
+            help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
+        ),
+    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [green]production[/green] mode. 🚀
@@ -351,6 +366,7 @@ def run(
         app=app,
         command="run",
         proxy_headers=proxy_headers,
+        forwarded_allow_ips=forwarded_allow_ips,
     )
 
 

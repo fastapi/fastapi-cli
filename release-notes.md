@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Fixes
+
+* 🔧 Remove command script `fastapi`, let it be provided by the `fastapi` package. PR [#197](https://github.com/fastapi/fastapi-cli/pull/197) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.8
 
 ### Features

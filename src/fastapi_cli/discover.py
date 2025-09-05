@@ -130,3 +130,26 @@ def get_import_data(
     return ImportData(
         app_name=use_app_name, module_data=mod_data, import_string=import_string
     )
+
+
+def get_import_data_from_import_string(import_string: str) -> ImportData:
+    module_str, _, app_name = import_string.partition(":")
+
+    if not module_str or not app_name:
+        raise FastAPICLIException(
+            "Import string must be in the format module.submodule:app_name"
+        )
+
+    here = Path(".").resolve()
+
+    sys.path.insert(0, str(here))
+
+    return ImportData(
+        app_name=app_name,
+        module_data=ModuleData(
+            module_import_str=module_str,
+            extra_sys_path=here,
+            module_paths=[],
+        ),
+        import_string=import_string,
+    )

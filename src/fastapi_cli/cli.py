@@ -1,4 +1,6 @@
+import json
 import logging
+import sys
 from pathlib import Path
 from typing import Any, List, Union
 
@@ -7,7 +9,8 @@ from rich import print
 from rich.tree import Tree
 from typing_extensions import Annotated
 
-from fastapi_cli.discover import get_import_data, get_import_data_from_import_string
+from fastapi_cli.discover import get_app
+from fastapi_cli.discover import get_import_data, , get_import_data_from_import_string
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
@@ -395,6 +398,43 @@ def run(
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
     )
+
+
+@app.command()
+def schema(
+    path: Annotated[
+        Union[Path, None],
+        typer.Argument(
+            help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried."
+        ),
+    ] = None,
+    *,
+    app: Annotated[
+        Union[str, None],
+        typer.Option(
+            help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
+        ),
+    ] = None,
+    output: Annotated[
+        Union[str, None],
+        typer.Option(
+            help="The filename to write schema to. If not provided, write to stderr."
+        ),
+    ] = None,
+    indent: Annotated[
+        int,
+        typer.Option(help="JSON format indent. If 0, disable pretty printing"),
+    ] = 2,
+) -> Any:
+    """Generate schema"""
+    fastapi_app = get_app(path=path, app_name=app)
+    schema = fastapi_app.openapi()
+
+    stream = open(output, "w") if output else sys.stderr
+    json.dump(schema, stream, indent=indent if indent > 0 else None)
+    if output:
+        stream.close()
+    return 0
 
 
 def main() -> None:

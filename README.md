@@ -89,6 +89,12 @@ It will listen on the IP address `0.0.0.0`, which means all the available IP add
 
 In most cases you would (and should) have a "termination proxy" handling HTTPS for you on top, this will depend on how you deploy your application, your provider might do this for you, or you might need to set it up yourself. You can learn more about it in the <a href="https://fastapi.tiangolo.com/deployment/" class="external-link" target="_blank">FastAPI Deployment documentation</a>.
 
+## `fastapi schema`
+
+When you run `fastapi schema`, it will generate a swagger/openapi document.
+
+This document will be output to stderr by default, however `--output <filename>` option can be used to write output into file. You can control the format of the JSON file by specifying indent level with `--indent #`. If set to 0, JSON will be in the minimal/compress form. Default is 2 spaces.
+
 ## License
 
 This project is licensed under the terms of the MIT license.

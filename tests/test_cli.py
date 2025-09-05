@@ -1,3 +1,4 @@
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -7,12 +8,20 @@ import uvicorn
 from typer.testing import CliRunner
 
 from fastapi_cli.cli import app
+from fastapi_cli.exceptions import FastAPICLIException
 from fastapi_cli.utils.cli import get_uvicorn_log_config
 from tests.utils import changing_dir
 
 runner = CliRunner()
 
 assets_path = Path(__file__).parent / "assets"
+
+
+def read_file(filename: str, strip: bool = True) -> str:
+    """Read file and return content as string"""
+    with open("openapi.json") as stream:
+        data = stream.read()
+    return data.strip() if data and strip else data
 
 
 def test_dev() -> None:
@@ -375,6 +384,51 @@ def test_dev_help() -> None:
     assert "The root path is used to tell your app" in result.output
     assert "The name of the variable that contains the FastAPI app" in result.output
     assert "Use multiple worker processes." not in result.output
+
+
+def test_schema() -> None:
+    with changing_dir(assets_path):
+        with open("openapi.json") as stream:
+            expected = stream.read().strip()
+        assert expected != "", "Failed to read expected result"
+        result = runner.invoke(app, ["schema", "single_file_app.py"])
+        assert result.exit_code == 0, result.output
+        assert expected in result.output, result.output
+
+
+def test_schema_file() -> None:
+    with changing_dir(assets_path):
+        filename = "unit-test.json"
+        expected = read_file("openapi.json", strip=True)
+        assert expected != "", "Failed to read expected result"
+        result = runner.invoke(
+            app, ["schema", "single_file_app.py", "--output", filename]
+        )
+        assert os.path.isfile(filename)
+        actual = read_file(filename, strip=True)
+        os.remove(filename)
+        assert result.exit_code == 0, result.output
+        assert expected == actual
+
+
+def test_schema_invalid_path() -> None:
+    with changing_dir(assets_path):
+        result = runner.invoke(app, ["schema", "invalid/single_file_app.py"])
+        assert result.exit_code == 1, result.output
+        assert isinstance(result.exception, FastAPICLIException)
+        assert "Path does not exist invalid/single_file_app.py" in str(result.exception)
+
+
+#
+#
+# def test_schema_invalid_package() -> None:
+#     with changing_dir(assets_path):
+#         result = runner.invoke(
+#             app, ["schema", "broken_package/mod/app.py"]
+#         )
+#         assert result.exit_code == 1, result.output
+#         assert isinstance(result.exception, ImportError)
+#         assert "attempted relative import beyond top-level package" in str(result.exception)
 
 
 def test_run_help() -> None:

@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* 👷 Detect and label merge conflicts on PRs automatically. PR [#204](https://github.com/fastapi/fastapi-cli/pull/204) by [@svlandeg](https://github.com/svlandeg).
+
 ## 0.0.10
 
 ### Features

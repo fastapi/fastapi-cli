@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#198](https://github.com/fastapi/fastapi-cli/pull/198) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump pypa/gh-action-pypi-publish from 1.12.4 to 1.13.0. PR [#200](https://github.com/fastapi/fastapi-cli/pull/200) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Detect and label merge conflicts on PRs automatically. PR [#204](https://github.com/fastapi/fastapi-cli/pull/204) by [@svlandeg](https://github.com/svlandeg).
 

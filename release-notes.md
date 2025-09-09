@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Features
+
+* ✨ Add support for passing apps as `fastapi run --entrypoint some.importable_module:app_name`. PR [#199](https://github.com/fastapi/fastapi-cli/pull/199) by [@patrick91](https://github.com/patrick91).
+
 ### Internal
 
 * ⬆ Bump actions/labeler from 5 to 6. PR [#202](https://github.com/fastapi/fastapi-cli/pull/202) by [@dependabot[bot]](https://github.com/apps/dependabot).

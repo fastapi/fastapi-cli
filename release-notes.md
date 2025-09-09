@@ -8,6 +8,24 @@
 
 * ✨ Add support for passing apps as `fastapi run --entrypoint some.importable_module:app_name`. PR [#199](https://github.com/fastapi/fastapi-cli/pull/199) by [@patrick91](https://github.com/patrick91).
 
+If you have been using Uvicorn like:
+
+```console
+$ uvicorn some.importable_module:app_name
+```
+
+Now you can use the same "entrypoint" syntax with `fastapi`:
+
+```console
+$ fastapi run --entrypoint some.importable_module:app_name
+```
+
+Or:
+
+```console
+$ fastapi run -e some.importable_module:app_name
+```
+
 ### Internal
 
 * ⬆ Bump actions/labeler from 5 to 6. PR [#202](https://github.com/fastapi/fastapi-cli/pull/202) by [@dependabot[bot]](https://github.com/apps/dependabot).

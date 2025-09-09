@@ -232,7 +232,7 @@ def dev(
         typer.Option(
             "--entrypoint",
             "-e",
-            help="The FastAPI app import string in the format 'module:app_name'.",
+            help="The FastAPI app import string in the format 'some.importable_module:app_name'.",
         ),
     ] = None,
     proxy_headers: Annotated[
@@ -337,7 +337,7 @@ def run(
         typer.Option(
             "--entrypoint",
             "-e",
-            help="The FastAPI app import string in the format 'module:app_name'.",
+            help="The FastAPI app import string in the format 'some.importable_module:app_name'.",
         ),
     ] = None,
     proxy_headers: Annotated[

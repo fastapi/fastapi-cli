@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.11
+
 ### Features
 
 * ✨ Add support for passing apps as `fastapi run --entrypoint some.importable_module:app_name`. PR [#199](https://github.com/fastapi/fastapi-cli/pull/199) by [@patrick91](https://github.com/patrick91).

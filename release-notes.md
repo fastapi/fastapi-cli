@@ -17,13 +17,13 @@ $ uvicorn some.importable_module:app_name
 Now you can use the same "entrypoint" syntax with `fastapi`:
 
 ```console
-$ fastapi run --entrypoint some.importable_module:app_name
+$ fastapi run -e some.importable_module:app_name
 ```
 
 Or:
 
 ```console
-$ fastapi run -e some.importable_module:app_name
+$ fastapi run --entrypoint some.importable_module:app_name
 ```
 
 ### Internal

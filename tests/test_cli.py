@@ -285,6 +285,48 @@ def test_version() -> None:
     assert "FastAPI CLI version:" in result.output
 
 
+def test_dev_with_import_string() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["dev", "--entrypoint", "single_file_app:api"])
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "single_file_app:api",
+                "forwarded_allow_ips": None,
+                "host": "127.0.0.1",
+                "port": 8000,
+                "reload": True,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "log_config": get_uvicorn_log_config(),
+            }
+        assert "Using import string: single_file_app:api" in result.output
+
+
+def test_run_with_import_string() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["run", "--entrypoint", "single_file_app:app"])
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "single_file_app:app",
+                "forwarded_allow_ips": None,
+                "host": "0.0.0.0",
+                "port": 8000,
+                "reload": False,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "log_config": get_uvicorn_log_config(),
+            }
+        assert "Using import string: single_file_app:app" in result.output
+
+
 def test_script() -> None:
     result = subprocess.run(
         [sys.executable, "-m", "coverage", "run", "-m", "fastapi_cli", "--help"],

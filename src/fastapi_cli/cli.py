@@ -7,7 +7,7 @@ from rich import print
 from rich.tree import Tree
 from typing_extensions import Annotated
 
-from fastapi_cli.discover import get_import_data
+from fastapi_cli.discover import get_import_data, get_import_data_from_import_string
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
@@ -95,6 +95,7 @@ def _run(
     root_path: str = "",
     command: str,
     app: Union[str, None] = None,
+    entrypoint: Union[str, None] = None,
     proxy_headers: bool = False,
     forwarded_allow_ips: Union[str, None] = None,
 ) -> None:
@@ -109,7 +110,10 @@ def _run(
         )
 
         try:
-            import_data = get_import_data(path=path, app_name=app)
+            if entrypoint:
+                import_data = get_import_data_from_import_string(entrypoint)
+            else:
+                import_data = get_import_data(path=path, app_name=app)
         except FastAPICLIException as e:
             toolkit.print_line()
             toolkit.print(f"[error]{e}")
@@ -124,10 +128,11 @@ def _run(
         toolkit.print(f"Importing from {module_data.extra_sys_path}")
         toolkit.print_line()
 
-        root_tree = _get_module_tree(module_data.module_paths)
+        if module_data.module_paths:
+            root_tree = _get_module_tree(module_data.module_paths)
 
-        toolkit.print(root_tree, tag="module")
-        toolkit.print_line()
+            toolkit.print(root_tree, tag="module")
+            toolkit.print_line()
 
         toolkit.print(
             "Importing the FastAPI app object from the module with the following code:",
@@ -222,6 +227,14 @@ def dev(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
         ),
     ] = None,
+    entrypoint: Annotated[
+        Union[str, None],
+        typer.Option(
+            "--entrypoint",
+            "-e",
+            help="The FastAPI app import string in the format 'some.importable_module:app_name'.",
+        ),
+    ] = None,
     proxy_headers: Annotated[
         bool,
         typer.Option(
@@ -267,6 +280,7 @@ def dev(
         reload=reload,
         root_path=root_path,
         app=app,
+        entrypoint=entrypoint,
         command="dev",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
@@ -318,6 +332,14 @@ def run(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
         ),
     ] = None,
+    entrypoint: Annotated[
+        Union[str, None],
+        typer.Option(
+            "--entrypoint",
+            "-e",
+            help="The FastAPI app import string in the format 'some.importable_module:app_name'.",
+        ),
+    ] = None,
     proxy_headers: Annotated[
         bool,
         typer.Option(
@@ -364,6 +386,7 @@ def run(
         workers=workers,
         root_path=root_path,
         app=app,
+        entrypoint=entrypoint,
         command="run",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,

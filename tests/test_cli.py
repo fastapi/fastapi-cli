@@ -122,6 +122,73 @@ def test_dev_args() -> None:
         )
 
 
+def test_dev_env_vars() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["dev", "single_file_app.py"], env={"PORT": "8111"}
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "single_file_app:app",
+                "host": "127.0.0.1",
+                "port": 8111,
+                "reload": True,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "forwarded_allow_ips": None,
+                "log_config": get_uvicorn_log_config(),
+            }
+        assert "Using import string: single_file_app:app" in result.output
+        assert "Starting development server 🚀" in result.output
+        assert "Server started at http://127.0.0.1:8111" in result.output
+        assert "Documentation at http://127.0.0.1:8111/docs" in result.output
+        assert (
+            "Running in development mode, for production use: fastapi run"
+            in result.output
+        )
+
+
+def test_dev_env_vars_and_args() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app,
+                [
+                    "dev",
+                    "single_file_app.py",
+                    "--port",
+                    "8080",
+                ],
+                env={"PORT": "8111"},
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "single_file_app:app",
+                "host": "127.0.0.1",
+                "port": 8080,
+                "reload": True,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "forwarded_allow_ips": None,
+                "log_config": get_uvicorn_log_config(),
+            }
+        assert "Using import string: single_file_app:app" in result.output
+        assert "Starting development server 🚀" in result.output
+        assert "Server started at http://127.0.0.1:8080" in result.output
+        assert "Documentation at http://127.0.0.1:8080/docs" in result.output
+        assert (
+            "Running in development mode, for production use: fastapi run"
+            in result.output
+        )
+
+
 def test_run() -> None:
     with changing_dir(assets_path):
         with patch.object(uvicorn, "run") as mock_run:
@@ -221,6 +288,65 @@ def test_run_args() -> None:
             "Running in development mode, for production use: fastapi run"
             not in result.output
         )
+
+
+def test_run_env_vars() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["run", "single_file_app.py"], env={"PORT": "8111"}
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "single_file_app:app",
+                "host": "0.0.0.0",
+                "port": 8111,
+                "reload": False,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "forwarded_allow_ips": None,
+                "log_config": get_uvicorn_log_config(),
+            }
+        assert "Using import string: single_file_app:app" in result.output
+        assert "Starting production server 🚀" in result.output
+        assert "Server started at http://0.0.0.0:8111" in result.output
+        assert "Documentation at http://0.0.0.0:8111/docs" in result.output
+
+
+def test_run_env_vars_and_args() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app,
+                [
+                    "run",
+                    "single_file_app.py",
+                    "--port",
+                    "8080",
+                ],
+                env={"PORT": "8111"},
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "single_file_app:app",
+                "host": "0.0.0.0",
+                "port": 8080,
+                "reload": False,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "forwarded_allow_ips": None,
+                "log_config": get_uvicorn_log_config(),
+            }
+        assert "Using import string: single_file_app:app" in result.output
+        assert "Starting production server 🚀" in result.output
+        assert "Server started at http://0.0.0.0:8080" in result.output
+        assert "Documentation at http://0.0.0.0:8080/docs" in result.output
 
 
 def test_run_error() -> None:

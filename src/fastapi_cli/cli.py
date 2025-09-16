@@ -206,7 +206,8 @@ def dev(
     port: Annotated[
         int,
         typer.Option(
-            help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app."
+            help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app.",
+            envvar="PORT",
         ),
     ] = 8000,
     reload: Annotated[
@@ -305,7 +306,8 @@ def run(
     port: Annotated[
         int,
         typer.Option(
-            help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app."
+            help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app.",
+            envvar="PORT",
         ),
     ] = 8000,
     reload: Annotated[

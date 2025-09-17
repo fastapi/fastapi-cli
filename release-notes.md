@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.12
+
 ### Features
 
 * ✨ Add support for the PORT environment variable. PR [#209](https://github.com/fastapi/fastapi-cli/pull/209) by [@buurro](https://github.com/buurro).

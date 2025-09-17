@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Features
+
+* ✨ Add support for the PORT environment variable. PR [#209](https://github.com/fastapi/fastapi-cli/pull/209) by [@buurro](https://github.com/buurro).
+
 ### Internal
 
 * ⬆ Bump mypy from 1.14.0 to 1.14.1. PR [#207](https://github.com/fastapi/fastapi-cli/pull/207) by [@dependabot[bot]](https://github.com/apps/dependabot).

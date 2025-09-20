@@ -14,7 +14,9 @@ from . import __version__
 from .logging import setup_logging
 from .utils.cli import get_rich_toolkit, get_uvicorn_log_config
 
-app = typer.Typer(rich_markup_mode="rich")
+app = typer.Typer(
+    rich_markup_mode="rich", context_settings={"help_option_names": ["-h", "--help"]}
+)
 
 logger = logging.getLogger(__name__)
 

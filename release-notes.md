@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.13
+
 ### Features
 
 * ✨ Allow to use `-h` for help. PR [#191](https://github.com/fastapi/fastapi-cli/pull/191) by [@patrick91](https://github.com/patrick91).

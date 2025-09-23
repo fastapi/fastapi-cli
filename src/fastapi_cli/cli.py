@@ -250,6 +250,8 @@ def dev(
         Union[str, None],
         typer.Option(
             help="Comma separated list of directories to watch for changes in. If not provided, by default the whole current directory will be watched."
+        ),
+    ] = None,
     forwarded_allow_ips: Annotated[
         Union[str, None],
         typer.Option(

@@ -443,6 +443,7 @@ def test_dev_with_import_string() -> None:
                 "reload": True,
                 "workers": None,
                 "root_path": "",
+                "reload_dirs": None,
                 "proxy_headers": True,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -464,6 +465,7 @@ def test_run_with_import_string() -> None:
                 "reload": False,
                 "workers": None,
                 "root_path": "",
+                "reload_dirs": None,
                 "proxy_headers": True,
                 "log_config": get_uvicorn_log_config(),
             }

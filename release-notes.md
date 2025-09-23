@@ -2,6 +2,79 @@
 
 ## Latest Changes
 
+## 0.0.13
+
+### Features
+
+* ✨ Allow to use `-h` for help. PR [#191](https://github.com/fastapi/fastapi-cli/pull/191) by [@patrick91](https://github.com/patrick91).
+
+## 0.0.12
+
+### Features
+
+* ✨ Add support for the PORT environment variable. PR [#209](https://github.com/fastapi/fastapi-cli/pull/209) by [@buurro](https://github.com/buurro).
+
+### Internal
+
+* ⬆ Bump mypy from 1.14.0 to 1.14.1. PR [#207](https://github.com/fastapi/fastapi-cli/pull/207) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/setup-python from 5 to 6. PR [#201](https://github.com/fastapi/fastapi-cli/pull/201) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.12.12 to 0.13.0. PR [#206](https://github.com/fastapi/fastapi-cli/pull/206) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#208](https://github.com/fastapi/fastapi-cli/pull/208) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#205](https://github.com/fastapi/fastapi-cli/pull/205) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+
+## 0.0.11
+
+### Features
+
+* ✨ Add support for passing apps as `fastapi run --entrypoint some.importable_module:app_name`. PR [#199](https://github.com/fastapi/fastapi-cli/pull/199) by [@patrick91](https://github.com/patrick91).
+
+If you have been using Uvicorn like:
+
+```console
+$ uvicorn some.importable_module:app_name
+```
+
+Now you can use the same "entrypoint" syntax with `fastapi`:
+
+```console
+$ fastapi run -e some.importable_module:app_name
+```
+
+Or:
+
+```console
+$ fastapi run --entrypoint some.importable_module:app_name
+```
+
+### Internal
+
+* ⬆ Bump actions/labeler from 5 to 6. PR [#202](https://github.com/fastapi/fastapi-cli/pull/202) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.12.11 to 0.12.12. PR [#203](https://github.com/fastapi/fastapi-cli/pull/203) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#198](https://github.com/fastapi/fastapi-cli/pull/198) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump pypa/gh-action-pypi-publish from 1.12.4 to 1.13.0. PR [#200](https://github.com/fastapi/fastapi-cli/pull/200) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Detect and label merge conflicts on PRs automatically. PR [#204](https://github.com/fastapi/fastapi-cli/pull/204) by [@svlandeg](https://github.com/svlandeg).
+
+## 0.0.10
+
+### Features
+
+* Add CLI option `--forwarded-allow-ips`. PR [#113](https://github.com/fastapi/fastapi-cli/pull/113) by [@Riuzaky77](https://github.com/Riuzaky77).
+
+### Internal
+
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#147](https://github.com/fastapi/fastapi-cli/pull/147) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump ruff from 0.11.2 to 0.12.11. PR [#196](https://github.com/fastapi/fastapi-cli/pull/196) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/checkout from 4 to 5. PR [#193](https://github.com/fastapi/fastapi-cli/pull/193) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/download-artifact from 4 to 5. PR [#190](https://github.com/fastapi/fastapi-cli/pull/190) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump tiangolo/latest-changes from 0.3.2 to 0.4.0. PR [#188](https://github.com/fastapi/fastapi-cli/pull/188) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump astral-sh/setup-uv from 5 to 6. PR [#176](https://github.com/fastapi/fastapi-cli/pull/176) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.0.9
+
+### Fixes
+
+* 🔧 Remove command script `fastapi`, let it be provided by the `fastapi` package. PR [#197](https://github.com/fastapi/fastapi-cli/pull/197) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.8
 
 ### Features

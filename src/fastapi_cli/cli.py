@@ -7,14 +7,16 @@ from rich import print
 from rich.tree import Tree
 from typing_extensions import Annotated
 
-from fastapi_cli.discover import get_import_data
+from fastapi_cli.discover import get_import_data, get_import_data_from_import_string
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
 from .logging import setup_logging
 from .utils.cli import get_rich_toolkit, get_uvicorn_log_config
 
-app = typer.Typer(rich_markup_mode="rich")
+app = typer.Typer(
+    rich_markup_mode="rich", context_settings={"help_option_names": ["-h", "--help"]}
+)
 
 logger = logging.getLogger(__name__)
 
@@ -95,8 +97,10 @@ def _run(
     root_path: str = "",
     command: str,
     app: Union[str, None] = None,
+    entrypoint: Union[str, None] = None,
     proxy_headers: bool = False,
     reload_dirs: Union[str, None] = None,
+    forwarded_allow_ips: Union[str, None] = None,
 ) -> None:
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
@@ -109,7 +113,10 @@ def _run(
         )
 
         try:
-            import_data = get_import_data(path=path, app_name=app)
+            if entrypoint:
+                import_data = get_import_data_from_import_string(entrypoint)
+            else:
+                import_data = get_import_data(path=path, app_name=app)
         except FastAPICLIException as e:
             toolkit.print_line()
             toolkit.print(f"[error]{e}")
@@ -124,10 +131,11 @@ def _run(
         toolkit.print(f"Importing from {module_data.extra_sys_path}")
         toolkit.print_line()
 
-        root_tree = _get_module_tree(module_data.module_paths)
+        if module_data.module_paths:
+            root_tree = _get_module_tree(module_data.module_paths)
 
-        toolkit.print(root_tree, tag="module")
-        toolkit.print_line()
+            toolkit.print(root_tree, tag="module")
+            toolkit.print_line()
 
         toolkit.print(
             "Importing the FastAPI app object from the module with the following code:",
@@ -179,6 +187,7 @@ def _run(
             root_path=root_path,
             proxy_headers=proxy_headers,
             reload_dirs=reload_dirs.split(",") if reload_dirs else None,
+            forwarded_allow_ips=forwarded_allow_ips,
             log_config=get_uvicorn_log_config(),
         )
 
@@ -201,7 +210,8 @@ def dev(
     port: Annotated[
         int,
         typer.Option(
-            help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app."
+            help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app.",
+            envvar="PORT",
         ),
     ] = 8000,
     reload: Annotated[
@@ -222,6 +232,14 @@ def dev(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
         ),
     ] = None,
+    entrypoint: Annotated[
+        Union[str, None],
+        typer.Option(
+            "--entrypoint",
+            "-e",
+            help="The FastAPI app import string in the format 'some.importable_module:app_name'.",
+        ),
+    ] = None,
     proxy_headers: Annotated[
         bool,
         typer.Option(
@@ -232,6 +250,10 @@ def dev(
         Union[str, None],
         typer.Option(
             help="Comma separated list of directories to watch for changes in. If not provided, by default the whole current directory will be watched."
+    forwarded_allow_ips: Annotated[
+        Union[str, None],
+        typer.Option(
+            help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),
     ] = None,
 ) -> Any:
@@ -267,9 +289,11 @@ def dev(
         reload=reload,
         root_path=root_path,
         app=app,
+        entrypoint=entrypoint,
         command="dev",
         proxy_headers=proxy_headers,
         reload_dirs=reload_dirs,
+        forwarded_allow_ips=forwarded_allow_ips,
     )
 
 
@@ -291,7 +315,8 @@ def run(
     port: Annotated[
         int,
         typer.Option(
-            help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app."
+            help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app.",
+            envvar="PORT",
         ),
     ] = 8000,
     reload: Annotated[
@@ -318,12 +343,26 @@ def run(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
         ),
     ] = None,
+    entrypoint: Annotated[
+        Union[str, None],
+        typer.Option(
+            "--entrypoint",
+            "-e",
+            help="The FastAPI app import string in the format 'some.importable_module:app_name'.",
+        ),
+    ] = None,
     proxy_headers: Annotated[
         bool,
         typer.Option(
             help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
         ),
     ] = True,
+    forwarded_allow_ips: Annotated[
+        Union[str, None],
+        typer.Option(
+            help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
+        ),
+    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [green]production[/green] mode. 🚀
@@ -358,8 +397,10 @@ def run(
         workers=workers,
         root_path=root_path,
         app=app,
+        entrypoint=entrypoint,
         command="run",
         proxy_headers=proxy_headers,
+        forwarded_allow_ips=forwarded_allow_ips,
     )
 
 

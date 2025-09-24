@@ -126,26 +126,36 @@ def test_dev_env_vars() -> None:
     with changing_dir(assets_path):
         with patch.object(uvicorn, "run") as mock_run:
             result = runner.invoke(
-                app, ["dev", "single_file_app.py"], env={"PORT": "8111"}
+                app,
+                ["dev", "single_file_app.py"],
+                env={
+                    "FASTAPI_HOST": "127.0.0.2",
+                    "FASTAPI_PORT": "8111",
+                    "FASTAPI_RELOAD": "false",
+                    "FASTAPI_ROOTPATH": "/api",
+                    "FASTAPI_APP": "api",
+                    "FASTAPI_PROXY_HEADERS": "false",
+                    "FASTAPI_FORWARDED_ALLOW_IPS": "*",
+                },
             )
             assert result.exit_code == 0, result.output
             assert mock_run.called
             assert mock_run.call_args
             assert mock_run.call_args.kwargs == {
-                "app": "single_file_app:app",
-                "host": "127.0.0.1",
+                "app": "single_file_app:api",
+                "host": "127.0.0.2",
                 "port": 8111,
-                "reload": True,
+                "reload": False,
                 "workers": None,
-                "root_path": "",
-                "proxy_headers": True,
-                "forwarded_allow_ips": None,
+                "root_path": "/api",
+                "proxy_headers": False,
+                "forwarded_allow_ips": "*",
                 "log_config": get_uvicorn_log_config(),
             }
-        assert "Using import string: single_file_app:app" in result.output
+        assert "Using import string: single_file_app:api" in result.output
         assert "Starting development server 🚀" in result.output
-        assert "Server started at http://127.0.0.1:8111" in result.output
-        assert "Documentation at http://127.0.0.1:8111/docs" in result.output
+        assert "Server started at http://127.0.0.2:8111" in result.output
+        assert "Documentation at http://127.0.0.2:8111/docs" in result.output
         assert (
             "Running in development mode, for production use: fastapi run"
             in result.output
@@ -163,7 +173,7 @@ def test_dev_env_vars_and_args() -> None:
                     "--port",
                     "8080",
                 ],
-                env={"PORT": "8111"},
+                env={"FASTAPI_PORT": "8111"},
             )
             assert result.exit_code == 0, result.output
             assert mock_run.called
@@ -294,26 +304,37 @@ def test_run_env_vars() -> None:
     with changing_dir(assets_path):
         with patch.object(uvicorn, "run") as mock_run:
             result = runner.invoke(
-                app, ["run", "single_file_app.py"], env={"PORT": "8111"}
+                app,
+                ["run", "single_file_app.py"],
+                env={
+                    "FASTAPI_HOST": "192.168.1.1",
+                    "FASTAPI_PORT": "8111",
+                    "FASTAPI_RELOAD": "true",
+                    "FASTAPI_WORKERS": "4",
+                    "FASTAPI_ROOTPATH": "/api",
+                    "FASTAPI_APP": "api",
+                    "FASTAPI_PROXY_HEADERS": "false",
+                    "FASTAPI_FORWARDED_ALLOW_IPS": "*",
+                },
             )
             assert result.exit_code == 0, result.output
             assert mock_run.called
             assert mock_run.call_args
             assert mock_run.call_args.kwargs == {
-                "app": "single_file_app:app",
-                "host": "0.0.0.0",
+                "app": "single_file_app:api",
+                "host": "192.168.1.1",
                 "port": 8111,
-                "reload": False,
-                "workers": None,
-                "root_path": "",
-                "proxy_headers": True,
-                "forwarded_allow_ips": None,
+                "reload": True,
+                "workers": 4,
+                "root_path": "/api",
+                "proxy_headers": False,
+                "forwarded_allow_ips": "*",
                 "log_config": get_uvicorn_log_config(),
             }
-        assert "Using import string: single_file_app:app" in result.output
+        assert "Using import string: single_file_app:api" in result.output
         assert "Starting production server 🚀" in result.output
-        assert "Server started at http://0.0.0.0:8111" in result.output
-        assert "Documentation at http://0.0.0.0:8111/docs" in result.output
+        assert "Server started at http://192.168.1.1:8111" in result.output
+        assert "Documentation at http://192.168.1.1:8111/docs" in result.output
 
 
 def test_run_env_vars_and_args() -> None:
@@ -327,7 +348,7 @@ def test_run_env_vars_and_args() -> None:
                     "--port",
                     "8080",
                 ],
-                env={"PORT": "8111"},
+                env={"FASTAPI_PORT": "8111"},
             )
             assert result.exit_code == 0, result.output
             assert mock_run.called

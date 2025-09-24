@@ -195,39 +195,44 @@ def dev(
     path: Annotated[
         Union[Path, None],
         typer.Argument(
-            help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried."
+            help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried.",
+            envvar="FASTAPI_PATH",
         ),
     ] = None,
     *,
     host: Annotated[
         str,
         typer.Option(
-            help="The host to serve on. For local development in localhost use [blue]127.0.0.1[/blue]. To enable public access, e.g. in a container, use all the IP addresses available with [blue]0.0.0.0[/blue]."
+            help="The host to serve on. For local development in localhost use [blue]127.0.0.1[/blue]. To enable public access, e.g. in a container, use all the IP addresses available with [blue]0.0.0.0[/blue].",
+            envvar="FASTAPI_HOST",
         ),
     ] = "127.0.0.1",
     port: Annotated[
         int,
         typer.Option(
             help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app.",
-            envvar="PORT",
+            envvar="FASTAPI_PORT",
         ),
     ] = 8000,
     reload: Annotated[
         bool,
         typer.Option(
-            help="Enable auto-reload of the server when (code) files change. This is [bold]resource intensive[/bold], use it only during development."
+            help="Enable auto-reload of the server when (code) files change. This is [bold]resource intensive[/bold], use it only during development.",
+            envvar="FASTAPI_RELOAD",
         ),
     ] = True,
     root_path: Annotated[
         str,
         typer.Option(
-            help="The root path is used to tell your app that it is being served to the outside world with some [bold]path prefix[/bold] set up in some termination proxy or similar."
+            help="The root path is used to tell your app that it is being served to the outside world with some [bold]path prefix[/bold] set up in some termination proxy or similar.",
+            envvar="FASTAPI_ROOTPATH",
         ),
     ] = "",
     app: Annotated[
         Union[str, None],
         typer.Option(
-            help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
+            help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically.",
+            envvar="FASTAPI_APP",
         ),
     ] = None,
     entrypoint: Annotated[
@@ -236,18 +241,21 @@ def dev(
             "--entrypoint",
             "-e",
             help="The FastAPI app import string in the format 'some.importable_module:app_name'.",
+            envvar="FASTAPI_ENTRYPOINT",
         ),
     ] = None,
     proxy_headers: Annotated[
         bool,
         typer.Option(
-            help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
+            help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info.",
+            envvar="FASTAPI_PROXY_HEADERS",
         ),
     ] = True,
     forwarded_allow_ips: Annotated[
         Union[str, None],
         typer.Option(
-            help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
+            help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything.",
+            envvar="FASTAPI_FORWARDED_ALLOW_IPS",
         ),
     ] = None,
 ) -> Any:
@@ -295,45 +303,51 @@ def run(
     path: Annotated[
         Union[Path, None],
         typer.Argument(
-            help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried."
+            help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried.",
+            envvar="FASTAPI_PATH",
         ),
     ] = None,
     *,
     host: Annotated[
         str,
         typer.Option(
-            help="The host to serve on. For local development in localhost use [blue]127.0.0.1[/blue]. To enable public access, e.g. in a container, use all the IP addresses available with [blue]0.0.0.0[/blue]."
+            help="The host to serve on. For local development in localhost use [blue]127.0.0.1[/blue]. To enable public access, e.g. in a container, use all the IP addresses available with [blue]0.0.0.0[/blue].",
+            envvar="FASTAPI_HOST",
         ),
     ] = "0.0.0.0",
     port: Annotated[
         int,
         typer.Option(
             help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app.",
-            envvar="PORT",
+            envvar="FASTAPI_PORT",
         ),
     ] = 8000,
     reload: Annotated[
         bool,
         typer.Option(
-            help="Enable auto-reload of the server when (code) files change. This is [bold]resource intensive[/bold], use it only during development."
+            help="Enable auto-reload of the server when (code) files change. This is [bold]resource intensive[/bold], use it only during development.",
+            envvar="FASTAPI_RELOAD",
         ),
     ] = False,
     workers: Annotated[
         Union[int, None],
         typer.Option(
-            help="Use multiple worker processes. Mutually exclusive with the --reload flag."
+            help="Use multiple worker processes. Mutually exclusive with the --reload flag.",
+            envvar="FASTAPI_WORKERS",
         ),
     ] = None,
     root_path: Annotated[
         str,
         typer.Option(
-            help="The root path is used to tell your app that it is being served to the outside world with some [bold]path prefix[/bold] set up in some termination proxy or similar."
+            help="The root path is used to tell your app that it is being served to the outside world with some [bold]path prefix[/bold] set up in some termination proxy or similar.",
+            envvar="FASTAPI_ROOTPATH",
         ),
     ] = "",
     app: Annotated[
         Union[str, None],
         typer.Option(
-            help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
+            help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically.",
+            envvar="FASTAPI_APP",
         ),
     ] = None,
     entrypoint: Annotated[
@@ -342,18 +356,21 @@ def run(
             "--entrypoint",
             "-e",
             help="The FastAPI app import string in the format 'some.importable_module:app_name'.",
+            envvar="FASTAPI_ENTRYPOINT",
         ),
     ] = None,
     proxy_headers: Annotated[
         bool,
         typer.Option(
-            help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
+            help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info.",
+            envvar="FASTAPI_PROXY_HEADERS",
         ),
     ] = True,
     forwarded_allow_ips: Annotated[
         Union[str, None],
         typer.Option(
-            help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
+            help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything.",
+            envvar="FASTAPI_FORWARDED_ALLOW_IPS",
         ),
     ] = None,
 ) -> Any:

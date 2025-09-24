@@ -137,13 +137,14 @@ def _run(
             toolkit.print(root_tree, tag="module")
             toolkit.print_line()
 
+        imported_object_type = "factory" if is_factory else "app"
         toolkit.print(
-            "Importing the FastAPI app object from the module with the following code:",
+            f"Importing the FastAPI {imported_object_type} object from the module with the following code:",
             tag="code",
         )
         toolkit.print_line()
         toolkit.print(
-            f"[underline]from [bold]{module_data.module_import_str}[/bold] import [bold]{import_data.app_name}[/bold]"
+            f"[underline]from [bold]{module_data.module_import_str}[/bold] import [bold]{import_data.candidate_name}[/bold]"
         )
         toolkit.print_line()
 

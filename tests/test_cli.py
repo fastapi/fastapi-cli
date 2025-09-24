@@ -32,6 +32,7 @@ def test_dev() -> None:
                 "proxy_headers": True,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
+                "factory": False,
             }
         assert "Using import string: single_file_app:app" in result.output
         assert "Starting development server 🚀" in result.output
@@ -62,6 +63,7 @@ def test_dev_package() -> None:
                 "proxy_headers": True,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
+                "factory": False,
             }
         assert "Using import string: nested_package.package:app" in result.output
         assert "Starting development server 🚀" in result.output
@@ -111,6 +113,7 @@ def test_dev_args() -> None:
                 "proxy_headers": False,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
+                "factory": False,
             }
         assert "Using import string: single_file_app:api" in result.output
         assert "Starting development server 🚀" in result.output
@@ -141,6 +144,7 @@ def test_dev_env_vars() -> None:
                 "proxy_headers": True,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
+                "factory": False,
             }
         assert "Using import string: single_file_app:app" in result.output
         assert "Starting development server 🚀" in result.output
@@ -178,6 +182,7 @@ def test_dev_env_vars_and_args() -> None:
                 "proxy_headers": True,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
+                "factory": False,
             }
         assert "Using import string: single_file_app:app" in result.output
         assert "Starting development server 🚀" in result.output
@@ -206,6 +211,7 @@ def test_run() -> None:
                 "proxy_headers": True,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
+                "factory": False,
             }
         assert "Using import string: single_file_app:app" in result.output
         assert "Starting production server 🚀" in result.output
@@ -232,6 +238,7 @@ def test_run_trust_proxy() -> None:
                 "proxy_headers": True,
                 "forwarded_allow_ips": "*",
                 "log_config": get_uvicorn_log_config(),
+                "factory": False,
             }
         assert "Using import string: single_file_app:app" in result.output
         assert "Starting production server 🚀" in result.output
@@ -278,6 +285,7 @@ def test_run_args() -> None:
                 "proxy_headers": False,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
+                "factory": False,
             }
 
         assert "Using import string: single_file_app:api" in result.output
@@ -309,6 +317,7 @@ def test_run_env_vars() -> None:
                 "proxy_headers": True,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
+                "factory": False,
             }
         assert "Using import string: single_file_app:app" in result.output
         assert "Starting production server 🚀" in result.output
@@ -342,6 +351,7 @@ def test_run_env_vars_and_args() -> None:
                 "proxy_headers": True,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
+                "factory": False,
             }
         assert "Using import string: single_file_app:app" in result.output
         assert "Starting production server 🚀" in result.output
@@ -428,6 +438,7 @@ def test_dev_with_import_string() -> None:
                 "root_path": "",
                 "proxy_headers": True,
                 "log_config": get_uvicorn_log_config(),
+                "factory": False,
             }
         assert "Using import string: single_file_app:api" in result.output
 
@@ -449,6 +460,7 @@ def test_run_with_import_string() -> None:
                 "root_path": "",
                 "proxy_headers": True,
                 "log_config": get_uvicorn_log_config(),
+                "factory": False,
             }
         assert "Using import string: single_file_app:app" in result.output
 

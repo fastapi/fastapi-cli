@@ -162,6 +162,33 @@ def test_dev_env_vars() -> None:
         )
 
 
+def test_dev_env_vars_port() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app,
+                ["dev", "single_file_app.py"],
+                env={"PORT": "8111"},
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.call_args.kwargs["port"] == 8111
+
+
+def test_dev_env_vars_port_precedence() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app,
+                ["dev", "single_file_app.py"],
+                env={
+                    "PORT": "8111",
+                    "FASTAPI_PORT": "8112",
+                },
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.call_args.kwargs["port"] == 8112
+
+
 def test_dev_env_vars_and_args() -> None:
     with changing_dir(assets_path):
         with patch.object(uvicorn, "run") as mock_run:
@@ -335,6 +362,33 @@ def test_run_env_vars() -> None:
         assert "Starting production server 🚀" in result.output
         assert "Server started at http://192.168.1.1:8111" in result.output
         assert "Documentation at http://192.168.1.1:8111/docs" in result.output
+
+
+def test_run_env_vars_port() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app,
+                ["run", "single_file_app.py"],
+                env={"PORT": "8111"},
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.call_args.kwargs["port"] == 8111
+
+
+def test_run_env_vars_port_precedence() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app,
+                ["run", "single_file_app.py"],
+                env={
+                    "PORT": "8111",
+                    "FASTAPI_PORT": "8112",
+                },
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.call_args.kwargs["port"] == 8112
 
 
 def test_run_env_vars_and_args() -> None:

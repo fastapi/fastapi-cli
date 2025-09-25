@@ -211,7 +211,7 @@ def dev(
         int,
         typer.Option(
             help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app.",
-            envvar="FASTAPI_PORT",
+            envvar=["FASTAPI_PORT", "PORT"],
         ),
     ] = 8000,
     reload: Annotated[
@@ -319,7 +319,7 @@ def run(
         int,
         typer.Option(
             help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app.",
-            envvar="FASTAPI_PORT",
+            envvar=["FASTAPI_PORT", "PORT"],
         ),
     ] = 8000,
     reload: Annotated[

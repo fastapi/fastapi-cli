@@ -10,6 +10,7 @@ def test_get_uvicorn_config_uses_custom_formatter() -> None:
 
     assert config["formatters"]["default"]["()"] is CustomFormatter
     assert config["formatters"]["access"]["()"] is CustomFormatter
+    assert config["loggers"]["uvicorn"]["propagate"] is False
 
 
 def test_custom_formatter() -> None:

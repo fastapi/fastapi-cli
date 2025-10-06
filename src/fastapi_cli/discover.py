@@ -169,7 +169,7 @@ def get_import_data_from_import_string(import_string: str) -> ImportData:
 
 
 def get_app(
-        *, path: Union[Path, None] = None, app_name: Union[str, None] = None
+    *, path: Union[Path, None] = None, app_name: Union[str, None] = None
 ) -> FastAPI:
     """Get the FastAPI app instance from the given path and app name."""
     import_data: ImportData = get_import_data(path=path, app_name=app_name)

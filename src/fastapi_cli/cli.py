@@ -9,8 +9,11 @@ from rich import print
 from rich.tree import Tree
 from typing_extensions import Annotated
 
-from fastapi_cli.discover import get_app
-from fastapi_cli.discover import get_import_data, , get_import_data_from_import_string
+from fastapi_cli.discover import (
+    get_app,
+    get_import_data,
+    get_import_data_from_import_string,
+)
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__

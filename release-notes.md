@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* ⬆ Bump tiangolo/issue-manager from 0.5.1 to 0.6.0. PR [#220](https://github.com/fastapi/fastapi-cli/pull/220) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ## 0.0.13
 
 ### Features

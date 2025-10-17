@@ -35,6 +35,7 @@ dependencies = [
     "typer >= 0.15.1",
     "uvicorn[standard] >= 0.15.0",
     "rich-toolkit >= 0.14.8",
+    "pydantic-settings",
 ]
 
 [project.optional-dependencies]

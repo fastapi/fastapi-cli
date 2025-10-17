@@ -189,6 +189,23 @@ def test_dev_env_vars_and_args() -> None:
         )
 
 
+def test_entrypoint_mutually_exclusive_with_path() -> None:
+    result = runner.invoke(app, ["dev", "mymodule.py", "--entrypoint", "other:app"])
+
+    assert result.exit_code == 1
+    assert (
+        "Cannot use --entrypoint together with path or --app arguments" in result.output
+    )
+
+
+def test_entrypoint_mutually_exclusive_with_app() -> None:
+    result = runner.invoke(app, ["dev", "--app", "myapp", "--entrypoint", "other:app"])
+    assert result.exit_code == 1
+    assert (
+        "Cannot use --entrypoint together with path or --app arguments" in result.output
+    )
+
+
 def test_run() -> None:
     with changing_dir(assets_path):
         with patch.object(uvicorn, "run") as mock_run:

@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Upgrades
+
+* ⬆️ Add support for Python 3.13 and 3.14. PR [#225](https://github.com/fastapi/fastapi-cli/pull/225) by [@svlandeg](https://github.com/svlandeg).
+
 ### Internal
 
 * ⬆ Bump tiangolo/issue-manager from 0.5.1 to 0.6.0. PR [#220](https://github.com/fastapi/fastapi-cli/pull/220) by [@dependabot[bot]](https://github.com/apps/dependabot).

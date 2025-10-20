@@ -34,7 +34,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
 ]
 dependencies = [
-    "typer >= 0.15.1",
+    "typer >= 0.20.0",
     "uvicorn[standard] >= 0.15.0",
     "rich-toolkit >= 0.14.8",
 ]

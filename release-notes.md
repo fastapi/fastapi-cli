@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.14
+
 ### Upgrades
 
 * ⬆️ Add support for Python 3.13 and 3.14. PR [#225](https://github.com/fastapi/fastapi-cli/pull/225) by [@svlandeg](https://github.com/svlandeg).

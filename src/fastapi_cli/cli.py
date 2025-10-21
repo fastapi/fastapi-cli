@@ -99,6 +99,7 @@ def _run(
     app: Union[str, None] = None,
     entrypoint: Union[str, None] = None,
     proxy_headers: bool = False,
+    reload_dirs: Union[str, None] = None,
     forwarded_allow_ips: Union[str, None] = None,
 ) -> None:
     with get_rich_toolkit() as toolkit:
@@ -185,6 +186,7 @@ def _run(
             workers=workers,
             root_path=root_path,
             proxy_headers=proxy_headers,
+            reload_dirs=reload_dirs.split(",") if reload_dirs else None,
             forwarded_allow_ips=forwarded_allow_ips,
             log_config=get_uvicorn_log_config(),
         )
@@ -244,6 +246,12 @@ def dev(
             help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
         ),
     ] = True,
+    reload_dirs: Annotated[
+        Union[str, None],
+        typer.Option(
+            help="Comma separated list of directories to watch for changes in. If not provided, by default the whole current directory will be watched."
+        ),
+    ] = None,
     forwarded_allow_ips: Annotated[
         Union[str, None],
         typer.Option(
@@ -286,6 +294,7 @@ def dev(
         entrypoint=entrypoint,
         command="dev",
         proxy_headers=proxy_headers,
+        reload_dirs=reload_dirs,
         forwarded_allow_ips=forwarded_allow_ips,
     )
 

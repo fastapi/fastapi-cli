@@ -26,18 +26,25 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version:
-          - "3.8"
-          - "3.9"
-          - "3.10"
-          - "3.11"
-          - "3.12"
-          - "3.13"
-          - "3.14"
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        python-version: ["3.14"]
+        include:
+          - os: windows-latest
+              python-version: "3.8"
+          - os: macos-latest
+              python-version: "3.9"
+          - os: ubuntu-latest
+              python-version: "3.10"
+          - os: windows-latest
+              python-version: "3.11"
+          - os: macos-latest
+              python-version: "3.12"
+          - os: ubuntu-latest
+              python-version: "3.13"
       fail-fast: false
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Dump GitHub context
         env:
@@ -75,7 +82,7 @@ jobs:
       - name: Store coverage files
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-${{ matrix.python-version }}
+          name: coverage-${{ runner.os }}-${{ matrix.python-version }}
           path: coverage
           include-hidden-files: true
 

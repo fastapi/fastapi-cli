@@ -1,9 +1,10 @@
 import importlib
 import sys
+from contextlib import contextmanager
 from dataclasses import dataclass
 from logging import getLogger
 from pathlib import Path
-from typing import List, Union
+from typing import Iterator, List, Union
 
 from fastapi_cli.exceptions import FastAPICLIException
 
@@ -40,6 +41,18 @@ class ModuleData:
     module_import_str: str
     extra_sys_path: Path
     module_paths: List[Path]
+
+    @contextmanager
+    def sys_path(self) -> Iterator[str]:
+        """Context manager to temporarily alter sys.path"""
+        extra_sys_path = str(self.extra_sys_path) if self.extra_sys_path else ""
+        if extra_sys_path:
+            logger.debug("Adding %s to sys.path...", extra_sys_path)
+            sys.path.insert(0, extra_sys_path)
+            yield extra_sys_path
+        if extra_sys_path and sys.path and sys.path[0] == extra_sys_path:
+            logger.debug("Removing %s from sys.path...", extra_sys_path)
+            sys.path.pop(0)
 
 
 def get_module_data_from_path(path: Path) -> ModuleData:
@@ -153,3 +166,16 @@ def get_import_data_from_import_string(import_string: str) -> ImportData:
         ),
         import_string=import_string,
     )
+
+
+def get_app(
+    *, path: Union[Path, None] = None, app_name: Union[str, None] = None
+) -> FastAPI:
+    """Get the FastAPI app instance from the given path and app name."""
+    import_data: ImportData = get_import_data(path=path, app_name=app_name)
+    mod_data, use_app_name = import_data.module_data, import_data.app_name
+    with mod_data.sys_path():
+        mod = importlib.import_module(mod_data.module_import_str)
+    app = getattr(mod, use_app_name)
+    ## get_import_string_parts guarantees app is FastAPI object
+    return app  # type: ignore[no-any-return]

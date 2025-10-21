@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump astral-sh/setup-uv from 6 to 7. PR [#223](https://github.com/fastapi/fastapi-cli/pull/223) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.13.0 to 0.14.1. PR [#228](https://github.com/fastapi/fastapi-cli/pull/228) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔧 Configure reminder for `waiting` label in `issue-manager`. PR [#227](https://github.com/fastapi/fastapi-cli/pull/227) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#215](https://github.com/fastapi/fastapi-cli/pull/215) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).

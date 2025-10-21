@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.13.0 to 0.14.1. PR [#228](https://github.com/fastapi/fastapi-cli/pull/228) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔧 Configure reminder for `waiting` label in `issue-manager`. PR [#227](https://github.com/fastapi/fastapi-cli/pull/227) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#215](https://github.com/fastapi/fastapi-cli/pull/215) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 

@@ -1,7 +1,5 @@
 [project]
 name = "fastapi-cli"
-license = "MIT"
-license-files = ["LICENSE"]
 dynamic = ["version"]
 description = "Run and manage FastAPI apps from the command line with FastAPI CLI. 🚀"
 authors = [
@@ -10,6 +8,7 @@ authors = [
 requires-python = ">=3.8"
 readme = "README.md"
 license = {text = "MIT"}
+license-files = ["LICENSE"]
 classifiers = [
     "Intended Audience :: Information Technology",
     "Intended Audience :: System Administrators",

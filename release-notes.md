@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump actions/upload-artifact from 4 to 5. PR [#232](https://github.com/fastapi/fastapi-cli/pull/232) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.14.1 to 0.14.2. PR [#231](https://github.com/fastapi/fastapi-cli/pull/231) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/download-artifact from 5 to 6. PR [#233](https://github.com/fastapi/fastapi-cli/pull/233) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#235](https://github.com/fastapi/fastapi-cli/pull/235) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).

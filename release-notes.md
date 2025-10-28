@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.14.1 to 0.14.2. PR [#231](https://github.com/fastapi/fastapi-cli/pull/231) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/download-artifact from 5 to 6. PR [#233](https://github.com/fastapi/fastapi-cli/pull/233) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#235](https://github.com/fastapi/fastapi-cli/pull/235) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * 🔧 Add PEP-639 license metadata. PR [#234](https://github.com/fastapi/fastapi-cli/pull/234) by [@svlandeg](https://github.com/svlandeg).

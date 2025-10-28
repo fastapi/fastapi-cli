@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#235](https://github.com/fastapi/fastapi-cli/pull/235) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * 🔧 Add PEP-639 license metadata. PR [#234](https://github.com/fastapi/fastapi-cli/pull/234) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ Bump astral-sh/setup-uv from 6 to 7. PR [#223](https://github.com/fastapi/fastapi-cli/pull/223) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.13.0 to 0.14.1. PR [#228](https://github.com/fastapi/fastapi-cli/pull/228) by [@dependabot[bot]](https://github.com/apps/dependabot).

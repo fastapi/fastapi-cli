@@ -72,7 +72,7 @@ def get_module_data_from_path(path: Path) -> ModuleData:
 
 def get_app_infos(
     *, mod_data: ModuleData, app_name: Union[str, None] = None
-) -> Tuple[str, str | None, str | None, str | None]:
+) -> Tuple[str, Union[str, None], Union[str, None], Union[str, None]]:
     try:
         mod = importlib.import_module(mod_data.module_import_str)
     except (ImportError, ValueError) as e:
@@ -124,9 +124,9 @@ class ImportData:
     app_name: str
     module_data: ModuleData
     import_string: str
-    openapi_url: str | None = None
-    docs_url: str | None = None
-    redoc_url: str | None = None
+    openapi_url: Union[str, None] = None
+    docs_url: Union[str, None] = None
+    redoc_url: Union[str, None] = None
 
 
 def get_import_data(

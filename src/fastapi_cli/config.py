@@ -25,7 +25,7 @@ class FastAPIConfig(BaseModel):
         except ImportError:
             try:
                 import tomli as tomllib  # type: ignore[no-redef, import-not-found, unused-ignore]
-            except ImportError:
+            except ImportError:  # pragma: no cover
                 logger.debug("tomli not available, skipping pyproject.toml")
                 return {}
 

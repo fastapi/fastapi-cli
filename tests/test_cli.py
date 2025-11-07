@@ -45,6 +45,21 @@ def test_dev() -> None:
         assert "🐍 single_file_app.py" in result.output
 
 
+def test_dev_no_args_auto_discovery() -> None:
+    """Test that auto-discovery works when no args and no pyproject.toml entrypoint"""
+    with changing_dir(assets_path / "default_files" / "default_main"):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["dev"])  # No path argument
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs["app"] == "main:app"
+            assert mock_run.call_args.kwargs["host"] == "127.0.0.1"
+            assert mock_run.call_args.kwargs["port"] == 8000
+            assert mock_run.call_args.kwargs["reload"] is True
+        assert "Using import string: main:app" in result.output
+
+
 def test_dev_package() -> None:
     with changing_dir(assets_path):
         with patch.object(uvicorn, "run") as mock_run:

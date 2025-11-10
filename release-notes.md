@@ -8,6 +8,13 @@
 
 * ✨ Add support for reading configuration from `pyproject.toml`. PR [#236](https://github.com/fastapi/fastapi-cli/pull/236) by [@patrick91](https://github.com/patrick91).
 
+You can use it in `pyproject.toml` like:
+
+```toml
+[tool.fastapi]
+entrypoint = "some.importable_module:app_name"
+```
+
 ### Internal
 
 * ⬆ Bump actions/upload-artifact from 4 to 5. PR [#232](https://github.com/fastapi/fastapi-cli/pull/232) by [@dependabot[bot]](https://github.com/apps/dependabot).

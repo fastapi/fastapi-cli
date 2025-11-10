@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.15
+
 ### Features
 
 * ✨ Add support for reading configuration from `pyproject.toml`. PR [#236](https://github.com/fastapi/fastapi-cli/pull/236) by [@patrick91](https://github.com/patrick91).

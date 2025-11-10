@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.16
+
 ### Fixes
 
 * 🐛 Fix support for Pydantic v1. PR [#240](https://github.com/fastapi/fastapi-cli/pull/240) by [@patrick91](https://github.com/patrick91).

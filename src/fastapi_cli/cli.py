@@ -4,8 +4,8 @@ from pathlib import Path
 from typing import Any, List, Union
 
 import typer
-from pydantic import ValidationError
 from fastapi import FastAPI
+from pydantic import ValidationError
 from rich import print
 from rich.tree import Tree
 from typing_extensions import Annotated

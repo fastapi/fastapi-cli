@@ -29,14 +29,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version:
-          - "3.8"
-          - "3.9"
-          - "3.10"
-          - "3.11"
-          - "3.12"
-          - "3.13"
-          - "3.14"
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        pydantic-version: ["v2"]
+        include:
+          - python-version: "3.8"
+            pydantic-version: "v1"
+          - python-version: "3.9"
+            pydantic-version: "v1"
+          - python-version: "3.10"
+            pydantic-version: "v1"
       fail-fast: false
     steps:
       - name: Dump GitHub context
@@ -63,19 +64,23 @@ jobs:
         with:
           limit-access-to-actor: true
       - name: Install Dependencies
-        run: uv pip install -r requirements-tests.txt
+        run: |
+          uv pip install -r requirements-tests.txt
+          if [ "${{ matrix.pydantic-version }}" = "v1" ]; then
+            uv pip install "pydantic<2.0.0"
+          fi
       - name: Lint
         run: bash scripts/lint.sh
       - run: mkdir coverage
       - name: Test
         run: bash scripts/test.sh
         env:
-          COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}
-          CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}
+          COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}-pydantic-${{ matrix.pydantic-version }}
+          CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}-pydantic-${{ matrix.pydantic-version }}
       - name: Store coverage files
         uses: actions/upload-artifact@v5
         with:
-          name: coverage-${{ matrix.python-version }}
+          name: coverage-${{ matrix.python-version }}-pydantic-${{ matrix.pydantic-version }}
           path: coverage
           include-hidden-files: true
 

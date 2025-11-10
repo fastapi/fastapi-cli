@@ -32,7 +32,7 @@ try:
         app as fastapi_cloud_cli,
     )
 
-    app.add_typer(fastapi_cloud_cli)  # pragma: no cover
+    app.add_typer(fastapi_cloud_cli) 
 except ImportError:  # pragma: no cover
     pass
 
@@ -42,7 +42,7 @@ try:
         app as fastapi_new_cli,
     )
 
-    app.add_typer(fastapi_new_cli)
+    app.add_typer(fastapi_new_cli) # pragma: no cover
 except ImportError:  # pragma: no cover
     pass
 

@@ -64,11 +64,10 @@ jobs:
         with:
           limit-access-to-actor: true
       - name: Install Dependencies
-        run: |
-          uv pip install -r requirements-tests.txt
-          if [ "${{ matrix.pydantic-version }}" = "v1" ]; then
-            uv pip install "pydantic<2.0.0"
-          fi
+        run: uv pip install -r requirements-tests.txt
+      - name: Install Pydantic v1
+        if: matrix.pydantic-version == 'v1'
+        run: uv pip install "pydantic<2.0.0"
       - name: Lint
         run: bash scripts/lint.sh
       - run: mkdir coverage

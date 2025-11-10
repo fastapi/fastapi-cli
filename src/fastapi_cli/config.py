@@ -44,7 +44,6 @@ class FastAPIConfig(BaseModel):
             config["entrypoint"] = entrypoint
 
         # Pydantic v2 uses model_validate, v1 uses parse_obj
-        # Use getattr to avoid mypy errors with different Pydantic versions
         if not PYDANTIC_V2:
             return cls.parse_obj(config)  # type: ignore[no-any-return, unused-ignore]
 

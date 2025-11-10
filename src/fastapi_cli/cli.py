@@ -122,11 +122,7 @@ def _run(
             raise typer.Exit(code=1)
 
         try:
-            config = FastAPIConfig.resolve(
-                host=host,
-                port=port,
-                entrypoint=entrypoint,
-            )
+            config = FastAPIConfig.resolve(entrypoint=entrypoint)
         except ValidationError as e:
             toolkit.print_line()
             toolkit.print("[error]Invalid configuration in pyproject.toml:")
@@ -183,7 +179,7 @@ def _run(
             tag="app",
         )
 
-        url = f"http://{config.host}:{config.port}"
+        url = f"http://{host}:{port}"
         url_docs = f"{url}/docs"
 
         toolkit.print_line()
@@ -211,8 +207,8 @@ def _run(
 
         uvicorn.run(
             app=import_string,
-            host=config.host,
-            port=config.port,
+            host=host,
+            port=port,
             reload=reload,
             workers=workers,
             root_path=root_path,

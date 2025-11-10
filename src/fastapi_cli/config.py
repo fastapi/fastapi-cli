@@ -9,8 +9,6 @@ logger = logging.getLogger(__name__)
 
 class FastAPIConfig(BaseModel):
     entrypoint: Optional[str] = None
-    host: str = "127.0.0.1"
-    port: int = 8000
 
     @classmethod
     def _read_pyproject_toml(cls) -> Dict[str, Any]:
@@ -35,18 +33,9 @@ class FastAPIConfig(BaseModel):
             return data.get("tool", {}).get("fastapi", {})  # type: ignore
 
     @classmethod
-    def resolve(
-        cls,
-        host: Optional[str] = None,
-        port: Optional[int] = None,
-        entrypoint: Optional[str] = None,
-    ) -> "FastAPIConfig":
+    def resolve(cls, entrypoint: Optional[str] = None) -> "FastAPIConfig":
         config = cls._read_pyproject_toml()
 
-        if host is not None:
-            config["host"] = host
-        if port is not None:
-            config["port"] = port
         if entrypoint is not None:
             config["entrypoint"] = entrypoint
 

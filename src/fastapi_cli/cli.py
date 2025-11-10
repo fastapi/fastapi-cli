@@ -37,6 +37,16 @@ except ImportError:  # pragma: no cover
     pass
 
 
+try:
+    from fastapi_new.cli import (
+        app as fastapi_new_cli,
+    )
+
+    app.add_typer(fastapi_new_cli)
+except ImportError:  # pragma: no cover
+    pass
+
+
 def version_callback(value: bool) -> None:
     if value:
         print(f"FastAPI CLI version: [green]{__version__}[/green]")

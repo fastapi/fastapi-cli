@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Features
+
+* ✨ Add support for reading configuration from `pyproject.toml`. PR [#236](https://github.com/fastapi/fastapi-cli/pull/236) by [@patrick91](https://github.com/patrick91).
+
 ### Internal
 
 * ⬆ Bump actions/upload-artifact from 4 to 5. PR [#232](https://github.com/fastapi/fastapi-cli/pull/232) by [@dependabot[bot]](https://github.com/apps/dependabot).

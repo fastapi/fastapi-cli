@@ -38,7 +38,7 @@ except ImportError:  # pragma: no cover
 
 
 try:
-    from fastapi_new.cli import (
+    from fastapi_new.cli import (  # type: ignore[import-not-found]
         app as fastapi_new_cli,
     )
 

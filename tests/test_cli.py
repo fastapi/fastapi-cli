@@ -30,6 +30,7 @@ def test_dev() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "reload_dirs": None,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -75,6 +76,7 @@ def test_dev_package() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "reload_dirs": None,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -111,6 +113,8 @@ def test_dev_args() -> None:
                     "--app",
                     "api",
                     "--no-proxy-headers",
+                    "--reload-dirs",
+                    "api,config",
                 ],
             )
             assert result.exit_code == 0, result.output
@@ -124,6 +128,10 @@ def test_dev_args() -> None:
                 "workers": None,
                 "root_path": "/api",
                 "proxy_headers": False,
+                "reload_dirs": [
+                    "api",
+                    "config",
+                ],
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -154,6 +162,7 @@ def test_dev_env_vars() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "reload_dirs": None,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -191,6 +200,7 @@ def test_dev_env_vars_and_args() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "reload_dirs": None,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -236,6 +246,7 @@ def test_run() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "reload_dirs": None,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -262,6 +273,7 @@ def test_run_trust_proxy() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "reload_dirs": None,
                 "forwarded_allow_ips": "*",
                 "log_config": get_uvicorn_log_config(),
             }
@@ -308,6 +320,7 @@ def test_run_args() -> None:
                 "workers": 2,
                 "root_path": "/api",
                 "proxy_headers": False,
+                "reload_dirs": None,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -339,6 +352,7 @@ def test_run_env_vars() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "reload_dirs": None,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -372,6 +386,7 @@ def test_run_env_vars_and_args() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "reload_dirs": None,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -407,6 +422,7 @@ def test_dev_help() -> None:
     assert "The root path is used to tell your app" in result.output
     assert "The name of the variable that contains the FastAPI app" in result.output
     assert "Use multiple worker processes." not in result.output
+    assert "directories to watch for changes in." in result.output
 
 
 def test_run_help() -> None:
@@ -428,6 +444,7 @@ def test_run_help() -> None:
     assert "The root path is used to tell your app" in result.output
     assert "The name of the variable that contains the FastAPI app" in result.output
     assert "Use multiple worker processes." in result.output
+    assert "directories to watch for changes in." not in result.output
 
 
 def test_callback_help() -> None:
@@ -458,6 +475,7 @@ def test_dev_with_import_string() -> None:
                 "reload": True,
                 "workers": None,
                 "root_path": "",
+                "reload_dirs": None,
                 "proxy_headers": True,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -479,6 +497,7 @@ def test_run_with_import_string() -> None:
                 "reload": False,
                 "workers": None,
                 "root_path": "",
+                "reload_dirs": None,
                 "proxy_headers": True,
                 "log_config": get_uvicorn_log_config(),
             }

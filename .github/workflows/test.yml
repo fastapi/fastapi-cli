@@ -48,8 +48,11 @@ jobs:
             pydantic-version: "v1"
             os: macos-latest
           - python-version: "3.13"
-            pydantic-version: "v2"
+            pydantic-version: "v1"
             os: ubuntu-latest
+          - python-version: "3.13"
+            pydantic-version: "v2"
+            os: windows-latest
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:

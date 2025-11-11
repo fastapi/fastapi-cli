@@ -26,27 +26,35 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version:
-          - "3.8"
-          - "3.9"
-          - "3.10"
-          - "3.11"
-          - "3.12"
-          - "3.13"
-          - "3.14"
-        pydantic-version:
-          - "v2"
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        python-version: ["3.14"]
+        pydantic-version: ["v2"]
         include:
           - python-version: "3.8"
             pydantic-version: "v1"
+            os: windows-latest
           - python-version: "3.9"
-            pydantic-version: "v1"
+            pydantic-version: "v2"
+            os: macos-latest
           - python-version: "3.10"
             pydantic-version: "v1"
+            os: ubuntu-latest
+          - python-version: "3.11"
+            pydantic-version: "v2"
+            os: windows-latest
+          - python-version: "3.12"
+            pydantic-version: "v1"
+            os: macos-latest
+          - python-version: "3.13"
+            pydantic-version: "v1"
+            os: ubuntu-latest
+          - python-version: "3.13"
+            pydantic-version: "v2"
+            os: windows-latest
       fail-fast: false
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Dump GitHub context
         env:
@@ -87,7 +95,7 @@ jobs:
       - name: Store coverage files
         uses: actions/upload-artifact@v5
         with:
-          name: coverage-${{ matrix.python-version }}-pydantic-${{ matrix.pydantic-version }}
+          name: coverage-${{ runner.os }}-${{  matrix.python-version }}-pydantic-${{ matrix.pydantic-version }}
           path: coverage
           include-hidden-files: true
 

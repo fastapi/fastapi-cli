@@ -3,10 +3,12 @@ from pathlib import Path
 from typing import Any, List, Union
 
 import typer
+from pydantic import ValidationError
 from rich import print
 from rich.tree import Tree
 from typing_extensions import Annotated
 
+from fastapi_cli.config import FastAPIConfig
 from fastapi_cli.discover import get_import_data, get_import_data_from_import_string
 from fastapi_cli.exceptions import FastAPICLIException
 
@@ -111,11 +113,37 @@ def _run(
             "Searching for package file structure from directories with [blue]__init__.py[/blue] files"
         )
 
+        if entrypoint and (path or app):
+            toolkit.print_line()
+            toolkit.print(
+                "[error]Cannot use --entrypoint together with path or --app arguments"
+            )
+            toolkit.print_line()
+            raise typer.Exit(code=1)
+
         try:
-            if entrypoint:
-                import_data = get_import_data_from_import_string(entrypoint)
-            else:
+            config = FastAPIConfig.resolve(entrypoint=entrypoint)
+        except ValidationError as e:
+            toolkit.print_line()
+            toolkit.print("[error]Invalid configuration in pyproject.toml:")
+            toolkit.print_line()
+
+            for error in e.errors():
+                field = ".".join(str(loc) for loc in error["loc"])
+                toolkit.print(f"  [red]•[/red] {field}: {error['msg']}")
+
+            toolkit.print_line()
+
+            raise typer.Exit(code=1) from None
+
+        try:
+            # Resolve import data with priority: CLI path/app > config entrypoint > auto-discovery
+            if path or app:
                 import_data = get_import_data(path=path, app_name=app)
+            elif config.entrypoint:
+                import_data = get_import_data_from_import_string(config.entrypoint)
+            else:
+                import_data = get_import_data()
         except FastAPICLIException as e:
             toolkit.print_line()
             toolkit.print(f"[error]{e}")

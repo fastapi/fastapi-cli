@@ -2,6 +2,42 @@
 
 ## Latest Changes
 
+### Internal
+
+* ⬆ Bump ruff from 0.14.2 to 0.14.4. PR [#239](https://github.com/fastapi/fastapi-cli/pull/239) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#238](https://github.com/fastapi/fastapi-cli/pull/238) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+
+## 0.0.16
+
+### Fixes
+
+* 🐛 Fix support for Pydantic v1. PR [#240](https://github.com/fastapi/fastapi-cli/pull/240) by [@patrick91](https://github.com/patrick91).
+
+## 0.0.15
+
+### Features
+
+* ✨ Add support for reading configuration from `pyproject.toml`. PR [#236](https://github.com/fastapi/fastapi-cli/pull/236) by [@patrick91](https://github.com/patrick91).
+
+You can use it in `pyproject.toml` like:
+
+```toml
+[tool.fastapi]
+entrypoint = "some.importable_module:app_name"
+```
+
+### Internal
+
+* ⬆ Bump actions/upload-artifact from 4 to 5. PR [#232](https://github.com/fastapi/fastapi-cli/pull/232) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.1 to 0.14.2. PR [#231](https://github.com/fastapi/fastapi-cli/pull/231) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/download-artifact from 5 to 6. PR [#233](https://github.com/fastapi/fastapi-cli/pull/233) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#235](https://github.com/fastapi/fastapi-cli/pull/235) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* 🔧 Add PEP-639 license metadata. PR [#234](https://github.com/fastapi/fastapi-cli/pull/234) by [@svlandeg](https://github.com/svlandeg).
+* ⬆ Bump astral-sh/setup-uv from 6 to 7. PR [#223](https://github.com/fastapi/fastapi-cli/pull/223) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.13.0 to 0.14.1. PR [#228](https://github.com/fastapi/fastapi-cli/pull/228) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 🔧 Configure reminder for `waiting` label in `issue-manager`. PR [#227](https://github.com/fastapi/fastapi-cli/pull/227) by [@YuriiMotov](https://github.com/YuriiMotov).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#215](https://github.com/fastapi/fastapi-cli/pull/215) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+
 ## 0.0.14
 
 ### Upgrades

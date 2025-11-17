@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#243](https://github.com/fastapi/fastapi-cli/pull/243) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.14.4 to 0.14.5. PR [#242](https://github.com/fastapi/fastapi-cli/pull/242) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ✅ Expand test matrix to include Windows and MacOS. PR [#230](https://github.com/fastapi/fastapi-cli/pull/230) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ Bump ruff from 0.14.2 to 0.14.4. PR [#239](https://github.com/fastapi/fastapi-cli/pull/239) by [@dependabot[bot]](https://github.com/apps/dependabot).

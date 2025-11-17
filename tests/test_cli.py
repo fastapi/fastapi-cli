@@ -492,3 +492,271 @@ def test_script() -> None:
         encoding="utf-8",
     )
     assert "Usage" in result.stdout
+
+
+def test_dev_and_fastapi_app_with_url_docs_set_should_show_correctly_url_in_stdout() -> (
+    None
+):
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["dev", "single_file_app_with_url_docs_set.py"])
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "single_file_app_with_url_docs_set:app",
+                "forwarded_allow_ips": None,
+                "host": "127.0.0.1",
+                "port": 8000,
+                "reload": True,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "log_config": get_uvicorn_log_config(),
+            }
+        assert (
+            "Using import string: single_file_app_with_url_docs_set:app"
+            in result.output
+        )
+        assert "Starting development server 🚀" in result.output
+        assert "Server started at http://127.0.0.1:8000" in result.output
+        assert (
+            "Documentation at http://127.0.0.1:8000/my-custom-docs-path"
+            in result.output
+        )
+
+
+def test_dev_and_fastapi_app_without_docs_url_set_should_show_default_url_in_stdout() -> (
+    None
+):
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["dev", "single_file_app.py"])
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "single_file_app:app",
+                "forwarded_allow_ips": None,
+                "host": "127.0.0.1",
+                "port": 8000,
+                "reload": True,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "log_config": get_uvicorn_log_config(),
+            }
+        assert "Using import string: single_file_app:app" in result.output
+        assert "Starting development server 🚀" in result.output
+        assert "Server started at http://127.0.0.1:8000" in result.output
+        assert "Documentation at http://127.0.0.1:8000/docs" in result.output
+
+
+def test_run_and_fastapi_app_with_url_docs_set_should_show_correctly_url_in_stdout() -> (
+    None
+):
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["run", "single_file_app_with_url_docs_set.py"])
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "single_file_app_with_url_docs_set:app",
+                "forwarded_allow_ips": None,
+                "host": "0.0.0.0",
+                "port": 8000,
+                "reload": False,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "log_config": get_uvicorn_log_config(),
+            }
+        assert (
+            "Using import string: single_file_app_with_url_docs_set:app"
+            in result.output
+        )
+        assert "Starting production server 🚀" in result.output
+        assert "Server started at http://0.0.0.0:8000" in result.output
+        assert (
+            "Documentation at http://0.0.0.0:8000/my-custom-docs-path" in result.output
+        )
+
+
+def test_run_and_fastapi_app_without_docs_url_set_should_show_default_url_in_stdout() -> (
+    None
+):
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["run", "single_file_app.py"])
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "single_file_app:app",
+                "forwarded_allow_ips": None,
+                "host": "0.0.0.0",
+                "port": 8000,
+                "reload": False,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "log_config": get_uvicorn_log_config(),
+            }
+        assert "Using import string: single_file_app:app" in result.output
+        assert "Starting production server 🚀" in result.output
+        assert "Server started at http://0.0.0.0:8000" in result.output
+        assert "Documentation at http://0.0.0.0:8000/docs" in result.output
+
+
+def test_run_and_fastapi_app_docs_url_set_to_none_should_not_show_api_docs_section() -> (
+    None
+):
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["run", "single_file_app_with_url_docs_none.py"]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "single_file_app_with_url_docs_none:app",
+                "forwarded_allow_ips": None,
+                "host": "0.0.0.0",
+                "port": 8000,
+                "reload": False,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "log_config": get_uvicorn_log_config(),
+            }
+        assert (
+            "Using import string: single_file_app_with_url_docs_none:app"
+            in result.output
+        )
+        assert "Starting production server 🚀" in result.output
+        assert "Server started at http://0.0.0.0:8000" in result.output
+        assert "Documentation at " not in result.output
+
+
+def test_dev_and_fastapi_app_docs_url_set_to_none_should_not_show_api_docs_section() -> (
+    None
+):
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["dev", "single_file_app_with_url_docs_none.py"]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "single_file_app_with_url_docs_none:app",
+                "forwarded_allow_ips": None,
+                "host": "127.0.0.1",
+                "port": 8000,
+                "reload": True,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "log_config": get_uvicorn_log_config(),
+            }
+        assert (
+            "Using import string: single_file_app_with_url_docs_none:app"
+            in result.output
+        )
+        assert "Starting development server 🚀" in result.output
+        assert "Server started at http://127.0.0.1:8000" in result.output
+        assert "Documentation at " not in result.output
+
+
+def test_dev_and_fastapi_app_docs_url_with_root_path_should_show_correctly_url_in_stdout() -> (
+    None
+):
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app,
+                [
+                    "dev",
+                    "single_file_app_with_url_docs_set_and_root_path.py",
+                    "--host",
+                    "192.168.0.2",
+                    "--port",
+                    "8080",
+                    "--no-reload",
+                    "--root-path",
+                    "/api/v1",
+                    "--app",
+                    "app",
+                    "--no-proxy-headers",
+                ],
+            )
+        assert result.exit_code == 0, result.output
+        assert mock_run.called
+        assert mock_run.call_args
+        assert mock_run.call_args.kwargs == {
+            "app": "single_file_app_with_url_docs_set_and_root_path:app",
+            "forwarded_allow_ips": None,
+            "host": "192.168.0.2",
+            "port": 8080,
+            "reload": False,
+            "workers": None,
+            "root_path": "/api/v1",
+            "proxy_headers": False,
+            "log_config": get_uvicorn_log_config(),
+        }
+        assert "Using import string: " in result.output
+        assert "single_file_app_with_url_docs_set_and_root_path:app" in result.output
+        assert "Starting development server 🚀" in result.output
+        assert "Server started at http://192.168.0.2:8080" in result.output
+        assert (
+            "Documentation at http://192.168.0.2:8080/my-custom-docs-path"
+            in result.output
+        )
+
+
+def test_run_and_fastapi_app_docs_url_with_root_path_should_show_correctly_url_in_stdout() -> (
+    None
+):
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app,
+                [
+                    "run",
+                    "single_file_app_with_url_docs_set_and_root_path.py",
+                    "--host",
+                    "0.0.0.0",
+                    "--port",
+                    "8080",
+                    "--no-reload",
+                    "--root-path",
+                    "/api/v1",
+                    "--app",
+                    "app",
+                    "--no-proxy-headers",
+                ],
+            )
+        assert result.exit_code == 0, result.output
+        assert mock_run.called
+        assert mock_run.call_args
+        assert mock_run.call_args.kwargs == {
+            "app": "single_file_app_with_url_docs_set_and_root_path:app",
+            "forwarded_allow_ips": None,
+            "host": "0.0.0.0",
+            "port": 8080,
+            "reload": False,
+            "workers": None,
+            "root_path": "/api/v1",
+            "proxy_headers": False,
+            "log_config": get_uvicorn_log_config(),
+        }
+        assert "Using import string: " in result.output
+        assert "single_file_app_with_url_docs_set_and_root_path:app" in result.output
+        assert "Starting production server 🚀" in result.output
+        assert "Server started at http://0.0.0.0:8080" in result.output
+        assert (
+            "Documentation at http://0.0.0.0:8080/my-custom-docs-path" in result.output
+        )

@@ -381,6 +381,84 @@ def test_run_env_vars_and_args() -> None:
         assert "Documentation at http://0.0.0.0:8080/docs" in result.output
 
 
+def test_no_openapi() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["dev", "single_file_docs.py", "--app", "no_openapi"]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert "http://127.0.0.1:8000/docs" not in result.output
+        assert "http://127.0.0.1:8000/redoc" not in result.output
+
+
+def test_none_docs() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["dev", "single_file_docs.py", "--app", "none_docs"]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert "http://127.0.0.1:8000/docs" not in result.output
+        assert "http://127.0.0.1:8000/redoc" not in result.output
+
+
+def test_no_docs() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["dev", "single_file_docs.py", "--app", "no_docs"]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert "http://127.0.0.1:8000/redoc" in result.output
+        assert "http://127.0.0.1:8000/docs" not in result.output
+
+
+def test_no_redoc() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["dev", "single_file_docs.py", "--app", "no_redoc"]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert "http://127.0.0.1:8000/docs" in result.output
+        assert "http://127.0.0.1:8000/redocs" not in result.output
+
+
+def test_full_docs() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["dev", "single_file_docs.py", "--app", "full_docs"]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert "http://127.0.0.1:8000/docs" in result.output
+        assert "http://127.0.0.1:8000/redoc" in result.output
+
+
+def test_custom_docs() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["dev", "single_file_docs.py", "--app", "custom_docs"]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert "http://127.0.0.1:8000/custom-docs-url" in result.output
+        assert "http://127.0.0.1:8000/custom-redoc-url" in result.output
+
+
 def test_run_error() -> None:
     with changing_dir(assets_path):
         result = runner.invoke(app, ["run", "non_existing_file.py"])

@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 👷 Upgrade `latest-changes` GitHub Action and pin `actions/checkout@v5`. PR [#246](https://github.com/fastapi/fastapi-cli/pull/246) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#243](https://github.com/fastapi/fastapi-cli/pull/243) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.14.4 to 0.14.5. PR [#242](https://github.com/fastapi/fastapi-cli/pull/242) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ✅ Expand test matrix to include Windows and MacOS. PR [#230](https://github.com/fastapi/fastapi-cli/pull/230) by [@svlandeg](https://github.com/svlandeg).

@@ -3,7 +3,7 @@ import sys
 from dataclasses import dataclass
 from logging import getLogger
 from pathlib import Path
-from typing import List, Union
+from typing import List, Tuple, Union
 
 from fastapi_cli.exceptions import FastAPICLIException
 
@@ -45,12 +45,16 @@ class ModuleData:
 def get_module_data_from_path(path: Path) -> ModuleData:
     use_path = path.resolve()
     module_path = use_path
+
     if use_path.is_file() and use_path.stem == "__init__":
         module_path = use_path.parent
+
     module_paths = [module_path]
     extra_sys_path = module_path.parent
+
     for parent in module_path.parents:
         init_path = parent / "__init__.py"
+
         if init_path.is_file():
             module_paths.insert(0, parent)
             extra_sys_path = parent.parent
@@ -58,6 +62,7 @@ def get_module_data_from_path(path: Path) -> ModuleData:
             break
 
     module_str = ".".join(p.stem for p in module_paths)
+
     return ModuleData(
         module_import_str=module_str,
         extra_sys_path=extra_sys_path.resolve(),
@@ -65,7 +70,9 @@ def get_module_data_from_path(path: Path) -> ModuleData:
     )
 
 
-def get_app_name(*, mod_data: ModuleData, app_name: Union[str, None] = None) -> str:
+def get_app_infos(
+    *, mod_data: ModuleData, app_name: Union[str, None] = None
+) -> Tuple[str, Union[str, None], Union[str, None], Union[str, None]]:
     try:
         mod = importlib.import_module(mod_data.module_import_str)
     except (ImportError, ValueError) as e:
@@ -74,32 +81,41 @@ def get_app_name(*, mod_data: ModuleData, app_name: Union[str, None] = None) -> 
             "Ensure all the package directories have an [blue]__init__.py[/blue] file"
         )
         raise
+
     if not FastAPI:  # type: ignore[truthy-function]
         raise FastAPICLIException(
             "Could not import FastAPI, try running 'pip install fastapi'"
         ) from None
+
     object_names = dir(mod)
     object_names_set = set(object_names)
+
     if app_name:
         if app_name not in object_names_set:
             raise FastAPICLIException(
                 f"Could not find app name {app_name} in {mod_data.module_import_str}"
             )
+
         app = getattr(mod, app_name)
+
         if not isinstance(app, FastAPI):
             raise FastAPICLIException(
                 f"The app name {app_name} in {mod_data.module_import_str} doesn't seem to be a FastAPI app"
             )
-        return app_name
+
+        return app_name, app.openapi_url, app.docs_url, app.redoc_url
+
     for preferred_name in ["app", "api"]:
         if preferred_name in object_names_set:
             obj = getattr(mod, preferred_name)
             if isinstance(obj, FastAPI):
-                return preferred_name
+                return preferred_name, obj.openapi_url, obj.docs_url, obj.redoc_url
+
     for name in object_names:
         obj = getattr(mod, name)
         if isinstance(obj, FastAPI):
-            return name
+            return name, obj.openapi_url, obj.docs_url, obj.redoc_url
+
     raise FastAPICLIException("Could not find FastAPI app in module, try using --app")
 
 
@@ -108,6 +124,9 @@ class ImportData:
     app_name: str
     module_data: ModuleData
     import_string: str
+    openapi_url: Union[str, None] = None
+    docs_url: Union[str, None] = None
+    redoc_url: Union[str, None] = None
 
 
 def get_import_data(
@@ -121,14 +140,22 @@ def get_import_data(
 
     if not path.exists():
         raise FastAPICLIException(f"Path does not exist {path}")
+
     mod_data = get_module_data_from_path(path)
     sys.path.insert(0, str(mod_data.extra_sys_path))
-    use_app_name = get_app_name(mod_data=mod_data, app_name=app_name)
+    use_app_name, openapi_url, docs_url, redoc_url = get_app_infos(
+        mod_data=mod_data, app_name=app_name
+    )
 
     import_string = f"{mod_data.module_import_str}:{use_app_name}"
 
     return ImportData(
-        app_name=use_app_name, module_data=mod_data, import_string=import_string
+        app_name=use_app_name,
+        module_data=mod_data,
+        import_string=import_string,
+        openapi_url=openapi_url,
+        docs_url=docs_url,
+        redoc_url=redoc_url,
     )
 
 
@@ -144,12 +171,21 @@ def get_import_data_from_import_string(import_string: str) -> ImportData:
 
     sys.path.insert(0, str(here))
 
+    module_data = ModuleData(
+        module_import_str=module_str,
+        extra_sys_path=here,
+        module_paths=[],
+    )
+
+    _, openapi_url, docs_url, redoc_url = get_app_infos(
+        mod_data=module_data, app_name=app_name
+    )
+
     return ImportData(
         app_name=app_name,
-        module_data=ModuleData(
-            module_import_str=module_str,
-            extra_sys_path=here,
-            module_paths=[],
-        ),
+        module_data=module_data,
         import_string=import_string,
+        openapi_url=openapi_url,
+        docs_url=docs_url,
+        redoc_url=redoc_url,
     )

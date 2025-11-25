@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#247](https://github.com/fastapi/fastapi-cli/pull/247) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.14.5 to 0.14.6. PR [#245](https://github.com/fastapi/fastapi-cli/pull/245) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/checkout from 5 to 6. PR [#248](https://github.com/fastapi/fastapi-cli/pull/248) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/checkout from 5 to 6. PR [#244](https://github.com/fastapi/fastapi-cli/pull/244) by [@dependabot[bot]](https://github.com/apps/dependabot).

@@ -102,6 +102,7 @@ def _run(
     entrypoint: Union[str, None] = None,
     proxy_headers: bool = False,
     forwarded_allow_ips: Union[str, None] = None,
+    is_factory: bool = False,
 ) -> None:
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
@@ -164,13 +165,14 @@ def _run(
             toolkit.print(root_tree, tag="module")
             toolkit.print_line()
 
+        imported_object_type = "factory" if is_factory else "app"
         toolkit.print(
-            "Importing the FastAPI app object from the module with the following code:",
+            f"Importing the FastAPI {imported_object_type} object from the module with the following code:",
             tag="code",
         )
         toolkit.print_line()
         toolkit.print(
-            f"[underline]from [bold]{module_data.module_import_str}[/bold] import [bold]{import_data.app_name}[/bold]"
+            f"[underline]from [bold]{module_data.module_import_str}[/bold] import [bold]{import_data.candidate_name}[/bold]"
         )
         toolkit.print_line()
 
@@ -215,6 +217,7 @@ def _run(
             proxy_headers=proxy_headers,
             forwarded_allow_ips=forwarded_allow_ips,
             log_config=get_uvicorn_log_config(),
+            factory=is_factory,
         )
 
 
@@ -223,7 +226,7 @@ def dev(
     path: Annotated[
         Union[Path, None],
         typer.Argument(
-            help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried."
+            help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app or app factory. If not provided, a default set of paths will be tried."
         ),
     ] = None,
     *,
@@ -278,6 +281,12 @@ def dev(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),
     ] = None,
+    factory: Annotated[
+        bool,
+        typer.Option(
+            help="Treat [bold]path[bold] as an application factory, i.e. a () -> <ASGI app> callable."
+        ),
+    ] = False,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [yellow]development[/yellow] mode. 🧪
@@ -315,6 +324,7 @@ def dev(
         command="dev",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
+        is_factory=factory,
     )
 
 
@@ -384,6 +394,12 @@ def run(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),
     ] = None,
+    factory: Annotated[
+        bool,
+        typer.Option(
+            help="Treat [bold]path[bold] as an application factory, i.e. a () -> <ASGI app> callable."
+        ),
+    ] = False,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [green]production[/green] mode. 🚀
@@ -422,6 +438,7 @@ def run(
         command="run",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
+        is_factory=factory,
     )
 
 

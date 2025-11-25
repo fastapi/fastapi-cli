@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump actions/checkout from 5 to 6. PR [#248](https://github.com/fastapi/fastapi-cli/pull/248) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/checkout from 5 to 6. PR [#244](https://github.com/fastapi/fastapi-cli/pull/244) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Upgrade `latest-changes` GitHub Action and pin `actions/checkout@v5`. PR [#246](https://github.com/fastapi/fastapi-cli/pull/246) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#243](https://github.com/fastapi/fastapi-cli/pull/243) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).

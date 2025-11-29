@@ -34,7 +34,10 @@ def test_dev() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output
-        assert "Starting development server 🚀" in result.output
+        if sys.platform == "win32":
+            assert "Starting development server" in result.output
+        else:
+            assert "Starting development server 🚀" in result.output
         assert "Server started at http://127.0.0.1:8000" in result.output
         assert "Documentation at http://127.0.0.1:8000/docs" in result.output
         assert (
@@ -42,7 +45,10 @@ def test_dev() -> None:
             in result.output
         )
 
-        assert "🐍 single_file_app.py" in result.output
+        if sys.platform == "win32":
+            assert "Python single_file_app.py" in result.output
+        else:
+            assert "🐍 single_file_app.py" in result.output
 
 
 def test_dev_no_args_auto_discovery() -> None:
@@ -79,7 +85,10 @@ def test_dev_package() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: nested_package.package:app" in result.output
-        assert "Starting development server 🚀" in result.output
+        if sys.platform == "win32":
+            assert "Starting development server" in result.output
+        else:
+            assert "Starting development server 🚀" in result.output
         assert "Server started at http://127.0.0.1:8000" in result.output
         assert "Documentation at http://127.0.0.1:8000/docs" in result.output
         assert (
@@ -87,10 +96,16 @@ def test_dev_package() -> None:
             in result.output
         )
 
-        assert "📁 package" in result.output
-        assert "└── 🐍 __init__.py" in result.output
-        assert "└── 📁 package" in result.output
-        assert "    └── 🐍 __init__.py" in result.output
+        if sys.platform == "win32":
+            assert "Folder package" in result.output
+            assert "└── Python __init__.py" in result.output
+            assert "└── Folder package" in result.output
+            assert "    └── Python __init__.py" in result.output
+        else:
+            assert "📁 package" in result.output
+            assert "└── 🐍 __init__.py" in result.output
+            assert "└── 📁 package" in result.output
+            assert "    └── 🐍 __init__.py" in result.output
 
 
 def test_dev_args() -> None:
@@ -128,7 +143,10 @@ def test_dev_args() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:api" in result.output
-        assert "Starting development server 🚀" in result.output
+        if sys.platform == "win32":
+            assert "Starting development server" in result.output
+        else:
+            assert "Starting development server 🚀" in result.output
         assert "Server started at http://192.168.0.2:8080" in result.output
         assert "Documentation at http://192.168.0.2:8080/docs" in result.output
         assert (
@@ -158,7 +176,10 @@ def test_dev_env_vars() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output
-        assert "Starting development server 🚀" in result.output
+        if sys.platform == "win32":
+            assert "Starting development server" in result.output
+        else:
+            assert "Starting development server 🚀" in result.output
         assert "Server started at http://127.0.0.1:8111" in result.output
         assert "Documentation at http://127.0.0.1:8111/docs" in result.output
         assert (
@@ -195,7 +216,10 @@ def test_dev_env_vars_and_args() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output
-        assert "Starting development server 🚀" in result.output
+        if sys.platform == "win32":
+            assert "Starting development server" in result.output
+        else:
+            assert "Starting development server 🚀" in result.output
         assert "Server started at http://127.0.0.1:8080" in result.output
         assert "Documentation at http://127.0.0.1:8080/docs" in result.output
         assert (
@@ -240,7 +264,10 @@ def test_run() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output
-        assert "Starting production server 🚀" in result.output
+        if sys.platform == "win32":
+            assert "Starting production server" in result.output
+        else:
+            assert "Starting production server 🚀" in result.output
         assert "Server started at http://0.0.0.0:8000" in result.output
         assert "Documentation at http://0.0.0.0:8000/docs" in result.output
 
@@ -266,7 +293,10 @@ def test_run_trust_proxy() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output
-        assert "Starting production server 🚀" in result.output
+        if sys.platform == "win32":
+            assert "Starting production server" in result.output
+        else:
+            assert "Starting production server 🚀" in result.output
         assert "Server started at http://0.0.0.0:8000" in result.output
         assert "Documentation at http://0.0.0.0:8000/docs" in result.output
         assert (
@@ -313,7 +343,10 @@ def test_run_args() -> None:
             }
 
         assert "Using import string: single_file_app:api" in result.output
-        assert "Starting production server 🚀" in result.output
+        if sys.platform == "win32":
+            assert "Starting production server" in result.output
+        else:
+            assert "Starting production server 🚀" in result.output
         assert "Server started at http://192.168.0.2:8080" in result.output
         assert "Documentation at http://192.168.0.2:8080/docs" in result.output
         assert (
@@ -343,7 +376,10 @@ def test_run_env_vars() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output
-        assert "Starting production server 🚀" in result.output
+        if sys.platform == "win32":
+            assert "Starting production server" in result.output
+        else:
+            assert "Starting production server 🚀" in result.output
         assert "Server started at http://0.0.0.0:8111" in result.output
         assert "Documentation at http://0.0.0.0:8111/docs" in result.output
 
@@ -376,7 +412,10 @@ def test_run_env_vars_and_args() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output
-        assert "Starting production server 🚀" in result.output
+        if sys.platform == "win32":
+            assert "Starting production server" in result.output
+        else:
+            assert "Starting production server 🚀" in result.output
         assert "Server started at http://0.0.0.0:8080" in result.output
         assert "Documentation at http://0.0.0.0:8080/docs" in result.output
 

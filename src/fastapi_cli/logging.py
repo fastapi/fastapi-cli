@@ -10,10 +10,7 @@ def setup_logging(
     terminal_width: Union[int, None] = None, level: int = logging.INFO
 ) -> None:
     logger = logging.getLogger("fastapi_cli")
-    if sys.platform == "win32":
-        console = Console(width=terminal_width or 80, emoji=False, legacy_windows=True)
-    else:
-        console = Console(width=terminal_width or 80)
+    console = Console(width=terminal_width or 80, emoji=False, legacy_windows=True, force_terminal=True)
     rich_handler = RichHandler(
         show_time=False,
         rich_tracebacks=True,

@@ -88,7 +88,9 @@ def _get_module_tree(module_paths: List[Path]) -> Tree:
     for sub_path in module_paths[1:]:
         if sys.platform == "win32":
             sub_name = (
-                f"Python {sub_path.name}" if sub_path.is_file() else f"Folder {sub_path.name}"
+                f"Python {sub_path.name}"
+                if sub_path.is_file()
+                else f"Folder {sub_path.name}"
             )
         else:
             sub_name = (
@@ -124,7 +126,7 @@ def _run(
         if sys.platform == "win32":
             title = f"Starting {server_type} server"
         else:
-            title = f"Starting {server_type} server 🚀"    
+            title = f"Starting {server_type} server 🚀"
 
         toolkit.print_title(title, tag="FastAPI")
         toolkit.print_line()

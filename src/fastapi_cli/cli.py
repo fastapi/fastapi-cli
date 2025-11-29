@@ -1,4 +1,5 @@
 import logging
+import sys
 from pathlib import Path
 from typing import Any, List, Union
 
@@ -70,21 +71,35 @@ def callback(
 
 def _get_module_tree(module_paths: List[Path]) -> Tree:
     root = module_paths[0]
-    name = f"🐍 {root.name}" if root.is_file() else f"📁 {root.name}"
+    if sys.platform == "win32":
+        name = f"Python {root.name}" if root.is_file() else f"Folder {root.name}"
+    else:
+        name = f"🐍 {root.name}" if root.is_file() else f"📁 {root.name}"
 
     root_tree = Tree(name)
 
     if root.is_dir():
-        root_tree.add("[dim]🐍 __init__.py[/dim]")
+        if sys.platform == "win32":
+            root_tree.add("[dim]Python __init__.py[/dim]")
+        else:
+            root_tree.add("[dim]🐍 __init__.py[/dim]")
 
     tree = root_tree
     for sub_path in module_paths[1:]:
-        sub_name = (
-            f"🐍 {sub_path.name}" if sub_path.is_file() else f"📁 {sub_path.name}"
-        )
+        if sys.platform == "win32":
+            sub_name = (
+                f"Python {sub_path.name}" if sub_path.is_file() else f"Folder {sub_path.name}"
+            )
+        else:
+            sub_name = (
+                f"🐍 {sub_path.name}" if sub_path.is_file() else f"📁 {sub_path.name}"
+            )
         tree = tree.add(sub_name)
         if sub_path.is_dir():
-            tree.add("[dim]🐍 __init__.py[/dim]")
+            if sys.platform == "win32":
+                tree.add("[dim]Python __init__.py[/dim]")
+            else:
+                tree.add("[dim]🐍 __init__.py[/dim]")
 
     return root_tree
 
@@ -106,7 +121,12 @@ def _run(
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
 
-        toolkit.print_title(f"Starting {server_type} server 🚀", tag="FastAPI")
+        if sys.platform == "win32":
+            title = f"Starting {server_type} server"
+        else:
+            title = f"Starting {server_type} server 🚀"    
+
+        toolkit.print_title(title, tag="FastAPI")
         toolkit.print_line()
 
         toolkit.print(

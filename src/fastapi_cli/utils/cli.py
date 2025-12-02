@@ -12,7 +12,12 @@ class CustomFormatter(DefaultFormatter):
         self.toolkit = get_rich_toolkit()
 
     def formatMessage(self, record: logging.LogRecord) -> str:
-        return self.toolkit.print_as_string(record.getMessage(), tag=record.levelname)
+        message = record.getMessage()
+        result = self.toolkit.print_as_string(message, tag=record.levelname)
+        # Prepend newline to fix alignment after ^C is printed by the terminal
+        if message == "Shutting down":
+            result = "\n" + result
+        return result
 
 
 def get_uvicorn_log_config() -> Dict[str, Any]:

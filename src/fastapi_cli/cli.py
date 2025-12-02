@@ -7,7 +7,6 @@ from pydantic import ValidationError
 from rich import print
 from rich.tree import Tree
 from typing_extensions import Annotated
-from uvicorn.config import LOGGING_CONFIG
 
 from fastapi_cli.config import FastAPIConfig
 from fastapi_cli.discover import get_import_data, get_import_data_from_import_string
@@ -216,7 +215,7 @@ def _run(
             root_path=root_path,
             proxy_headers=proxy_headers,
             forwarded_allow_ips=forwarded_allow_ips,
-            log_config=get_uvicorn_log_config()  if not log_config else str(log_config),
+            log_config=get_uvicorn_log_config() if not log_config else str(log_config),
         )
 
 

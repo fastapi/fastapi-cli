@@ -4,20 +4,6 @@ from typing import Any, Dict
 from rich_toolkit import RichToolkit, RichToolkitTheme
 from rich_toolkit.styles import TaggedStyle
 from uvicorn.logging import DefaultFormatter
-from uvicorn.server import Server
-
-# Patch uvicorn's Server.handle_exit to set a flag when SIGINT is received
-_original_handle_exit = Server.handle_exit
-_sigint_received = False
-
-
-def _patched_handle_exit(self: Server, sig: int, frame: Any) -> None:
-    global _sigint_received
-    _sigint_received = True
-    _original_handle_exit(self, sig, frame)
-
-
-Server.handle_exit = _patched_handle_exit  # type: ignore[method-assign]
 
 
 class CustomFormatter(DefaultFormatter):
@@ -26,11 +12,10 @@ class CustomFormatter(DefaultFormatter):
         self.toolkit = get_rich_toolkit()
 
     def format(self, record: logging.LogRecord) -> str:
-        global _sigint_received
-        result = self.toolkit.print_as_string(record.getMessage(), tag=record.levelname)
-        # Prepend newline after ^C to fix alignment
-        if _sigint_received:
-            _sigint_received = False
+        message = record.getMessage()
+        result = self.toolkit.print_as_string(message, tag=record.levelname)
+        # Prepend newline to fix alignment after ^C is printed by the terminal
+        if message == "Shutting down":
             result = "\n" + result
         return result
 

@@ -11,7 +11,7 @@ class CustomFormatter(DefaultFormatter):
         super().__init__(*args, **kwargs)
         self.toolkit = get_rich_toolkit()
 
-    def format(self, record: logging.LogRecord) -> str:
+    def formatMessage(self, record: logging.LogRecord) -> str:
         message = record.getMessage()
         result = self.toolkit.print_as_string(message, tag=record.levelname)
         # Prepend newline to fix alignment after ^C is printed by the terminal

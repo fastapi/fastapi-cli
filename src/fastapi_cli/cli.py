@@ -424,6 +424,5 @@ def run(
         forwarded_allow_ips=forwarded_allow_ips,
     )
 
-
 def main() -> None:
     app()

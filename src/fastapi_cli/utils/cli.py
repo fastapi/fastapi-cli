@@ -12,9 +12,10 @@ class CustomFormatter(DefaultFormatter):
         self.toolkit = get_rich_toolkit()
 
     def formatMessage(self, record: logging.LogRecord) -> str:
-        result = self.toolkit.print_as_string(record.getMessage(), tag=record.levelname)
+        message = record.getMessage()
+        result = self.toolkit.print_as_string(message, tag=record.levelname)
         # Prepend newline to fix alignment after ^C is printed by the terminal
-        if record.message == "Shutting down":
+        if message == "Shutting down":
             result = "\n" + result
         return result
 

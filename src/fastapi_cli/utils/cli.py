@@ -46,7 +46,7 @@ def get_uvicorn_log_config() -> Dict[str, Any]:
             "uvicorn": {
                 "handlers": ["default"],
                 "level": "INFO",
-                "propagte": False,
+                "propagate": False,
             },
             "uvicorn.error": {"level": "INFO"},
             "uvicorn.access": {

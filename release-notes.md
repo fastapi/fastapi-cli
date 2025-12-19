@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 👷 Configure coverage, error on main tests, don't wait for Smokeshow. PR [#265](https://github.com/fastapi/fastapi-cli/pull/265) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 👷 Run Smokeshow always, even on test failures. PR [#264](https://github.com/fastapi/fastapi-cli/pull/264) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#247](https://github.com/fastapi/fastapi-cli/pull/247) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.14.5 to 0.14.6. PR [#245](https://github.com/fastapi/fastapi-cli/pull/245) by [@dependabot[bot]](https://github.com/apps/dependabot).

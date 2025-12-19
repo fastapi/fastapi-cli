@@ -45,6 +45,21 @@ def test_dev() -> None:
         assert "🐍 single_file_app.py" in result.output
 
 
+def test_dev_no_args_auto_discovery() -> None:
+    """Test that auto-discovery works when no args and no pyproject.toml entrypoint"""
+    with changing_dir(assets_path / "default_files" / "default_main"):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["dev"])  # No path argument
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs["app"] == "main:app"
+            assert mock_run.call_args.kwargs["host"] == "127.0.0.1"
+            assert mock_run.call_args.kwargs["port"] == 8000
+            assert mock_run.call_args.kwargs["reload"] is True
+        assert "Using import string: main:app" in result.output
+
+
 def test_dev_package() -> None:
     with changing_dir(assets_path):
         with patch.object(uvicorn, "run") as mock_run:
@@ -187,6 +202,23 @@ def test_dev_env_vars_and_args() -> None:
             "Running in development mode, for production use: fastapi run"
             in result.output
         )
+
+
+def test_entrypoint_mutually_exclusive_with_path() -> None:
+    result = runner.invoke(app, ["dev", "mymodule.py", "--entrypoint", "other:app"])
+
+    assert result.exit_code == 1
+    assert (
+        "Cannot use --entrypoint together with path or --app arguments" in result.output
+    )
+
+
+def test_entrypoint_mutually_exclusive_with_app() -> None:
+    result = runner.invoke(app, ["dev", "--app", "myapp", "--entrypoint", "other:app"])
+    assert result.exit_code == 1
+    assert (
+        "Cannot use --entrypoint together with path or --app arguments" in result.output
+    )
 
 
 def test_run() -> None:

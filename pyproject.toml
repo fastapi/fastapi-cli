@@ -7,7 +7,8 @@ authors = [
 ]
 requires-python = ">=3.8"
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
+license-files = ["LICENSE"]
 classifiers = [
     "Intended Audience :: Information Technology",
     "Intended Audience :: System Administrators",
@@ -22,19 +23,20 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Framework :: FastAPI",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
     "typer >= 0.15.1",
     "uvicorn[standard] >= 0.15.0",
     "rich-toolkit >= 0.14.8",
+    "tomli >= 2.0.0; python_version < '3.11'"
 ]
 
 [project.optional-dependencies]
@@ -87,6 +89,7 @@ source = [
     "src",
     "tests",
 ]
+relative_files = true
 context = '${CONTEXT}'
 dynamic_context = "test_function"
 omit = [

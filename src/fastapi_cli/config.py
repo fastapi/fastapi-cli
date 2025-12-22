@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from pydantic import BaseModel, StrictStr
 
@@ -11,7 +11,7 @@ class FastAPIConfig(BaseModel):
     entrypoint: Optional[StrictStr] = None
 
     @classmethod
-    def _read_pyproject_toml(cls) -> Dict[str, Any]:
+    def _read_pyproject_toml(cls) -> dict[str, Any]:
         """Read FastAPI configuration from pyproject.toml in current directory."""
         pyproject_path = Path.cwd() / "pyproject.toml"
 

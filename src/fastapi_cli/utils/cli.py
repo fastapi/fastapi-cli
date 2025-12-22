@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Dict
+from typing import Any
 
 from rich_toolkit import RichToolkit, RichToolkitTheme
 from rich_toolkit.styles import TaggedStyle
@@ -20,7 +20,7 @@ class CustomFormatter(DefaultFormatter):
         return result
 
 
-def get_uvicorn_log_config() -> Dict[str, Any]:
+def get_uvicorn_log_config() -> dict[str, Any]:
     return {
         "version": 1,
         "disable_existing_loggers": False,

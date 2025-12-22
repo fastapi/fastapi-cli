@@ -2,8 +2,38 @@
 
 ## Latest Changes
 
+## 0.0.20
+
+### Features
+
+* ✨ Add --reload-dir option to dev command. PR [#267](https://github.com/fastapi/fastapi-cli/pull/267) by [@patrick91](https://github.com/patrick91).
+
+## 0.0.19
+
+### Breaking Changes
+
+* 🔧 Drop support for Python 3.8. PR [#269](https://github.com/fastapi/fastapi-cli/pull/269) by [@patrick91](https://github.com/patrick91).
+
+## 0.0.18
+
+### Features
+
+* ➕  Add `fastapi-new` in `new` optional dependency group. PR [#241](https://github.com/fastapi/fastapi-cli/pull/241) by [@savannahostrowski](https://github.com/savannahostrowski).
+
+### Fixes
+
+* 🐛 Fix log alignment when pressing Ctrl+C to stop server. PR [#253](https://github.com/fastapi/fastapi-cli/pull/253) by [@savannahostrowski](https://github.com/savannahostrowski).
+
+## 0.0.17
+
+### Upgrades
+
+* ➖ Drop support for Pydantic v1. PR [#268](https://github.com/fastapi/fastapi-cli/pull/268) by [@patrick91](https://github.com/patrick91).
+
 ### Internal
 
+* 👷 Configure coverage, error on main tests, don't wait for Smokeshow. PR [#265](https://github.com/fastapi/fastapi-cli/pull/265) by [@YuriiMotov](https://github.com/YuriiMotov).
+* 👷 Run Smokeshow always, even on test failures. PR [#264](https://github.com/fastapi/fastapi-cli/pull/264) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#247](https://github.com/fastapi/fastapi-cli/pull/247) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.14.5 to 0.14.6. PR [#245](https://github.com/fastapi/fastapi-cli/pull/245) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/checkout from 5 to 6. PR [#248](https://github.com/fastapi/fastapi-cli/pull/248) by [@dependabot[bot]](https://github.com/apps/dependabot).

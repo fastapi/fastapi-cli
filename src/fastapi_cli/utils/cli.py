@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Dict
+from typing import Any
 
 from rich_toolkit import RichToolkit, RichToolkitTheme
 from rich_toolkit.styles import TaggedStyle
@@ -12,10 +12,15 @@ class CustomFormatter(DefaultFormatter):
         self.toolkit = get_rich_toolkit()
 
     def formatMessage(self, record: logging.LogRecord) -> str:
-        return self.toolkit.print_as_string(record.getMessage(), tag=record.levelname)
+        message = record.getMessage()
+        result = self.toolkit.print_as_string(message, tag=record.levelname)
+        # Prepend newline to fix alignment after ^C is printed by the terminal
+        if message == "Shutting down":
+            result = "\n" + result
+        return result
 
 
-def get_uvicorn_log_config() -> Dict[str, Any]:
+def get_uvicorn_log_config() -> dict[str, Any]:
     return {
         "version": 1,
         "disable_existing_loggers": False,

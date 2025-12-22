@@ -104,6 +104,7 @@ def _run(
     host: str = "127.0.0.1",
     port: int = 8000,
     reload: bool = True,
+    reload_dirs: Union[List[Path], None] = None,
     workers: Union[int, None] = None,
     root_path: str = "",
     command: str,
@@ -219,6 +220,10 @@ def _run(
             host=host,
             port=port,
             reload=reload,
+            reload_dirs=(
+                [str(directory.resolve()) for directory in reload_dirs]
+                if reload_dirs else None
+            ),
             workers=workers,
             root_path=root_path,
             proxy_headers=proxy_headers,
@@ -255,6 +260,12 @@ def dev(
             help="Enable auto-reload of the server when (code) files change. This is [bold]resource intensive[/bold], use it only during development."
         ),
     ] = True,
+    reload_dir: Annotated[
+        Union[List[Path], None],
+        typer.Option(
+            help="Set reload directories explicitly, instead of using the current working directory."
+        ),
+    ] = None,
     root_path: Annotated[
         str,
         typer.Option(
@@ -318,6 +329,7 @@ def dev(
         host=host,
         port=port,
         reload=reload,
+        reload_dirs=reload_dir,
         root_path=root_path,
         app=app,
         entrypoint=entrypoint,

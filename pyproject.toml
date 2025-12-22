@@ -47,6 +47,9 @@ standard = [
 standard-no-fastapi-cloud-cli = [
     "uvicorn[standard] >= 0.15.0",
 ]
+new = [
+    "fastapi-new >= 0.0.2 ; python_version >= '3.10'",
+]
 
 [project.urls]
 Homepage = "https://github.com/fastapi/fastapi-cli"

@@ -1,12 +1,11 @@
 import logging
 from pathlib import Path
-from typing import Any, List, Union
+from typing import Annotated, Any, Union
 
 import typer
 from pydantic import ValidationError
 from rich import print
 from rich.tree import Tree
-from typing_extensions import Annotated
 
 from fastapi_cli.config import FastAPIConfig
 from fastapi_cli.discover import get_import_data, get_import_data_from_import_string
@@ -78,7 +77,7 @@ def callback(
     setup_logging(level=log_level)
 
 
-def _get_module_tree(module_paths: List[Path]) -> Tree:
+def _get_module_tree(module_paths: list[Path]) -> Tree:
     root = module_paths[0]
     name = f"🐍 {root.name}" if root.is_file() else f"📁 {root.name}"
 

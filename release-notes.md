@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Features
+
+* ✨ Add --reload-dir option to dev command. PR [#267](https://github.com/fastapi/fastapi-cli/pull/267) by [@patrick91](https://github.com/patrick91).
+
 ## 0.0.19
 
 ### Breaking Changes

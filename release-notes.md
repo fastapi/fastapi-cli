@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Features
+
+* ➕  Add `fastapi-new` in `new` optional dependency group. PR [#241](https://github.com/fastapi/fastapi-cli/pull/241) by [@savannahostrowski](https://github.com/savannahostrowski).
+
 ### Fixes
 
 * 🐛 Fix log alignment when pressing Ctrl+C to stop server. PR [#253](https://github.com/fastapi/fastapi-cli/pull/253) by [@savannahostrowski](https://github.com/savannahostrowski).

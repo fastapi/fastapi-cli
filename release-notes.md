@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Upgrades
+
+* ➖ Drop support for Pydantic v1. PR [#268](https://github.com/fastapi/fastapi-cli/pull/268) by [@patrick91](https://github.com/patrick91).
+
 ### Internal
 
 * 👷 Configure coverage, error on main tests, don't wait for Smokeshow. PR [#265](https://github.com/fastapi/fastapi-cli/pull/265) by [@YuriiMotov](https://github.com/YuriiMotov).

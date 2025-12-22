@@ -1,15 +1,21 @@
+import importlib
 import logging
 from pathlib import Path
 from typing import Any, List, Union
 
 import typer
+from fastapi import FastAPI
 from pydantic import ValidationError
 from rich import print
 from rich.tree import Tree
 from typing_extensions import Annotated
 
 from fastapi_cli.config import FastAPIConfig
-from fastapi_cli.discover import get_import_data, get_import_data_from_import_string
+from fastapi_cli.discover import (
+    ImportData,
+    get_import_data,
+    get_import_data_from_import_string,
+)
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
@@ -76,6 +82,22 @@ def callback(
     log_level = logging.DEBUG if verbose else logging.INFO
 
     setup_logging(level=log_level)
+
+
+def _get_url_docs(import_data: ImportData) -> Union[str, None]:
+    """
+    Get the FastAPI docs URL from the Uvicorn path.
+
+    Args:
+        import_data: The ImportData object.
+
+    Returns:
+        The FastAPI docs URL.
+    """
+    module = importlib.import_module(import_data.module_data.module_import_str)
+    app_name = import_data.app_name
+    fastapi_app: FastAPI = getattr(module, app_name)
+    return fastapi_app.docs_url
 
 
 def _get_module_tree(module_paths: List[Path]) -> Tree:
@@ -190,14 +212,20 @@ def _run(
         )
 
         url = f"http://{host}:{port}"
-        url_docs = f"{url}/docs"
+        docs_path = _get_url_docs(import_data)
+        url_docs = f"{url}{docs_path}" if docs_path else None
 
         toolkit.print_line()
         toolkit.print(
             f"Server started at [link={url}]{url}[/]",
-            f"Documentation at [link={url_docs}]{url_docs}[/]",
             tag="server",
         )
+
+        if docs_path:
+            toolkit.print(
+                f"Documentation at [link={url_docs}]{url_docs}[/]",
+                tag="server",
+            )
 
         if command == "dev":
             toolkit.print_line()

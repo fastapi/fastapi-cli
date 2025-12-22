@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.18
+
 ### Features
 
 * ➕  Add `fastapi-new` in `new` optional dependency group. PR [#241](https://github.com/fastapi/fastapi-cli/pull/241) by [@savannahostrowski](https://github.com/savannahostrowski).

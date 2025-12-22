@@ -2,6 +2,14 @@
 
 ## Latest Changes
 
+## 0.0.19
+
+### Breaking Changes
+
+* 🔧 Drop support for Python 3.8. PR [#269](https://github.com/fastapi/fastapi-cli/pull/269) by [@patrick91](https://github.com/patrick91).
+
+## 0.0.18
+
 ### Features
 
 * ➕  Add `fastapi-new` in `new` optional dependency group. PR [#241](https://github.com/fastapi/fastapi-cli/pull/241) by [@savannahostrowski](https://github.com/savannahostrowski).

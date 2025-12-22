@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.17
+
 ### Upgrades
 
 * ➖ Drop support for Pydantic v1. PR [#268](https://github.com/fastapi/fastapi-cli/pull/268) by [@patrick91](https://github.com/patrick91).

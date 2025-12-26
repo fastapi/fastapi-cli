@@ -71,8 +71,6 @@ jobs:
           limit-access-to-actor: true
       - name: Install Dependencies
         run: uv pip install -r requirements-tests.txt
-      - name: Lint
-        run: bash scripts/lint.sh
       - run: mkdir coverage
       - name: Test
         run: bash scripts/test.sh

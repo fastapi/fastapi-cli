@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump actions/download-artifact from 6 to 7. PR [#260](https://github.com/fastapi/fastapi-cli/pull/260) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Add pre-commit workflow. PR [#266](https://github.com/fastapi/fastapi-cli/pull/266) by [@YuriiMotov](https://github.com/YuriiMotov).
 
 ## 0.0.20

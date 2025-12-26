@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* 👷 Add pre-commit workflow. PR [#266](https://github.com/fastapi/fastapi-cli/pull/266) by [@YuriiMotov](https://github.com/YuriiMotov).
+
 ## 0.0.20
 
 ### Features

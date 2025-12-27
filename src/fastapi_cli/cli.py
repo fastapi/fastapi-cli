@@ -1,13 +1,12 @@
 import logging
 import sys
 from pathlib import Path
-from typing import Any, List, Union
+from typing import Annotated, Any, Union
 
 import typer
 from pydantic import ValidationError
 from rich import print
 from rich.tree import Tree
-from typing_extensions import Annotated
 
 from fastapi_cli.config import FastAPIConfig
 from fastapi_cli.discover import get_import_data, get_import_data_from_import_string
@@ -36,6 +35,16 @@ try:
     )
 
     app.add_typer(fastapi_cloud_cli)
+except ImportError:  # pragma: no cover
+    pass
+
+
+try:
+    from fastapi_new.cli import (  # type: ignore[import-not-found]
+        app as fastapi_new_cli,
+    )
+
+    app.add_typer(fastapi_new_cli)  # pragma: no cover
 except ImportError:  # pragma: no cover
     pass
 
@@ -69,7 +78,7 @@ def callback(
     setup_logging(level=log_level)
 
 
-def _get_module_tree(module_paths: List[Path]) -> Tree:
+def _get_module_tree(module_paths: list[Path]) -> Tree:
     root = module_paths[0]
     if sys.platform == "win32":
         name = f"Python {root.name}" if root.is_file() else f"Folder {root.name}"
@@ -112,6 +121,7 @@ def _run(
     host: str = "127.0.0.1",
     port: int = 8000,
     reload: bool = True,
+    reload_dirs: Union[list[Path], None] = None,
     workers: Union[int, None] = None,
     root_path: str = "",
     command: str,
@@ -232,6 +242,11 @@ def _run(
             host=host,
             port=port,
             reload=reload,
+            reload_dirs=(
+                [str(directory.resolve()) for directory in reload_dirs]
+                if reload_dirs
+                else None
+            ),
             workers=workers,
             root_path=root_path,
             proxy_headers=proxy_headers,
@@ -268,6 +283,12 @@ def dev(
             help="Enable auto-reload of the server when (code) files change. This is [bold]resource intensive[/bold], use it only during development."
         ),
     ] = True,
+    reload_dir: Annotated[
+        Union[list[Path], None],
+        typer.Option(
+            help="Set reload directories explicitly, instead of using the current working directory."
+        ),
+    ] = None,
     root_path: Annotated[
         str,
         typer.Option(
@@ -331,6 +352,7 @@ def dev(
         host=host,
         port=port,
         reload=reload,
+        reload_dirs=reload_dir,
         root_path=root_path,
         app=app,
         entrypoint=entrypoint,

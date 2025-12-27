@@ -13,9 +13,10 @@ assets_path = Path(__file__).parent / "assets"
 
 
 def test_dev_with_pyproject_app_config_uses() -> None:
-    with changing_dir(assets_path / "pyproject_config"), patch.object(
-        uvicorn, "run"
-    ) as mock_run:
+    with (
+        changing_dir(assets_path / "pyproject_config"),
+        patch.object(uvicorn, "run") as mock_run,
+    ):
         result = runner.invoke(app, ["dev"])
         assert result.exit_code == 0, result.output
 
@@ -28,9 +29,10 @@ def test_dev_with_pyproject_app_config_uses() -> None:
 
 
 def test_run_with_pyproject_app_config() -> None:
-    with changing_dir(assets_path / "pyproject_config"), patch.object(
-        uvicorn, "run"
-    ) as mock_run:
+    with (
+        changing_dir(assets_path / "pyproject_config"),
+        patch.object(uvicorn, "run") as mock_run,
+    ):
         result = runner.invoke(app, ["run"])
         assert result.exit_code == 0, result.output
 
@@ -43,9 +45,10 @@ def test_run_with_pyproject_app_config() -> None:
 
 
 def test_cli_arg_overrides_pyproject_config() -> None:
-    with changing_dir(assets_path / "pyproject_config"), patch.object(
-        uvicorn, "run"
-    ) as mock_run:
+    with (
+        changing_dir(assets_path / "pyproject_config"),
+        patch.object(uvicorn, "run") as mock_run,
+    ):
         result = runner.invoke(app, ["dev", "another_module.py"])
 
         assert result.exit_code == 0, result.output

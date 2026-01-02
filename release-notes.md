@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.14.6 to 0.14.10. PR [#262](https://github.com/fastapi/fastapi-cli/pull/262) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/checkout from 5 to 6. PR [#271](https://github.com/fastapi/fastapi-cli/pull/271) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/upload-artifact from 5 to 6. PR [#259](https://github.com/fastapi/fastapi-cli/pull/259) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/download-artifact from 6 to 7. PR [#260](https://github.com/fastapi/fastapi-cli/pull/260) by [@dependabot[bot]](https://github.com/apps/dependabot).

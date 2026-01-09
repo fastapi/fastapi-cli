@@ -3,7 +3,7 @@
 pytest >=4.4.0,<10.0.0
 coverage[toml] >=6.2,<8.0
 mypy ==1.19.1
-ruff ==0.14.10
+ruff ==0.14.11
 # Needed explicitly by fastapi-cli-slim
 fastapi-slim
 uvicorn

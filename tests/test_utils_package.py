@@ -174,7 +174,8 @@ def test_package_dir_no_app() -> None:
         with pytest.raises(FastAPICLIException) as e:
             get_import_data(path=Path("package/core/utils.py"))
         assert (
-            "Could not find FastAPI app in module, try using --app" in e.value.args[0]
+            "Could not find FastAPI app or app factory in module, try using --app"
+            in e.value.args[0]
         )
 
 

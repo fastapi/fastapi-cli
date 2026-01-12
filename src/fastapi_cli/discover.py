@@ -3,7 +3,7 @@ import sys
 from dataclasses import dataclass
 from logging import getLogger
 from pathlib import Path
-from typing import List, Union
+from typing import Union
 
 from fastapi_cli.exceptions import FastAPICLIException
 
@@ -39,7 +39,7 @@ def get_default_path() -> Path:
 class ModuleData:
     module_import_str: str
     extra_sys_path: Path
-    module_paths: List[Path]
+    module_paths: list[Path]
 
 
 def get_module_data_from_path(path: Path) -> ModuleData:

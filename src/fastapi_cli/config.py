@@ -1,21 +1,17 @@
 import logging
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from pydantic import BaseModel, StrictStr
-from pydantic.version import VERSION as PYDANTIC_VERSION
 
 logger = logging.getLogger(__name__)
-
-PYDANTIC_VERSION_MINOR_TUPLE = tuple(int(x) for x in PYDANTIC_VERSION.split(".")[:2])
-PYDANTIC_V2 = PYDANTIC_VERSION_MINOR_TUPLE[0] == 2
 
 
 class FastAPIConfig(BaseModel):
     entrypoint: Optional[StrictStr] = None
 
     @classmethod
-    def _read_pyproject_toml(cls) -> Dict[str, Any]:
+    def _read_pyproject_toml(cls) -> dict[str, Any]:
         """Read FastAPI configuration from pyproject.toml in current directory."""
         pyproject_path = Path.cwd() / "pyproject.toml"
 
@@ -43,8 +39,4 @@ class FastAPIConfig(BaseModel):
         if entrypoint is not None:
             config["entrypoint"] = entrypoint
 
-        # Pydantic v2 uses model_validate, v1 uses parse_obj
-        if not PYDANTIC_V2:
-            return cls.parse_obj(config)  # type: ignore[no-any-return, unused-ignore]
-
-        return cls.model_validate(config)  # type: ignore[no-any-return, unused-ignore, attr-defined]
+        return cls.model_validate(config)

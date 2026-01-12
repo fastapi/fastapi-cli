@@ -5,7 +5,7 @@ description = "Run and manage FastAPI apps from the command line with FastAPI CL
 authors = [
     {name = "Sebastián Ramírez", email = "tiangolo@gmail.com"},
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
@@ -24,7 +24,6 @@ classifiers = [
     "Framework :: FastAPI",
     "Intended Audience :: Developers",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -47,6 +46,9 @@ standard = [
 standard-no-fastapi-cloud-cli = [
     "uvicorn[standard] >= 0.15.0",
 ]
+new = [
+    "fastapi-new >= 0.0.2 ; python_version >= '3.10'",
+]
 
 [project.urls]
 Homepage = "https://github.com/fastapi/fastapi-cli"
@@ -54,6 +56,23 @@ Documentation = "https://fastapi.tiangolo.com/fastapi-cli/"
 Repository = "https://github.com/fastapi/fastapi-cli"
 Issues = "https://github.com/fastapi/fastapi-cli/issues"
 Changelog = "https://github.com/fastapi/fastapi-cli/blob/main/release-notes.md"
+
+[dependency-groups]
+dev = [
+    { include-group = "tests" },
+    "prek>=0.2.24,<1.0.0",
+]
+github-actions = [
+    "smokeshow>=0.5.0",
+]
+tests = [
+    "coverage[toml]>=6.2,<8.0",
+    "fastapi-slim>=0.128.0",
+    "mypy==1.19.1",
+    "pytest>=4.4.0,<10.0.0",
+    "ruff==0.14.10",
+    "uvicorn>=0.39.0",
+]
 
 [build-system]
 requires = ["pdm-backend"]
@@ -67,9 +86,8 @@ distribution = true
 [tool.pdm.build]
 source-includes = [
     "tests/",
-    "requirements*.txt",
     "scripts/",
-    ]
+]
 
 [tool.tiangolo._internal-slim-build.packages.fastapi-cli-slim.project]
 name = "fastapi-cli-slim"

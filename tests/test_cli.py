@@ -27,6 +27,7 @@ def test_dev() -> None:
                 "host": "127.0.0.1",
                 "port": 8000,
                 "reload": True,
+                "reload_dirs": None,
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
@@ -46,6 +47,21 @@ def test_dev() -> None:
         assert "🐍 single_file_app.py" in result.output
 
 
+def test_dev_no_args_auto_discovery() -> None:
+    """Test that auto-discovery works when no args and no pyproject.toml entrypoint"""
+    with changing_dir(assets_path / "default_files" / "default_main"):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["dev"])  # No path argument
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs["app"] == "main:app"
+            assert mock_run.call_args.kwargs["host"] == "127.0.0.1"
+            assert mock_run.call_args.kwargs["port"] == 8000
+            assert mock_run.call_args.kwargs["reload"] is True
+        assert "Using import string: main:app" in result.output
+
+
 def test_dev_package() -> None:
     with changing_dir(assets_path):
         with patch.object(uvicorn, "run") as mock_run:
@@ -58,6 +74,7 @@ def test_dev_package() -> None:
                 "host": "127.0.0.1",
                 "port": 8000,
                 "reload": True,
+                "reload_dirs": None,
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
@@ -110,6 +127,7 @@ def test_dev_args() -> None:
                 "host": "192.168.0.2",
                 "port": 8080,
                 "reload": False,
+                "reload_dirs": None,
                 "workers": None,
                 "root_path": "/api",
                 "proxy_headers": False,
@@ -144,6 +162,7 @@ def test_dev_env_vars() -> None:
                 "host": "127.0.0.1",
                 "port": 8111,
                 "reload": True,
+                "reload_dirs": None,
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
@@ -182,6 +201,7 @@ def test_dev_env_vars_and_args() -> None:
                 "host": "127.0.0.1",
                 "port": 8080,
                 "reload": True,
+                "reload_dirs": None,
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
@@ -199,6 +219,23 @@ def test_dev_env_vars_and_args() -> None:
         )
 
 
+def test_entrypoint_mutually_exclusive_with_path() -> None:
+    result = runner.invoke(app, ["dev", "mymodule.py", "--entrypoint", "other:app"])
+
+    assert result.exit_code == 1
+    assert (
+        "Cannot use --entrypoint together with path or --app arguments" in result.output
+    )
+
+
+def test_entrypoint_mutually_exclusive_with_app() -> None:
+    result = runner.invoke(app, ["dev", "--app", "myapp", "--entrypoint", "other:app"])
+    assert result.exit_code == 1
+    assert (
+        "Cannot use --entrypoint together with path or --app arguments" in result.output
+    )
+
+
 def test_run() -> None:
     with changing_dir(assets_path):
         with patch.object(uvicorn, "run") as mock_run:
@@ -211,6 +248,7 @@ def test_run() -> None:
                 "host": "0.0.0.0",
                 "port": 8000,
                 "reload": False,
+                "reload_dirs": None,
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
@@ -238,6 +276,7 @@ def test_run_trust_proxy() -> None:
                 "host": "0.0.0.0",
                 "port": 8000,
                 "reload": False,
+                "reload_dirs": None,
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
@@ -285,6 +324,7 @@ def test_run_args() -> None:
                 "host": "192.168.0.2",
                 "port": 8080,
                 "reload": False,
+                "reload_dirs": None,
                 "workers": 2,
                 "root_path": "/api",
                 "proxy_headers": False,
@@ -317,6 +357,7 @@ def test_run_env_vars() -> None:
                 "host": "0.0.0.0",
                 "port": 8111,
                 "reload": False,
+                "reload_dirs": None,
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
@@ -351,6 +392,7 @@ def test_run_env_vars_and_args() -> None:
                 "host": "0.0.0.0",
                 "port": 8080,
                 "reload": False,
+                "reload_dirs": None,
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
@@ -387,6 +429,7 @@ def test_dev_help() -> None:
     assert "The host to serve on." in result.output
     assert "The port to serve on." in result.output
     assert "Enable auto-reload of the server when (code) files change." in result.output
+    assert "Set reload directories explicitly" in result.output
     assert "The root path is used to tell your app" in result.output
     assert "The name of the variable that contains the FastAPI app" in result.output
     assert "Use multiple worker processes." not in result.output
@@ -428,6 +471,30 @@ def test_version() -> None:
     assert "FastAPI CLI version:" in result.output
 
 
+def test_dev_reload_dir() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app,
+                [
+                    "dev",
+                    "single_file_app.py",
+                    "--reload-dir",
+                    "src",
+                    "--reload-dir",
+                    "lib",
+                ],
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            # Paths are resolved to absolute paths
+            reload_dirs = mock_run.call_args.kwargs["reload_dirs"]
+            assert len(reload_dirs) == 2
+            assert reload_dirs[0] == str((assets_path / "src").resolve())
+            assert reload_dirs[1] == str((assets_path / "lib").resolve())
+
+
 def test_dev_with_import_string() -> None:
     with changing_dir(assets_path):
         with patch.object(uvicorn, "run") as mock_run:
@@ -441,6 +508,7 @@ def test_dev_with_import_string() -> None:
                 "host": "127.0.0.1",
                 "port": 8000,
                 "reload": True,
+                "reload_dirs": None,
                 "workers": None,
                 "root_path": "",
                 "reload_dirs": None,
@@ -463,6 +531,7 @@ def test_run_with_import_string() -> None:
                 "host": "0.0.0.0",
                 "port": 8000,
                 "reload": False,
+                "reload_dirs": None,
                 "workers": None,
                 "root_path": "",
                 "reload_dirs": None,

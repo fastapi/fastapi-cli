@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump fastapi-cloud-cli from 0.8.0 to 0.11.0. PR [#278](https://github.com/fastapi/fastapi-cli/pull/278) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.14.10 to 0.14.13. PR [#279](https://github.com/fastapi/fastapi-cli/pull/279) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆️  Migrate to uv. PR [#275](https://github.com/fastapi/fastapi-cli/pull/275) by [@DoctorJohn](https://github.com/DoctorJohn).
 * ⬆ Bump mypy from 1.14.1 to 1.19.1. PR [#261](https://github.com/fastapi/fastapi-cli/pull/261) by [@dependabot[bot]](https://github.com/apps/dependabot).

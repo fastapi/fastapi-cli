@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.14.10 to 0.14.13. PR [#279](https://github.com/fastapi/fastapi-cli/pull/279) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆️  Migrate to uv. PR [#275](https://github.com/fastapi/fastapi-cli/pull/275) by [@DoctorJohn](https://github.com/DoctorJohn).
 * ⬆ Bump mypy from 1.14.1 to 1.19.1. PR [#261](https://github.com/fastapi/fastapi-cli/pull/261) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Update pytest requirement from <9.0.0,>=4.4.0 to >=4.4.0,<10.0.0. PR [#273](https://github.com/fastapi/fastapi-cli/pull/273) by [@dependabot[bot]](https://github.com/apps/dependabot).

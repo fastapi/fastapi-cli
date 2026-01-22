@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 🔧 Ensure that an edit to `uv.lock` gets the `internal` label. PR [#282](https://github.com/fastapi/fastapi-cli/pull/282) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ Bump prek from 0.2.30 to 0.3.0. PR [#281](https://github.com/fastapi/fastapi-cli/pull/281) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.2.27 to 0.2.30. PR [#280](https://github.com/fastapi/fastapi-cli/pull/280) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-cloud-cli from 0.8.0 to 0.11.0. PR [#278](https://github.com/fastapi/fastapi-cli/pull/278) by [@dependabot[bot]](https://github.com/apps/dependabot).

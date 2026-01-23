@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.14.13 to 0.14.14. PR [#283](https://github.com/fastapi/fastapi-cli/pull/283) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔧 Ensure that an edit to `uv.lock` gets the `internal` label. PR [#282](https://github.com/fastapi/fastapi-cli/pull/282) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ Bump prek from 0.2.30 to 0.3.0. PR [#281](https://github.com/fastapi/fastapi-cli/pull/281) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.2.27 to 0.2.30. PR [#280](https://github.com/fastapi/fastapi-cli/pull/280) by [@dependabot[bot]](https://github.com/apps/dependabot).

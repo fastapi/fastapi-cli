@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump rich-toolkit from 0.17.1 to 0.17.2. PR [#284](https://github.com/fastapi/fastapi-cli/pull/284) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.14.13 to 0.14.14. PR [#283](https://github.com/fastapi/fastapi-cli/pull/283) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔧 Ensure that an edit to `uv.lock` gets the `internal` label. PR [#282](https://github.com/fastapi/fastapi-cli/pull/282) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ Bump prek from 0.2.30 to 0.3.0. PR [#281](https://github.com/fastapi/fastapi-cli/pull/281) by [@dependabot[bot]](https://github.com/apps/dependabot).

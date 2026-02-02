@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump rich-toolkit from 0.17.2 to 0.18.1. PR [#286](https://github.com/fastapi/fastapi-cli/pull/286) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.0 to 0.3.1. PR [#285](https://github.com/fastapi/fastapi-cli/pull/285) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump rich-toolkit from 0.17.1 to 0.17.2. PR [#284](https://github.com/fastapi/fastapi-cli/pull/284) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.14.13 to 0.14.14. PR [#283](https://github.com/fastapi/fastapi-cli/pull/283) by [@dependabot[bot]](https://github.com/apps/dependabot).

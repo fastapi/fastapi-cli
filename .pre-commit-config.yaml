@@ -26,3 +26,10 @@ repos:
         require_serial: true
         language: unsupported
         types: [python]
+
+      - id: local-mypy
+        name: mypy check
+        entry: uv run mypy src tests
+        require_serial: true
+        language: unsupported
+        pass_filenames: false

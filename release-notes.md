@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump rich-toolkit from 0.18.1 to 0.19.0. PR [#293](https://github.com/fastapi/fastapi-cli/pull/293) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-slim from 0.128.5 to 0.128.6. PR [#294](https://github.com/fastapi/fastapi-cli/pull/294) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-slim from 0.128.2 to 0.128.5. PR [#292](https://github.com/fastapi/fastapi-cli/pull/292) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.1 to 0.3.2. PR [#291](https://github.com/fastapi/fastapi-cli/pull/291) by [@dependabot[bot]](https://github.com/apps/dependabot).

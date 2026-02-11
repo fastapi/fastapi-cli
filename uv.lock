@@ -434,7 +434,7 @@ dev = [
     { name = "fastapi-slim", specifier = ">=0.128.0" },
     { name = "mypy", specifier = "==1.19.1" },
     { name = "prek", specifier = ">=0.2.24,<1.0.0" },
-    { name = "pytest", specifier = ">=6.2.0,<10.0.0" },
+    { name = "pytest", specifier = ">=7.4.0,<10.0.0" },
     { name = "ruff", specifier = "==0.15.0" },
     { name = "uvicorn", specifier = ">=0.39.0" },
 ]
@@ -443,7 +443,7 @@ tests = [
     { name = "coverage", extras = ["toml"], specifier = ">=6.2,<8.0" },
     { name = "fastapi-slim", specifier = ">=0.128.0" },
     { name = "mypy", specifier = "==1.19.1" },
-    { name = "pytest", specifier = ">=6.2.0,<10.0.0" },
+    { name = "pytest", specifier = ">=7.4.0,<10.0.0" },
     { name = "ruff", specifier = "==0.15.0" },
     { name = "uvicorn", specifier = ">=0.39.0" },
 ]

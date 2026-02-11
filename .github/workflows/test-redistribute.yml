@@ -12,11 +12,6 @@ on:
 jobs:
   test-redistribute:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        package:
-          - fastapi-cli-slim
-          - fastapi-cli
     steps:
       - name: Dump GitHub context
         env:
@@ -33,8 +28,6 @@ jobs:
       - name: Install build dependencies
         run: pip install build
       - name: Build source distribution
-        env:
-          TIANGOLO_BUILD_PACKAGE: ${{ matrix.package }}
         run: python -m build --sdist
       - name: Decompress source distribution
         run: |
@@ -44,8 +37,6 @@ jobs:
         run: |
           cd dist/fastapi_cli*/
           pip install --group tests --editable .[standard]
-        env:
-          TIANGOLO_BUILD_PACKAGE: ${{ matrix.package }}
       - name: Run source distribution tests
         run: |
           cd dist/fastapi_cli*/

@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.21
+
 ### Internal
 
 * 👷 Update build setup for `fastapi-cli-slim`, deprecate it, and make it only depend on `fastapi-cli`. PR [#300](https://github.com/fastapi/fastapi-cli/pull/300) by [@tiangolo](https://github.com/tiangolo).

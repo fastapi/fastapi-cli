@@ -363,6 +363,23 @@ wheels = [
 ]
 
 [[package]]
+name = "fastapi"
+version = "0.128.8"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "annotated-doc" },
+    { name = "pydantic" },
+    { name = "starlette", version = "0.49.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
+    { name = "starlette", version = "0.50.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "typing-extensions" },
+    { name = "typing-inspection" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/01/72/0df5c58c954742f31a7054e2dd1143bae0b408b7f36b59b85f928f9b456c/fastapi-0.128.8.tar.gz", hash = "sha256:3171f9f328c4a218f0a8d2ba8310ac3a55d1ee12c28c949650288aee25966007", size = 375523, upload-time = "2026-02-11T15:19:36.69Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9f/37/37b07e276f8923c69a5df266bfcb5bac4ba8b55dfe4a126720f8c48681d1/fastapi-0.128.8-py3-none-any.whl", hash = "sha256:5618f492d0fe973a778f8fec97723f598aa9deee495040a8d51aaf3cf123ecf1", size = 103630, upload-time = "2026-02-11T15:19:35.209Z" },
+]
+
+[[package]]
 name = "fastapi-cli"
 source = { editable = "." }
 dependencies = [
@@ -391,7 +408,7 @@ standard-no-fastapi-cloud-cli = [
 dev = [
     { name = "coverage", version = "7.10.7", source = { registry = "https://pypi.org/simple" }, extra = ["toml"], marker = "python_full_version < '3.10'" },
     { name = "coverage", version = "7.13.1", source = { registry = "https://pypi.org/simple" }, extra = ["toml"], marker = "python_full_version >= '3.10'" },
-    { name = "fastapi-slim" },
+    { name = "fastapi" },
     { name = "mypy" },
     { name = "prek" },
     { name = "pytest", version = "8.4.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
@@ -406,7 +423,7 @@ github-actions = [
 tests = [
     { name = "coverage", version = "7.10.7", source = { registry = "https://pypi.org/simple" }, extra = ["toml"], marker = "python_full_version < '3.10'" },
     { name = "coverage", version = "7.13.1", source = { registry = "https://pypi.org/simple" }, extra = ["toml"], marker = "python_full_version >= '3.10'" },
-    { name = "fastapi-slim" },
+    { name = "fastapi" },
     { name = "mypy" },
     { name = "pytest", version = "8.4.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "pytest", version = "9.0.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
@@ -431,7 +448,7 @@ provides-extras = ["standard", "standard-no-fastapi-cloud-cli", "new"]
 [package.metadata.requires-dev]
 dev = [
     { name = "coverage", extras = ["toml"], specifier = ">=6.2,<8.0" },
-    { name = "fastapi-slim", specifier = ">=0.128.0" },
+    { name = "fastapi", specifier = ">=0.128.0" },
     { name = "mypy", specifier = "==1.19.1" },
     { name = "prek", specifier = ">=0.2.24,<1.0.0" },
     { name = "pytest", specifier = ">=4.4.0,<10.0.0" },
@@ -441,7 +458,7 @@ dev = [
 github-actions = [{ name = "smokeshow", specifier = ">=0.5.0" }]
 tests = [
     { name = "coverage", extras = ["toml"], specifier = ">=6.2,<8.0" },
-    { name = "fastapi-slim", specifier = ">=0.128.0" },
+    { name = "fastapi", specifier = ">=0.128.0" },
     { name = "mypy", specifier = "==1.19.1" },
     { name = "pytest", specifier = ">=4.4.0,<10.0.0" },
     { name = "ruff", specifier = "==0.15.0" },
@@ -482,23 +499,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/0b/5b/4f5fddfe4cfb971ddb289f9178aa9e267ddb3fbe3e26f19814d727dd3c39/fastapi_new-0.0.4.tar.gz", hash = "sha256:c26c63515b659f1efdf0980c5207b0ec9728ff9f62756b4f9e1ca76e978996a6", size = 8375, upload-time = "2026-01-05T08:14:49.588Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/e5/91/19c6c3410281be56ac8d8b8e5170ff9be8e57f546a2ec2e5b0515083944f/fastapi_new-0.0.4-py3-none-any.whl", hash = "sha256:6147980a724445e090f163be08d28f7b230045055bf9222e8d92c782bd365cb9", size = 6891, upload-time = "2026-01-05T08:14:47.885Z" },
-]
-
-[[package]]
-name = "fastapi-slim"
-version = "0.128.7"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "annotated-doc" },
-    { name = "pydantic" },
-    { name = "starlette", version = "0.49.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
-    { name = "starlette", version = "0.50.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
-    { name = "typing-extensions" },
-    { name = "typing-inspection" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/91/ef/f4aa817f7bf61502121002e334744f6ac0e4d66c8ab8ccc90fa6a35b1e48/fastapi_slim-0.128.7.tar.gz", hash = "sha256:958bdbfa358e643c1475b4f1622ee4b6e43f7bd5543c9cd84d432c72a6fd952e", size = 375558, upload-time = "2026-02-10T12:26:47.017Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/3c/36/5d718a4c2568b8c106d8a510788b505d9c93bcc216ccefa9c98bda6e6337/fastapi_slim-0.128.7-py3-none-any.whl", hash = "sha256:ddbfa7233e74d239b811bc806323b77e6bbf1c31da09ae9b1c8b378241f0dd6a", size = 103684, upload-time = "2026-02-10T12:26:45.966Z" },
 ]
 
 [[package]]

@@ -69,7 +69,7 @@ tests = [
     "coverage[toml]>=6.2,<8.0",
     "fastapi-slim>=0.128.0",
     "mypy==1.19.1",
-    "pytest>=4.4.0,<10.0.0",
+    "pytest>=6.2.0,<10.0.0",
     "ruff==0.15.0",
     "uvicorn>=0.39.0",
 ]

@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* ➕ Replace test dependency on `fastapi-slim` with `fastapi`. PR [#301](https://github.com/fastapi/fastapi-cli/pull/301) by [@musicinmybrain](https://github.com/musicinmybrain).
+
 ## 0.0.21
 
 ### Internal

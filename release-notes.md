@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump rich-toolkit from 0.19.2 to 0.19.3. PR [#303](https://github.com/fastapi/fastapi-cli/pull/303) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ➕ Replace test dependency on `fastapi-slim` with `fastapi`. PR [#301](https://github.com/fastapi/fastapi-cli/pull/301) by [@musicinmybrain](https://github.com/musicinmybrain).
 
 ## 0.0.21

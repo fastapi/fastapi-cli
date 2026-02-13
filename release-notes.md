@@ -4,6 +4,20 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.15.0 to 0.15.1. PR [#305](https://github.com/fastapi/fastapi-cli/pull/305) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump rich-toolkit from 0.19.3 to 0.19.4. PR [#304](https://github.com/fastapi/fastapi-cli/pull/304) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.21.2 to 0.23.0. PR [#302](https://github.com/fastapi/fastapi-cli/pull/302) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump rich-toolkit from 0.19.2 to 0.19.3. PR [#303](https://github.com/fastapi/fastapi-cli/pull/303) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ➕ Replace test dependency on `fastapi-slim` with `fastapi`. PR [#301](https://github.com/fastapi/fastapi-cli/pull/301) by [@musicinmybrain](https://github.com/musicinmybrain).
+
+## 0.0.21
+
+### Internal
+
+* 👷 Update build setup for `fastapi-cli-slim`, deprecate it, and make it only depend on `fastapi-cli`. PR [#300](https://github.com/fastapi/fastapi-cli/pull/300) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump typer from 0.21.1 to 0.21.2. PR [#298](https://github.com/fastapi/fastapi-cli/pull/298) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi-slim from 0.128.6 to 0.128.7. PR [#297](https://github.com/fastapi/fastapi-cli/pull/297) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump rich-toolkit from 0.19.0 to 0.19.2. PR [#296](https://github.com/fastapi/fastapi-cli/pull/296) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump rich-toolkit from 0.18.1 to 0.19.0. PR [#293](https://github.com/fastapi/fastapi-cli/pull/293) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-slim from 0.128.5 to 0.128.6. PR [#294](https://github.com/fastapi/fastapi-cli/pull/294) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-slim from 0.128.2 to 0.128.5. PR [#292](https://github.com/fastapi/fastapi-cli/pull/292) by [@dependabot[bot]](https://github.com/apps/dependabot).

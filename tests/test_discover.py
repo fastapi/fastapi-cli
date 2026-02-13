@@ -15,7 +15,7 @@ def test_get_import_data_from_import_string_valid() -> None:
     result = get_import_data_from_import_string("module.submodule:app")
 
     assert isinstance(result, ImportData)
-    assert result.app_name == "app"
+    assert result.candidate_name == "app"
     assert result.import_string == "module.submodule:app"
     assert result.module_data.module_import_str == "module.submodule"
     assert result.module_data.extra_sys_path == Path(".").resolve()

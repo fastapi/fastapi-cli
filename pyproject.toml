@@ -32,10 +32,11 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
+    "pydantic >= 2.7.0",
+    "rich-toolkit >= 0.14.8",
+    "tomli >= 2.0.0; python_version < '3.11'",
     "typer >= 0.15.1",
     "uvicorn[standard] >= 0.15.0",
-    "rich-toolkit >= 0.14.8",
-    "tomli >= 2.0.0; python_version < '3.11'"
 ]
 
 [project.optional-dependencies]

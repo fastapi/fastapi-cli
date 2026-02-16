@@ -33,12 +33,9 @@ jobs:
         uv-resolution:
           - highest
         include:
-          - python-version: "3.9"
-            os: macos-latest
-            uv-resolution: lowest-direct
           - python-version: "3.10"
             os: ubuntu-latest
-            uv-resolution: highest
+            uv-resolution: lowest-direct
           - python-version: "3.11"
             os: windows-latest
             uv-resolution: highest

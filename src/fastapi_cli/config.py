@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 from pydantic import BaseModel, StrictStr
 
@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 class FastAPIConfig(BaseModel):
-    entrypoint: Optional[StrictStr] = None
+    entrypoint: StrictStr | None = None
 
     @classmethod
     def _read_pyproject_toml(cls) -> dict[str, Any]:
@@ -33,7 +33,7 @@ class FastAPIConfig(BaseModel):
             return data.get("tool", {}).get("fastapi", {})  # type: ignore
 
     @classmethod
-    def resolve(cls, entrypoint: Optional[str] = None) -> "FastAPIConfig":
+    def resolve(cls, entrypoint: str | None = None) -> "FastAPIConfig":
         config = cls._read_pyproject_toml()
 
         if entrypoint is not None:

@@ -3,7 +3,6 @@ import sys
 from dataclasses import dataclass
 from logging import getLogger
 from pathlib import Path
-from typing import Union
 
 from fastapi_cli.exceptions import FastAPICLIException
 
@@ -65,7 +64,7 @@ def get_module_data_from_path(path: Path) -> ModuleData:
     )
 
 
-def get_app_name(*, mod_data: ModuleData, app_name: Union[str, None] = None) -> str:
+def get_app_name(*, mod_data: ModuleData, app_name: str | None = None) -> str:
     try:
         mod = importlib.import_module(mod_data.module_import_str)
     except (ImportError, ValueError) as e:
@@ -111,7 +110,7 @@ class ImportData:
 
 
 def get_import_data(
-    *, path: Union[Path, None] = None, app_name: Union[str, None] = None
+    *, path: Path | None = None, app_name: str | None = None
 ) -> ImportData:
     if not path:
         path = get_default_path()

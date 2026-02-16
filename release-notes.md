@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 👷 Run tests with lower bound uv sync, update minimum dependencies. PR [#299](https://github.com/fastapi/fastapi-cli/pull/299) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump fastapi-cloud-cli from 0.11.0 to 0.12.0. PR [#308](https://github.com/fastapi/fastapi-cli/pull/308) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.2 to 0.3.3. PR [#307](https://github.com/fastapi/fastapi-cli/pull/307) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.23.0 to 0.23.1. PR [#306](https://github.com/fastapi/fastapi-cli/pull/306) by [@dependabot[bot]](https://github.com/apps/dependabot).

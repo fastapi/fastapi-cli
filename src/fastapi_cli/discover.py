@@ -100,18 +100,23 @@ def get_app_name(*, mod_data: ModuleData, app_name: Union[str, None] = None) -> 
         obj = getattr(mod, name)
         if isinstance(obj, FastAPI):
             return name
-    raise FastAPICLIException("Could not find FastAPI app in module, try using --app")
+    raise FastAPICLIException(
+        "Could not find FastAPI app or app factory in module, try using --app"
+    )
 
 
 @dataclass
 class ImportData:
-    app_name: str
+    # candidate is an app or a factory
+    candidate_name: str
     module_data: ModuleData
     import_string: str
 
 
 def get_import_data(
-    *, path: Union[Path, None] = None, app_name: Union[str, None] = None
+    *,
+    path: Union[Path, None] = None,
+    app_name: Union[str, None] = None,
 ) -> ImportData:
     if not path:
         path = get_default_path()
@@ -128,7 +133,7 @@ def get_import_data(
     import_string = f"{mod_data.module_import_str}:{use_app_name}"
 
     return ImportData(
-        app_name=use_app_name, module_data=mod_data, import_string=import_string
+        candidate_name=use_app_name, module_data=mod_data, import_string=import_string
     )
 
 
@@ -145,7 +150,7 @@ def get_import_data_from_import_string(import_string: str) -> ImportData:
     sys.path.insert(0, str(here))
 
     return ImportData(
-        app_name=app_name,
+        candidate_name=app_name,
         module_data=ModuleData(
             module_import_str=module_str,
             extra_sys_path=here,

@@ -6,6 +6,10 @@
 
 * ➖ Drop support for Python 3.9. PR [#309](https://github.com/fastapi/fastapi-cli/pull/309) by [@tiangolo](https://github.com/tiangolo).
 
+### Refactors
+
+* 🎨 Update format and types for Python 3.10. PR [#310](https://github.com/fastapi/fastapi-cli/pull/310) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.22
 
 ### Internal

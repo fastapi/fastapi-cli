@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from typing import Annotated, Any, Union
+from typing import Annotated, Any
 
 import typer
 from pydantic import ValidationError
@@ -57,7 +57,7 @@ def version_callback(value: bool) -> None:
 @app.callback()
 def callback(
     version: Annotated[
-        Union[bool, None],
+        bool | None,
         typer.Option(
             "--version", help="Show the version and exit.", callback=version_callback
         ),
@@ -99,19 +99,19 @@ def _get_module_tree(module_paths: list[Path]) -> Tree:
 
 
 def _run(
-    path: Union[Path, None] = None,
+    path: Path | None = None,
     *,
     host: str = "127.0.0.1",
     port: int = 8000,
     reload: bool = True,
-    reload_dirs: Union[list[Path], None] = None,
-    workers: Union[int, None] = None,
+    reload_dirs: list[Path] | None = None,
+    workers: int | None = None,
     root_path: str = "",
     command: str,
-    app: Union[str, None] = None,
-    entrypoint: Union[str, None] = None,
+    app: str | None = None,
+    entrypoint: str | None = None,
     proxy_headers: bool = False,
-    forwarded_allow_ips: Union[str, None] = None,
+    forwarded_allow_ips: str | None = None,
 ) -> None:
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
@@ -236,7 +236,7 @@ def _run(
 @app.command()
 def dev(
     path: Annotated[
-        Union[Path, None],
+        Path | None,
         typer.Argument(
             help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried."
         ),
@@ -262,7 +262,7 @@ def dev(
         ),
     ] = True,
     reload_dir: Annotated[
-        Union[list[Path], None],
+        list[Path] | None,
         typer.Option(
             help="Set reload directories explicitly, instead of using the current working directory."
         ),
@@ -274,13 +274,13 @@ def dev(
         ),
     ] = "",
     app: Annotated[
-        Union[str, None],
+        str | None,
         typer.Option(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
         ),
     ] = None,
     entrypoint: Annotated[
-        Union[str, None],
+        str | None,
         typer.Option(
             "--entrypoint",
             "-e",
@@ -294,7 +294,7 @@ def dev(
         ),
     ] = True,
     forwarded_allow_ips: Annotated[
-        Union[str, None],
+        str | None,
         typer.Option(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),
@@ -343,7 +343,7 @@ def dev(
 @app.command()
 def run(
     path: Annotated[
-        Union[Path, None],
+        Path | None,
         typer.Argument(
             help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried."
         ),
@@ -369,7 +369,7 @@ def run(
         ),
     ] = False,
     workers: Annotated[
-        Union[int, None],
+        int | None,
         typer.Option(
             help="Use multiple worker processes. Mutually exclusive with the --reload flag."
         ),
@@ -381,13 +381,13 @@ def run(
         ),
     ] = "",
     app: Annotated[
-        Union[str, None],
+        str | None,
         typer.Option(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
         ),
     ] = None,
     entrypoint: Annotated[
-        Union[str, None],
+        str | None,
         typer.Option(
             "--entrypoint",
             "-e",
@@ -401,7 +401,7 @@ def run(
         ),
     ] = True,
     forwarded_allow_ips: Annotated[
-        Union[str, None],
+        str | None,
         typer.Option(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),

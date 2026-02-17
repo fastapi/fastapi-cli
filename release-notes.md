@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* ⬆ Bump uvicorn from 0.40.0 to 0.41.0. PR [#311](https://github.com/fastapi/fastapi-cli/pull/311) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ## 0.0.23
 
 ### Breaking Changes

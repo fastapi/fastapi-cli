@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump fastapi from 0.128.8 to 0.129.0. PR [#313](https://github.com/fastapi/fastapi-cli/pull/313) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.23.1 to 0.24.0. PR [#312](https://github.com/fastapi/fastapi-cli/pull/312) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump uvicorn from 0.40.0 to 0.41.0. PR [#311](https://github.com/fastapi/fastapi-cli/pull/311) by [@dependabot[bot]](https://github.com/apps/dependabot).
 

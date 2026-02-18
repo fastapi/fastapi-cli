@@ -4,6 +4,61 @@
 
 ### Internal
 
+* ⬆ Bump fastapi-cloud-cli from 0.12.0 to 0.13.0. PR [#315](https://github.com/fastapi/fastapi-cli/pull/315) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi-new from 0.0.4 to 0.0.5. PR [#314](https://github.com/fastapi/fastapi-cli/pull/314) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.128.8 to 0.129.0. PR [#313](https://github.com/fastapi/fastapi-cli/pull/313) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.23.1 to 0.24.0. PR [#312](https://github.com/fastapi/fastapi-cli/pull/312) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump uvicorn from 0.40.0 to 0.41.0. PR [#311](https://github.com/fastapi/fastapi-cli/pull/311) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.0.23
+
+### Breaking Changes
+
+* ➖ Drop support for Python 3.9. PR [#309](https://github.com/fastapi/fastapi-cli/pull/309) by [@tiangolo](https://github.com/tiangolo).
+
+### Refactors
+
+* 🎨 Update format and types for Python 3.10. PR [#310](https://github.com/fastapi/fastapi-cli/pull/310) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.0.22
+
+### Internal
+
+* 👷 Run tests with lower bound uv sync, update minimum dependencies. PR [#299](https://github.com/fastapi/fastapi-cli/pull/299) by [@YuriiMotov](https://github.com/YuriiMotov).
+* ⬆ Bump fastapi-cloud-cli from 0.11.0 to 0.12.0. PR [#308](https://github.com/fastapi/fastapi-cli/pull/308) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.2 to 0.3.3. PR [#307](https://github.com/fastapi/fastapi-cli/pull/307) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.23.0 to 0.23.1. PR [#306](https://github.com/fastapi/fastapi-cli/pull/306) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.15.0 to 0.15.1. PR [#305](https://github.com/fastapi/fastapi-cli/pull/305) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump rich-toolkit from 0.19.3 to 0.19.4. PR [#304](https://github.com/fastapi/fastapi-cli/pull/304) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.21.2 to 0.23.0. PR [#302](https://github.com/fastapi/fastapi-cli/pull/302) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump rich-toolkit from 0.19.2 to 0.19.3. PR [#303](https://github.com/fastapi/fastapi-cli/pull/303) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ➕ Replace test dependency on `fastapi-slim` with `fastapi`. PR [#301](https://github.com/fastapi/fastapi-cli/pull/301) by [@musicinmybrain](https://github.com/musicinmybrain).
+
+## 0.0.21
+
+### Internal
+
+* 👷 Update build setup for `fastapi-cli-slim`, deprecate it, and make it only depend on `fastapi-cli`. PR [#300](https://github.com/fastapi/fastapi-cli/pull/300) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump typer from 0.21.1 to 0.21.2. PR [#298](https://github.com/fastapi/fastapi-cli/pull/298) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi-slim from 0.128.6 to 0.128.7. PR [#297](https://github.com/fastapi/fastapi-cli/pull/297) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump rich-toolkit from 0.19.0 to 0.19.2. PR [#296](https://github.com/fastapi/fastapi-cli/pull/296) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump rich-toolkit from 0.18.1 to 0.19.0. PR [#293](https://github.com/fastapi/fastapi-cli/pull/293) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi-slim from 0.128.5 to 0.128.6. PR [#294](https://github.com/fastapi/fastapi-cli/pull/294) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi-slim from 0.128.2 to 0.128.5. PR [#292](https://github.com/fastapi/fastapi-cli/pull/292) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.1 to 0.3.2. PR [#291](https://github.com/fastapi/fastapi-cli/pull/291) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.14 to 0.15.0. PR [#288](https://github.com/fastapi/fastapi-cli/pull/288) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi-slim from 0.128.1 to 0.128.2. PR [#290](https://github.com/fastapi/fastapi-cli/pull/290) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi-slim from 0.128.0 to 0.128.1. PR [#289](https://github.com/fastapi/fastapi-cli/pull/289) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Run mypy by pre-commit. PR [#287](https://github.com/fastapi/fastapi-cli/pull/287) by [@YuriiMotov](https://github.com/YuriiMotov).
+* ⬆ Bump rich-toolkit from 0.17.2 to 0.18.1. PR [#286](https://github.com/fastapi/fastapi-cli/pull/286) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.0 to 0.3.1. PR [#285](https://github.com/fastapi/fastapi-cli/pull/285) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump rich-toolkit from 0.17.1 to 0.17.2. PR [#284](https://github.com/fastapi/fastapi-cli/pull/284) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.13 to 0.14.14. PR [#283](https://github.com/fastapi/fastapi-cli/pull/283) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 🔧 Ensure that an edit to `uv.lock` gets the `internal` label. PR [#282](https://github.com/fastapi/fastapi-cli/pull/282) by [@svlandeg](https://github.com/svlandeg).
+* ⬆ Bump prek from 0.2.30 to 0.3.0. PR [#281](https://github.com/fastapi/fastapi-cli/pull/281) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.2.27 to 0.2.30. PR [#280](https://github.com/fastapi/fastapi-cli/pull/280) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi-cloud-cli from 0.8.0 to 0.11.0. PR [#278](https://github.com/fastapi/fastapi-cli/pull/278) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.10 to 0.14.13. PR [#279](https://github.com/fastapi/fastapi-cli/pull/279) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆️  Migrate to uv. PR [#275](https://github.com/fastapi/fastapi-cli/pull/275) by [@DoctorJohn](https://github.com/DoctorJohn).
 * ⬆ Bump mypy from 1.14.1 to 1.19.1. PR [#261](https://github.com/fastapi/fastapi-cli/pull/261) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Update pytest requirement from <9.0.0,>=4.4.0 to >=4.4.0,<10.0.0. PR [#273](https://github.com/fastapi/fastapi-cli/pull/273) by [@dependabot[bot]](https://github.com/apps/dependabot).

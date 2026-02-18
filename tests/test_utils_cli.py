@@ -1,4 +1,5 @@
 import logging
+from logging.config import dictConfig
 
 from pytest import LogCaptureFixture
 
@@ -63,7 +64,7 @@ def test_log_config_does_not_disable_existing_loggers(
     logger1.setLevel(logging.INFO)
     logger1.info("Message before configuration")
 
-    logging.config.dictConfig(get_uvicorn_log_config())
+    dictConfig(get_uvicorn_log_config())
 
     logger2 = logging.getLogger(__name__)
 

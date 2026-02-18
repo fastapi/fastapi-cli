@@ -303,7 +303,7 @@ def dev(
     log_config: Annotated[
         Path | None,
         typer.Option(
-            help="Logging configuration file. Supported formats: .ini, .json, .yaml. be tried."
+            help="Logging configuration file. Supported formats: .ini, .json, .yaml."
         ),
     ] = None,
 ) -> Any:

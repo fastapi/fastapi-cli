@@ -303,25 +303,25 @@ def dev(
     """
     Run a [bold]FastAPI[/bold] app in [yellow]development[/yellow] mode. 🧪
 
-    This is equivalent to [bold]fastapi run[/bold] but with [bold]reload[/bold] enabled and listening on the [blue]127.0.0.1[/blue] address.
+    This is equivalent to [bold]fastapi run[/bold] but with [bold]reload[/bold] enabled and listening on the [bright_blue]127.0.0.1[/bright_blue] address.
 
     It automatically detects the Python module or package that needs to be imported based on the file or directory path passed.
 
     If no path is passed, it tries with:
 
-    - [blue]main.py[/blue]
-    - [blue]app.py[/blue]
-    - [blue]api.py[/blue]
-    - [blue]app/main.py[/blue]
-    - [blue]app/app.py[/blue]
-    - [blue]app/api.py[/blue]
+    - [bright_blue]main.py[/bright_blue]
+    - [bright_blue]app.py[/bright_blue]
+    - [bright_blue]api.py[/bright_blue]
+    - [bright_blue]app/main.py[/bright_blue]
+    - [bright_blue]app/app.py[/bright_blue]
+    - [bright_blue]app/api.py[/bright_blue]
 
     It also detects the directory that needs to be added to the [bold]PYTHONPATH[/bold] to make the app importable and adds it.
 
     It detects the [bold]FastAPI[/bold] app object to use. By default it looks in the module or package for an object named:
 
-    - [blue]app[/blue]
-    - [blue]api[/blue]
+    - [bright_blue]app[/bright_blue]
+    - [bright_blue]api[/bright_blue]
 
     Otherwise, it uses the first [bold]FastAPI[/bold] app found in the imported module or package.
     """

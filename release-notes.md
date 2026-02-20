@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.15.1 to 0.15.2. PR [#316](https://github.com/fastapi/fastapi-cli/pull/316) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-cloud-cli from 0.12.0 to 0.13.0. PR [#315](https://github.com/fastapi/fastapi-cli/pull/315) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-new from 0.0.4 to 0.0.5. PR [#314](https://github.com/fastapi/fastapi-cli/pull/314) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.128.8 to 0.129.0. PR [#313](https://github.com/fastapi/fastapi-cli/pull/313) by [@dependabot[bot]](https://github.com/apps/dependabot).

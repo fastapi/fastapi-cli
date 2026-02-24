@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.24 (2026-02-24)
+
 ### Internal
 
 * ➖ Drop support for `fastapi-cli-slim`, no more versions will be released, use instead one of: `"fastapi[standard]"`, `"fastapi-cli[standard]"`, `fastapi-cli`. PR [#320](https://github.com/fastapi/fastapi-cli/pull/320) by [@tiangolo](https://github.com/tiangolo).

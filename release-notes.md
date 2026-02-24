@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ➖ Drop support for `fastapi-cli-slim`, no more versions will be released, use instead one of: `"fastapi[standard]"`, `"fastapi-cli[standard]"`, `fastapi-cli`. PR [#320](https://github.com/fastapi/fastapi-cli/pull/320) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump fastapi from 0.129.0 to 0.132.0. PR [#319](https://github.com/fastapi/fastapi-cli/pull/319) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.24.0 to 0.24.1. PR [#317](https://github.com/fastapi/fastapi-cli/pull/317) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.15.1 to 0.15.2. PR [#316](https://github.com/fastapi/fastapi-cli/pull/316) by [@dependabot[bot]](https://github.com/apps/dependabot).

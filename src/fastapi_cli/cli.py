@@ -1,6 +1,5 @@
 import logging
 from enum import Enum
-from logging import getLogger
 from pathlib import Path
 from typing import Annotated, Any
 
@@ -30,9 +29,6 @@ class WSProtocolType(str, Enum):
     websockets = "websockets"
     wsproto = "wsproto"
 
-
-setup_logging()
-logger = getLogger(__name__)
 
 try:
     import uvicorn

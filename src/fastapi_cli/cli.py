@@ -248,27 +248,13 @@ def _run(
             proxy_headers=proxy_headers,
             forwarded_allow_ips=forwarded_allow_ips,
             log_config=get_uvicorn_log_config(),
+            ws=ws.value,
+            ws_max_size=ws_max_size,
+            ws_max_queue=ws_max_queue,
+            ws_ping_interval=ws_ping_interval,
+            ws_ping_timeout=ws_ping_timeout,
+            ws_per_message_deflate=ws_per_message_deflate,
         )
-    print(Padding(panel, 1))
-    if not uvicorn:
-        raise FastAPICLIException(
-            "Could not import Uvicorn, try running 'pip install uvicorn'"
-        ) from None
-    uvicorn.run(
-        app=use_uvicorn_app,
-        host=host,
-        port=port,
-        reload=reload,
-        workers=workers,
-        root_path=root_path,
-        proxy_headers=proxy_headers,
-        ws=ws.value,
-        ws_max_size=ws_max_size,
-        ws_max_queue=ws_max_queue,
-        ws_ping_interval=ws_ping_interval,
-        ws_ping_timeout=ws_ping_timeout,
-        ws_per_message_deflate=ws_per_message_deflate,
-    )
 
 
 @app.command()

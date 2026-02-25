@@ -4,10 +4,10 @@ from pathlib import Path
 from unittest.mock import patch
 
 import uvicorn
-from typer.testing import CliRunner
-
 from fastapi_cli.cli import app
 from fastapi_cli.utils.cli import get_uvicorn_log_config
+from typer.testing import CliRunner
+
 from tests.utils import changing_dir
 
 runner = CliRunner()
@@ -83,6 +83,12 @@ def test_dev_package() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "ws": "auto",
+                "ws_max_size": 16777216,
+                "ws_max_queue": 32,
+                "ws_ping_interval": 20.0,
+                "ws_ping_timeout": 20.0,
+                "ws_per_message_deflate": True,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -172,6 +178,12 @@ def test_dev_env_vars() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "ws": "auto",
+                "ws_max_size": 16777216,
+                "ws_max_queue": 32,
+                "ws_ping_interval": 20.0,
+                "ws_ping_timeout": 20.0,
+                "ws_per_message_deflate": True,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -210,6 +222,12 @@ def test_dev_env_vars_and_args() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "ws": "auto",
+                "ws_max_size": 16777216,
+                "ws_max_queue": 32,
+                "ws_ping_interval": 20.0,
+                "ws_ping_timeout": 20.0,
+                "ws_per_message_deflate": True,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -289,6 +307,12 @@ def test_run_trust_proxy() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "ws": "auto",
+                "ws_max_size": 16777216,
+                "ws_max_queue": 32,
+                "ws_ping_interval": 20.0,
+                "ws_ping_timeout": 20.0,
+                "ws_per_message_deflate": True,
                 "forwarded_allow_ips": "*",
                 "log_config": get_uvicorn_log_config(),
             }
@@ -376,6 +400,12 @@ def test_run_env_vars() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "ws": "auto",
+                "ws_max_size": 16777216,
+                "ws_max_queue": 32,
+                "ws_ping_interval": 20.0,
+                "ws_ping_timeout": 20.0,
+                "ws_per_message_deflate": True,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -410,6 +440,12 @@ def test_run_env_vars_and_args() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "ws": "auto",
+                "ws_max_size": 16777216,
+                "ws_max_queue": 32,
+                "ws_ping_interval": 20.0,
+                "ws_ping_timeout": 20.0,
+                "ws_per_message_deflate": True,
                 "forwarded_allow_ips": None,
                 "log_config": get_uvicorn_log_config(),
             }
@@ -523,6 +559,12 @@ def test_dev_with_import_string() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "ws": "auto",
+                "ws_max_size": 16777216,
+                "ws_max_queue": 32,
+                "ws_ping_interval": 20.0,
+                "ws_ping_timeout": 20.0,
+                "ws_per_message_deflate": True,
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:api" in result.output
@@ -545,6 +587,12 @@ def test_run_with_import_string() -> None:
                 "workers": None,
                 "root_path": "",
                 "proxy_headers": True,
+                "ws": "auto",
+                "ws_max_size": 16777216,
+                "ws_max_queue": 32,
+                "ws_ping_interval": 20.0,
+                "ws_ping_timeout": 20.0,
+                "ws_per_message_deflate": True,
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output

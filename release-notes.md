@@ -21,7 +21,7 @@
 * ⬆ Bump typer from 0.23.1 to 0.24.0. PR [#312](https://github.com/fastapi/fastapi-cli/pull/312) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump uvicorn from 0.40.0 to 0.41.0. PR [#311](https://github.com/fastapi/fastapi-cli/pull/311) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
-## 0.0.23
+## 0.0.23 (2026-02-16)
 
 ### Breaking Changes
 
@@ -45,7 +45,7 @@
 * ⬆ Bump rich-toolkit from 0.19.2 to 0.19.3. PR [#303](https://github.com/fastapi/fastapi-cli/pull/303) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ➕ Replace test dependency on `fastapi-slim` with `fastapi`. PR [#301](https://github.com/fastapi/fastapi-cli/pull/301) by [@musicinmybrain](https://github.com/musicinmybrain).
 
-## 0.0.21
+## 0.0.21 (2026-02-11)
 
 ### Internal
 
@@ -79,19 +79,19 @@
 * ⬆ Bump actions/download-artifact from 6 to 7. PR [#260](https://github.com/fastapi/fastapi-cli/pull/260) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Add pre-commit workflow. PR [#266](https://github.com/fastapi/fastapi-cli/pull/266) by [@YuriiMotov](https://github.com/YuriiMotov).
 
-## 0.0.20
+## 0.0.20 (2025-12-22)
 
 ### Features
 
 * ✨ Add --reload-dir option to dev command. PR [#267](https://github.com/fastapi/fastapi-cli/pull/267) by [@patrick91](https://github.com/patrick91).
 
-## 0.0.19
+## 0.0.19 (2025-12-22)
 
 ### Breaking Changes
 
 * 🔧 Drop support for Python 3.8. PR [#269](https://github.com/fastapi/fastapi-cli/pull/269) by [@patrick91](https://github.com/patrick91).
 
-## 0.0.18
+## 0.0.18 (2025-12-22)
 
 ### Features
 
@@ -101,7 +101,7 @@
 
 * 🐛 Fix log alignment when pressing Ctrl+C to stop server. PR [#253](https://github.com/fastapi/fastapi-cli/pull/253) by [@savannahostrowski](https://github.com/savannahostrowski).
 
-## 0.0.17
+## 0.0.17 (2025-12-22)
 
 ### Upgrades
 
@@ -122,13 +122,13 @@
 * ⬆ Bump ruff from 0.14.2 to 0.14.4. PR [#239](https://github.com/fastapi/fastapi-cli/pull/239) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#238](https://github.com/fastapi/fastapi-cli/pull/238) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 
-## 0.0.16
+## 0.0.16 (2025-11-10)
 
 ### Fixes
 
 * 🐛 Fix support for Pydantic v1. PR [#240](https://github.com/fastapi/fastapi-cli/pull/240) by [@patrick91](https://github.com/patrick91).
 
-## 0.0.15
+## 0.0.15 (2025-11-10)
 
 ### Features
 
@@ -153,7 +153,7 @@ entrypoint = "some.importable_module:app_name"
 * 🔧 Configure reminder for `waiting` label in `issue-manager`. PR [#227](https://github.com/fastapi/fastapi-cli/pull/227) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#215](https://github.com/fastapi/fastapi-cli/pull/215) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 
-## 0.0.14
+## 0.0.14 (2025-10-20)
 
 ### Upgrades
 
@@ -163,13 +163,13 @@ entrypoint = "some.importable_module:app_name"
 
 * ⬆ Bump tiangolo/issue-manager from 0.5.1 to 0.6.0. PR [#220](https://github.com/fastapi/fastapi-cli/pull/220) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
-## 0.0.13
+## 0.0.13 (2025-09-20)
 
 ### Features
 
 * ✨ Allow to use `-h` for help. PR [#191](https://github.com/fastapi/fastapi-cli/pull/191) by [@patrick91](https://github.com/patrick91).
 
-## 0.0.12
+## 0.0.12 (2025-09-17)
 
 ### Features
 
@@ -183,7 +183,7 @@ entrypoint = "some.importable_module:app_name"
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#208](https://github.com/fastapi/fastapi-cli/pull/208) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#205](https://github.com/fastapi/fastapi-cli/pull/205) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 
-## 0.0.11
+## 0.0.11 (2025-09-09)
 
 ### Features
 
@@ -215,7 +215,7 @@ $ fastapi run --entrypoint some.importable_module:app_name
 * ⬆ Bump pypa/gh-action-pypi-publish from 1.12.4 to 1.13.0. PR [#200](https://github.com/fastapi/fastapi-cli/pull/200) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Detect and label merge conflicts on PRs automatically. PR [#204](https://github.com/fastapi/fastapi-cli/pull/204) by [@svlandeg](https://github.com/svlandeg).
 
-## 0.0.10
+## 0.0.10 (2025-08-31)
 
 ### Features
 
@@ -230,13 +230,13 @@ $ fastapi run --entrypoint some.importable_module:app_name
 * ⬆ Bump tiangolo/latest-changes from 0.3.2 to 0.4.0. PR [#188](https://github.com/fastapi/fastapi-cli/pull/188) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump astral-sh/setup-uv from 5 to 6. PR [#176](https://github.com/fastapi/fastapi-cli/pull/176) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
-## 0.0.9
+## 0.0.9 (2025-08-31)
 
 ### Fixes
 
 * 🔧 Remove command script `fastapi`, let it be provided by the `fastapi` package. PR [#197](https://github.com/fastapi/fastapi-cli/pull/197) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.8
+## 0.0.8 (2025-07-07)
 
 ### Features
 
@@ -261,7 +261,7 @@ If you want to install `fastapi` with the standard dependencies except for `fast
 * ⬆ Bump astral-sh/setup-uv from 4 to 5. PR [#140](https://github.com/fastapi/fastapi-cli/pull/140) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mypy from 1.13.0 to 1.14.0. PR [#141](https://github.com/fastapi/fastapi-cli/pull/141) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
-## 0.0.7
+## 0.0.7 (2024-12-15)
 
 ### Fixes
 
@@ -274,7 +274,7 @@ If you want to install `fastapi` with the standard dependencies except for `fast
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#62](https://github.com/fastapi/fastapi-cli/pull/62) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.5.5 to 0.8.1. PR [#128](https://github.com/fastapi/fastapi-cli/pull/128) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
-## 0.0.6
+## 0.0.6 (2024-12-04)
 
 ### Features
 
@@ -310,7 +310,7 @@ If you want to install `fastapi` with the standard dependencies except for `fast
 * 🔧 Update GitHub Action add-to-project. PR [#66](https://github.com/fastapi/fastapi-cli/pull/66) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Add GitHub Action add-to-project. PR [#65](https://github.com/fastapi/fastapi-cli/pull/65) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.5
+## 0.0.5 (2024-08-02)
 
 ### Breaking Changes
 
@@ -364,7 +364,7 @@ In a future version, `fastapi-cli` will not include Uvicorn unless it is install
 * 👷 Enable CI tests for Python 3.12. PR [#27](https://github.com/tiangolo/fastapi-cli/pull/27) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Update Upload/Download artifacts GitHub Actions. PR [#26](https://github.com/tiangolo/fastapi-cli/pull/26) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.4
+## 0.0.4 (2024-05-19)
 
 ### Fixes
 
@@ -375,7 +375,7 @@ In a future version, `fastapi-cli` will not include Uvicorn unless it is install
 * ⬆ Bump actions/cache from 3 to 4. PR [#5](https://github.com/tiangolo/fastapi-cli/pull/5) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pypa/gh-action-pypi-publish from 1.8.11 to 1.8.14. PR [#2](https://github.com/tiangolo/fastapi-cli/pull/2) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
-## 0.0.3
+## 0.0.3 (2024-05-07)
 
 ### Features
 
@@ -395,7 +395,7 @@ In a future version, `fastapi-cli` will not include Uvicorn unless it is install
 * ⬆ Update pytest requirement from <8.0.0,>=4.4.0 to >=4.4.0,<9.0.0. PR [#4](https://github.com/tiangolo/fastapi-cli/pull/4) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mypy from 1.4.1 to 1.10.0. PR [#7](https://github.com/tiangolo/fastapi-cli/pull/7) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
-## 0.0.2
+## 0.0.2 (2024-05-02)
 
 First public working version. 🚀
 

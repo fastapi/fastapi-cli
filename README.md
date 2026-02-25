@@ -32,46 +32,33 @@ To run your FastAPI app for development, you can use the `fastapi dev` command:
 
 ```console
 $ fastapi dev main.py
-INFO     Using path main.py
-INFO     Resolved absolute path /home/user/code/awesomeapp/main.py
-INFO     Searching for package file structure from directories with __init__.py files
-INFO     Importing from /home/user/code/awesomeapp
 
- ╭─ Python module file ─╮
- │                      │
- │  🐍 main.py          │
- │                      │
- ╰──────────────────────╯
+   FastAPI   Starting development server 🚀
 
-INFO     Importing module main
-INFO     Found importable FastAPI app
+             Searching for package file structure from directories with __init__.py files
+             Importing from /home/user/code/awesomeapp
 
- ╭─ Importable FastAPI app ─╮
- │                          │
- │  from main import app    │
- │                          │
- ╰──────────────────────────╯
+    module   🐍 main.py
 
-INFO     Using import string main:app
+      code   Importing the FastAPI app object from the module with the following code:
 
- ╭────────── FastAPI CLI - Development mode ───────────╮
- │                                                     │
- │  Serving at: http://127.0.0.1:8000                  │
- │                                                     │
- │  API docs: http://127.0.0.1:8000/docs               │
- │                                                     │
- │  Running in development mode, for production use:   │
- │                                                     │
- │  fastapi run                                        │
- │                                                     │
- ╰─────────────────────────────────────────────────────╯
+             from main import app
 
-INFO:     Will watch for changes in these directories: ['/home/user/code/awesomeapp']
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [56345] using WatchFiles
-INFO:     Started server process [56352]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
+       app   Using import string: main:app
+
+    server   Server started at http://127.0.0.1:8000
+    server   Documentation at http://127.0.0.1:8000/docs
+
+       tip   Running in development mode, for production use: fastapi run
+
+             Logs:
+
+      INFO   Will watch for changes in these directories: ['/home/user/code/awesomeapp']
+      INFO   Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+      INFO   Started reloader process [4106097] using WatchFiles
+      INFO   Started server process [4106120]
+      INFO   Waiting for application startup.
+      INFO   Application startup complete.
 ```
 
 </div>

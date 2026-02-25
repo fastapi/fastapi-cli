@@ -1,9 +1,10 @@
 import sys
-from typing import Generator
+from collections.abc import Generator
 
 import pytest
-from fastapi_cli.logging import setup_logging
 from typer import rich_utils
+
+from fastapi_cli.logging import setup_logging
 
 
 @pytest.fixture(autouse=True)

@@ -1,21 +1,27 @@
+import logging
 from enum import Enum
 from logging import getLogger
 from pathlib import Path
-from typing import Any, Union
+from typing import Annotated, Any
 
 import typer
+from pydantic import ValidationError
 from rich import print
-from rich.padding import Padding
-from rich.panel import Panel
-from typing_extensions import Annotated
+from rich.tree import Tree
 
-from fastapi_cli.discover import get_import_string
+from fastapi_cli.config import FastAPIConfig
+from fastapi_cli.discover import get_import_data, get_import_data_from_import_string
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
 from .logging import setup_logging
+from .utils.cli import get_rich_toolkit, get_uvicorn_log_config
 
-app = typer.Typer(rich_markup_mode="rich")
+app = typer.Typer(
+    rich_markup_mode="rich", context_settings={"help_option_names": ["-h", "--help"]}
+)
+
+logger = logging.getLogger(__name__)
 
 
 class WSProtocolType(str, Enum):
@@ -34,6 +40,26 @@ except ImportError:  # pragma: no cover
     uvicorn = None  # type: ignore[assignment]
 
 
+try:
+    from fastapi_cloud_cli.cli import (
+        app as fastapi_cloud_cli,
+    )
+
+    app.add_typer(fastapi_cloud_cli)
+except ImportError:  # pragma: no cover
+    pass
+
+
+try:
+    from fastapi_new.cli import (  # type: ignore[import-not-found]
+        app as fastapi_new_cli,
+    )
+
+    app.add_typer(fastapi_new_cli)  # pragma: no cover
+except ImportError:  # pragma: no cover
+    pass
+
+
 def version_callback(value: bool) -> None:
     if value:
         print(f"FastAPI CLI version: [green]{__version__}[/green]")
@@ -43,31 +69,59 @@ def version_callback(value: bool) -> None:
 @app.callback()
 def callback(
     version: Annotated[
-        Union[bool, None],
+        bool | None,
         typer.Option(
             "--version", help="Show the version and exit.", callback=version_callback
         ),
     ] = None,
+    verbose: bool = typer.Option(False, help="Enable verbose output"),
 ) -> None:
     """
     FastAPI CLI - The [bold]fastapi[/bold] command line app. 😎
 
     Manage your [bold]FastAPI[/bold] projects, run your FastAPI apps, and more.
 
-    Read more in the docs: [link]https://fastapi.tiangolo.com/fastapi-cli/[/link].
+    Read more in the docs: [link=https://fastapi.tiangolo.com/fastapi-cli/]https://fastapi.tiangolo.com/fastapi-cli/[/link].
     """
+
+    log_level = logging.DEBUG if verbose else logging.INFO
+
+    setup_logging(level=log_level)
+
+
+def _get_module_tree(module_paths: list[Path]) -> Tree:
+    root = module_paths[0]
+    name = f"🐍 {root.name}" if root.is_file() else f"📁 {root.name}"
+
+    root_tree = Tree(name)
+
+    if root.is_dir():
+        root_tree.add("[dim]🐍 __init__.py[/dim]")
+
+    tree = root_tree
+    for sub_path in module_paths[1:]:
+        sub_name = (
+            f"🐍 {sub_path.name}" if sub_path.is_file() else f"📁 {sub_path.name}"
+        )
+        tree = tree.add(sub_name)
+        if sub_path.is_dir():
+            tree.add("[dim]🐍 __init__.py[/dim]")
+
+    return root_tree
 
 
 def _run(
-    path: Union[Path, None] = None,
+    path: Path | None = None,
     *,
     host: str = "127.0.0.1",
     port: int = 8000,
     reload: bool = True,
-    workers: Union[int, None] = None,
+    reload_dirs: list[Path] | None = None,
+    workers: int | None = None,
     root_path: str = "",
     command: str,
-    app: Union[str, None] = None,
+    app: str | None = None,
+    entrypoint: str | None = None,
     proxy_headers: bool = False,
     ws: WSProtocolType = WSProtocolType.auto,
     ws_max_size: int = 16777216,
@@ -75,29 +129,125 @@ def _run(
     ws_ping_interval: float = 20.0,
     ws_ping_timeout: float = 20.0,
     ws_per_message_deflate: bool = True,
+    forwarded_allow_ips: str | None = None,
 ) -> None:
-    try:
-        use_uvicorn_app = get_import_string(path=path, app_name=app)
-    except FastAPICLIException as e:
-        logger.error(str(e))
-        raise typer.Exit(code=1) from None
-    serving_str = f"[dim]Serving at:[/dim] [link]http://{host}:{port}[/link]\n\n[dim]API docs:[/dim] [link]http://{host}:{port}/docs[/link]"
+    with get_rich_toolkit() as toolkit:
+        server_type = "development" if command == "dev" else "production"
 
-    if command == "dev":
-        panel = Panel(
-            f"{serving_str}\n\n[dim]Running in development mode, for production use:[/dim] \n\n[b]fastapi run[/b]",
-            title="FastAPI CLI - Development mode",
-            expand=False,
-            padding=(1, 2),
-            style="black on yellow",
+        toolkit.print_title(f"Starting {server_type} server 🚀", tag="FastAPI")
+        toolkit.print_line()
+
+        toolkit.print(
+            "Searching for package file structure from directories with [blue]__init__.py[/blue] files"
         )
-    else:
-        panel = Panel(
-            f"{serving_str}\n\n[dim]Running in production mode, for development use:[/dim] \n\n[b]fastapi dev[/b]",
-            title="FastAPI CLI - Production mode",
-            expand=False,
-            padding=(1, 2),
-            style="green",
+
+        if entrypoint and (path or app):
+            toolkit.print_line()
+            toolkit.print(
+                "[error]Cannot use --entrypoint together with path or --app arguments"
+            )
+            toolkit.print_line()
+            raise typer.Exit(code=1)
+
+        try:
+            config = FastAPIConfig.resolve(entrypoint=entrypoint)
+        except ValidationError as e:
+            toolkit.print_line()
+            toolkit.print("[error]Invalid configuration in pyproject.toml:")
+            toolkit.print_line()
+
+            for error in e.errors():
+                field = ".".join(str(loc) for loc in error["loc"])
+                toolkit.print(f"  [red]•[/red] {field}: {error['msg']}")
+
+            toolkit.print_line()
+
+            raise typer.Exit(code=1) from None
+
+        try:
+            # Resolve import data with priority: CLI path/app > config entrypoint > auto-discovery
+            if path or app:
+                import_data = get_import_data(path=path, app_name=app)
+            elif config.entrypoint:
+                import_data = get_import_data_from_import_string(config.entrypoint)
+            else:
+                import_data = get_import_data()
+        except FastAPICLIException as e:
+            toolkit.print_line()
+            toolkit.print(f"[error]{e}")
+            raise typer.Exit(code=1) from None
+
+        logger.debug(f"Importing from {import_data.module_data.extra_sys_path}")
+        logger.debug(f"Importing module {import_data.module_data.module_import_str}")
+
+        module_data = import_data.module_data
+        import_string = import_data.import_string
+
+        toolkit.print(f"Importing from {module_data.extra_sys_path}")
+        toolkit.print_line()
+
+        if module_data.module_paths:
+            root_tree = _get_module_tree(module_data.module_paths)
+
+            toolkit.print(root_tree, tag="module")
+            toolkit.print_line()
+
+        toolkit.print(
+            "Importing the FastAPI app object from the module with the following code:",
+            tag="code",
+        )
+        toolkit.print_line()
+        toolkit.print(
+            f"[underline]from [bold]{module_data.module_import_str}[/bold] import [bold]{import_data.app_name}[/bold]"
+        )
+        toolkit.print_line()
+
+        toolkit.print(
+            f"Using import string: [blue]{import_string}[/]",
+            tag="app",
+        )
+
+        url = f"http://{host}:{port}"
+        url_docs = f"{url}/docs"
+
+        toolkit.print_line()
+        toolkit.print(
+            f"Server started at [link={url}]{url}[/]",
+            f"Documentation at [link={url_docs}]{url_docs}[/]",
+            tag="server",
+        )
+
+        if command == "dev":
+            toolkit.print_line()
+            toolkit.print(
+                "Running in development mode, for production use: [bold]fastapi run[/]",
+                tag="tip",
+            )
+
+        if not uvicorn:
+            raise FastAPICLIException(
+                "Could not import Uvicorn, try running 'pip install uvicorn'"
+            ) from None
+
+        toolkit.print_line()
+        toolkit.print("Logs:")
+        toolkit.print_line()
+
+        uvicorn.run(
+            app=import_string,
+            host=host,
+            port=port,
+            reload=reload,
+            reload_dirs=(
+                [str(directory.resolve()) for directory in reload_dirs]
+                if reload_dirs
+                else None
+            ),
+            workers=workers,
+            root_path=root_path,
+            proxy_headers=proxy_headers,
+            forwarded_allow_ips=forwarded_allow_ips,
+            log_config=get_uvicorn_log_config(),
         )
     print(Padding(panel, 1))
     if not uvicorn:
@@ -124,7 +274,7 @@ def _run(
 @app.command()
 def dev(
     path: Annotated[
-        Union[Path, None],
+        Path | None,
         typer.Argument(
             help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried."
         ),
@@ -139,7 +289,8 @@ def dev(
     port: Annotated[
         int,
         typer.Option(
-            help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app."
+            help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app.",
+            envvar="PORT",
         ),
     ] = 8000,
     reload: Annotated[
@@ -148,6 +299,12 @@ def dev(
             help="Enable auto-reload of the server when (code) files change. This is [bold]resource intensive[/bold], use it only during development."
         ),
     ] = True,
+    reload_dir: Annotated[
+        list[Path] | None,
+        typer.Option(
+            help="Set reload directories explicitly, instead of using the current working directory."
+        ),
+    ] = None,
     root_path: Annotated[
         str,
         typer.Option(
@@ -155,9 +312,17 @@ def dev(
         ),
     ] = "",
     app: Annotated[
-        Union[str, None],
+        str | None,
         typer.Option(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
+        ),
+    ] = None,
+    entrypoint: Annotated[
+        str | None,
+        typer.Option(
+            "--entrypoint",
+            "-e",
+            help="The FastAPI app import string in the format 'some.importable_module:app_name'.",
         ),
     ] = None,
     proxy_headers: Annotated[
@@ -192,6 +357,12 @@ def dev(
         bool,
         typer.Option(help="WebSocket per-message-deflate compression"),
     ] = True,
+    forwarded_allow_ips: Annotated[
+        str | None,
+        typer.Option(
+            help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
+        ),
+    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [yellow]development[/yellow] mode. 🧪
@@ -223,8 +394,10 @@ def dev(
         host=host,
         port=port,
         reload=reload,
+        reload_dirs=reload_dir,
         root_path=root_path,
         app=app,
+        entrypoint=entrypoint,
         command="dev",
         proxy_headers=proxy_headers,
         ws=ws,
@@ -233,13 +406,14 @@ def dev(
         ws_ping_interval=ws_ping_interval,
         ws_ping_timeout=ws_ping_timeout,
         ws_per_message_deflate=ws_per_message_deflate,
+        forwarded_allow_ips=forwarded_allow_ips,
     )
 
 
 @app.command()
 def run(
     path: Annotated[
-        Union[Path, None],
+        Path | None,
         typer.Argument(
             help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried."
         ),
@@ -254,7 +428,8 @@ def run(
     port: Annotated[
         int,
         typer.Option(
-            help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app."
+            help="The port to serve on. You would normally have a termination proxy on top (another program) handling HTTPS on port [blue]443[/blue] and HTTP on port [blue]80[/blue], transferring the communication to your app.",
+            envvar="PORT",
         ),
     ] = 8000,
     reload: Annotated[
@@ -264,7 +439,7 @@ def run(
         ),
     ] = False,
     workers: Annotated[
-        Union[int, None],
+        int | None,
         typer.Option(
             help="Use multiple worker processes. Mutually exclusive with the --reload flag."
         ),
@@ -276,9 +451,17 @@ def run(
         ),
     ] = "",
     app: Annotated[
-        Union[str, None],
+        str | None,
         typer.Option(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
+        ),
+    ] = None,
+    entrypoint: Annotated[
+        str | None,
+        typer.Option(
+            "--entrypoint",
+            "-e",
+            help="The FastAPI app import string in the format 'some.importable_module:app_name'.",
         ),
     ] = None,
     proxy_headers: Annotated[
@@ -313,6 +496,12 @@ def run(
         bool,
         typer.Option(help="WebSocket per-message-deflate compression"),
     ] = True,
+    forwarded_allow_ips: Annotated[
+        str | None,
+        typer.Option(
+            help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
+        ),
+    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [green]production[/green] mode. 🚀
@@ -347,6 +536,7 @@ def run(
         workers=workers,
         root_path=root_path,
         app=app,
+        entrypoint=entrypoint,
         command="run",
         proxy_headers=proxy_headers,
         ws=ws,
@@ -355,6 +545,7 @@ def run(
         ws_ping_interval=ws_ping_interval,
         ws_ping_timeout=ws_ping_timeout,
         ws_per_message_deflate=ws_per_message_deflate,
+        forwarded_allow_ips=forwarded_allow_ips,
     )
 
 

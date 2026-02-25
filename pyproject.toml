@@ -5,9 +5,10 @@ description = "Run and manage FastAPI apps from the command line with FastAPI CL
 authors = [
     {name = "Sebastián Ramírez", email = "tiangolo@gmail.com"},
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
+license-files = ["LICENSE"]
 classifiers = [
     "Intended Audience :: Information Technology",
     "Intended Audience :: System Administrators",
@@ -22,23 +23,30 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Framework :: FastAPI",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
-    "typer >= 0.12.3",
+    "typer >= 0.16.0",
     "uvicorn[standard] >= 0.15.0",
+    "rich-toolkit >= 0.14.8",
+    "tomli >= 2.0.0; python_version < '3.11'"
 ]
 
 [project.optional-dependencies]
 standard = [
     "uvicorn[standard] >= 0.15.0",
+    "fastapi-cloud-cli >= 0.1.1",
+]
+standard-no-fastapi-cloud-cli = [
+    "uvicorn[standard] >= 0.15.0",
+]
+new = [
+    "fastapi-new >= 0.0.2",
 ]
 
 [project.urls]
@@ -48,8 +56,22 @@ Repository = "https://github.com/fastapi/fastapi-cli"
 Issues = "https://github.com/fastapi/fastapi-cli/issues"
 Changelog = "https://github.com/fastapi/fastapi-cli/blob/main/release-notes.md"
 
-[project.scripts]
-fastapi = "fastapi_cli.cli:main"
+[dependency-groups]
+dev = [
+    { include-group = "tests" },
+    "prek>=0.2.24,<1.0.0",
+]
+github-actions = [
+    "smokeshow>=0.5.0",
+]
+tests = [
+    "coverage[toml]>=6.2,<8.0",
+    "fastapi>=0.128.0",
+    "mypy==1.19.1",
+    "pytest>=7.4.0,<10.0.0",
+    "ruff==0.15.2",
+    "uvicorn>=0.39.0",
+]
 
 [build-system]
 requires = ["pdm-backend"]
@@ -63,12 +85,8 @@ distribution = true
 [tool.pdm.build]
 source-includes = [
     "tests/",
-    "requirements*.txt",
     "scripts/",
-    ]
-
-[tool.tiangolo._internal-slim-build.packages.fastapi-cli-slim.project]
-name = "fastapi-cli-slim"
+]
 
 [tool.pytest.ini_options]
 addopts = [
@@ -85,6 +103,7 @@ source = [
     "src",
     "tests",
 ]
+relative_files = true
 context = '${CONTEXT}'
 dynamic_context = "test_function"
 omit = [

@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* ⬆ Bump rich-toolkit from 0.19.4 to 0.19.7. PR [#322](https://github.com/fastapi/fastapi-cli/pull/322) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ## 0.0.24 (2026-02-24)
 
 ### Internal

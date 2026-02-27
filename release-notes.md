@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump actions/upload-artifact from 6 to 7. PR [#326](https://github.com/fastapi/fastapi-cli/pull/326) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-cloud-cli from 0.13.0 to 0.14.0. PR [#324](https://github.com/fastapi/fastapi-cli/pull/324) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.132.0 to 0.133.0. PR [#321](https://github.com/fastapi/fastapi-cli/pull/321) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump rich-toolkit from 0.19.4 to 0.19.7. PR [#322](https://github.com/fastapi/fastapi-cli/pull/322) by [@dependabot[bot]](https://github.com/apps/dependabot).

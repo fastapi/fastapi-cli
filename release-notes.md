@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.15.2 to 0.15.4. PR [#328](https://github.com/fastapi/fastapi-cli/pull/328) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.133.0 to 0.133.1. PR [#325](https://github.com/fastapi/fastapi-cli/pull/325) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/download-artifact from 7 to 8. PR [#327](https://github.com/fastapi/fastapi-cli/pull/327) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/upload-artifact from 6 to 7. PR [#326](https://github.com/fastapi/fastapi-cli/pull/326) by [@dependabot[bot]](https://github.com/apps/dependabot).

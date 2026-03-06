@@ -1,4 +1,5 @@
 import logging
+from enum import Enum
 from pathlib import Path
 from typing import Annotated, Any
 
@@ -20,6 +21,13 @@ app = typer.Typer(
 )
 
 logger = logging.getLogger(__name__)
+
+
+class WSProtocolType(str, Enum):
+    auto = "auto"
+    none = "none"
+    websockets = "websockets"
+    wsproto = "wsproto"
 
 
 try:
@@ -111,6 +119,12 @@ def _run(
     app: str | None = None,
     entrypoint: str | None = None,
     proxy_headers: bool = False,
+    ws: WSProtocolType = WSProtocolType.auto,
+    ws_max_size: int = 16777216,
+    ws_max_queue: int = 32,
+    ws_ping_interval: float = 20.0,
+    ws_ping_timeout: float = 20.0,
+    ws_per_message_deflate: bool = True,
     forwarded_allow_ips: str | None = None,
 ) -> None:
     with get_rich_toolkit() as toolkit:
@@ -230,6 +244,12 @@ def _run(
             proxy_headers=proxy_headers,
             forwarded_allow_ips=forwarded_allow_ips,
             log_config=get_uvicorn_log_config(),
+            ws=ws.value,
+            ws_max_size=ws_max_size,
+            ws_max_queue=ws_max_queue,
+            ws_ping_interval=ws_ping_interval,
+            ws_ping_timeout=ws_ping_timeout,
+            ws_per_message_deflate=ws_per_message_deflate,
         )
 
 
@@ -293,6 +313,32 @@ def dev(
             help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
         ),
     ] = True,
+    ws: Annotated[
+        WSProtocolType,
+        typer.Option(
+            help="The WebSocket protocol.", case_sensitive=False, show_choices=True
+        ),
+    ] = WSProtocolType.auto,
+    ws_max_size: Annotated[
+        int,
+        typer.Option(help="WebSocket max size message in bytes."),
+    ] = 16777216,
+    ws_max_queue: Annotated[
+        int,
+        typer.Option(help="The maximum length of the WebSocket message queue."),
+    ] = 32,
+    ws_ping_interval: Annotated[
+        float,
+        typer.Option(help="WebSocket ping interval in seconds."),
+    ] = 20.0,
+    ws_ping_timeout: Annotated[
+        float,
+        typer.Option(help="WebSocket ping timeout in seconds."),
+    ] = 20.0,
+    ws_per_message_deflate: Annotated[
+        bool,
+        typer.Option(help="WebSocket per-message-deflate compression"),
+    ] = True,
     forwarded_allow_ips: Annotated[
         str | None,
         typer.Option(
@@ -336,6 +382,12 @@ def dev(
         entrypoint=entrypoint,
         command="dev",
         proxy_headers=proxy_headers,
+        ws=ws,
+        ws_max_size=ws_max_size,
+        ws_max_queue=ws_max_queue,
+        ws_ping_interval=ws_ping_interval,
+        ws_ping_timeout=ws_ping_timeout,
+        ws_per_message_deflate=ws_per_message_deflate,
         forwarded_allow_ips=forwarded_allow_ips,
     )
 
@@ -400,6 +452,32 @@ def run(
             help="Enable/Disable X-Forwarded-Proto, X-Forwarded-For, X-Forwarded-Port to populate remote address info."
         ),
     ] = True,
+    ws: Annotated[
+        WSProtocolType,
+        typer.Option(
+            help="The WebSocket protocol.", case_sensitive=False, show_choices=True
+        ),
+    ] = WSProtocolType.auto,
+    ws_max_size: Annotated[
+        int,
+        typer.Option(help="WebSocket max size message in bytes."),
+    ] = 16777216,
+    ws_max_queue: Annotated[
+        int,
+        typer.Option(help="The maximum length of the WebSocket message queue."),
+    ] = 32,
+    ws_ping_interval: Annotated[
+        float,
+        typer.Option(help="WebSocket ping interval in seconds."),
+    ] = 20.0,
+    ws_ping_timeout: Annotated[
+        float,
+        typer.Option(help="WebSocket ping timeout in seconds."),
+    ] = 20.0,
+    ws_per_message_deflate: Annotated[
+        bool,
+        typer.Option(help="WebSocket per-message-deflate compression"),
+    ] = True,
     forwarded_allow_ips: Annotated[
         str | None,
         typer.Option(
@@ -443,6 +521,12 @@ def run(
         entrypoint=entrypoint,
         command="run",
         proxy_headers=proxy_headers,
+        ws=ws,
+        ws_max_size=ws_max_size,
+        ws_max_queue=ws_max_queue,
+        ws_ping_interval=ws_ping_interval,
+        ws_ping_timeout=ws_ping_timeout,
+        ws_per_message_deflate=ws_per_message_deflate,
         forwarded_allow_ips=forwarded_allow_ips,
     )
 

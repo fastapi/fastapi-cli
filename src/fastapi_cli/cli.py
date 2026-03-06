@@ -307,7 +307,7 @@ def dev(
         str | None,
         typer.Option(
             "--log-config",
-            help="Path to uvicorn log config yaml or json format, read more at [link=https://uvicorn.dev/settings/#logging]https://uvicorn.dev/settings/#logging[/link]."
+            help="Path to uvicorn log config yaml or json format, read more at [link=https://uvicorn.dev/settings/#logging]https://uvicorn.dev/settings/#logging[/link].",
         ),
     ] = None,
 ) -> Any:
@@ -422,7 +422,7 @@ def run(
         str | None,
         typer.Option(
             "--log-config",
-            help="Path to uvicorn log config yaml or json format, read more at [link=https://uvicorn.dev/settings/#logging]https://uvicorn.dev/settings/#logging[/link]."
+            help="Path to uvicorn log config yaml or json format, read more at [link=https://uvicorn.dev/settings/#logging]https://uvicorn.dev/settings/#logging[/link].",
         ),
     ] = None,
 ) -> Any:

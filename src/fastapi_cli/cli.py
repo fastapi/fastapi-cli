@@ -112,6 +112,7 @@ def _run(
     entrypoint: str | None = None,
     proxy_headers: bool = False,
     forwarded_allow_ips: str | None = None,
+    log_config: str | None = None,
 ) -> None:
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
@@ -215,6 +216,9 @@ def _run(
         toolkit.print("Logs:")
         toolkit.print_line()
 
+        if not log_config:
+            log_config = get_uvicorn_log_config()
+
         uvicorn.run(
             app=import_string,
             host=host,
@@ -229,7 +233,7 @@ def _run(
             root_path=root_path,
             proxy_headers=proxy_headers,
             forwarded_allow_ips=forwarded_allow_ips,
-            log_config=get_uvicorn_log_config(),
+            log_config=log_config,
         )
 
 
@@ -299,6 +303,13 @@ def dev(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),
     ] = None,
+    log_config: Annotated[
+        str | None,
+        typer.Option(
+            "--log-config",
+            help="Path to uvicorn log config yaml or json format, read more at [link=https://uvicorn.dev/settings/#logging]https://uvicorn.dev/settings/#logging[/link]."
+        ),
+    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [yellow]development[/yellow] mode. 🧪
@@ -337,6 +348,7 @@ def dev(
         command="dev",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
+        log_config=log_config,
     )
 
 
@@ -406,6 +418,13 @@ def run(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),
     ] = None,
+    log_config: Annotated[
+        str | None,
+        typer.Option(
+            "--log-config",
+            help="Path to uvicorn log config yaml or json format, read more at [link=https://uvicorn.dev/settings/#logging]https://uvicorn.dev/settings/#logging[/link]."
+        ),
+    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [green]production[/green] mode. 🚀
@@ -444,6 +463,7 @@ def run(
         command="run",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
+        log_config=log_config,
     )
 
 

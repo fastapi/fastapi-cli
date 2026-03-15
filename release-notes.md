@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 👷 Add `ty` to precommit. PR [#335](https://github.com/fastapi/fastapi-cli/pull/335) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ Bump ruff from 0.15.5 to 0.15.6. PR [#337](https://github.com/fastapi/fastapi-cli/pull/337) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-cloud-cli from 0.14.1 to 0.15.0. PR [#336](https://github.com/fastapi/fastapi-cli/pull/336) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.4 to 0.3.5. PR [#334](https://github.com/fastapi/fastapi-cli/pull/334) by [@dependabot[bot]](https://github.com/apps/dependabot).

@@ -71,6 +71,7 @@ tests = [
     "pytest>=7.4.0,<10.0.0",
     "ruff==0.15.6",
     "uvicorn>=0.39.0",
+    "ty>=0.0.9",
 ]
 
 [build-system]

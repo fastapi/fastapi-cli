@@ -33,3 +33,10 @@ repos:
         require_serial: true
         language: unsupported
         pass_filenames: false
+
+      - id: local-ty
+        name: ty check
+        entry: uv run ty check src tests
+        require_serial: true
+        language: unsupported
+        pass_filenames: false

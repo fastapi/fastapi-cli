@@ -51,6 +51,15 @@ except ImportError:  # pragma: no cover
 def version_callback(value: bool) -> None:
     if value:
         print(f"FastAPI CLI version: [green]{__version__}[/green]")
+        try:
+            from fastapi_cloud_cli import (
+                __version__ as cloud_cli_version,
+            )
+
+            print(f"FastAPI Cloud CLI version: [green]{cloud_cli_version}[/green]")
+        except ImportError:  # pragma: no cover
+            pass
+
         raise typer.Exit()
 
 

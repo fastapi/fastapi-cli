@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ty from 0.0.23 to 0.0.24. PR [#343](https://github.com/fastapi/fastapi-cli/pull/343) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump uvicorn from 0.41.0 to 0.42.0. PR [#340](https://github.com/fastapi/fastapi-cli/pull/340) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.5 to 0.3.6. PR [#339](https://github.com/fastapi/fastapi-cli/pull/339) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ty from 0.0.21 to 0.0.23. PR [#338](https://github.com/fastapi/fastapi-cli/pull/338) by [@dependabot[bot]](https://github.com/apps/dependabot).

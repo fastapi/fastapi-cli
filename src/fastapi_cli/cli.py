@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 try:
     import uvicorn
 except ImportError:  # pragma: no cover
-    uvicorn = None  # type: ignore[assignment]
+    uvicorn = None  # type: ignore[assignment]  # ty: ignore[invalid-assignment]
 
 
 try:
@@ -39,7 +39,7 @@ except ImportError:  # pragma: no cover
 
 
 try:
-    from fastapi_new.cli import (  # type: ignore[import-not-found]
+    from fastapi_new.cli import (  # type: ignore[import-not-found]  # ty: ignore[unresolved-import]
         app as fastapi_new_cli,
     )
 

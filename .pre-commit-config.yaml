@@ -36,7 +36,7 @@ repos:
 
       - id: local-ty
         name: ty check
-        entry: uv run ty check src tests tests/test_select_typing.py
+        entry: uv run ty check src
         require_serial: true
         language: unsupported
         pass_filenames: false

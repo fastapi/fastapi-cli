@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump prek from 0.3.6 to 0.3.8. PR [#344](https://github.com/fastapi/fastapi-cli/pull/344) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ty from 0.0.24 to 0.0.25. PR [#346](https://github.com/fastapi/fastapi-cli/pull/346) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.15.6 to 0.15.7. PR [#342](https://github.com/fastapi/fastapi-cli/pull/342) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ty from 0.0.23 to 0.0.24. PR [#343](https://github.com/fastapi/fastapi-cli/pull/343) by [@dependabot[bot]](https://github.com/apps/dependabot).

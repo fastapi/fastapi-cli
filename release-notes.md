@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ty from 0.0.26 to 0.0.27. PR [#352](https://github.com/fastapi/fastapi-cli/pull/352) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.15.7 to 0.15.8. PR [#347](https://github.com/fastapi/fastapi-cli/pull/347) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.135.1 to 0.135.2. PR [#345](https://github.com/fastapi/fastapi-cli/pull/345) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ty from 0.0.25 to 0.0.26. PR [#348](https://github.com/fastapi/fastapi-cli/pull/348) by [@dependabot[bot]](https://github.com/apps/dependabot).

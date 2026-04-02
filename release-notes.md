@@ -57,7 +57,7 @@
 
 * 🎨 Update format and types for Python 3.10. PR [#310](https://github.com/fastapi/fastapi-cli/pull/310) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.22
+## 0.0.22 (2026-02-16)
 
 ### Internal
 

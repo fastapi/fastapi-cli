@@ -19,7 +19,7 @@ class FastAPIConfig(BaseModel):
             return {}
 
         try:
-            import tomllib  # type: ignore[import-not-found, unused-ignore]
+            import tomllib  # type: ignore[import-not-found, unused-ignore]  # ty: ignore[unresolved-import]
         except ImportError:
             try:
                 import tomli as tomllib  # type: ignore[no-redef, import-not-found, unused-ignore]
@@ -30,7 +30,7 @@ class FastAPIConfig(BaseModel):
         with open(pyproject_path, "rb") as f:
             data = tomllib.load(f)
 
-            return data.get("tool", {}).get("fastapi", {})  # type: ignore
+            return data.get("tool", {}).get("fastapi", {})  # type: ignore[no-any-return]
 
     @classmethod
     def resolve(cls, entrypoint: str | None = None) -> "FastAPIConfig":

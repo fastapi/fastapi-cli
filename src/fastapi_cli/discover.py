@@ -11,7 +11,7 @@ logger = getLogger(__name__)
 try:
     from fastapi import FastAPI
 except ImportError:  # pragma: no cover
-    FastAPI = None  # type: ignore[misc, assignment]
+    FastAPI = None  # type: ignore[misc, assignment]  # ty: ignore[invalid-assignment]
 
 
 def get_default_path() -> Path:

@@ -4,6 +4,32 @@
 
 ### Internal
 
+* ⬆ Bump fastapi from 0.135.2 to 0.135.3. PR [#353](https://github.com/fastapi/fastapi-cli/pull/353) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ty from 0.0.26 to 0.0.27. PR [#352](https://github.com/fastapi/fastapi-cli/pull/352) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.15.7 to 0.15.8. PR [#347](https://github.com/fastapi/fastapi-cli/pull/347) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.135.1 to 0.135.2. PR [#345](https://github.com/fastapi/fastapi-cli/pull/345) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ty from 0.0.25 to 0.0.26. PR [#348](https://github.com/fastapi/fastapi-cli/pull/348) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi-cloud-cli from 0.15.0 to 0.15.1. PR [#349](https://github.com/fastapi/fastapi-cli/pull/349) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.6 to 0.3.8. PR [#344](https://github.com/fastapi/fastapi-cli/pull/344) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ty from 0.0.24 to 0.0.25. PR [#346](https://github.com/fastapi/fastapi-cli/pull/346) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.15.6 to 0.15.7. PR [#342](https://github.com/fastapi/fastapi-cli/pull/342) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ty from 0.0.23 to 0.0.24. PR [#343](https://github.com/fastapi/fastapi-cli/pull/343) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump uvicorn from 0.41.0 to 0.42.0. PR [#340](https://github.com/fastapi/fastapi-cli/pull/340) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.5 to 0.3.6. PR [#339](https://github.com/fastapi/fastapi-cli/pull/339) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ty from 0.0.21 to 0.0.23. PR [#338](https://github.com/fastapi/fastapi-cli/pull/338) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Add `ty` to precommit. PR [#335](https://github.com/fastapi/fastapi-cli/pull/335) by [@svlandeg](https://github.com/svlandeg).
+* ⬆ Bump ruff from 0.15.5 to 0.15.6. PR [#337](https://github.com/fastapi/fastapi-cli/pull/337) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi-cloud-cli from 0.14.1 to 0.15.0. PR [#336](https://github.com/fastapi/fastapi-cli/pull/336) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.4 to 0.3.5. PR [#334](https://github.com/fastapi/fastapi-cli/pull/334) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi-cloud-cli from 0.14.0 to 0.14.1. PR [#333](https://github.com/fastapi/fastapi-cli/pull/333) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.15.4 to 0.15.5. PR [#331](https://github.com/fastapi/fastapi-cli/pull/331) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.133.1 to 0.135.1. PR [#329](https://github.com/fastapi/fastapi-cli/pull/329) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.3 to 0.3.4. PR [#330](https://github.com/fastapi/fastapi-cli/pull/330) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.15.2 to 0.15.4. PR [#328](https://github.com/fastapi/fastapi-cli/pull/328) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.133.0 to 0.133.1. PR [#325](https://github.com/fastapi/fastapi-cli/pull/325) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/download-artifact from 7 to 8. PR [#327](https://github.com/fastapi/fastapi-cli/pull/327) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/upload-artifact from 6 to 7. PR [#326](https://github.com/fastapi/fastapi-cli/pull/326) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi-cloud-cli from 0.13.0 to 0.14.0. PR [#324](https://github.com/fastapi/fastapi-cli/pull/324) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.132.0 to 0.133.0. PR [#321](https://github.com/fastapi/fastapi-cli/pull/321) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump rich-toolkit from 0.19.4 to 0.19.7. PR [#322](https://github.com/fastapi/fastapi-cli/pull/322) by [@dependabot[bot]](https://github.com/apps/dependabot).
 

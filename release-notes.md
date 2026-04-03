@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ty from 0.0.27 to 0.0.28. PR [#355](https://github.com/fastapi/fastapi-cli/pull/355) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mypy from 1.19.1 to 1.20.0. PR [#351](https://github.com/fastapi/fastapi-cli/pull/351) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.135.2 to 0.135.3. PR [#353](https://github.com/fastapi/fastapi-cli/pull/353) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ty from 0.0.26 to 0.0.27. PR [#352](https://github.com/fastapi/fastapi-cli/pull/352) by [@dependabot[bot]](https://github.com/apps/dependabot).

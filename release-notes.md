@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 🔨 Add pre-commit hook to ensure latest release header has date. PR [#323](https://github.com/fastapi/fastapi-cli/pull/323) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump ruff from 0.15.8 to 0.15.9. PR [#354](https://github.com/fastapi/fastapi-cli/pull/354) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ty from 0.0.27 to 0.0.28. PR [#355](https://github.com/fastapi/fastapi-cli/pull/355) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mypy from 1.19.1 to 1.20.0. PR [#351](https://github.com/fastapi/fastapi-cli/pull/351) by [@dependabot[bot]](https://github.com/apps/dependabot).

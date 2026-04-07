@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump uvicorn from 0.42.0 to 0.44.0. PR [#359](https://github.com/fastapi/fastapi-cli/pull/359) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ty from 0.0.28 to 0.0.29. PR [#356](https://github.com/fastapi/fastapi-cli/pull/356) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-new from 0.0.5 to 0.0.6. PR [#357](https://github.com/fastapi/fastapi-cli/pull/357) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔨 Add pre-commit hook to ensure latest release header has date. PR [#323](https://github.com/fastapi/fastapi-cli/pull/323) by [@YuriiMotov](https://github.com/YuriiMotov).

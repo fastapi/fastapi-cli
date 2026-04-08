@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump fastapi-cloud-cli from 0.15.1 to 0.16.0. PR [#361](https://github.com/fastapi/fastapi-cli/pull/361) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump uvicorn from 0.42.0 to 0.44.0. PR [#359](https://github.com/fastapi/fastapi-cli/pull/359) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ty from 0.0.28 to 0.0.29. PR [#356](https://github.com/fastapi/fastapi-cli/pull/356) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-new from 0.0.5 to 0.0.6. PR [#357](https://github.com/fastapi/fastapi-cli/pull/357) by [@dependabot[bot]](https://github.com/apps/dependabot).

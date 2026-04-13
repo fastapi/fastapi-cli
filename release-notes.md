@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump mypy from 1.20.0 to 1.20.1. PR [#364](https://github.com/fastapi/fastapi-cli/pull/364) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.15.9 to 0.15.10. PR [#363](https://github.com/fastapi/fastapi-cli/pull/363) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-cloud-cli from 0.16.0 to 0.16.1. PR [#362](https://github.com/fastapi/fastapi-cli/pull/362) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pytest from 9.0.2 to 9.0.3. PR [#360](https://github.com/fastapi/fastapi-cli/pull/360) by [@dependabot[bot]](https://github.com/apps/dependabot).

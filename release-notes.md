@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump fastapi-cloud-cli from 0.16.0 to 0.16.1. PR [#362](https://github.com/fastapi/fastapi-cli/pull/362) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pytest from 9.0.2 to 9.0.3. PR [#360](https://github.com/fastapi/fastapi-cli/pull/360) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-cloud-cli from 0.15.1 to 0.16.0. PR [#361](https://github.com/fastapi/fastapi-cli/pull/361) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump uvicorn from 0.42.0 to 0.44.0. PR [#359](https://github.com/fastapi/fastapi-cli/pull/359) by [@dependabot[bot]](https://github.com/apps/dependabot).

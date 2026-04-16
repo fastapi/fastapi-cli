@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 🔒 Pin GitHub actions by commit SHA. PR [#350](https://github.com/fastapi/fastapi-cli/pull/350) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump ty from 0.0.29 to 0.0.30. PR [#366](https://github.com/fastapi/fastapi-cli/pull/366) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.8 to 0.3.9. PR [#365](https://github.com/fastapi/fastapi-cli/pull/365) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mypy from 1.20.0 to 1.20.1. PR [#364](https://github.com/fastapi/fastapi-cli/pull/364) by [@dependabot[bot]](https://github.com/apps/dependabot).

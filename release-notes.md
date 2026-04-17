@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.15.10 to 0.15.11. PR [#371](https://github.com/fastapi/fastapi-cli/pull/371) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ty from 0.0.30 to 0.0.31. PR [#367](https://github.com/fastapi/fastapi-cli/pull/367) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump astral-sh/setup-uv from 7.6.0 to 8.1.0. PR [#370](https://github.com/fastapi/fastapi-cli/pull/370) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.135.3 to 0.136.0. PR [#372](https://github.com/fastapi/fastapi-cli/pull/372) by [@dependabot[bot]](https://github.com/apps/dependabot).

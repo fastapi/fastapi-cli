@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump fastapi from 0.135.3 to 0.136.0. PR [#372](https://github.com/fastapi/fastapi-cli/pull/372) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔒 Pin GitHub actions by commit SHA. PR [#350](https://github.com/fastapi/fastapi-cli/pull/350) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump ty from 0.0.29 to 0.0.30. PR [#366](https://github.com/fastapi/fastapi-cli/pull/366) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.8 to 0.3.9. PR [#365](https://github.com/fastapi/fastapi-cli/pull/365) by [@dependabot[bot]](https://github.com/apps/dependabot).

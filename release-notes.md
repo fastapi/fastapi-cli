@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump astral-sh/setup-uv from 7.6.0 to 8.1.0. PR [#370](https://github.com/fastapi/fastapi-cli/pull/370) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.135.3 to 0.136.0. PR [#372](https://github.com/fastapi/fastapi-cli/pull/372) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔒 Pin GitHub actions by commit SHA. PR [#350](https://github.com/fastapi/fastapi-cli/pull/350) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump ty from 0.0.29 to 0.0.30. PR [#366](https://github.com/fastapi/fastapi-cli/pull/366) by [@dependabot[bot]](https://github.com/apps/dependabot).

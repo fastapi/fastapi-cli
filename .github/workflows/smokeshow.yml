@@ -5,12 +5,13 @@ on:
     workflows: [Test]
     types: [completed]
 
-permissions:
-  statuses: write
+permissions: {}
 
 jobs:
   smokeshow:
     runs-on: ubuntu-latest
+    permissions:
+      statuses: write
     steps:
       - name: Dump GitHub context
         env:

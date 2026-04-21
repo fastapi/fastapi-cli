@@ -1,13 +1,10 @@
 import logging
-from typing import Union
 
 from rich.console import Console
 from rich.logging import RichHandler
 
 
-def setup_logging(
-    terminal_width: Union[int, None] = None, level: int = logging.INFO
-) -> None:
+def setup_logging(terminal_width: int | None = None, level: int = logging.INFO) -> None:
     logger = logging.getLogger("fastapi_cli")
     console = Console(width=terminal_width) if terminal_width else None
     rich_handler = RichHandler(

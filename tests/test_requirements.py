@@ -18,7 +18,7 @@ def test_no_uvicorn() -> None:
 
     import fastapi_cli.cli
 
-    fastapi_cli.cli.uvicorn = None  # type: ignore[attr-defined, assignment]
+    fastapi_cli.cli.uvicorn = None  # type: ignore[attr-defined, assignment]  # ty: ignore[invalid-assignment]
 
     with changing_dir(assets_path):
         result = runner.invoke(fastapi_cli.cli.app, ["dev", "single_file_app.py"])
@@ -29,7 +29,7 @@ def test_no_uvicorn() -> None:
             in result.exception.args[0]
         )
 
-    fastapi_cli.cli.uvicorn = uvicorn  # type: ignore[attr-defined]
+    fastapi_cli.cli.uvicorn = uvicorn  # type: ignore[attr-defined]  # ty: ignore[invalid-assignment]
 
 
 def test_no_fastapi() -> None:
@@ -37,7 +37,7 @@ def test_no_fastapi() -> None:
 
     import fastapi_cli.discover
 
-    fastapi_cli.discover.FastAPI = None  # type: ignore[attr-defined, assignment]
+    fastapi_cli.discover.FastAPI = None  # type: ignore[attr-defined, assignment]  # ty: ignore[invalid-assignment]
     with changing_dir(assets_path):
         with pytest.raises(FastAPICLIException) as exc_info:
             get_import_data(path=Path("single_file_app.py"))

@@ -15,8 +15,8 @@ internal:
         - scripts/**
         - .gitignore
         - .pre-commit-config.yaml
-        - pdm_build.py
         - requirements*.txt
+        - uv.lock
       - all-globs-to-all-files:
         - '!README.md'
         - '!src/**'

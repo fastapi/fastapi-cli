@@ -1,12 +1,13 @@
 import logging
 from pathlib import Path
-from typing import Any, List, Union
+from typing import Annotated, Any
 
 import typer
+from pydantic import ValidationError
 from rich import print
 from rich.tree import Tree
-from typing_extensions import Annotated
 
+from fastapi_cli.config import FastAPIConfig
 from fastapi_cli.discover import get_import_data, get_import_data_from_import_string
 from fastapi_cli.exceptions import FastAPICLIException
 
@@ -24,7 +25,7 @@ logger = logging.getLogger(__name__)
 try:
     import uvicorn
 except ImportError:  # pragma: no cover
-    uvicorn = None  # type: ignore[assignment]
+    uvicorn = None  # type: ignore[assignment]  # ty: ignore[invalid-assignment]
 
 
 try:
@@ -33,6 +34,16 @@ try:
     )
 
     app.add_typer(fastapi_cloud_cli)
+except ImportError:  # pragma: no cover
+    pass
+
+
+try:
+    from fastapi_new.cli import (  # type: ignore[import-not-found]  # ty: ignore[unresolved-import]
+        app as fastapi_new_cli,
+    )
+
+    app.add_typer(fastapi_new_cli)  # pragma: no cover
 except ImportError:  # pragma: no cover
     pass
 
@@ -46,7 +57,7 @@ def version_callback(value: bool) -> None:
 @app.callback()
 def callback(
     version: Annotated[
-        Union[bool, None],
+        bool | None,
         typer.Option(
             "--version", help="Show the version and exit.", callback=version_callback
         ),
@@ -66,7 +77,7 @@ def callback(
     setup_logging(level=log_level)
 
 
-def _get_module_tree(module_paths: List[Path]) -> Tree:
+def _get_module_tree(module_paths: list[Path]) -> Tree:
     root = module_paths[0]
     name = f"🐍 {root.name}" if root.is_file() else f"📁 {root.name}"
 
@@ -88,18 +99,19 @@ def _get_module_tree(module_paths: List[Path]) -> Tree:
 
 
 def _run(
-    path: Union[Path, None] = None,
+    path: Path | None = None,
     *,
     host: str = "127.0.0.1",
     port: int = 8000,
     reload: bool = True,
-    workers: Union[int, None] = None,
+    reload_dirs: list[Path] | None = None,
+    workers: int | None = None,
     root_path: str = "",
     command: str,
-    app: Union[str, None] = None,
-    entrypoint: Union[str, None] = None,
+    app: str | None = None,
+    entrypoint: str | None = None,
     proxy_headers: bool = False,
-    forwarded_allow_ips: Union[str, None] = None,
+    forwarded_allow_ips: str | None = None,
 ) -> None:
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
@@ -111,11 +123,37 @@ def _run(
             "Searching for package file structure from directories with [blue]__init__.py[/blue] files"
         )
 
+        if entrypoint and (path or app):
+            toolkit.print_line()
+            toolkit.print(
+                "[error]Cannot use --entrypoint together with path or --app arguments"
+            )
+            toolkit.print_line()
+            raise typer.Exit(code=1)
+
         try:
-            if entrypoint:
-                import_data = get_import_data_from_import_string(entrypoint)
-            else:
+            config = FastAPIConfig.resolve(entrypoint=entrypoint)
+        except ValidationError as e:
+            toolkit.print_line()
+            toolkit.print("[error]Invalid configuration in pyproject.toml:")
+            toolkit.print_line()
+
+            for error in e.errors():
+                field = ".".join(str(loc) for loc in error["loc"])
+                toolkit.print(f"  [red]•[/red] {field}: {error['msg']}")
+
+            toolkit.print_line()
+
+            raise typer.Exit(code=1) from None
+
+        try:
+            # Resolve import data with priority: CLI path/app > config entrypoint > auto-discovery
+            if path or app:
                 import_data = get_import_data(path=path, app_name=app)
+            elif config.entrypoint:
+                import_data = get_import_data_from_import_string(config.entrypoint)
+            else:
+                import_data = get_import_data()
         except FastAPICLIException as e:
             toolkit.print_line()
             toolkit.print(f"[error]{e}")
@@ -200,6 +238,11 @@ def _run(
             host=host,
             port=port,
             reload=reload,
+            reload_dirs=(
+                [str(directory.resolve()) for directory in reload_dirs]
+                if reload_dirs
+                else None
+            ),
             workers=workers,
             root_path=root_path,
             proxy_headers=proxy_headers,
@@ -211,7 +254,7 @@ def _run(
 @app.command()
 def dev(
     path: Annotated[
-        Union[Path, None],
+        Path | None,
         typer.Argument(
             help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried."
         ),
@@ -236,6 +279,12 @@ def dev(
             help="Enable auto-reload of the server when (code) files change. This is [bold]resource intensive[/bold], use it only during development."
         ),
     ] = True,
+    reload_dir: Annotated[
+        list[Path] | None,
+        typer.Option(
+            help="Set reload directories explicitly, instead of using the current working directory."
+        ),
+    ] = None,
     root_path: Annotated[
         str,
         typer.Option(
@@ -243,13 +292,13 @@ def dev(
         ),
     ] = "",
     app: Annotated[
-        Union[str, None],
+        str | None,
         typer.Option(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
         ),
     ] = None,
     entrypoint: Annotated[
-        Union[str, None],
+        str | None,
         typer.Option(
             "--entrypoint",
             "-e",
@@ -263,7 +312,7 @@ def dev(
         ),
     ] = True,
     forwarded_allow_ips: Annotated[
-        Union[str, None],
+        str | None,
         typer.Option(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),
@@ -299,6 +348,7 @@ def dev(
         host=host,
         port=port,
         reload=reload,
+        reload_dirs=reload_dir,
         root_path=root_path,
         app=app,
         entrypoint=entrypoint,
@@ -311,7 +361,7 @@ def dev(
 @app.command()
 def run(
     path: Annotated[
-        Union[Path, None],
+        Path | None,
         typer.Argument(
             help="A path to a Python file or package directory (with [blue]__init__.py[/blue] files) containing a [bold]FastAPI[/bold] app. If not provided, a default set of paths will be tried."
         ),
@@ -337,7 +387,7 @@ def run(
         ),
     ] = False,
     workers: Annotated[
-        Union[int, None],
+        int | None,
         typer.Option(
             help="Use multiple worker processes. Mutually exclusive with the --reload flag."
         ),
@@ -349,13 +399,13 @@ def run(
         ),
     ] = "",
     app: Annotated[
-        Union[str, None],
+        str | None,
         typer.Option(
             help="The name of the variable that contains the [bold]FastAPI[/bold] app in the imported module or package. If not provided, it is detected automatically."
         ),
     ] = None,
     entrypoint: Annotated[
-        Union[str, None],
+        str | None,
         typer.Option(
             "--entrypoint",
             "-e",
@@ -369,7 +419,7 @@ def run(
         ),
     ] = True,
     forwarded_allow_ips: Annotated[
-        Union[str, None],
+        str | None,
         typer.Option(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),

@@ -1,4 +1,5 @@
 import logging
+from logging.config import dictConfig
 
 from pytest import LogCaptureFixture
 
@@ -37,6 +38,25 @@ def test_custom_formatter() -> None:
     assert "200" in formatted
 
 
+def test_custom_formatter_shutdown_prepends_newline() -> None:
+    formatter = CustomFormatter()
+
+    record = logging.LogRecord(
+        name="uvicorn.error",
+        level=logging.INFO,
+        pathname="",
+        lineno=0,
+        msg="Shutting down",
+        args=(),
+        exc_info=None,
+    )
+
+    formatted = formatter.formatMessage(record)
+
+    assert formatted.startswith("\n")
+    assert "Shutting down" in formatted
+
+
 def test_log_config_does_not_disable_existing_loggers(
     caplog: LogCaptureFixture,
 ) -> None:
@@ -44,7 +64,7 @@ def test_log_config_does_not_disable_existing_loggers(
     logger1.setLevel(logging.INFO)
     logger1.info("Message before configuration")
 
-    logging.config.dictConfig(get_uvicorn_log_config())
+    dictConfig(get_uvicorn_log_config())
 
     logger2 = logging.getLogger(__name__)
 

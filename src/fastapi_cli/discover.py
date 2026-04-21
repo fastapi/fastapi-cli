@@ -3,7 +3,6 @@ import sys
 from dataclasses import dataclass
 from logging import getLogger
 from pathlib import Path
-from typing import List, Tuple, Union
 
 from fastapi_cli.exceptions import FastAPICLIException
 
@@ -12,7 +11,7 @@ logger = getLogger(__name__)
 try:
     from fastapi import FastAPI
 except ImportError:  # pragma: no cover
-    FastAPI = None  # type: ignore[misc, assignment]
+    FastAPI = None  # type: ignore[misc, assignment]  # ty: ignore[invalid-assignment]
 
 
 def get_default_path() -> Path:
@@ -39,7 +38,7 @@ def get_default_path() -> Path:
 class ModuleData:
     module_import_str: str
     extra_sys_path: Path
-    module_paths: List[Path]
+    module_paths: list[Path]
 
 
 def get_module_data_from_path(path: Path) -> ModuleData:
@@ -71,8 +70,8 @@ def get_module_data_from_path(path: Path) -> ModuleData:
 
 
 def get_app_infos(
-    *, mod_data: ModuleData, app_name: Union[str, None] = None
-) -> Tuple[str, Union[str, None], Union[str, None], Union[str, None]]:
+    *, mod_data: ModuleData, app_name: str | None = None
+) -> tuple[str, str | None, str | None, str | None]:
     try:
         mod = importlib.import_module(mod_data.module_import_str)
     except (ImportError, ValueError) as e:
@@ -124,13 +123,13 @@ class ImportData:
     app_name: str
     module_data: ModuleData
     import_string: str
-    openapi_url: Union[str, None] = None
-    docs_url: Union[str, None] = None
-    redoc_url: Union[str, None] = None
+    openapi_url: str | None = None
+    docs_url: str | None = None
+    redoc_url: str | None = None
 
 
 def get_import_data(
-    *, path: Union[Path, None] = None, app_name: Union[str, None] = None
+    *, path: Path | None = None, app_name: str | None = None
 ) -> ImportData:
     if not path:
         path = get_default_path()

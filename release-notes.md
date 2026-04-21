@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ty from 0.0.31 to 0.0.32. PR [#374](https://github.com/fastapi/fastapi-cli/pull/374) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/upload-artifact from 7.0.0 to 7.0.1. PR [#369](https://github.com/fastapi/fastapi-cli/pull/369) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-cloud-cli from 0.16.1 to 0.17.0. PR [#368](https://github.com/fastapi/fastapi-cli/pull/368) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.15.10 to 0.15.11. PR [#371](https://github.com/fastapi/fastapi-cli/pull/371) by [@dependabot[bot]](https://github.com/apps/dependabot).

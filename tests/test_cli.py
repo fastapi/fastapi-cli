@@ -394,7 +394,12 @@ def test_run_env_vars_and_args() -> None:
 
 @pytest.mark.parametrize("command", ["dev", "run"])
 @pytest.mark.parametrize(
-    "public_url", ["https://myapp.example.com", "https://myapp.example.com/"]
+    "public_url",
+    [
+        "https://myapp.example.com",
+        "https://myapp.example.com/",
+        "https://myapp.example.com/subpath/",
+    ],
 )
 def test_public_url(command: str, public_url: str) -> None:
     with changing_dir(assets_path):
@@ -431,13 +436,19 @@ def test_public_url(command: str, public_url: str) -> None:
             f"Starting {'development' if command == 'dev' else 'production'} server 🚀"
             in result.output
         )
-        assert "Server started at https://myapp.example.com" in result.output
-        assert "Documentation at https://myapp.example.com/docs" in result.output
+        expected_url_base = public_url.rstrip("/")
+        assert f"Server started at {expected_url_base}" in result.output
+        assert f"Documentation at {expected_url_base}/docs" in result.output
 
 
 @pytest.mark.parametrize("command", ["dev", "run"])
 @pytest.mark.parametrize(
-    "public_url", ["https://myapp.example.com", "https://myapp.example.com/"]
+    "public_url",
+    [
+        "https://myapp.example.com",
+        "https://myapp.example.com/",
+        "https://myapp.example.com/subpath/",
+    ],
 )
 def test_public_url_env_var(command: str, public_url: str) -> None:
     with changing_dir(assets_path):
@@ -473,8 +484,9 @@ def test_public_url_env_var(command: str, public_url: str) -> None:
             f"Starting {'development' if command == 'dev' else 'production'} server 🚀"
             in result.output
         )
-        assert "Server started at https://myapp.example.com" in result.output
-        assert "Documentation at https://myapp.example.com/docs" in result.output
+        expected_url_base = public_url.rstrip("/")
+        assert f"Server started at {expected_url_base}" in result.output
+        assert f"Documentation at {expected_url_base}/docs" in result.output
 
 
 def test_run_error() -> None:

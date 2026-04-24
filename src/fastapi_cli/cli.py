@@ -303,7 +303,7 @@ def dev(
     public_url: Annotated[
         str | None,
         typer.Option(
-            help="The public URL where the server is accessible. Used for the URLs printed at startup. Defaults to [blue]http://{host}:{port}[/blue].",
+            help="The public URL where the server is accessible. Used for the URLs printed at startup. Defaults to [blue]http://HOST:PORT[/blue] from [bold]--host[/bold] and [bold]--port[/bold].",
             envvar="FASTAPI_PUBLIC_URL",
         ),
     ] = None,
@@ -418,7 +418,7 @@ def run(
     public_url: Annotated[
         str | None,
         typer.Option(
-            help="The public URL where the server is accessible. Used for the URLs printed at startup. Defaults to [blue]http://{host}:{port}[/blue].",
+            help="The public URL where the server is accessible. Used for the URLs printed at startup. By default, the printed URLs use the configured host and port.",
             envvar="FASTAPI_PUBLIC_URL",
         ),
     ] = None,

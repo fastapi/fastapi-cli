@@ -44,16 +44,12 @@ class ModuleData:
 def get_module_data_from_path(path: Path) -> ModuleData:
     use_path = path.resolve()
     module_path = use_path
-
     if use_path.is_file() and use_path.stem == "__init__":
         module_path = use_path.parent
-
     module_paths = [module_path]
     extra_sys_path = module_path.parent
-
     for parent in module_path.parents:
         init_path = parent / "__init__.py"
-
         if init_path.is_file():
             module_paths.insert(0, parent)
             extra_sys_path = parent.parent
@@ -61,7 +57,6 @@ def get_module_data_from_path(path: Path) -> ModuleData:
             break
 
     module_str = ".".join(p.stem for p in module_paths)
-
     return ModuleData(
         module_import_str=module_str,
         extra_sys_path=extra_sys_path.resolve(),

@@ -4,6 +4,12 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.15.11 to 0.15.12. PR [#384](https://github.com/fastapi/fastapi-cli/pull/384) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.24.2 to 0.25.0. PR [#383](https://github.com/fastapi/fastapi-cli/pull/383) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.136.0 to 0.136.1. PR [#379](https://github.com/fastapi/fastapi-cli/pull/379) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.24.1 to 0.24.2. PR [#378](https://github.com/fastapi/fastapi-cli/pull/378) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mypy from 1.20.1 to 1.20.2. PR [#376](https://github.com/fastapi/fastapi-cli/pull/376) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.9 to 0.3.10. PR [#377](https://github.com/fastapi/fastapi-cli/pull/377) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ty from 0.0.31 to 0.0.32. PR [#374](https://github.com/fastapi/fastapi-cli/pull/374) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/upload-artifact from 7.0.0 to 7.0.1. PR [#369](https://github.com/fastapi/fastapi-cli/pull/369) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-cloud-cli from 0.16.1 to 0.17.0. PR [#368](https://github.com/fastapi/fastapi-cli/pull/368) by [@dependabot[bot]](https://github.com/apps/dependabot).

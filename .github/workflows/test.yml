@@ -55,6 +55,7 @@ jobs:
     env:
       UV_PYTHON: ${{ matrix.python-version }}
       UV_RESOLUTION: ${{ matrix.uv-resolution }}
+    timeout-minutes: 5
     steps:
       - name: Dump GitHub context
         env:
@@ -101,6 +102,7 @@ jobs:
   coverage-combine:
     needs: [test]
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Dump GitHub context
         env:
@@ -147,6 +149,7 @@ jobs:
     needs:
       - coverage-combine
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Dump GitHub context
         env:

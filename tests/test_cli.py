@@ -453,7 +453,7 @@ def test_full_docs() -> None:
             assert mock_run.called
 
         assert "http://127.0.0.1:8000/docs" in result.output
-        assert "http://127.0.0.1:8000/redoc" in result.output
+        assert "http://127.0.0.1:8000/redoc" not in result.output  # docs has precedence
 
 
 def test_custom_docs() -> None:
@@ -466,6 +466,17 @@ def test_custom_docs() -> None:
             assert mock_run.called
 
         assert "http://127.0.0.1:8000/custom-docs-url" in result.output
+
+
+def test_custom_redoc() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["dev", "single_file_docs.py", "--app", "custom_redoc"]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
         assert "http://127.0.0.1:8000/custom-redoc-url" in result.output
 
 

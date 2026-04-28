@@ -69,9 +69,7 @@ def get_module_data_from_path(path: Path) -> ModuleData:
     )
 
 
-def get_app_infos(
-    *, mod_data: ModuleData, app_name: str | None = None
-) -> tuple[str, str | None, str | None, str | None]:
+def get_app_name(*, mod_data: ModuleData, app_name: str | None = None) -> str:
     try:
         mod = importlib.import_module(mod_data.module_import_str)
     except (ImportError, ValueError) as e:
@@ -80,41 +78,32 @@ def get_app_infos(
             "Ensure all the package directories have an [blue]__init__.py[/blue] file"
         )
         raise
-
     if not FastAPI:  # type: ignore[truthy-function]
         raise FastAPICLIException(
             "Could not import FastAPI, try running 'pip install fastapi'"
         ) from None
-
     object_names = dir(mod)
     object_names_set = set(object_names)
-
     if app_name:
         if app_name not in object_names_set:
             raise FastAPICLIException(
                 f"Could not find app name {app_name} in {mod_data.module_import_str}"
             )
-
         app = getattr(mod, app_name)
-
         if not isinstance(app, FastAPI):
             raise FastAPICLIException(
                 f"The app name {app_name} in {mod_data.module_import_str} doesn't seem to be a FastAPI app"
             )
-
-        return app_name, app.openapi_url, app.docs_url, app.redoc_url
-
+        return app_name
     for preferred_name in ["app", "api"]:
         if preferred_name in object_names_set:
             obj = getattr(mod, preferred_name)
             if isinstance(obj, FastAPI):
-                return preferred_name, obj.openapi_url, obj.docs_url, obj.redoc_url
-
+                return preferred_name
     for name in object_names:
         obj = getattr(mod, name)
         if isinstance(obj, FastAPI):
-            return name, obj.openapi_url, obj.docs_url, obj.redoc_url
-
+            return name
     raise FastAPICLIException("Could not find FastAPI app in module, try using --app")
 
 
@@ -123,9 +112,6 @@ class ImportData:
     app_name: str
     module_data: ModuleData
     import_string: str
-    openapi_url: str | None = None
-    docs_url: str | None = None
-    redoc_url: str | None = None
 
 
 def get_import_data(
@@ -139,22 +125,14 @@ def get_import_data(
 
     if not path.exists():
         raise FastAPICLIException(f"Path does not exist {path}")
-
     mod_data = get_module_data_from_path(path)
     sys.path.insert(0, str(mod_data.extra_sys_path))
-    use_app_name, openapi_url, docs_url, redoc_url = get_app_infos(
-        mod_data=mod_data, app_name=app_name
-    )
+    use_app_name = get_app_name(mod_data=mod_data, app_name=app_name)
 
     import_string = f"{mod_data.module_import_str}:{use_app_name}"
 
     return ImportData(
-        app_name=use_app_name,
-        module_data=mod_data,
-        import_string=import_string,
-        openapi_url=openapi_url,
-        docs_url=docs_url,
-        redoc_url=redoc_url,
+        app_name=use_app_name, module_data=mod_data, import_string=import_string
     )
 
 
@@ -170,21 +148,35 @@ def get_import_data_from_import_string(import_string: str) -> ImportData:
 
     sys.path.insert(0, str(here))
 
-    module_data = ModuleData(
-        module_import_str=module_str,
-        extra_sys_path=here,
-        module_paths=[],
-    )
-
-    _, openapi_url, docs_url, redoc_url = get_app_infos(
-        mod_data=module_data, app_name=app_name
-    )
-
     return ImportData(
         app_name=app_name,
-        module_data=module_data,
+        module_data=ModuleData(
+            module_import_str=module_str,
+            extra_sys_path=here,
+            module_paths=[],
+        ),
         import_string=import_string,
-        openapi_url=openapi_url,
-        docs_url=docs_url,
-        redoc_url=redoc_url,
+    )
+
+
+@dataclass
+class DocsURLs:
+    openapi_url: str | None
+    docs_url: str | None
+    redoc_url: str | None
+
+
+def get_docs_urls(import_data: ImportData) -> DocsURLs:
+    module = importlib.import_module(import_data.module_data.module_import_str)
+    app_name = import_data.app_name
+    app = getattr(module, app_name)
+
+    # Just for type checking, it's already checked in get_app_name
+    assert FastAPI is not None
+    assert isinstance(app, FastAPI)
+
+    return DocsURLs(
+        openapi_url=app.openapi_url,
+        docs_url=app.docs_url,
+        redoc_url=app.redoc_url,
     )

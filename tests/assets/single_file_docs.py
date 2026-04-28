@@ -40,9 +40,17 @@ def full_docs_root():
     return {"message": "single file full_docs"}
 
 
-custom_docs = FastAPI(docs_url="/custom-docs-url", redoc_url="/custom-redoc-url")
+custom_docs = FastAPI(docs_url="/custom-docs-url")
 
 
 @custom_docs.get("/")
 def custom_docs_root():
     return {"message": "single file custom_docs"}
+
+
+custom_redoc = FastAPI(docs_url=None, redoc_url="/custom-redoc-url")
+
+
+@custom_redoc.get("/")
+def custom_redoc_root():
+    return {"message": "single file custom_redoc"}

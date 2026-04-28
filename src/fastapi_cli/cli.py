@@ -8,7 +8,11 @@ from rich import print
 from rich.tree import Tree
 
 from fastapi_cli.config import FastAPIConfig
-from fastapi_cli.discover import get_import_data, get_import_data_from_import_string
+from fastapi_cli.discover import (
+    get_docs_urls,
+    get_import_data,
+    get_import_data_from_import_string,
+)
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
@@ -164,9 +168,6 @@ def _run(
 
         module_data = import_data.module_data
         import_string = import_data.import_string
-        openapi_url = import_data.openapi_url
-        docs_url = import_data.docs_url
-        redoc_url = import_data.redoc_url
 
         toolkit.print(f"Importing from {module_data.extra_sys_path}")
         toolkit.print_line()
@@ -192,18 +193,20 @@ def _run(
             tag="app",
         )
 
+        docs_urls = get_docs_urls(import_data)
+
         url = f"http://{host}:{port}"
-        docs_str = ""
+        docs_url = ""
 
-        if openapi_url and (docs_url or redoc_url):
-            if docs_url:
-                docs_str += f"[link={url}{docs_url}]{url}{docs_url}[/]"
-
-            if docs_url and redoc_url:
-                docs_str += " or "
-
-            if redoc_url:
-                docs_str += f"[link={url}{redoc_url}]{url}{redoc_url}[/]"
+        if docs_urls.openapi_url and (docs_urls.docs_url or docs_urls.redoc_url):
+            if docs_urls.docs_url:
+                docs_url = (
+                    f"[link={url}{docs_urls.docs_url}]{url}{docs_urls.docs_url}[/]"
+                )
+            else:
+                docs_url = (
+                    f"[link={url}{docs_urls.redoc_url}]{url}{docs_urls.redoc_url}[/]"
+                )
 
         toolkit.print_line()
         toolkit.print(
@@ -211,9 +214,9 @@ def _run(
             tag="server",
         )
 
-        if docs_str:
+        if docs_url:
             toolkit.print(
-                f"Documentation at {docs_str}",
+                f"Documentation at {docs_url}",
                 tag="server",
             )
 

@@ -159,14 +159,7 @@ def get_import_data_from_import_string(import_string: str) -> ImportData:
     )
 
 
-@dataclass
-class DocsURLs:
-    openapi_url: str | None
-    docs_url: str | None
-    redoc_url: str | None
-
-
-def get_docs_urls(import_data: ImportData) -> DocsURLs:
+def get_docs_urls(import_data: ImportData) -> list[str]:
     module = importlib.import_module(import_data.module_data.module_import_str)
     app_name = import_data.app_name
     app = getattr(module, app_name)
@@ -175,11 +168,13 @@ def get_docs_urls(import_data: ImportData) -> DocsURLs:
     assert FastAPI is not None
     assert isinstance(app, FastAPI)
 
-    return DocsURLs(
-        openapi_url=app.openapi_url,
-        docs_url=app.docs_url,
-        redoc_url=app.redoc_url,
-    )
+    docs_urls: list[str] = []
+    if app.openapi_url and app.docs_url:
+        docs_urls.append(app.docs_url)
+    if app.openapi_url and app.redoc_url:
+        docs_urls.append(app.redoc_url)
+
+    return docs_urls
 
 
 def get_root_path(import_data: ImportData) -> str:

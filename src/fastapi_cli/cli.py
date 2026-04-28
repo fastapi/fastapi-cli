@@ -194,25 +194,11 @@ def _run(
             tag="app",
         )
 
-        docs_urls = get_docs_urls(import_data)
-
         url = f"http://{host}:{port}"
 
         use_root_path = root_path or get_root_path(import_data)
         if use_root_path:
             url += use_root_path
-
-        docs_url = ""
-
-        if docs_urls.openapi_url and (docs_urls.docs_url or docs_urls.redoc_url):
-            if docs_urls.docs_url:
-                docs_url = (
-                    f"[link={url}{docs_urls.docs_url}]{url}{docs_urls.docs_url}[/]"
-                )
-            else:
-                docs_url = (
-                    f"[link={url}{docs_urls.redoc_url}]{url}{docs_urls.redoc_url}[/]"
-                )
 
         toolkit.print_line()
         toolkit.print(
@@ -220,9 +206,13 @@ def _run(
             tag="server",
         )
 
-        if docs_url:
+        docs_urls = get_docs_urls(import_data)
+        docs_links = [
+            f"[link={url}{docs_url}]{url}{docs_url}[/]" for docs_url in docs_urls
+        ]
+        if docs_links:
             toolkit.print(
-                f"Documentation at {docs_url}",
+                f"Documentation at {docs_links[0]}",
                 tag="server",
             )
 

@@ -133,8 +133,8 @@ def test_dev_args() -> None:
             }
         assert "Using import string: single_file_app:api" in result.output
         assert "Starting development server 🚀" in result.output
-        assert "Server started at http://192.168.0.2:8080" in result.output
-        assert "Documentation at http://192.168.0.2:8080/docs" in result.output
+        assert "Server started at http://192.168.0.2:8080/api" in result.output
+        assert "Documentation at http://192.168.0.2:8080/api/docs" in result.output
         assert (
             "Running in development mode, for production use: fastapi run"
             in result.output
@@ -323,8 +323,8 @@ def test_run_args() -> None:
 
         assert "Using import string: single_file_app:api" in result.output
         assert "Starting production server 🚀" in result.output
-        assert "Server started at http://192.168.0.2:8080" in result.output
-        assert "Documentation at http://192.168.0.2:8080/docs" in result.output
+        assert "Server started at http://192.168.0.2:8080/api" in result.output
+        assert "Documentation at http://192.168.0.2:8080/api/docs" in result.output
         assert (
             "Running in development mode, for production use: fastapi run"
             not in result.output
@@ -473,6 +473,58 @@ def test_docs_urls_custom_redoc() -> None:
             assert mock_run.called
 
         assert "http://127.0.0.1:8000/custom-redoc-url" in result.output
+
+
+@pytest.mark.parametrize(
+    ("app_name", "expected_url"),
+    [
+        ("only_docs", "http://127.0.0.1:8000/api/docs"),
+        ("only_redoc", "http://127.0.0.1:8000/api/redoc"),
+    ],
+)
+def test_docs_urls_root_path_option(app_name: str, expected_url: str) -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app,
+                [
+                    "dev",
+                    "single_file_docs.py",
+                    "--app",
+                    app_name,
+                    "--root-path",
+                    "/api",
+                ],
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert expected_url in result.output
+
+
+@pytest.mark.parametrize(
+    ("app_name", "expected_url"),
+    [
+        ("docs_root_path", "http://127.0.0.1:8000/api/docs"),
+        ("redoc_root_path", "http://127.0.0.1:8000/api/redoc"),
+    ],
+)
+def test_docs_urls_root_path_param(app_name: str, expected_url: str) -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app,
+                [
+                    "dev",
+                    "single_file_docs.py",
+                    "--app",
+                    app_name,
+                ],
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert expected_url in result.output
 
 
 def test_run_error() -> None:

@@ -75,3 +75,25 @@ custom_redoc = FastAPI(docs_url=None, redoc_url="/custom-redoc-url")
 @custom_redoc.get("/")
 def custom_redoc_root():
     return {"message": "single file custom_redoc"}
+
+
+# App 8: Swagger docs enabled, root_path set to "/api". ReDoc disabled.
+# ------------------------------------------------------------------------------------
+
+docs_root_path = FastAPI(redoc_url=None, root_path="/api")
+
+
+@docs_root_path.get("/")
+def docs_root_path_root():
+    return {"message": "single file docs_root_path"}
+
+
+# App 9: ReDoc enabled, root_path set to "/api". Swagger docs disabled.
+# ------------------------------------------------------------------------------------
+
+redoc_root_path = FastAPI(docs_url=None, root_path="/api")
+
+
+@redoc_root_path.get("/")
+def redoc_root_path_root():
+    return {"message": "single file redoc_root_path"}

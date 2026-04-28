@@ -180,3 +180,15 @@ def get_docs_urls(import_data: ImportData) -> DocsURLs:
         docs_url=app.docs_url,
         redoc_url=app.redoc_url,
     )
+
+
+def get_root_path(import_data: ImportData) -> str:
+    module = importlib.import_module(import_data.module_data.module_import_str)
+    app_name = import_data.app_name
+    app = getattr(module, app_name)
+
+    # Just for type checking, it's already checked in get_app_name
+    assert FastAPI is not None
+    assert isinstance(app, FastAPI)
+
+    return app.root_path

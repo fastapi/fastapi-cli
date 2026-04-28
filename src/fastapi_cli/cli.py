@@ -12,6 +12,7 @@ from fastapi_cli.discover import (
     get_docs_urls,
     get_import_data,
     get_import_data_from_import_string,
+    get_root_path,
 )
 from fastapi_cli.exceptions import FastAPICLIException
 
@@ -196,6 +197,11 @@ def _run(
         docs_urls = get_docs_urls(import_data)
 
         url = f"http://{host}:{port}"
+
+        use_root_path = root_path or get_root_path(import_data)
+        if use_root_path:
+            url += use_root_path
+
         docs_url = ""
 
         if docs_urls.openapi_url and (docs_urls.docs_url or docs_urls.redoc_url):

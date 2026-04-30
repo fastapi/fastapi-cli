@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 class FastAPIConfig(BaseModel):
     entrypoint: StrictStr | None = None
+    from_pyproject: bool = False
 
     @classmethod
     def _read_pyproject_toml(cls) -> dict[str, Any]:
@@ -38,5 +39,7 @@ class FastAPIConfig(BaseModel):
 
         if entrypoint is not None:
             config["entrypoint"] = entrypoint
+
+        config["from_pyproject"] = ("entrypoint" in config) and (entrypoint is None)
 
         return cls.model_validate(config)

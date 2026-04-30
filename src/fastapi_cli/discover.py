@@ -3,6 +3,7 @@ import sys
 from dataclasses import dataclass
 from logging import getLogger
 from pathlib import Path
+from typing import Literal, TypeAlias
 
 from fastapi_cli.exceptions import FastAPICLIException
 
@@ -102,18 +103,35 @@ def get_app_name(*, mod_data: ModuleData, app_name: str | None = None) -> str:
     raise FastAPICLIException("Could not find FastAPI app in module, try using --app")
 
 
+ModuleConfigSource: TypeAlias = Literal[
+    "entrypoint-option",
+    "entrypoint-pyproject",
+    "path-argument",
+    "auto-discovery",
+]
+
+AppConfigSource: TypeAlias = Literal[
+    "entrypoint-option", "entrypoint-pyproject", "app-option", "auto-discovery"
+]
+
+
 @dataclass
 class ImportData:
     app_name: str
     module_data: ModuleData
     import_string: str
 
+    module_config_source: ModuleConfigSource
+    app_name_config_source: AppConfigSource
+
 
 def get_import_data(
     *, path: Path | None = None, app_name: str | None = None
 ) -> ImportData:
+    path_config_source: ModuleConfigSource = "path-argument"
     if not path:
         path = get_default_path()
+        path_config_source = "auto-discovery"
 
     logger.debug(f"Using path [blue]{path}[/blue]")
     logger.debug(f"Resolved absolute path {path.resolve()}")
@@ -127,11 +145,17 @@ def get_import_data(
     import_string = f"{mod_data.module_import_str}:{use_app_name}"
 
     return ImportData(
-        app_name=use_app_name, module_data=mod_data, import_string=import_string
+        app_name=use_app_name,
+        module_data=mod_data,
+        import_string=import_string,
+        module_config_source=path_config_source,
+        app_name_config_source="app-option" if app_name else "auto-discovery",
     )
 
 
-def get_import_data_from_import_string(import_string: str) -> ImportData:
+def get_import_data_from_import_string(
+    import_string: str, from_pyproject: bool
+) -> ImportData:
     module_str, _, app_name = import_string.partition(":")
 
     if not module_str or not app_name:
@@ -151,4 +175,10 @@ def get_import_data_from_import_string(import_string: str) -> ImportData:
             module_paths=[],
         ),
         import_string=import_string,
+        module_config_source=(
+            "entrypoint-pyproject" if from_pyproject else "entrypoint-option"
+        ),
+        app_name_config_source=(
+            "entrypoint-pyproject" if from_pyproject else "entrypoint-option"
+        ),
     )

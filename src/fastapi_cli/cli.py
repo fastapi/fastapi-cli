@@ -28,10 +28,10 @@ logger = logging.getLogger(__name__)
 
 
 SOURCE_DESCRIPTIONS: dict[ModuleConfigSource | AppConfigSource, str] = {
-    "entrypoint-option": "[blue]--entrypoint[/] option",
+    "entrypoint-option": "[blue]--entrypoint[/] CLI option",
     "entrypoint-pyproject": "[blue]entrypoint[/] in [blue]pyproject.toml[/]",
-    "path-argument": "path argument",
-    "app-option": "[blue]--app[/] option",
+    "path-argument": "[blue]path[/] CLI argument",
+    "app-option": "[blue]--app[/] CLI option",
     "auto-discovery": "auto-discovery",
 }
 

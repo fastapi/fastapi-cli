@@ -205,7 +205,6 @@ def _run(
             tag="app",
         )
 
-        # Pring configuration sources
         mod_source_desc = SOURCE_DESCRIPTIONS[import_data.module_config_source]
         app_source_desc = SOURCE_DESCRIPTIONS[import_data.app_name_config_source]
         toolkit.print_line()

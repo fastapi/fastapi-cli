@@ -219,7 +219,7 @@ def _run(
         if import_data.module_config_source == "auto-discovery":
             toolkit.print_line()
             toolkit.print(
-                "You can configure an entrypoint in pyproject.toml for this app with:",
+                "You can configure an entrypoint in [blue]pyproject.toml[/] for this app with:",
                 tag="tip",
             )
             toolkit.print_line()

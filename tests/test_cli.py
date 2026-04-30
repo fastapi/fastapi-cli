@@ -38,6 +38,7 @@ def test_dev() -> None:
         assert "Configuration sources:" in result.output
         assert "Module: path CLI argument" in result.output
         assert "App name: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting development server 🚀" in result.output
         assert "Server started at http://127.0.0.1:8000" in result.output
         assert "Documentation at http://127.0.0.1:8000/docs" in result.output
@@ -64,6 +65,9 @@ def test_dev_no_args_auto_discovery() -> None:
         assert "Using import string: main:app" in result.output
         assert "Configuration sources:" in result.output
         assert "Import string: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" in result.output
+        assert "[tool.fastapi]" in result.output
+        assert 'entrypoint = "main:app"' in result.output
 
 
 def test_dev_package() -> None:
@@ -88,6 +92,7 @@ def test_dev_package() -> None:
         assert "Using import string: nested_package.package:app" in result.output
         assert "Module: path CLI argument" in result.output
         assert "App name: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting development server 🚀" in result.output
         assert "Server started at http://127.0.0.1:8000" in result.output
         assert "Documentation at http://127.0.0.1:8000/docs" in result.output
@@ -140,6 +145,7 @@ def test_dev_args() -> None:
         assert "Using import string: single_file_app:api" in result.output
         assert "Module: path CLI argument" in result.output
         assert "App name: --app CLI option" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting development server 🚀" in result.output
         assert "Server started at http://192.168.0.2:8080" in result.output
         assert "Documentation at http://192.168.0.2:8080/docs" in result.output
@@ -173,6 +179,7 @@ def test_dev_env_vars() -> None:
         assert "Using import string: single_file_app:app" in result.output
         assert "Module: path CLI argument" in result.output
         assert "App name: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting development server 🚀" in result.output
         assert "Server started at http://127.0.0.1:8111" in result.output
         assert "Documentation at http://127.0.0.1:8111/docs" in result.output
@@ -213,6 +220,7 @@ def test_dev_env_vars_and_args() -> None:
         assert "Using import string: single_file_app:app" in result.output
         assert "Module: path CLI argument" in result.output
         assert "App name: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting development server 🚀" in result.output
         assert "Server started at http://127.0.0.1:8080" in result.output
         assert "Documentation at http://127.0.0.1:8080/docs" in result.output
@@ -261,6 +269,7 @@ def test_run() -> None:
         assert "Using import string: single_file_app:app" in result.output
         assert "Module: path CLI argument" in result.output
         assert "App name: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting production server 🚀" in result.output
         assert "Server started at http://0.0.0.0:8000" in result.output
         assert "Documentation at http://0.0.0.0:8000/docs" in result.output
@@ -338,6 +347,7 @@ def test_run_args() -> None:
         assert "Using import string: single_file_app:api" in result.output
         assert "Module: path CLI argument" in result.output
         assert "App name: --app CLI option" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting production server 🚀" in result.output
         assert "Server started at http://192.168.0.2:8080" in result.output
         assert "Documentation at http://192.168.0.2:8080/docs" in result.output
@@ -371,6 +381,7 @@ def test_run_env_vars() -> None:
         assert "Using import string: single_file_app:app" in result.output
         assert "Module: path CLI argument" in result.output
         assert "App name: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting production server 🚀" in result.output
         assert "Server started at http://0.0.0.0:8111" in result.output
         assert "Documentation at http://0.0.0.0:8111/docs" in result.output
@@ -407,6 +418,7 @@ def test_run_env_vars_and_args() -> None:
         assert "Using import string: single_file_app:app" in result.output
         assert "Module: path CLI argument" in result.output
         assert "App name: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting production server 🚀" in result.output
         assert "Server started at http://0.0.0.0:8080" in result.output
         assert "Documentation at http://0.0.0.0:8080/docs" in result.output
@@ -520,6 +532,7 @@ def test_dev_with_import_string() -> None:
             }
         assert "Using import string: single_file_app:api" in result.output
         assert "Import string: --entrypoint CLI option" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
 
 
 def test_run_with_import_string() -> None:
@@ -543,6 +556,7 @@ def test_run_with_import_string() -> None:
             }
         assert "Using import string: single_file_app:app" in result.output
         assert "Import string: --entrypoint CLI option" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
 
 
 def test_script() -> None:

@@ -5,6 +5,7 @@ from typing import Annotated, Any
 import typer
 from pydantic import ValidationError
 from rich import print
+from rich.syntax import Syntax
 from rich.tree import Tree
 
 from fastapi_cli.config import FastAPIConfig
@@ -214,6 +215,24 @@ def _run(
         else:
             toolkit.print(f" • Module: {mod_source_desc}")
             toolkit.print(f" • App name: {app_source_desc}")
+
+        if import_data.module_config_source == "auto-discovery":
+            toolkit.print_line()
+            toolkit.print(
+                "You can configure an entrypoint in pyproject.toml for this app with:",
+                tag="tip",
+            )
+            toolkit.print_line()
+            toolkit.print(
+                Syntax(
+                    (
+                        "[tool.fastapi]\n"
+                        f'entrypoint = "{import_data.module_data.module_import_str}:{import_data.app_name}"'
+                    ),
+                    "toml",
+                    theme="ansi_light",
+                )
+            )
 
         url = f"http://{host}:{port}"
         url_docs = f"{url}/docs"

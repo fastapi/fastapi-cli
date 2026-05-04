@@ -452,6 +452,7 @@ def test_version() -> None:
     result = runner.invoke(app, ["--version"])
     assert result.exit_code == 0, result.output
     assert "FastAPI CLI version:" in result.output
+    assert "FastAPI Cloud CLI version:" in result.output
 
 
 def test_dev_reload_dir() -> None:

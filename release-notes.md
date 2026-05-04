@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump typer from 0.25.0 to 0.25.1. PR [#390](https://github.com/fastapi/fastapi-cli/pull/390) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ty from 0.0.32 to 0.0.33. PR [#387](https://github.com/fastapi/fastapi-cli/pull/387) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-cloud-cli from 0.17.0 to 0.17.1. PR [#385](https://github.com/fastapi/fastapi-cli/pull/385) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.10 to 0.3.11. PR [#382](https://github.com/fastapi/fastapi-cli/pull/382) by [@dependabot[bot]](https://github.com/apps/dependabot).

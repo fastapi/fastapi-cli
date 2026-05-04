@@ -152,3 +152,33 @@ def get_import_data_from_import_string(import_string: str) -> ImportData:
         ),
         import_string=import_string,
     )
+
+
+def get_docs_urls(import_data: ImportData) -> list[str]:
+    module = importlib.import_module(import_data.module_data.module_import_str)
+    app_name = import_data.app_name
+    app = getattr(module, app_name)
+
+    # Just for type checking, it's already checked in get_app_name
+    assert FastAPI is not None
+    assert isinstance(app, FastAPI)
+
+    docs_urls: list[str] = []
+    if app.openapi_url and app.docs_url:
+        docs_urls.append(app.docs_url)
+    if app.openapi_url and app.redoc_url:
+        docs_urls.append(app.redoc_url)
+
+    return docs_urls
+
+
+def get_root_path(import_data: ImportData) -> str:
+    module = importlib.import_module(import_data.module_data.module_import_str)
+    app_name = import_data.app_name
+    app = getattr(module, app_name)
+
+    # Just for type checking, it's already checked in get_app_name
+    assert FastAPI is not None
+    assert isinstance(app, FastAPI)
+
+    return app.root_path

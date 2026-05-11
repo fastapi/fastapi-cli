@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ty from 0.0.34 to 0.0.35. PR [#396](https://github.com/fastapi/fastapi-cli/pull/396) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/add-to-project from 1.0.2 to 2.0.0. PR [#392](https://github.com/fastapi/fastapi-cli/pull/392) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/labeler from 6.0.1 to 6.1.0. PR [#393](https://github.com/fastapi/fastapi-cli/pull/393) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.11 to 0.3.13. PR [#394](https://github.com/fastapi/fastapi-cli/pull/394) by [@dependabot[bot]](https://github.com/apps/dependabot).

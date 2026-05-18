@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 🔒️ Add zizmor and fix audit findings. PR [#373](https://github.com/fastapi/fastapi-cli/pull/373) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump ty from 0.0.34 to 0.0.35. PR [#396](https://github.com/fastapi/fastapi-cli/pull/396) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/add-to-project from 1.0.2 to 2.0.0. PR [#392](https://github.com/fastapi/fastapi-cli/pull/392) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/labeler from 6.0.1 to 6.1.0. PR [#393](https://github.com/fastapi/fastapi-cli/pull/393) by [@dependabot[bot]](https://github.com/apps/dependabot).

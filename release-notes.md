@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 🔒️ Only allow team members to modify dependencies. PR [#403](https://github.com/fastapi/fastapi-cli/pull/403) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ Bump uvicorn from 0.44.0 to 0.46.0. PR [#400](https://github.com/fastapi/fastapi-cli/pull/400) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump rich-toolkit from 0.19.7 to 0.19.9. PR [#399](https://github.com/fastapi/fastapi-cli/pull/399) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mypy from 2.0.0 to 2.1.0. PR [#397](https://github.com/fastapi/fastapi-cli/pull/397) by [@dependabot[bot]](https://github.com/apps/dependabot).

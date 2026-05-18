@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump rich-toolkit from 0.19.7 to 0.19.9. PR [#399](https://github.com/fastapi/fastapi-cli/pull/399) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mypy from 2.0.0 to 2.1.0. PR [#397](https://github.com/fastapi/fastapi-cli/pull/397) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔒️ Add zizmor and fix audit findings. PR [#373](https://github.com/fastapi/fastapi-cli/pull/373) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump ty from 0.0.34 to 0.0.35. PR [#396](https://github.com/fastapi/fastapi-cli/pull/396) by [@dependabot[bot]](https://github.com/apps/dependabot).

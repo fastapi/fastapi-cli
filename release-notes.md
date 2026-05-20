@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Update security policy. PR [#408](https://github.com/fastapi/fastapi-cli/pull/408) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * 👷 Fix branch name in `guard-dependencies.yml`. PR [#404](https://github.com/fastapi/fastapi-cli/pull/404) by [@svlandeg](https://github.com/svlandeg).

@@ -112,6 +112,7 @@ def _run(
     entrypoint: str | None = None,
     proxy_headers: bool = False,
     forwarded_allow_ips: str | None = None,
+    public_url: str | None = None,
 ) -> None:
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
@@ -189,7 +190,7 @@ def _run(
             tag="app",
         )
 
-        url = f"http://{host}:{port}"
+        url = public_url.rstrip("/") if public_url else f"http://{host}:{port}"
         url_docs = f"{url}/docs"
 
         toolkit.print_line()
@@ -299,6 +300,13 @@ def dev(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),
     ] = None,
+    public_url: Annotated[
+        str | None,
+        typer.Option(
+            help="The public URL where the server is accessible. Used for the URLs printed at startup. Defaults to [blue]http://HOST:PORT[/blue] from [bold]--host[/bold] and [bold]--port[/bold].",
+            envvar="FASTAPI_PUBLIC_URL",
+        ),
+    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [yellow]development[/yellow] mode. 🧪
@@ -337,6 +345,7 @@ def dev(
         command="dev",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
+        public_url=public_url,
     )
 
 
@@ -406,6 +415,13 @@ def run(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),
     ] = None,
+    public_url: Annotated[
+        str | None,
+        typer.Option(
+            help="The public URL where the server is accessible. Used for the URLs printed at startup. By default, the printed URLs use the configured host and port.",
+            envvar="FASTAPI_PUBLIC_URL",
+        ),
+    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [green]production[/green] mode. 🚀
@@ -444,6 +460,7 @@ def run(
         command="run",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
+        public_url=public_url,
     )
 
 

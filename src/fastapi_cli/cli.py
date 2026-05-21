@@ -8,7 +8,12 @@ from rich import print
 from rich.tree import Tree
 
 from fastapi_cli.config import FastAPIConfig
-from fastapi_cli.discover import get_import_data, get_import_data_from_import_string
+from fastapi_cli.discover import (
+    AppConfigSource,
+    ModuleConfigSource,
+    get_import_data,
+    get_import_data_from_import_string,
+)
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
@@ -20,6 +25,15 @@ app = typer.Typer(
 )
 
 logger = logging.getLogger(__name__)
+
+
+SOURCE_DESCRIPTIONS: dict[ModuleConfigSource | AppConfigSource, str] = {
+    "entrypoint-option": "[blue]--entrypoint[/] CLI option",
+    "entrypoint-pyproject": "[blue]entrypoint[/] in [blue]pyproject.toml[/]",
+    "path-argument": "[blue]path[/] CLI argument",
+    "app-option": "[blue]--app[/] CLI option",
+    "auto-discovery": "auto-discovery",
+}
 
 
 try:
@@ -151,7 +165,9 @@ def _run(
             if path or app:
                 import_data = get_import_data(path=path, app_name=app)
             elif config.entrypoint:
-                import_data = get_import_data_from_import_string(config.entrypoint)
+                import_data = get_import_data_from_import_string(
+                    config.entrypoint, config.from_pyproject
+                )
             else:
                 import_data = get_import_data()
         except FastAPICLIException as e:
@@ -188,6 +204,16 @@ def _run(
             f"Using import string: [blue]{import_string}[/]",
             tag="app",
         )
+
+        mod_source_desc = SOURCE_DESCRIPTIONS[import_data.module_config_source]
+        app_source_desc = SOURCE_DESCRIPTIONS[import_data.app_name_config_source]
+        toolkit.print_line()
+        toolkit.print("Configuration sources:", tag="info")
+        if mod_source_desc == app_source_desc:
+            toolkit.print(f" • Import string: {mod_source_desc}")
+        else:
+            toolkit.print(f" • Module: {mod_source_desc}")
+            toolkit.print(f" • App name: {app_source_desc}")
 
         url = f"http://{host}:{port}"
         url_docs = f"{url}/docs"

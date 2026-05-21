@@ -4,6 +4,7 @@
 
 ### Docs
 
+* 📝 Update docs about contributing. PR [#410](https://github.com/fastapi/fastapi-cli/pull/410) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update security policy. PR [#408](https://github.com/fastapi/fastapi-cli/pull/408) by [@tiangolo](https://github.com/tiangolo).
 
 ### Internal

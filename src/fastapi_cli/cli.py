@@ -8,7 +8,12 @@ from rich import print
 from rich.tree import Tree
 
 from fastapi_cli.config import FastAPIConfig
-from fastapi_cli.discover import get_import_data, get_import_data_from_import_string
+from fastapi_cli.discover import (
+    get_docs_urls,
+    get_import_data,
+    get_import_data_from_import_string,
+    get_root_path,
+)
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
@@ -190,14 +195,26 @@ def _run(
         )
 
         url = f"http://{host}:{port}"
-        url_docs = f"{url}/docs"
+
+        use_root_path = root_path or get_root_path(import_data)
+        if use_root_path:
+            url += use_root_path
 
         toolkit.print_line()
         toolkit.print(
             f"Server started at [link={url}]{url}[/]",
-            f"Documentation at [link={url_docs}]{url_docs}[/]",
             tag="server",
         )
+
+        docs_urls = get_docs_urls(import_data)
+        docs_links = [
+            f"[link={url}{docs_url}]{url}{docs_url}[/]" for docs_url in docs_urls
+        ]
+        if docs_links:
+            toolkit.print(
+                f"Documentation at {docs_links[0]}",
+                tag="server",
+            )
 
         if command == "dev":
             toolkit.print_line()

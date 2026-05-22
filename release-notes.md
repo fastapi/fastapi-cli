@@ -9,6 +9,7 @@
 
 ### Internal
 
+* 🔥 Remove config files now in central GitHub repo. PR [#413](https://github.com/fastapi/fastapi-cli/pull/413) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Fix branch name in `guard-dependencies.yml`. PR [#404](https://github.com/fastapi/fastapi-cli/pull/404) by [@svlandeg](https://github.com/svlandeg).
 * 🔒️ Only allow team members to modify dependencies. PR [#403](https://github.com/fastapi/fastapi-cli/pull/403) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ Bump uvicorn from 0.44.0 to 0.46.0. PR [#400](https://github.com/fastapi/fastapi-cli/pull/400) by [@dependabot[bot]](https://github.com/apps/dependabot).

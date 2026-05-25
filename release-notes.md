@@ -9,6 +9,7 @@
 
 ### Internal
 
+* 👷 Configure Dependabot to group updates and update weekly. PR [#407](https://github.com/fastapi/fastapi-cli/pull/407) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 🔥 Remove config files now in central GitHub repo. PR [#413](https://github.com/fastapi/fastapi-cli/pull/413) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Fix branch name in `guard-dependencies.yml`. PR [#404](https://github.com/fastapi/fastapi-cli/pull/404) by [@svlandeg](https://github.com/svlandeg).
 * 🔒️ Only allow team members to modify dependencies. PR [#403](https://github.com/fastapi/fastapi-cli/pull/403) by [@svlandeg](https://github.com/svlandeg).

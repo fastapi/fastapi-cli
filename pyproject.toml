@@ -166,7 +166,6 @@ error-on-warning = true
 extend-exclude = [
     "coverage/",
     "dist/",
-    "docs/img/",
     "release-notes.md",
     "htmlcov/",
     "uv.lock",

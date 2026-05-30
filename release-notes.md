@@ -9,6 +9,7 @@
 
 ### Internal
 
+* 🔥 Remove old package stub slim, not user nor needed. PR [#419](https://github.com/fastapi/fastapi-cli/pull/419) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump zizmorcore/zizmor-action from 0.5.3 to 0.5.6. PR [#414](https://github.com/fastapi/fastapi-cli/pull/414) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Configure Dependabot to group updates and update weekly. PR [#407](https://github.com/fastapi/fastapi-cli/pull/407) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 🔥 Remove config files now in central GitHub repo. PR [#413](https://github.com/fastapi/fastapi-cli/pull/413) by [@tiangolo](https://github.com/tiangolo).

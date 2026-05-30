@@ -2,8 +2,9 @@
 
 import re
 from datetime import date
+from enum import Enum
 from pathlib import Path
-from typing import Annotated, Literal
+from typing import Annotated
 
 import typer
 
@@ -11,7 +12,13 @@ VERSION_PATTERN = re.compile(r'(?m)^__version__ = "(\d+\.\d+\.\d+)"$')
 VERSION_HEADING_PATTERN = re.compile(r"(?m)^## (\d+\.\d+\.\d+)(?: \([^)]+\))?$")
 RELEASE_NOTES_HEADER = "# Release Notes\n\n"
 LATEST_CHANGES_HEADER = "## Latest Changes"
-BumpType = Literal["major", "minor", "patch"]
+
+
+class BumpType(str, Enum):
+    major = "major"
+    minor = "minor"
+    patch = "patch"
+
 
 app = typer.Typer()
 
@@ -36,9 +43,9 @@ def get_current_version(content: str, version_file: Path) -> str:
 
 def bump_version(version: str, bump: BumpType) -> str:
     major, minor, patch = parse_version(version)
-    if bump == "major":
+    if bump is BumpType.major:
         return f"{major + 1}.0.0"
-    if bump == "minor":
+    if bump is BumpType.minor:
         return f"{major}.{minor + 1}.0"
     return f"{major}.{minor}.{patch + 1}"
 

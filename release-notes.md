@@ -9,6 +9,7 @@
 
 ### Internal
 
+* ⬆ Bump eps1lon/actions-label-merge-conflict from 3.0.3 to 3.1.0 in the github-actions group. PR [#425](https://github.com/fastapi/fastapi-cli/pull/425) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.25.1 to 0.26.2. PR [#424](https://github.com/fastapi/fastapi-cli/pull/424) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Automate release preparation. PR [#420](https://github.com/fastapi/fastapi-cli/pull/420) by [@tiangolo](https://github.com/tiangolo).
 * 🔥 Remove old package stub slim, not user nor needed. PR [#419](https://github.com/fastapi/fastapi-cli/pull/419) by [@tiangolo](https://github.com/tiangolo).

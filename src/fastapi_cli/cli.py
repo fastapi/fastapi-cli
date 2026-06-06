@@ -25,11 +25,11 @@ logger = logging.getLogger(__name__)
 try:
     import uvicorn
 except ImportError:  # pragma: no cover
-    uvicorn = None  # type: ignore[assignment]  # ty: ignore[invalid-assignment]
+    pass
 
 
 try:
-    from fastapi_cloud_cli.cli import (
+    from fastapi_cloud_cli.cli import (  # type: ignore[import-not-found]  # ty: ignore[unresolved-import]
         app as fastapi_cloud_cli,
     )
 
@@ -52,8 +52,9 @@ def _cmd_name(registered_command: CommandInfo) -> Any:
     """Return the effective CLI name for a registered Typer command."""
     if registered_command.name is not None:
         return registered_command.name
-    if registered_command.callback is not None:
-        return registered_command.callback.__name__.lower().replace("_", "-")
+    callback_name = getattr(registered_command.callback, "__name__", None)
+    if callback_name:
+        return callback_name.lower().replace("_", "-")
     return None
 
 

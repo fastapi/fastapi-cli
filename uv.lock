@@ -329,7 +329,7 @@ dev = [
     { name = "mypy", specifier = "==2.1.0" },
     { name = "prek", specifier = ">=0.2.24,<1.0.0" },
     { name = "pytest", specifier = ">=7.4.0,<10.0.0" },
-    { name = "ruff", specifier = "==0.15.15" },
+    { name = "ruff", specifier = ">=0.15.15" },
     { name = "ty", specifier = ">=0.0.25" },
     { name = "uvicorn", specifier = ">=0.39.0" },
     { name = "zizmor", specifier = ">=1.24.1" },
@@ -340,7 +340,7 @@ tests = [
     { name = "fastapi", specifier = ">=0.128.0" },
     { name = "mypy", specifier = "==2.1.0" },
     { name = "pytest", specifier = ">=7.4.0,<10.0.0" },
-    { name = "ruff", specifier = "==0.15.15" },
+    { name = "ruff", specifier = ">=0.15.15" },
     { name = "ty", specifier = ">=0.0.25" },
     { name = "uvicorn", specifier = ">=0.39.0" },
 ]

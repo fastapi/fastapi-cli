@@ -9,6 +9,7 @@
 
 ### Internal
 
+* ⬆ Bump typer from 0.26.2 to 0.26.7. PR [#427](https://github.com/fastapi/fastapi-cli/pull/427) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-cloud-cli from 0.17.1 to 0.19.0. PR [#429](https://github.com/fastapi/fastapi-cli/pull/429) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump rich-toolkit from 0.19.9 to 0.20.0. PR [#428](https://github.com/fastapi/fastapi-cli/pull/428) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump the github-actions group with 3 updates. PR [#430](https://github.com/fastapi/fastapi-cli/pull/430) by [@dependabot[bot]](https://github.com/apps/dependabot).

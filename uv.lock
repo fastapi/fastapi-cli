@@ -1071,16 +1071,16 @@ wheels = [
 
 [[package]]
 name = "rich-toolkit"
-version = "0.19.9"
+version = "0.20.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
     { name = "rich" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8f/10/dc6e64e85244971671981dc26b09353a1564f5e61b977c80180dc42ad90b/rich_toolkit-0.19.9.tar.gz", hash = "sha256:fce5c6f41f79382ecf60a79851b2543f627568e3e07c78ab4b8542e1ca247d1c", size = 197653, upload-time = "2026-05-13T09:55:04.286Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c3/49/d7a4fd4f39c195b73f78694af3e812943a4181a8d48a11035425d0f6d71f/rich_toolkit-0.20.0.tar.gz", hash = "sha256:bb05382554d4f46865dfca2fccccf30768ef37e0347207d00f034d9b36b25021", size = 203144, upload-time = "2026-06-02T21:11:38.48Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8f/60/5a7de329d0b5b619757c169bbf8a5146c20fe49bd4d74045937fcd45a7d0/rich_toolkit-0.19.9-py3-none-any.whl", hash = "sha256:a1341f88feed5f295f001bb1c6b6cf1e208674187dd900416a30fd9d6f74fcce", size = 33711, upload-time = "2026-05-13T09:55:05.345Z" },
+    { url = "https://files.pythonhosted.org/packages/67/b5/6b6efd9e305653fae68ed0b712bc659cd3c5541ec54416e6bb14af52acca/rich_toolkit-0.20.0-py3-none-any.whl", hash = "sha256:906e5b8741fafc46159c5f719fd30fd3c9dd8f2c31b8161dc8c612f98b8da01a", size = 35379, upload-time = "2026-06-02T21:11:37.564Z" },
 ]
 
 [[package]]

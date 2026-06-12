@@ -1,4 +1,5 @@
 import logging
+from importlib.metadata import entry_points as _entry_points
 from pathlib import Path
 from typing import Annotated, Any
 
@@ -6,6 +7,7 @@ import typer
 from pydantic import ValidationError
 from rich import print
 from rich.tree import Tree
+from typer.models import CommandInfo
 
 from fastapi_cli.config import FastAPIConfig
 from fastapi_cli.discover import get_import_data, get_import_data_from_import_string
@@ -15,9 +17,7 @@ from . import __version__
 from .logging import setup_logging
 from .utils.cli import get_rich_toolkit, get_uvicorn_log_config
 
-app = typer.Typer(
-    rich_markup_mode="rich", context_settings={"help_option_names": ["-h", "--help"]}
-)
+app = typer.Typer(rich_markup_mode="rich", context_settings={"help_option_names": ["-h", "--help"]})
 
 logger = logging.getLogger(__name__)
 
@@ -25,11 +25,11 @@ logger = logging.getLogger(__name__)
 try:
     import uvicorn
 except ImportError:  # pragma: no cover
-    uvicorn = None  # type: ignore[assignment]  # ty: ignore[invalid-assignment]
+    pass
 
 
 try:
-    from fastapi_cloud_cli.cli import (
+    from fastapi_cloud_cli.cli import (  # type: ignore[import-not-found]  # ty: ignore[unresolved-import]
         app as fastapi_cloud_cli,
     )
 
@@ -48,6 +48,56 @@ except ImportError:  # pragma: no cover
     pass
 
 
+def _cmd_name(registered_command: CommandInfo) -> Any:
+    """Return the effective CLI name for a registered Typer command."""
+    if registered_command.name is not None:
+        return registered_command.name
+    callback_name = getattr(registered_command.callback, "__name__", None)
+    if callback_name:
+        return callback_name.lower().replace("_", "-")
+    return None
+
+
+def _load_cli_plugins(typer_app: typer.Typer) -> None:
+    """Load commands registered via the 'fastapi_cli.plugins' entry point group."""
+
+    # Seed with built-in command names so plugins overriding them get flagged.
+    known: set[str] = set()
+    for registered_command in typer_app.registered_commands:
+        name = _cmd_name(registered_command)
+        if name:
+            known.add(name)
+
+    for entry_point in _entry_points(group="fastapi_cli.plugins"):
+        # Snapshot length to slice off only what the plugin adds.
+        cursor = len(typer_app.registered_commands)
+        try:
+            # resolves the `register` callable.
+            entry_point.load()(typer_app)
+        except Exception as e:
+            # Warning on broken plugin ans continue CLI execution.
+            logger.warning("Plugin '%s' failed to load: %s", entry_point.name, e)
+            continue
+
+        # Walk only plugin's new commands to detect collision.
+        collisions: list[str] = []
+        for registered_command in typer_app.registered_commands[cursor:]:
+            name = _cmd_name(registered_command)
+            if not name:
+                continue
+            if name in known:
+                collisions.append(name)
+            known.add(name)
+
+        # One warning per plugin, listing all the names it overrode.
+        if collisions:
+            logger.warning(
+                "Plugin '%s' overrides existing command(s): %s",
+                entry_point.name,
+                ", ".join(sorted(collisions)),
+            )
+
+
 def version_callback(value: bool) -> None:
     if value:
         print(f"FastAPI CLI version: [green]{__version__}[/green]")
@@ -58,9 +108,7 @@ def version_callback(value: bool) -> None:
 def callback(
     version: Annotated[
         bool | None,
-        typer.Option(
-            "--version", help="Show the version and exit.", callback=version_callback
-        ),
+        typer.Option("--version", help="Show the version and exit.", callback=version_callback),
     ] = None,
     verbose: bool = typer.Option(False, help="Enable verbose output"),
 ) -> None:
@@ -88,9 +136,7 @@ def _get_module_tree(module_paths: list[Path]) -> Tree:
 
     tree = root_tree
     for sub_path in module_paths[1:]:
-        sub_name = (
-            f"🐍 {sub_path.name}" if sub_path.is_file() else f"📁 {sub_path.name}"
-        )
+        sub_name = f"🐍 {sub_path.name}" if sub_path.is_file() else f"📁 {sub_path.name}"
         tree = tree.add(sub_name)
         if sub_path.is_dir():
             tree.add("[dim]🐍 __init__.py[/dim]")
@@ -125,9 +171,7 @@ def _run(
 
         if entrypoint and (path or app):
             toolkit.print_line()
-            toolkit.print(
-                "[error]Cannot use --entrypoint together with path or --app arguments"
-            )
+            toolkit.print("[error]Cannot use --entrypoint together with path or --app arguments")
             toolkit.print_line()
             raise typer.Exit(code=1)
 
@@ -221,9 +265,7 @@ def _run(
             port=port,
             reload=reload,
             reload_dirs=(
-                [str(directory.resolve()) for directory in reload_dirs]
-                if reload_dirs
-                else None
+                [str(directory.resolve()) for directory in reload_dirs] if reload_dirs else None
             ),
             workers=workers,
             root_path=root_path,
@@ -448,4 +490,5 @@ def run(
 
 
 def main() -> None:
+    _load_cli_plugins(app)
     app()

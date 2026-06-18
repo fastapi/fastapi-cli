@@ -4,6 +4,7 @@
 
 ### Features
 
+* 🚸 Show import string source. PR [#388](https://github.com/fastapi/fastapi-cli/pull/388) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ✨ Include the version of `fastapi-cloud-cli` to the output of `--version`. PR [#341](https://github.com/fastapi/fastapi-cli/pull/341) by [@YuriiMotov](https://github.com/YuriiMotov).
 
 ### Docs

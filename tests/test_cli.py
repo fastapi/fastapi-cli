@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
 import uvicorn
 from typer.testing import CliRunner
 
@@ -132,8 +133,8 @@ def test_dev_args() -> None:
             }
         assert "Using import string: single_file_app:api" in result.output
         assert "Starting development server 🚀" in result.output
-        assert "Server started at http://192.168.0.2:8080" in result.output
-        assert "Documentation at http://192.168.0.2:8080/docs" in result.output
+        assert "Server started at http://192.168.0.2:8080/api" in result.output
+        assert "Documentation at http://192.168.0.2:8080/api/docs" in result.output
         assert (
             "Running in development mode, for production use: fastapi run"
             in result.output
@@ -322,8 +323,8 @@ def test_run_args() -> None:
 
         assert "Using import string: single_file_app:api" in result.output
         assert "Starting production server 🚀" in result.output
-        assert "Server started at http://192.168.0.2:8080" in result.output
-        assert "Documentation at http://192.168.0.2:8080/docs" in result.output
+        assert "Server started at http://192.168.0.2:8080/api" in result.output
+        assert "Documentation at http://192.168.0.2:8080/api/docs" in result.output
         assert (
             "Running in development mode, for production use: fastapi run"
             not in result.output
@@ -389,6 +390,141 @@ def test_run_env_vars_and_args() -> None:
         assert "Starting production server 🚀" in result.output
         assert "Server started at http://0.0.0.0:8080" in result.output
         assert "Documentation at http://0.0.0.0:8080/docs" in result.output
+
+
+@pytest.mark.parametrize(
+    "app_name",
+    [
+        "openapi_none",
+        "docs_none_redoc_none",
+    ],
+)
+def test_docs_urls_disabled(app_name: str) -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["dev", "single_file_docs.py", "--app", app_name]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert "http://127.0.0.1:8000/docs" not in result.output
+        assert "http://127.0.0.1:8000/redoc" not in result.output
+
+
+def test_docs_urls_only_docs() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["dev", "single_file_docs.py", "--app", "only_docs"]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert "http://127.0.0.1:8000/docs" in result.output
+        assert "http://127.0.0.1:8000/redoc" not in result.output
+
+
+def test_docs_urls_only_redoc() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["dev", "single_file_docs.py", "--app", "only_redoc"]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert "http://127.0.0.1:8000/redoc" in result.output
+        assert "http://127.0.0.1:8000/docs" not in result.output
+
+
+def test_docs_urls_full_docs() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["dev", "single_file_docs.py", "--app", "full_docs"]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert "http://127.0.0.1:8000/docs" in result.output
+        assert "http://127.0.0.1:8000/redoc" not in result.output  # docs has precedence
+
+
+def test_docs_urls_custom_docs() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["dev", "single_file_docs.py", "--app", "custom_docs"]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert "http://127.0.0.1:8000/custom-docs-url" in result.output
+
+
+def test_docs_urls_custom_redoc() -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app, ["dev", "single_file_docs.py", "--app", "custom_redoc"]
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert "http://127.0.0.1:8000/custom-redoc-url" in result.output
+
+
+@pytest.mark.parametrize(
+    ("app_name", "expected_url"),
+    [
+        ("only_docs", "http://127.0.0.1:8000/api/docs"),
+        ("only_redoc", "http://127.0.0.1:8000/api/redoc"),
+    ],
+)
+def test_docs_urls_root_path_option(app_name: str, expected_url: str) -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app,
+                [
+                    "dev",
+                    "single_file_docs.py",
+                    "--app",
+                    app_name,
+                    "--root-path",
+                    "/api",
+                ],
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert expected_url in result.output
+
+
+@pytest.mark.parametrize(
+    ("app_name", "expected_url"),
+    [
+        ("docs_root_path", "http://127.0.0.1:8000/api/docs"),
+        ("redoc_root_path", "http://127.0.0.1:8000/api/redoc"),
+    ],
+)
+def test_docs_urls_root_path_param(app_name: str, expected_url: str) -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app,
+                [
+                    "dev",
+                    "single_file_docs.py",
+                    "--app",
+                    app_name,
+                ],
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+
+        assert expected_url in result.output
 
 
 def test_run_error() -> None:

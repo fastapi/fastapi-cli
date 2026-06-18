@@ -401,55 +401,6 @@ def test_run_env_vars_and_args() -> None:
         "https://myapp.example.com/subpath/",
     ],
 )
-def test_public_url(command: str, public_url: str) -> None:
-    with changing_dir(assets_path):
-        with patch.object(uvicorn, "run") as mock_run:
-            result = runner.invoke(
-                app,
-                [
-                    command,
-                    "single_file_app.py",
-                    "--host",
-                    "0.0.0.0",
-                    "--public-url",
-                    public_url,
-                ],
-            )
-            assert result.exit_code == 0, result.output
-            assert mock_run.called
-            assert mock_run.call_args
-            assert mock_run.call_args.kwargs == {
-                "app": "single_file_app:app",
-                "host": "0.0.0.0",
-                "port": 8000,
-                "reload": True if command == "dev" else False,
-                "reload_dirs": None,
-                "workers": None,
-                "root_path": "",
-                "proxy_headers": True,
-                "forwarded_allow_ips": None,
-                "log_config": get_uvicorn_log_config(),
-            }
-
-        assert "Using import string: single_file_app:app" in result.output
-        assert (
-            f"Starting {'development' if command == 'dev' else 'production'} server 🚀"
-            in result.output
-        )
-        expected_url_base = public_url.rstrip("/")
-        assert f"Server started at {expected_url_base}" in result.output
-        assert f"Documentation at {expected_url_base}/docs" in result.output
-
-
-@pytest.mark.parametrize("command", ["dev", "run"])
-@pytest.mark.parametrize(
-    "public_url",
-    [
-        "https://myapp.example.com",
-        "https://myapp.example.com/",
-        "https://myapp.example.com/subpath/",
-    ],
-)
 def test_public_url_env_var(command: str, public_url: str) -> None:
     with changing_dir(assets_path):
         with patch.object(uvicorn, "run") as mock_run:
@@ -515,7 +466,6 @@ def test_dev_help() -> None:
     assert "Set reload directories explicitly" in result.output
     assert "The root path is used to tell your app" in result.output
     assert "The name of the variable that contains the FastAPI app" in result.output
-    assert "The public URL where the server is accessible" in result.output
     assert "Use multiple worker processes." not in result.output
 
 
@@ -537,7 +487,6 @@ def test_run_help() -> None:
     assert "Enable auto-reload of the server when (code) files change." in result.output
     assert "The root path is used to tell your app" in result.output
     assert "The name of the variable that contains the FastAPI app" in result.output
-    assert "The public URL where the server is accessible" in result.output
     assert "Use multiple worker processes." in result.output
 
 

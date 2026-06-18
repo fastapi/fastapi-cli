@@ -1,4 +1,5 @@
 import logging
+import os
 from pathlib import Path
 from typing import Annotated, Any
 
@@ -300,13 +301,6 @@ def dev(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),
     ] = None,
-    public_url: Annotated[
-        str | None,
-        typer.Option(
-            help="The public URL where the server is accessible. Used for the URLs printed at startup. Defaults to [blue]http://HOST:PORT[/blue] from [bold]--host[/bold] and [bold]--port[/bold].",
-            envvar="FASTAPI_PUBLIC_URL",
-        ),
-    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [yellow]development[/yellow] mode. 🧪
@@ -345,7 +339,7 @@ def dev(
         command="dev",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
-        public_url=public_url,
+        public_url=os.getenv("FASTAPI_PUBLIC_URL"),
     )
 
 
@@ -415,13 +409,6 @@ def run(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),
     ] = None,
-    public_url: Annotated[
-        str | None,
-        typer.Option(
-            help="The public URL where the server is accessible. Used for the URLs printed at startup. By default, the printed URLs use the configured host and port.",
-            envvar="FASTAPI_PUBLIC_URL",
-        ),
-    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [green]production[/green] mode. 🚀
@@ -460,7 +447,7 @@ def run(
         command="run",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
-        public_url=public_url,
+        public_url=os.getenv("FASTAPI_PUBLIC_URL"),
     )
 
 

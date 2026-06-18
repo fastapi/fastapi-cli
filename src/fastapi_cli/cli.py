@@ -121,6 +121,7 @@ def _run(
     entrypoint: str | None = None,
     proxy_headers: bool = False,
     forwarded_allow_ips: str | None = None,
+    log_config: Path | None = None,
 ) -> None:
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
@@ -238,7 +239,7 @@ def _run(
             root_path=root_path,
             proxy_headers=proxy_headers,
             forwarded_allow_ips=forwarded_allow_ips,
-            log_config=get_uvicorn_log_config(),
+            log_config=get_uvicorn_log_config() if not log_config else str(log_config),
         )
 
 
@@ -308,6 +309,12 @@ def dev(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),
     ] = None,
+    log_config: Annotated[
+        Path | None,
+        typer.Option(
+            help="Logging configuration file. Supported formats: .ini, .json, .yaml."
+        ),
+    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [yellow]development[/yellow] mode. 🧪
@@ -346,6 +353,7 @@ def dev(
         command="dev",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
+        log_config=log_config,
     )
 
 
@@ -415,6 +423,12 @@ def run(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),
     ] = None,
+    log_config: Annotated[
+        Path | None,
+        typer.Option(
+            help="Logging configuration file. Supported formats: .ini, .json, .yaml."
+        ),
+    ] = None,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [green]production[/green] mode. 🚀
@@ -453,6 +467,7 @@ def run(
         command="run",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
+        log_config=log_config,
     )
 
 

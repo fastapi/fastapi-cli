@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Features
+
+* ✨ Include the version of `fastapi-cloud-cli` to the output of `--version`. PR [#341](https://github.com/fastapi/fastapi-cli/pull/341) by [@YuriiMotov](https://github.com/YuriiMotov).
+
 ### Docs
 
 * 📝 Update docs about contributing. PR [#410](https://github.com/fastapi/fastapi-cli/pull/410) by [@tiangolo](https://github.com/tiangolo).

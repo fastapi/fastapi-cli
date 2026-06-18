@@ -1,4 +1,5 @@
 import logging
+import os
 from pathlib import Path
 from typing import Annotated, Any
 
@@ -136,6 +137,7 @@ def _run(
     entrypoint: str | None = None,
     proxy_headers: bool = False,
     forwarded_allow_ips: str | None = None,
+    public_url: str | None = None,
 ) -> None:
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
@@ -243,7 +245,7 @@ def _run(
                 )
             )
 
-        url = f"http://{host}:{port}"
+        url = public_url.rstrip("/") if public_url else f"http://{host}:{port}"
         url_docs = f"{url}/docs"
 
         toolkit.print_line()
@@ -391,6 +393,7 @@ def dev(
         command="dev",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
+        public_url=os.getenv("FASTAPI_PUBLIC_URL"),
     )
 
 
@@ -498,6 +501,7 @@ def run(
         command="run",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
+        public_url=os.getenv("FASTAPI_PUBLIC_URL"),
     )
 
 

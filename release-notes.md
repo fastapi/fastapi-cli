@@ -14,6 +14,7 @@
 
 ### Internal
 
+* 👷 Add pre-commit hook to catch typos. PR [#418](https://github.com/fastapi/fastapi-cli/pull/418) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump typer from 0.26.2 to 0.26.7. PR [#427](https://github.com/fastapi/fastapi-cli/pull/427) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-cloud-cli from 0.17.1 to 0.19.0. PR [#429](https://github.com/fastapi/fastapi-cli/pull/429) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump rich-toolkit from 0.19.9 to 0.20.0. PR [#428](https://github.com/fastapi/fastapi-cli/pull/428) by [@dependabot[bot]](https://github.com/apps/dependabot).

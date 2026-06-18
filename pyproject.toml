@@ -161,3 +161,15 @@ keep-runtime-typing = true
 
 [tool.ty.terminal]
 error-on-warning = true
+
+[tool.typos.files]
+extend-exclude = [
+    "coverage/",
+    "dist/",
+    "release-notes.md",
+    "htmlcov/",
+    "uv.lock",
+]
+
+[tool.typos.default.extend-identifiers]
+alls = "alls"

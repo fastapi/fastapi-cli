@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.25 (2026-06-18)
+
 ### Features
 
 * 🚸 Show import string source. PR [#388](https://github.com/fastapi/fastapi-cli/pull/388) by [@YuriiMotov](https://github.com/YuriiMotov).

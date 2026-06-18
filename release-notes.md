@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.26 (2026-06-18)
+
 ### Features
 
 * 🚸 Show tip on how to configure `entrypoint` in `pyproject.toml`. PR [#389](https://github.com/fastapi/fastapi-cli/pull/389) by [@YuriiMotov](https://github.com/YuriiMotov).

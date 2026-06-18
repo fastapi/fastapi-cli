@@ -6,11 +6,17 @@ from typing import Annotated, Any
 import typer
 from pydantic import ValidationError
 from rich import print
+from rich.syntax import Syntax
 from rich.tree import Tree
 from typer.models import CommandInfo
 
 from fastapi_cli.config import FastAPIConfig
-from fastapi_cli.discover import get_import_data, get_import_data_from_import_string
+from fastapi_cli.discover import (
+    AppConfigSource,
+    ModuleConfigSource,
+    get_import_data,
+    get_import_data_from_import_string,
+)
 from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
@@ -20,6 +26,15 @@ from .utils.cli import get_rich_toolkit, get_uvicorn_log_config
 app = typer.Typer(rich_markup_mode="rich", context_settings={"help_option_names": ["-h", "--help"]})
 
 logger = logging.getLogger(__name__)
+
+
+SOURCE_DESCRIPTIONS: dict[ModuleConfigSource | AppConfigSource, str] = {
+    "entrypoint-option": "[blue]--entrypoint[/] CLI option",
+    "entrypoint-pyproject": "[blue]entrypoint[/] in [blue]pyproject.toml[/]",
+    "path-argument": "[blue]path[/] CLI argument",
+    "app-option": "[blue]--app[/] CLI option",
+    "auto-discovery": "auto-discovery",
+}
 
 
 try:
@@ -101,6 +116,15 @@ def _load_cli_plugins(typer_app: typer.Typer) -> None:
 def version_callback(value: bool) -> None:
     if value:
         print(f"FastAPI CLI version: [green]{__version__}[/green]")
+        try:
+            from fastapi_cloud_cli import (
+                __version__ as cloud_cli_version,
+            )
+
+            print(f"FastAPI Cloud CLI version: [green]{cloud_cli_version}[/green]")
+        except ImportError:  # pragma: no cover
+            pass
+
         raise typer.Exit()
 
 
@@ -158,6 +182,7 @@ def _run(
     entrypoint: str | None = None,
     proxy_headers: bool = False,
     forwarded_allow_ips: str | None = None,
+    public_url: str | None = None,
 ) -> None:
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
@@ -195,7 +220,9 @@ def _run(
             if path or app:
                 import_data = get_import_data(path=path, app_name=app)
             elif config.entrypoint:
-                import_data = get_import_data_from_import_string(config.entrypoint)
+                import_data = get_import_data_from_import_string(
+                    config.entrypoint, config.from_pyproject
+                )
             else:
                 import_data = get_import_data()
         except FastAPICLIException as e:
@@ -233,7 +260,35 @@ def _run(
             tag="app",
         )
 
-        url = f"http://{host}:{port}"
+        mod_source_desc = SOURCE_DESCRIPTIONS[import_data.module_config_source]
+        app_source_desc = SOURCE_DESCRIPTIONS[import_data.app_name_config_source]
+        toolkit.print_line()
+        toolkit.print("Configuration sources:", tag="info")
+        if mod_source_desc == app_source_desc:
+            toolkit.print(f" • Import string: {mod_source_desc}")
+        else:
+            toolkit.print(f" • Module: {mod_source_desc}")
+            toolkit.print(f" • App name: {app_source_desc}")
+
+        if import_data.module_config_source == "auto-discovery":
+            toolkit.print_line()
+            toolkit.print(
+                "You can configure an entrypoint in [blue]pyproject.toml[/] for this app with:",
+                tag="tip",
+            )
+            toolkit.print_line()
+            toolkit.print(
+                Syntax(
+                    (
+                        "[tool.fastapi]\n"
+                        f'entrypoint = "{import_data.module_data.module_import_str}:{import_data.app_name}"'
+                    ),
+                    "toml",
+                    theme="ansi_light",
+                )
+            )
+
+        url = public_url.rstrip("/") if public_url else f"http://{host}:{port}"
         url_docs = f"{url}/docs"
 
         toolkit.print_line()
@@ -379,6 +434,7 @@ def dev(
         command="dev",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
+        public_url=os.getenv("FASTAPI_PUBLIC_URL"),
     )
 
 
@@ -486,6 +542,7 @@ def run(
         command="run",
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
+        public_url=os.getenv("FASTAPI_PUBLIC_URL"),
     )
 
 

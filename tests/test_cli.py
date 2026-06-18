@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
 import uvicorn
 from typer.testing import CliRunner
 
@@ -35,6 +36,10 @@ def test_dev() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output
+        assert "Configuration sources:" in result.output
+        assert "Module: path CLI argument" in result.output
+        assert "App name: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting development server 🚀" in result.output
         assert "Server started at http://127.0.0.1:8000" in result.output
         assert "Documentation at http://127.0.0.1:8000/docs" in result.output
@@ -59,6 +64,11 @@ def test_dev_no_args_auto_discovery() -> None:
             assert mock_run.call_args.kwargs["port"] == 8000
             assert mock_run.call_args.kwargs["reload"] is True
         assert "Using import string: main:app" in result.output
+        assert "Configuration sources:" in result.output
+        assert "Import string: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" in result.output
+        assert "[tool.fastapi]" in result.output
+        assert 'entrypoint = "main:app"' in result.output
 
 
 def test_dev_package() -> None:
@@ -81,6 +91,9 @@ def test_dev_package() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: nested_package.package:app" in result.output
+        assert "Module: path CLI argument" in result.output
+        assert "App name: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting development server 🚀" in result.output
         assert "Server started at http://127.0.0.1:8000" in result.output
         assert "Documentation at http://127.0.0.1:8000/docs" in result.output
@@ -131,6 +144,9 @@ def test_dev_args() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:api" in result.output
+        assert "Module: path CLI argument" in result.output
+        assert "App name: --app CLI option" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting development server 🚀" in result.output
         assert "Server started at http://192.168.0.2:8080" in result.output
         assert "Documentation at http://192.168.0.2:8080/docs" in result.output
@@ -162,6 +178,9 @@ def test_dev_env_vars() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output
+        assert "Module: path CLI argument" in result.output
+        assert "App name: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting development server 🚀" in result.output
         assert "Server started at http://127.0.0.1:8111" in result.output
         assert "Documentation at http://127.0.0.1:8111/docs" in result.output
@@ -200,6 +219,9 @@ def test_dev_env_vars_and_args() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output
+        assert "Module: path CLI argument" in result.output
+        assert "App name: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting development server 🚀" in result.output
         assert "Server started at http://127.0.0.1:8080" in result.output
         assert "Documentation at http://127.0.0.1:8080/docs" in result.output
@@ -246,6 +268,9 @@ def test_run() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output
+        assert "Module: path CLI argument" in result.output
+        assert "App name: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting production server 🚀" in result.output
         assert "Server started at http://0.0.0.0:8000" in result.output
         assert "Documentation at http://0.0.0.0:8000/docs" in result.output
@@ -321,6 +346,9 @@ def test_run_args() -> None:
             }
 
         assert "Using import string: single_file_app:api" in result.output
+        assert "Module: path CLI argument" in result.output
+        assert "App name: --app CLI option" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting production server 🚀" in result.output
         assert "Server started at http://192.168.0.2:8080" in result.output
         assert "Documentation at http://192.168.0.2:8080/docs" in result.output
@@ -352,6 +380,9 @@ def test_run_env_vars() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output
+        assert "Module: path CLI argument" in result.output
+        assert "App name: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting production server 🚀" in result.output
         assert "Server started at http://0.0.0.0:8111" in result.output
         assert "Documentation at http://0.0.0.0:8111/docs" in result.output
@@ -386,9 +417,60 @@ def test_run_env_vars_and_args() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output
+        assert "Module: path CLI argument" in result.output
+        assert "App name: auto-discovery" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
         assert "Starting production server 🚀" in result.output
         assert "Server started at http://0.0.0.0:8080" in result.output
         assert "Documentation at http://0.0.0.0:8080/docs" in result.output
+
+
+@pytest.mark.parametrize("command", ["dev", "run"])
+@pytest.mark.parametrize(
+    "public_url",
+    [
+        "https://myapp.example.com",
+        "https://myapp.example.com/",
+        "https://myapp.example.com/subpath/",
+    ],
+)
+def test_public_url_env_var(command: str, public_url: str) -> None:
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(
+                app,
+                [
+                    command,
+                    "single_file_app.py",
+                    "--host",
+                    "0.0.0.0",
+                ],
+                env={"FASTAPI_PUBLIC_URL": public_url},
+            )
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+            assert mock_run.call_args.kwargs == {
+                "app": "single_file_app:app",
+                "host": "0.0.0.0",
+                "port": 8000,
+                "reload": True if command == "dev" else False,
+                "reload_dirs": None,
+                "workers": None,
+                "root_path": "",
+                "proxy_headers": True,
+                "forwarded_allow_ips": None,
+                "log_config": get_uvicorn_log_config(),
+            }
+
+        assert "Using import string: single_file_app:app" in result.output
+        assert (
+            f"Starting {'development' if command == 'dev' else 'production'} server 🚀"
+            in result.output
+        )
+        expected_url_base = public_url.rstrip("/")
+        assert f"Server started at {expected_url_base}" in result.output
+        assert f"Documentation at {expected_url_base}/docs" in result.output
 
 
 def test_run_error() -> None:
@@ -452,6 +534,7 @@ def test_version() -> None:
     result = runner.invoke(app, ["--version"])
     assert result.exit_code == 0, result.output
     assert "FastAPI CLI version:" in result.output
+    assert "FastAPI Cloud CLI version:" in result.output
 
 
 def test_dev_reload_dir() -> None:
@@ -498,6 +581,8 @@ def test_dev_with_import_string() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:api" in result.output
+        assert "Import string: --entrypoint CLI option" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
 
 
 def test_run_with_import_string() -> None:
@@ -520,6 +605,8 @@ def test_run_with_import_string() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output
+        assert "Import string: --entrypoint CLI option" in result.output
+        assert "You can configure an entrypoint in pyproject.toml" not in result.output
 
 
 def test_script() -> None:

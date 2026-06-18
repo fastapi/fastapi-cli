@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Features
+
+* ✨ Add `FASTAPI_PUBLIC_URL` env var to configure app's public URL that is shown on startup. PR [#381](https://github.com/fastapi/fastapi-cli/pull/381) by [@YuriiMotov](https://github.com/YuriiMotov).
+
 ## 0.0.26 (2026-06-18)
 
 ### Features

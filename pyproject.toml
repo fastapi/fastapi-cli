@@ -166,9 +166,14 @@ error-on-warning = true
 extend-exclude = [
     "coverage/",
     "dist/",
-    "release-notes.md",
     "htmlcov/",
     "uv.lock",
+]
+
+[tool.typos.default]
+extend-ignore-re = [
+    # GitHub usernames in @mentions
+    "@[a-zA-Z0-9](?:-?[a-zA-Z0-9])*",
 ]
 
 [tool.typos.default.extend-identifiers]

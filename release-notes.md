@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 👷 Fix alls-green test dependency. PR [#437](https://github.com/fastapi/fastapi-cli/pull/437) by [@tiangolo](https://github.com/tiangolo).
 * 🔧 Enable checking `release-notes.md` for typos. PR [#436](https://github.com/fastapi/fastapi-cli/pull/436) by [@YuriiMotov](https://github.com/YuriiMotov).
 
 ## 0.0.27 (2026-06-18)

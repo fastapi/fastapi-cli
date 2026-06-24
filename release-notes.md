@@ -8,6 +8,7 @@
 
 ### Internal
 
+* 👷 Simplify pull request workflow triggers. PR [#443](https://github.com/fastapi/fastapi-cli/pull/443) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Update issue-manager to 0.7.1. PR [#441](https://github.com/fastapi/fastapi-cli/pull/441) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️ Update issue-manager to 0.7.0. PR [#440](https://github.com/fastapi/fastapi-cli/pull/440) by [@tiangolo](https://github.com/tiangolo).
 * 🔒️ Update zizmor workflow security checks. PR [#439](https://github.com/fastapi/fastapi-cli/pull/439) by [@tiangolo](https://github.com/tiangolo).

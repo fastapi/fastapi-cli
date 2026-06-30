@@ -2,6 +2,19 @@
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Update docs badges: remove Publish badge, it doesn't give extra information. PR [#438](https://github.com/fastapi/fastapi-cli/pull/438) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* 👷 Simplify pull request workflow triggers. PR [#443](https://github.com/fastapi/fastapi-cli/pull/443) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update issue-manager to 0.7.1. PR [#441](https://github.com/fastapi/fastapi-cli/pull/441) by [@tiangolo](https://github.com/tiangolo).
+* ⬆️ Update issue-manager to 0.7.0. PR [#440](https://github.com/fastapi/fastapi-cli/pull/440) by [@tiangolo](https://github.com/tiangolo).
+* 🔒️ Update zizmor workflow security checks. PR [#439](https://github.com/fastapi/fastapi-cli/pull/439) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Fix alls-green test dependency. PR [#437](https://github.com/fastapi/fastapi-cli/pull/437) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Enable checking `release-notes.md` for typos. PR [#436](https://github.com/fastapi/fastapi-cli/pull/436) by [@YuriiMotov](https://github.com/YuriiMotov).
+
 ## 0.0.27 (2026-06-18)
 
 ### Features

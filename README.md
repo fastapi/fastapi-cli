@@ -3,9 +3,6 @@
 <a href="https://github.com/fastapi/fastapi-cli/actions/workflows/test.yml" target="_blank">
     <img src="https://github.com/fastapi/fastapi-cli/actions/workflows/test.yml/badge.svg" alt="Test">
 </a>
-<a href="https://github.com/fastapi/fastapi-cli/actions/workflows/publish.yml" target="_blank">
-    <img src="https://github.com/fastapi/fastapi-cli/actions/workflows/publish.yml/badge.svg" alt="Publish">
-</a>
 <a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/fastapi/fastapi-cli" target="_blank">
     <img src="https://coverage-badge.samuelcolvin.workers.dev/fastapi/fastapi-cli.svg" alt="Coverage">
 <a href="https://pypi.org/project/fastapi-cli" target="_blank">

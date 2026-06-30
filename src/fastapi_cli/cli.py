@@ -23,7 +23,9 @@ from . import __version__
 from .logging import setup_logging
 from .utils.cli import get_rich_toolkit, get_uvicorn_log_config
 
-app = typer.Typer(rich_markup_mode="rich", context_settings={"help_option_names": ["-h", "--help"]})
+app = typer.Typer(
+    rich_markup_mode="rich", context_settings={"help_option_names": ["-h", "--help"]}
+)
 
 logger = logging.getLogger(__name__)
 
@@ -132,7 +134,9 @@ def version_callback(value: bool) -> None:
 def callback(
     version: Annotated[
         bool | None,
-        typer.Option("--version", help="Show the version and exit.", callback=version_callback),
+        typer.Option(
+            "--version", help="Show the version and exit.", callback=version_callback
+        ),
     ] = None,
     verbose: bool = typer.Option(False, help="Enable verbose output"),
 ) -> None:
@@ -160,7 +164,9 @@ def _get_module_tree(module_paths: list[Path]) -> Tree:
 
     tree = root_tree
     for sub_path in module_paths[1:]:
-        sub_name = f"🐍 {sub_path.name}" if sub_path.is_file() else f"📁 {sub_path.name}"
+        sub_name = (
+            f"🐍 {sub_path.name}" if sub_path.is_file() else f"📁 {sub_path.name}"
+        )
         tree = tree.add(sub_name)
         if sub_path.is_dir():
             tree.add("[dim]🐍 __init__.py[/dim]")
@@ -196,7 +202,9 @@ def _run(
 
         if entrypoint and (path or app):
             toolkit.print_line()
-            toolkit.print("[error]Cannot use --entrypoint together with path or --app arguments")
+            toolkit.print(
+                "[error]Cannot use --entrypoint together with path or --app arguments"
+            )
             toolkit.print_line()
             raise typer.Exit(code=1)
 
@@ -320,7 +328,9 @@ def _run(
             port=port,
             reload=reload,
             reload_dirs=(
-                [str(directory.resolve()) for directory in reload_dirs] if reload_dirs else None
+                [str(directory.resolve()) for directory in reload_dirs]
+                if reload_dirs
+                else None
             ),
             workers=workers,
             root_path=root_path,

@@ -8,6 +8,7 @@
 
 ### Internal
 
+* ⬆ Bump https://github.com/crate-ci/typos from v1.46.0 to 1.47.2 in the pre-commit group. PR [#445](https://github.com/fastapi/fastapi-cli/pull/445) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Simplify pull request workflow triggers. PR [#443](https://github.com/fastapi/fastapi-cli/pull/443) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Update issue-manager to 0.7.1. PR [#441](https://github.com/fastapi/fastapi-cli/pull/441) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️ Update issue-manager to 0.7.0. PR [#440](https://github.com/fastapi/fastapi-cli/pull/440) by [@tiangolo](https://github.com/tiangolo).

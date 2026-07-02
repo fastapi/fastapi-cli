@@ -8,6 +8,7 @@
 
 ### Internal
 
+* ⬆ Bump fastapi-cloud-cli from 0.19.0 to 0.21.0. PR [#450](https://github.com/fastapi/fastapi-cli/pull/450) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-new from 0.0.6 to 0.0.7. PR [#451](https://github.com/fastapi/fastapi-cli/pull/451) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump https://github.com/crate-ci/typos from v1.46.0 to 1.47.2 in the pre-commit group. PR [#445](https://github.com/fastapi/fastapi-cli/pull/445) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Simplify pull request workflow triggers. PR [#443](https://github.com/fastapi/fastapi-cli/pull/443) by [@tiangolo](https://github.com/tiangolo).

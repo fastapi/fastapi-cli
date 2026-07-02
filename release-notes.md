@@ -4,11 +4,44 @@
 
 ### Docs
 
+* 📝 Update docs badges: remove Publish badge, it doesn't give extra information. PR [#438](https://github.com/fastapi/fastapi-cli/pull/438) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* 👷 Simplify pull request workflow triggers. PR [#443](https://github.com/fastapi/fastapi-cli/pull/443) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update issue-manager to 0.7.1. PR [#441](https://github.com/fastapi/fastapi-cli/pull/441) by [@tiangolo](https://github.com/tiangolo).
+* ⬆️ Update issue-manager to 0.7.0. PR [#440](https://github.com/fastapi/fastapi-cli/pull/440) by [@tiangolo](https://github.com/tiangolo).
+* 🔒️ Update zizmor workflow security checks. PR [#439](https://github.com/fastapi/fastapi-cli/pull/439) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Fix alls-green test dependency. PR [#437](https://github.com/fastapi/fastapi-cli/pull/437) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Enable checking `release-notes.md` for typos. PR [#436](https://github.com/fastapi/fastapi-cli/pull/436) by [@YuriiMotov](https://github.com/YuriiMotov).
+
+## 0.0.27 (2026-06-18)
+
+### Features
+
+* ✨ Add `FASTAPI_PUBLIC_URL` env var to configure app's public URL that is shown on startup. PR [#381](https://github.com/fastapi/fastapi-cli/pull/381) by [@YuriiMotov](https://github.com/YuriiMotov).
+
+## 0.0.26 (2026-06-18)
+
+### Features
+
+* 🚸 Show tip on how to configure `entrypoint` in `pyproject.toml`. PR [#389](https://github.com/fastapi/fastapi-cli/pull/389) by [@YuriiMotov](https://github.com/YuriiMotov).
+
+## 0.0.25 (2026-06-18)
+
+### Features
+
+* 🚸 Show import string source. PR [#388](https://github.com/fastapi/fastapi-cli/pull/388) by [@YuriiMotov](https://github.com/YuriiMotov).
+* ✨ Include the version of `fastapi-cloud-cli` to the output of `--version`. PR [#341](https://github.com/fastapi/fastapi-cli/pull/341) by [@YuriiMotov](https://github.com/YuriiMotov).
+
+### Docs
+
 * 📝 Update docs about contributing. PR [#410](https://github.com/fastapi/fastapi-cli/pull/410) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update security policy. PR [#408](https://github.com/fastapi/fastapi-cli/pull/408) by [@tiangolo](https://github.com/tiangolo).
 
 ### Internal
 
+* 👷 Add pre-commit hook to catch typos. PR [#418](https://github.com/fastapi/fastapi-cli/pull/418) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump typer from 0.26.2 to 0.26.7. PR [#427](https://github.com/fastapi/fastapi-cli/pull/427) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-cloud-cli from 0.17.1 to 0.19.0. PR [#429](https://github.com/fastapi/fastapi-cli/pull/429) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump rich-toolkit from 0.19.9 to 0.20.0. PR [#428](https://github.com/fastapi/fastapi-cli/pull/428) by [@dependabot[bot]](https://github.com/apps/dependabot).

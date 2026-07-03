@@ -68,6 +68,27 @@ def test_run_uses_uvicorn_default_log_config_without_rich_logs(
     assert "log_config" not in mock_run.call_args.kwargs
 
 
+def test_run_uses_minimal_output_without_tty(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr("fastapi_cli.cli.should_use_rich_logs", lambda: False)
+
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["run", "single_file_app.py"])
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+
+    assert "⚡️ Starting FastAPI in production mode" in result.output
+    assert "🐍 Using import string: single_file_app:app" in result.output
+    assert "🌐 Server started at http://0.0.0.0:8000" in result.output
+    assert "Documentation at http://0.0.0.0:8000/docs" in result.output
+    assert "Logs:" not in result.output
+    assert "Searching for package file structure" not in result.output
+    assert "Configuration sources:" not in result.output
+    assert "You can configure an entrypoint" not in result.output
+    assert "log_config" not in mock_run.call_args.kwargs
+
+
 def test_dev_no_args_auto_discovery() -> None:
     """Test that auto-discovery works when no args and no pyproject.toml entrypoint"""
     with changing_dir(assets_path / "default_files" / "default_main"):

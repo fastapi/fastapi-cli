@@ -8,7 +8,7 @@ from rich.segment import Segment
 from rich.text import Text
 from rich_toolkit import RichToolkit
 from rich_toolkit.element import Element
-from rich_toolkit.styles import BaseStyle
+from rich_toolkit.styles import BaseStyle, MinimalStyle
 from uvicorn.logging import DefaultFormatter
 
 logger = logging.getLogger(__name__)
@@ -108,6 +108,30 @@ class FastAPIStyle(BaseStyle):
         return prefix
 
 
+class MinimalEmojiStyle(MinimalStyle):
+    """Minimal style that keeps the ``emoji=`` bullet as an inline prefix, so
+    the same ``toolkit.print(..., emoji=...)`` calls read as ``🐍 App: …``
+    outside a TTY, where ``MinimalStyle`` would otherwise drop the emoji."""
+
+    def render_element(
+        self,
+        element: Any,
+        is_active: bool = False,
+        done: bool = False,
+        parent: Element | None = None,
+        **kwargs: Any,
+    ) -> RenderableType:
+        rendered = super().render_element(
+            element=element, is_active=is_active, done=done, parent=parent, **kwargs
+        )
+
+        emoji = kwargs.get("emoji", "")
+        if emoji and isinstance(rendered, str):
+            return f"{emoji} {rendered}"
+
+        return rendered
+
+
 LOG_LEVEL_COLORS = {
     "debug": "blue",
     "info": "cyan",
@@ -130,7 +154,7 @@ def _get_log_bullet(level: str) -> str:
 class CustomFormatter(DefaultFormatter):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        self.toolkit = get_rich_toolkit()
+        self.toolkit = get_rich_toolkit(use_rich=True)
 
     def formatMessage(self, record: logging.LogRecord) -> str:
         message = record.getMessage()
@@ -186,5 +210,7 @@ def get_uvicorn_log_config() -> dict[str, Any]:
     }
 
 
-def get_rich_toolkit() -> RichToolkit:
-    return RichToolkit(style=FastAPIStyle())
+def get_rich_toolkit(*, use_rich: bool) -> RichToolkit:
+    style: BaseStyle = FastAPIStyle() if use_rich else MinimalEmojiStyle()
+
+    return RichToolkit(style=style)

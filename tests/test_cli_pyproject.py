@@ -1,6 +1,7 @@
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
 import uvicorn
 from typer.testing import CliRunner
 
@@ -10,6 +11,11 @@ from tests.utils import changing_dir
 runner = CliRunner()
 
 assets_path = Path(__file__).parent / "assets"
+
+
+@pytest.fixture(autouse=True)
+def force_rich_logs(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr("fastapi_cli.cli.should_use_rich_logs", lambda: True)
 
 
 def test_dev_with_pyproject_app_config_uses() -> None:

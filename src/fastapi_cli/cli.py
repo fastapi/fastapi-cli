@@ -144,7 +144,9 @@ def _run(
     public_url: str | None = None,
     verbose: bool = False,
 ) -> None:
-    with get_rich_toolkit() as toolkit:
+    use_rich = should_use_rich_logs()
+
+    with get_rich_toolkit(use_rich=use_rich) as toolkit:
         server_type = "development" if command == "dev" else "production"
 
         toolkit.print(f"Starting FastAPI in {server_type} mode", emoji="⚡️")
@@ -243,7 +245,7 @@ def _run(
 
         # Nudge to pin the entrypoint whenever it was auto-discovered, so it's
         # explicit next time — shown in the default output, not just --verbose
-        if is_auto_discovery:
+        if use_rich and is_auto_discovery:
             toolkit.print_line()
             toolkit.print(
                 "You can configure an entrypoint in [blue]pyproject.toml[/] for this app with:",
@@ -264,7 +266,8 @@ def _run(
         url = public_url.rstrip("/") if public_url else f"http://{host}:{port}"
         url_docs = f"{url}/docs"
 
-        toolkit.print_line()
+        if use_rich:
+            toolkit.print_line()
         toolkit.print(f"Server started at [link={url}]{url}[/]", emoji="🌐")
         toolkit.print(f"Documentation at [link={url_docs}]{url_docs}[/]")
 
@@ -273,12 +276,15 @@ def _run(
                 "Could not import Uvicorn, try running 'pip install uvicorn'"
             ) from None
 
-        toolkit.print_line()
-        toolkit.print("Logs:", bullet=False)
-        toolkit.print_line()
+        if use_rich:
+            toolkit.print_line()
+            toolkit.print("Logs:", bullet=False)
+            toolkit.print_line()
+        else:
+            toolkit.print("")
 
         extra_uvicorn_kwargs: dict[str, Any] = (
-            {"log_config": get_uvicorn_log_config()} if should_use_rich_logs() else {}
+            {"log_config": get_uvicorn_log_config()} if use_rich else {}
         )
 
         uvicorn.run(

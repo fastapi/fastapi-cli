@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.28 (2026-07-03)
+
 ### Docs
 
 * 📝 Update docs badges: remove Publish badge, it doesn't give extra information. PR [#438](https://github.com/fastapi/fastapi-cli/pull/438) by [@tiangolo](https://github.com/tiangolo).

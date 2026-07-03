@@ -2,11 +2,11 @@
 
 ## Latest Changes
 
+## 0.0.28 (2026-07-03)
+
 ### Fixes
 
 * 🐛 Fix duplicate Uvicorn logs under FastAPI CLI. PR [#454](https://github.com/fastapi/fastapi-cli/pull/454) by [@patrick91](https://github.com/patrick91).
-
-## 0.0.28 (2026-07-03)
 
 ### Docs
 

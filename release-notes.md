@@ -8,6 +8,7 @@
 
 ### Internal
 
+* ⬆️ Update latest-changes to 0.6.1. PR [#455](https://github.com/fastapi/fastapi-cli/pull/455) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the python-packages group across 1 directory with 6 updates. PR [#453](https://github.com/fastapi/fastapi-cli/pull/453) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-cloud-cli from 0.19.0 to 0.21.0. PR [#450](https://github.com/fastapi/fastapi-cli/pull/450) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-new from 0.0.6 to 0.0.7. PR [#451](https://github.com/fastapi/fastapi-cli/pull/451) by [@dependabot[bot]](https://github.com/apps/dependabot).

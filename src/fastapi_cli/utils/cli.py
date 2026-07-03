@@ -1,4 +1,5 @@
 import logging
+import sys
 from typing import Any
 
 from rich_toolkit import RichToolkit, RichToolkitTheme
@@ -18,6 +19,11 @@ class CustomFormatter(DefaultFormatter):
         if message == "Shutting down":
             result = "\n" + result
         return result
+
+
+def should_use_rich_logs() -> bool:
+    """Return True when stdout is a TTY and rich logs should be used, False otherwise."""
+    return sys.stdout.isatty()
 
 
 def get_uvicorn_log_config() -> dict[str, Any]:

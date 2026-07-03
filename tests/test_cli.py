@@ -16,6 +16,11 @@ runner = CliRunner()
 assets_path = Path(__file__).parent / "assets"
 
 
+@pytest.fixture(autouse=True)
+def force_rich_logs(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr("fastapi_cli.cli.should_use_rich_logs", lambda: True)
+
+
 def test_dev() -> None:
     with changing_dir(assets_path):
         with patch.object(uvicorn, "run") as mock_run:
@@ -49,6 +54,21 @@ def test_dev() -> None:
         )
 
         assert "🐍 single_file_app.py" in result.output
+
+
+def test_run_uses_uvicorn_default_log_config_without_rich_logs(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr("fastapi_cli.cli.should_use_rich_logs", lambda: False)
+
+    with changing_dir(assets_path):
+        with patch.object(uvicorn, "run") as mock_run:
+            result = runner.invoke(app, ["run", "single_file_app.py"])
+            assert result.exit_code == 0, result.output
+            assert mock_run.called
+            assert mock_run.call_args
+
+    assert "log_config" not in mock_run.call_args.kwargs
 
 
 def test_dev_no_args_auto_discovery() -> None:

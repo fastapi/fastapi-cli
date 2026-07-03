@@ -1,9 +1,15 @@
+import io
 import logging
+import sys
 from logging.config import dictConfig
 
-from pytest import LogCaptureFixture
+from pytest import LogCaptureFixture, MonkeyPatch
 
-from fastapi_cli.utils.cli import CustomFormatter, get_uvicorn_log_config
+from fastapi_cli.utils.cli import (
+    CustomFormatter,
+    get_uvicorn_log_config,
+    should_use_rich_logs,
+)
 
 
 def test_get_uvicorn_config_uses_custom_formatter() -> None:
@@ -12,6 +18,14 @@ def test_get_uvicorn_config_uses_custom_formatter() -> None:
     assert config["formatters"]["default"]["()"] is CustomFormatter
     assert config["formatters"]["access"]["()"] is CustomFormatter
     assert config["loggers"]["uvicorn"]["propagate"] is False
+
+
+def test_should_use_rich_logs_is_false_without_tty(
+    monkeypatch: MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(sys, "stdout", io.StringIO())
+
+    assert should_use_rich_logs() is False
 
 
 def test_custom_formatter() -> None:

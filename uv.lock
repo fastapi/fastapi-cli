@@ -322,7 +322,7 @@ tests = [
 requires-dist = [
     { name = "fastapi-cloud-cli", marker = "extra == 'standard'", specifier = ">=0.1.1" },
     { name = "fastapi-new", marker = "extra == 'new'", specifier = ">=0.0.2" },
-    { name = "rich-toolkit", specifier = ">=0.14.8" },
+    { name = "rich-toolkit", specifier = ">=0.20.1" },
     { name = "tomli", marker = "python_full_version < '3.11'", specifier = ">=2.0.0" },
     { name = "typer", specifier = ">=0.16.0" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.15.0" },

@@ -33,7 +33,7 @@ classifiers = [
 dependencies = [
     "typer >= 0.16.0",
     "uvicorn[standard] >= 0.15.0",
-    "rich-toolkit >= 0.14.8",
+    "rich-toolkit >= 0.20.1",
     "tomli >= 2.0.0; python_version < '3.11'"
 ]
 

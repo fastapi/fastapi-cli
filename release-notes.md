@@ -2,12 +2,28 @@
 
 ## Latest Changes
 
+### Internal
+
+* 👷 Fix latest-changes checkout target. PR [#462](https://github.com/fastapi/fastapi-cli/pull/462) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.0.28 (2026-07-03)
+
+### Fixes
+
+* 🐛 Fix duplicate Uvicorn logs under FastAPI CLI. PR [#454](https://github.com/fastapi/fastapi-cli/pull/454) by [@patrick91](https://github.com/patrick91).
+
 ### Docs
 
 * 📝 Update docs badges: remove Publish badge, it doesn't give extra information. PR [#438](https://github.com/fastapi/fastapi-cli/pull/438) by [@tiangolo](https://github.com/tiangolo).
 
 ### Internal
 
+* ⬆️ Update issue-manager to 0.8.1. PR [#456](https://github.com/fastapi/fastapi-cli/pull/456) by [@tiangolo](https://github.com/tiangolo).
+* ⬆️ Update latest-changes to 0.6.1. PR [#455](https://github.com/fastapi/fastapi-cli/pull/455) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump the python-packages group across 1 directory with 6 updates. PR [#453](https://github.com/fastapi/fastapi-cli/pull/453) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi-cloud-cli from 0.19.0 to 0.21.0. PR [#450](https://github.com/fastapi/fastapi-cli/pull/450) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi-new from 0.0.6 to 0.0.7. PR [#451](https://github.com/fastapi/fastapi-cli/pull/451) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump https://github.com/crate-ci/typos from v1.46.0 to 1.47.2 in the pre-commit group. PR [#445](https://github.com/fastapi/fastapi-cli/pull/445) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Simplify pull request workflow triggers. PR [#443](https://github.com/fastapi/fastapi-cli/pull/443) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Update issue-manager to 0.7.1. PR [#441](https://github.com/fastapi/fastapi-cli/pull/441) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️ Update issue-manager to 0.7.0. PR [#440](https://github.com/fastapi/fastapi-cli/pull/440) by [@tiangolo](https://github.com/tiangolo).

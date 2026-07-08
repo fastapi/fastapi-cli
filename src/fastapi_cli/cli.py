@@ -20,7 +20,11 @@ from fastapi_cli.exceptions import FastAPICLIException
 
 from . import __version__
 from .logging import setup_logging
-from .utils.cli import get_rich_toolkit, get_uvicorn_log_config
+from .utils.cli import (
+    get_rich_toolkit,
+    get_uvicorn_log_config,
+    should_use_rich_logs,
+)
 
 app = typer.Typer(
     rich_markup_mode="rich", context_settings={"help_option_names": ["-h", "--help"]}
@@ -271,6 +275,10 @@ def _run(
         toolkit.print("Logs:")
         toolkit.print_line()
 
+        extra_uvicorn_kwargs: dict[str, Any] = (
+            {"log_config": get_uvicorn_log_config()} if should_use_rich_logs() else {}
+        )
+
         uvicorn.run(
             app=import_string,
             host=host,
@@ -285,7 +293,7 @@ def _run(
             root_path=root_path,
             proxy_headers=proxy_headers,
             forwarded_allow_ips=forwarded_allow_ips,
-            log_config=get_uvicorn_log_config(),
+            **extra_uvicorn_kwargs,
         )
 
 

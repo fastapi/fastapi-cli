@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.29 (2026-07-08)
+
 ### Internal
 
 * 👷 Fix latest-changes checkout target. PR [#462](https://github.com/fastapi/fastapi-cli/pull/462) by [@tiangolo](https://github.com/tiangolo).

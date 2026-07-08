@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Fixes
+
+* 🐛 Avoid fancy logs for non-TTY output. PR [#457](https://github.com/fastapi/fastapi-cli/pull/457) by [@patrick91](https://github.com/patrick91).
+
 ### Internal
 
 * 👷 Fix latest-changes checkout target. PR [#462](https://github.com/fastapi/fastapi-cli/pull/462) by [@tiangolo](https://github.com/tiangolo).

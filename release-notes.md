@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.29 (2026-07-08)
+
 ### Fixes
 
 * 🐛 Avoid fancy logs for non-TTY output. PR [#457](https://github.com/fastapi/fastapi-cli/pull/457) by [@patrick91](https://github.com/patrick91).

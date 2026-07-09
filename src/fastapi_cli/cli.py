@@ -146,11 +146,12 @@ def _run(
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
 
-        toolkit.print_title(f"Starting {server_type} server 🚀", tag="FastAPI")
-        toolkit.print_line()
+        toolkit.print(f"Starting FastAPI in {server_type} mode", emoji="⚡️")
 
+        toolkit.print_line()
         toolkit.print(
-            "Searching for package file structure from directories with [blue]__init__.py[/blue] files"
+            "Searching for package file structure from directories with [blue]__init__.py[/blue] files",
+            emoji="🔎",
         )
 
         if entrypoint and (path or app):
@@ -158,7 +159,6 @@ def _run(
             toolkit.print(
                 "[error]Cannot use --entrypoint together with path or --app arguments"
             )
-            toolkit.print_line()
             raise typer.Exit(code=1)
 
         try:
@@ -171,8 +171,6 @@ def _run(
             for error in e.errors():
                 field = ".".join(str(loc) for loc in error["loc"])
                 toolkit.print(f"  [red]•[/red] {field}: {error['msg']}")
-
-            toolkit.print_line()
 
             raise typer.Exit(code=1) from None
 
@@ -197,45 +195,43 @@ def _run(
         module_data = import_data.module_data
         import_string = import_data.import_string
 
-        toolkit.print(f"Importing from {module_data.extra_sys_path}")
+        toolkit.print_line()
+        toolkit.print(f"Importing from {module_data.extra_sys_path}", emoji="📂")
         toolkit.print_line()
 
         if module_data.module_paths:
             root_tree = _get_module_tree(module_data.module_paths)
 
-            toolkit.print(root_tree, tag="module")
-            toolkit.print_line()
+            toolkit.print(root_tree)
+
+        toolkit.print_line()
 
         toolkit.print(
             "Importing the FastAPI app object from the module with the following code:",
-            tag="code",
         )
         toolkit.print_line()
         toolkit.print(
-            f"[underline]from [bold]{module_data.module_import_str}[/bold] import [bold]{import_data.app_name}[/bold]"
+            f"[blue]from [bold]{module_data.module_import_str}[/bold] import [bold]{import_data.app_name}[/bold]",
         )
+
         toolkit.print_line()
+        toolkit.print(f"Using import string: [blue]{import_string}[/]", emoji="🐍")
 
-        toolkit.print(
-            f"Using import string: [blue]{import_string}[/]",
-            tag="app",
-        )
-
+        toolkit.print_line()
         mod_source_desc = SOURCE_DESCRIPTIONS[import_data.module_config_source]
         app_source_desc = SOURCE_DESCRIPTIONS[import_data.app_name_config_source]
-        toolkit.print_line()
-        toolkit.print("Configuration sources:", tag="info")
+        toolkit.print("Configuration sources:", emoji="📋")
         if mod_source_desc == app_source_desc:
-            toolkit.print(f" • Import string: {mod_source_desc}")
+            toolkit.print(f"• Import string: {mod_source_desc}")
         else:
-            toolkit.print(f" • Module: {mod_source_desc}")
-            toolkit.print(f" • App name: {app_source_desc}")
+            toolkit.print(f"• Module: {mod_source_desc}")
+            toolkit.print(f"• App name: {app_source_desc}")
 
         if import_data.module_config_source == "auto-discovery":
             toolkit.print_line()
             toolkit.print(
                 "You can configure an entrypoint in [blue]pyproject.toml[/] for this app with:",
-                tag="tip",
+                emoji="💡",
             )
             toolkit.print_line()
             toolkit.print(
@@ -246,24 +242,21 @@ def _run(
                     ),
                     "toml",
                     theme="ansi_light",
-                )
+                ),
             )
 
         url = public_url.rstrip("/") if public_url else f"http://{host}:{port}"
         url_docs = f"{url}/docs"
 
         toolkit.print_line()
-        toolkit.print(
-            f"Server started at [link={url}]{url}[/]",
-            f"Documentation at [link={url_docs}]{url_docs}[/]",
-            tag="server",
-        )
+        toolkit.print(f"Server started at [link={url}]{url}[/]", emoji="🌐")
+        toolkit.print(f"Documentation at [link={url_docs}]{url_docs}[/]")
 
         if command == "dev":
             toolkit.print_line()
             toolkit.print(
                 "Running in development mode, for production use: [bold]fastapi run[/]",
-                tag="tip",
+                emoji="💡",
             )
 
         if not uvicorn:
@@ -272,7 +265,7 @@ def _run(
             ) from None
 
         toolkit.print_line()
-        toolkit.print("Logs:")
+        toolkit.print("Logs:", bullet=False)
         toolkit.print_line()
 
         extra_uvicorn_kwargs: dict[str, Any] = (

@@ -47,7 +47,8 @@ def test_custom_formatter() -> None:
 
     formatted = formatter.formatMessage(record)
 
-    assert "INFO" in formatted
+    # the log level is shown as a colored bar bullet, like `fastapi cloud logs`
+    assert "▕" in formatted
     assert "127.0.0.1" in formatted
     assert "GET / HTTP/1.1" in formatted
     assert "200" in formatted

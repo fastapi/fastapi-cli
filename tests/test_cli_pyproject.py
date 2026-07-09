@@ -26,8 +26,9 @@ def test_dev_with_pyproject_app_config_uses() -> None:
         assert mock_run.call_args.kwargs["reload"] is True
 
         assert "Using import string: my_module:app" in result.output
-        assert "Configuration sources:" in result.output
-        assert "Import string: entrypoint in pyproject.toml" in result.output
+        # a configured entrypoint is not auto-discovery
+        assert "(auto-discovered" not in result.output
+        assert "Configuration sources:" not in result.output
 
 
 def test_run_with_pyproject_app_config() -> None:
@@ -44,8 +45,8 @@ def test_run_with_pyproject_app_config() -> None:
         assert mock_run.call_args.kwargs["reload"] is False
 
         assert "Using import string: my_module:app" in result.output
-        assert "Configuration sources:" in result.output
-        assert "Import string: entrypoint in pyproject.toml" in result.output
+        assert "(auto-discovered" not in result.output
+        assert "Configuration sources:" not in result.output
 
 
 def test_cli_arg_overrides_pyproject_config() -> None:
@@ -58,9 +59,8 @@ def test_cli_arg_overrides_pyproject_config() -> None:
         assert result.exit_code == 0, result.output
 
         assert mock_run.call_args.kwargs["app"] == "another_module:app"
-        assert "Configuration sources:" in result.output
-        assert "Module: path CLI argument" in result.output
-        assert "App name: auto-discovery" in result.output
+        assert "Using import string: another_module:app" in result.output
+        assert "Configuration sources:" not in result.output
 
 
 def test_pyproject_app_config_invalid_format() -> None:

@@ -142,17 +142,19 @@ def _run(
     proxy_headers: bool = False,
     forwarded_allow_ips: str | None = None,
     public_url: str | None = None,
+    verbose: bool = False,
 ) -> None:
     with get_rich_toolkit() as toolkit:
         server_type = "development" if command == "dev" else "production"
 
         toolkit.print(f"Starting FastAPI in {server_type} mode", emoji="⚡️")
 
-        toolkit.print_line()
-        toolkit.print(
-            "Searching for package file structure from directories with [blue]__init__.py[/blue] files",
-            emoji="🔎",
-        )
+        if verbose:
+            toolkit.print_line()
+            toolkit.print(
+                "Searching for package file structure from directories with [blue]__init__.py[/blue] files",
+                emoji="🔎",
+            )
 
         if entrypoint and (path or app):
             toolkit.print_line()
@@ -194,40 +196,54 @@ def _run(
 
         module_data = import_data.module_data
         import_string = import_data.import_string
+        is_auto_discovery = import_data.module_config_source == "auto-discovery"
 
-        toolkit.print_line()
-        toolkit.print(f"Importing from {module_data.extra_sys_path}", emoji="📂")
-        toolkit.print_line()
+        if verbose:
+            toolkit.print_line()
+            toolkit.print(f"Importing from {module_data.extra_sys_path}", emoji="📂")
+            toolkit.print_line()
 
-        if module_data.module_paths:
-            root_tree = _get_module_tree(module_data.module_paths)
+            if module_data.module_paths:
+                root_tree = _get_module_tree(module_data.module_paths)
 
-            toolkit.print(root_tree)
+                toolkit.print(root_tree)
 
-        toolkit.print_line()
+            toolkit.print_line()
 
-        toolkit.print(
-            "Importing the FastAPI app object from the module with the following code:",
-        )
-        toolkit.print_line()
-        toolkit.print(
-            f"[blue]from [bold]{module_data.module_import_str}[/bold] import [bold]{import_data.app_name}[/bold]",
-        )
+            toolkit.print(
+                "Importing the FastAPI app object from the module with the following code:",
+            )
+            toolkit.print_line()
+            toolkit.print(
+                f"[blue]from [bold]{module_data.module_import_str}[/bold] import [bold]{import_data.app_name}[/bold]",
+            )
 
-        toolkit.print_line()
-        toolkit.print(f"Using import string: [blue]{import_string}[/]", emoji="🐍")
-
-        toolkit.print_line()
-        mod_source_desc = SOURCE_DESCRIPTIONS[import_data.module_config_source]
-        app_source_desc = SOURCE_DESCRIPTIONS[import_data.app_name_config_source]
-        toolkit.print("Configuration sources:", emoji="📋")
-        if mod_source_desc == app_source_desc:
-            toolkit.print(f"• Import string: {mod_source_desc}")
+        # Outside --verbose, fold the resolution source into the import string
+        # line and point newcomers at --verbose for the full explanation
+        if is_auto_discovery and not verbose:
+            app_note = " [dim](auto-discovered, use --verbose to learn more)[/]"
         else:
-            toolkit.print(f"• Module: {mod_source_desc}")
-            toolkit.print(f"• App name: {app_source_desc}")
+            app_note = ""
 
-        if import_data.module_config_source == "auto-discovery":
+        toolkit.print_line()
+        toolkit.print(
+            f"Using import string: [blue]{import_string}[/]{app_note}", emoji="🐍"
+        )
+
+        if verbose:
+            toolkit.print_line()
+            mod_source_desc = SOURCE_DESCRIPTIONS[import_data.module_config_source]
+            app_source_desc = SOURCE_DESCRIPTIONS[import_data.app_name_config_source]
+            toolkit.print("Configuration sources:", emoji="📋")
+            if mod_source_desc == app_source_desc:
+                toolkit.print(f"• Import string: {mod_source_desc}")
+            else:
+                toolkit.print(f"• Module: {mod_source_desc}")
+                toolkit.print(f"• App name: {app_source_desc}")
+
+        # Nudge to pin the entrypoint whenever it was auto-discovered, so it's
+        # explicit next time — shown in the default output, not just --verbose
+        if is_auto_discovery:
             toolkit.print_line()
             toolkit.print(
                 "You can configure an entrypoint in [blue]pyproject.toml[/] for this app with:",
@@ -251,13 +267,6 @@ def _run(
         toolkit.print_line()
         toolkit.print(f"Server started at [link={url}]{url}[/]", emoji="🌐")
         toolkit.print(f"Documentation at [link={url_docs}]{url_docs}[/]")
-
-        if command == "dev":
-            toolkit.print_line()
-            toolkit.print(
-                "Running in development mode, for production use: [bold]fastapi run[/]",
-                emoji="💡",
-            )
 
         if not uvicorn:
             raise FastAPICLIException(
@@ -356,6 +365,14 @@ def dev(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),
     ] = None,
+    verbose: Annotated[
+        bool,
+        typer.Option(
+            "--verbose",
+            "-v",
+            help="Show detailed startup output and debug logs: how the [bold]FastAPI[/bold] app was discovered, imported, and configured.",
+        ),
+    ] = False,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [yellow]development[/yellow] mode. 🧪
@@ -395,6 +412,7 @@ def dev(
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
         public_url=os.getenv("FASTAPI_PUBLIC_URL"),
+        verbose=verbose,
     )
 
 
@@ -464,6 +482,14 @@ def run(
             help="Comma separated list of IP Addresses to trust with proxy headers. The literal '*' means trust everything."
         ),
     ] = None,
+    verbose: Annotated[
+        bool,
+        typer.Option(
+            "--verbose",
+            "-v",
+            help="Show detailed startup output and debug logs: how the [bold]FastAPI[/bold] app was discovered, imported, and configured.",
+        ),
+    ] = False,
 ) -> Any:
     """
     Run a [bold]FastAPI[/bold] app in [green]production[/green] mode. 🚀
@@ -503,6 +529,7 @@ def run(
         proxy_headers=proxy_headers,
         forwarded_allow_ips=forwarded_allow_ips,
         public_url=os.getenv("FASTAPI_PUBLIC_URL"),
+        verbose=verbose,
     )
 
 

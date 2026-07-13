@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 👷 Add GH workflow to bump pre-commit hook versions. PR [#448](https://github.com/fastapi/fastapi-cli/pull/448) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 🔧 Set Dependabot schedule interval to "monthly". PR [#449](https://github.com/fastapi/fastapi-cli/pull/449) by [@YuriiMotov](https://github.com/YuriiMotov).
 
 ## 0.0.29 (2026-07-08)

@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump the python-packages group across 1 directory with 5 updates. PR [#473](https://github.com/fastapi/fastapi-cli/pull/473) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump the github-actions group with 3 updates. PR [#474](https://github.com/fastapi/fastapi-cli/pull/474) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pre-commit hooks. PR [#472](https://github.com/fastapi/fastapi-cli/pull/472) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Add GH workflow to bump pre-commit hook versions. PR [#448](https://github.com/fastapi/fastapi-cli/pull/448) by [@YuriiMotov](https://github.com/YuriiMotov).

@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* 🔧 Set Dependabot schedule interval to "monthly". PR [#449](https://github.com/fastapi/fastapi-cli/pull/449) by [@YuriiMotov](https://github.com/YuriiMotov).
+
 ## 0.0.29 (2026-07-08)
 
 ### Fixes

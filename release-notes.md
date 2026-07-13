@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump the github-actions group with 3 updates. PR [#474](https://github.com/fastapi/fastapi-cli/pull/474) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pre-commit hooks. PR [#472](https://github.com/fastapi/fastapi-cli/pull/472) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Add GH workflow to bump pre-commit hook versions. PR [#448](https://github.com/fastapi/fastapi-cli/pull/448) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 🔧 Set Dependabot schedule interval to "monthly". PR [#449](https://github.com/fastapi/fastapi-cli/pull/449) by [@YuriiMotov](https://github.com/YuriiMotov).

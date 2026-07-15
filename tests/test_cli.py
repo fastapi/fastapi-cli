@@ -45,7 +45,7 @@ def test_dev() -> None:
         assert "Module: path CLI argument" in result.output
         assert "App name: auto-discovery" in result.output
         assert "You can configure an entrypoint in pyproject.toml" not in result.output
-        assert "Starting development server 🚀" in result.output
+        assert "Starting FastAPI in development mode" in result.output
         assert "Server started at http://127.0.0.1:8000" in result.output
         assert "Documentation at http://127.0.0.1:8000/docs" in result.output
         assert (
@@ -114,7 +114,7 @@ def test_dev_package() -> None:
         assert "Module: path CLI argument" in result.output
         assert "App name: auto-discovery" in result.output
         assert "You can configure an entrypoint in pyproject.toml" not in result.output
-        assert "Starting development server 🚀" in result.output
+        assert "Starting FastAPI in development mode" in result.output
         assert "Server started at http://127.0.0.1:8000" in result.output
         assert "Documentation at http://127.0.0.1:8000/docs" in result.output
         assert (
@@ -167,7 +167,7 @@ def test_dev_args() -> None:
         assert "Module: path CLI argument" in result.output
         assert "App name: --app CLI option" in result.output
         assert "You can configure an entrypoint in pyproject.toml" not in result.output
-        assert "Starting development server 🚀" in result.output
+        assert "Starting FastAPI in development mode" in result.output
         assert "Server started at http://192.168.0.2:8080" in result.output
         assert "Documentation at http://192.168.0.2:8080/docs" in result.output
         assert (
@@ -201,7 +201,7 @@ def test_dev_env_vars() -> None:
         assert "Module: path CLI argument" in result.output
         assert "App name: auto-discovery" in result.output
         assert "You can configure an entrypoint in pyproject.toml" not in result.output
-        assert "Starting development server 🚀" in result.output
+        assert "Starting FastAPI in development mode" in result.output
         assert "Server started at http://127.0.0.1:8111" in result.output
         assert "Documentation at http://127.0.0.1:8111/docs" in result.output
         assert (
@@ -242,7 +242,7 @@ def test_dev_env_vars_and_args() -> None:
         assert "Module: path CLI argument" in result.output
         assert "App name: auto-discovery" in result.output
         assert "You can configure an entrypoint in pyproject.toml" not in result.output
-        assert "Starting development server 🚀" in result.output
+        assert "Starting FastAPI in development mode" in result.output
         assert "Server started at http://127.0.0.1:8080" in result.output
         assert "Documentation at http://127.0.0.1:8080/docs" in result.output
         assert (
@@ -291,7 +291,7 @@ def test_run() -> None:
         assert "Module: path CLI argument" in result.output
         assert "App name: auto-discovery" in result.output
         assert "You can configure an entrypoint in pyproject.toml" not in result.output
-        assert "Starting production server 🚀" in result.output
+        assert "Starting FastAPI in production mode" in result.output
         assert "Server started at http://0.0.0.0:8000" in result.output
         assert "Documentation at http://0.0.0.0:8000/docs" in result.output
 
@@ -318,7 +318,7 @@ def test_run_trust_proxy() -> None:
                 "log_config": get_uvicorn_log_config(),
             }
         assert "Using import string: single_file_app:app" in result.output
-        assert "Starting production server 🚀" in result.output
+        assert "Starting FastAPI in production mode" in result.output
         assert "Server started at http://0.0.0.0:8000" in result.output
         assert "Documentation at http://0.0.0.0:8000/docs" in result.output
         assert (
@@ -369,7 +369,7 @@ def test_run_args() -> None:
         assert "Module: path CLI argument" in result.output
         assert "App name: --app CLI option" in result.output
         assert "You can configure an entrypoint in pyproject.toml" not in result.output
-        assert "Starting production server 🚀" in result.output
+        assert "Starting FastAPI in production mode" in result.output
         assert "Server started at http://192.168.0.2:8080" in result.output
         assert "Documentation at http://192.168.0.2:8080/docs" in result.output
         assert (
@@ -403,7 +403,7 @@ def test_run_env_vars() -> None:
         assert "Module: path CLI argument" in result.output
         assert "App name: auto-discovery" in result.output
         assert "You can configure an entrypoint in pyproject.toml" not in result.output
-        assert "Starting production server 🚀" in result.output
+        assert "Starting FastAPI in production mode" in result.output
         assert "Server started at http://0.0.0.0:8111" in result.output
         assert "Documentation at http://0.0.0.0:8111/docs" in result.output
 
@@ -440,7 +440,7 @@ def test_run_env_vars_and_args() -> None:
         assert "Module: path CLI argument" in result.output
         assert "App name: auto-discovery" in result.output
         assert "You can configure an entrypoint in pyproject.toml" not in result.output
-        assert "Starting production server 🚀" in result.output
+        assert "Starting FastAPI in production mode" in result.output
         assert "Server started at http://0.0.0.0:8080" in result.output
         assert "Documentation at http://0.0.0.0:8080/docs" in result.output
 
@@ -485,7 +485,7 @@ def test_public_url_env_var(command: str, public_url: str) -> None:
 
         assert "Using import string: single_file_app:app" in result.output
         assert (
-            f"Starting {'development' if command == 'dev' else 'production'} server 🚀"
+            f"Starting FastAPI in {'development' if command == 'dev' else 'production'} mode"
             in result.output
         )
         expected_url_base = public_url.rstrip("/")

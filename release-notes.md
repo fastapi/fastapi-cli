@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.30 (2026-07-15)
+
 ### Refactors
 
 * 🎨 Update CLI to use new design from `fastapi-cloud-cli`. PR [#470](https://github.com/fastapi/fastapi-cli/pull/470) by [@patrick91](https://github.com/patrick91).

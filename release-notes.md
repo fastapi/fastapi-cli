@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Refactors
+
+* 🎨 Update CLI to use new design from `fastapi-cloud-cli`. PR [#470](https://github.com/fastapi/fastapi-cli/pull/470) by [@patrick91](https://github.com/patrick91).
+
 ### Internal
 
 * ⬆ Bump fastapi-cloud-cli from 0.21.0 to 0.22.1. PR [#468](https://github.com/fastapi/fastapi-cli/pull/468) by [@dependabot[bot]](https://github.com/apps/dependabot).

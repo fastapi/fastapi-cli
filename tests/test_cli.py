@@ -6,7 +6,10 @@ from unittest.mock import patch
 
 import pytest
 import uvicorn
+from fastapi.testclient import TestClient
+from httpx import Response
 from typer.testing import CliRunner
+from uvicorn.importer import import_from_string
 
 from fastapi_cli.cli import app
 from fastapi_cli.utils.cli import get_uvicorn_log_config
@@ -18,7 +21,8 @@ assets_path = Path(__file__).parent / "assets"
 
 
 @pytest.fixture(autouse=True)
-def force_rich_logs(monkeypatch: pytest.MonkeyPatch) -> None:
+def isolate_cli_environment(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("FASTAPI_ENV", raising=False)
     monkeypatch.setattr("fastapi_cli.cli.should_use_rich_logs", lambda: True)
 
 
@@ -51,6 +55,49 @@ def test_dev() -> None:
         # the step-by-step narration is --verbose only
         assert "Searching for package file structure" not in result.output
         assert "Configuration sources:" not in result.output
+
+
+def _get_fastapi_env_response(*, command: str, fastapi_env: str | None) -> Response:
+    module_name = "environment_app"
+    sys.modules.pop(module_name, None)
+
+    try:
+        with changing_dir(assets_path):
+            with patch.object(uvicorn, "run") as mock_run:
+                result = runner.invoke(
+                    app,
+                    [command, f"{module_name}.py"],
+                    env={"FASTAPI_ENV": fastapi_env},
+                )
+
+        assert result.exit_code == 0, result.output
+        assert mock_run.call_args
+        imported_app = import_from_string(mock_run.call_args.kwargs["app"])
+        with TestClient(imported_app) as test_client:
+            return test_client.get("/fastapi-env")
+    finally:
+        sys.modules.pop(module_name, None)
+
+
+def test_dev_sets_fastapi_env_before_app_import() -> None:
+    response = _get_fastapi_env_response(command="dev", fastapi_env=None)
+
+    assert response.status_code == 200
+    assert response.json() == {"fastapi_env": "development"}
+
+
+def test_dev_does_not_override_existing_fastapi_env() -> None:
+    response = _get_fastapi_env_response(command="dev", fastapi_env="chicken")
+
+    assert response.status_code == 200
+    assert response.json() == {"fastapi_env": "chicken"}
+
+
+def test_run_does_not_set_fastapi_env() -> None:
+    response = _get_fastapi_env_response(command="run", fastapi_env=None)
+
+    assert response.status_code == 200
+    assert response.json() == {"fastapi_env": None}
 
 
 def test_run_uses_uvicorn_default_log_config_without_rich_logs(

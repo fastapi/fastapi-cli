@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.31 (2026-07-16)
+
 ### Refactors
 
 * ✨ Trim default startup output and add --verbose to dev and run. PR [#471](https://github.com/fastapi/fastapi-cli/pull/471) by [@patrick91](https://github.com/patrick91).

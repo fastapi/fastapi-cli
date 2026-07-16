@@ -399,6 +399,8 @@ def dev(
 
     Otherwise, it uses the first [bold]FastAPI[/bold] app found in the imported module or package.
     """
+    os.environ.setdefault("FASTAPI_ENV", "development")
+
     _run(
         path=path,
         host=host,

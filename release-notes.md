@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Features
+
+* ✨ Set FASTAPI_ENV when running fastapi dev. PR [#477](https://github.com/fastapi/fastapi-cli/pull/477) by [@patrick91](https://github.com/patrick91).
+
 ## 0.0.31 (2026-07-16)
 
 ### Refactors

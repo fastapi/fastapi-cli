@@ -78,25 +78,24 @@ def get_app_name(*, mod_data: ModuleData, app_name: str | None = None) -> str:
         raise FastAPICLIException(
             "Could not import FastAPI, try running 'pip install fastapi'"
         ) from None
-    object_names = dir(mod)
-    object_names_set = set(object_names)
     if app_name:
-        if app_name not in object_names_set:
+        app = getattr(mod, app_name, None)
+        if app is None:
             raise FastAPICLIException(
                 f"Could not find app name {app_name} in {mod_data.module_import_str}"
             )
-        app = getattr(mod, app_name)
         if not isinstance(app, FastAPI):
             raise FastAPICLIException(
                 f"The app name {app_name} in {mod_data.module_import_str} doesn't seem to be a FastAPI app"
             )
         return app_name
-    for preferred_name in ["app", "api"]:
-        if preferred_name in object_names_set:
-            obj = getattr(mod, preferred_name)
-            if isinstance(obj, FastAPI):
-                return preferred_name
-    for name in object_names:
+    for preferred_name in ("app", "api"):
+        obj = getattr(mod, preferred_name, None)
+        if isinstance(obj, FastAPI):
+            return preferred_name
+    for name in dir(mod):
+        if name in ("app", "api"):
+            continue
         obj = getattr(mod, name)
         if isinstance(obj, FastAPI):
             return name

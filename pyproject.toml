@@ -39,8 +39,7 @@ dependencies = [
 
 [project.optional-dependencies]
 standard = [
-    "uvicorn[standard] >= 0.15.0",
-    "fastapi-cloud-cli >= 0.1.1",
+    "fastapi-cloud-cli >= 0.1.1"
 ]
 standard-no-fastapi-cloud-cli = [
     "uvicorn[standard] >= 0.15.0",

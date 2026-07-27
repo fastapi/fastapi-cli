@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* ⬆️ Upgrade latest-changes to 0.7.1. PR [#480](https://github.com/fastapi/fastapi-cli/pull/480) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.32 (2026-07-16)
 
 ### Features

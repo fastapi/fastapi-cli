@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump the github-actions group with 5 updates. PR [#481](https://github.com/fastapi/fastapi-cli/pull/481) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆️ Upgrade latest-changes to 0.7.1. PR [#480](https://github.com/fastapi/fastapi-cli/pull/480) by [@tiangolo](https://github.com/tiangolo).
 
 ## 0.0.32 (2026-07-16)

@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump fastapi-cloud-cli from 0.22.1 to 0.22.2. PR [#483](https://github.com/fastapi/fastapi-cli/pull/483) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.26.8 to 0.27.0. PR [#484](https://github.com/fastapi/fastapi-cli/pull/484) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump the github-actions group with 5 updates. PR [#481](https://github.com/fastapi/fastapi-cli/pull/481) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆️ Upgrade latest-changes to 0.7.1. PR [#480](https://github.com/fastapi/fastapi-cli/pull/480) by [@tiangolo](https://github.com/tiangolo).

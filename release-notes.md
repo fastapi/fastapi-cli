@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 🔥 Remove the old Latest Changes workflow. PR [#486](https://github.com/fastapi/fastapi-cli/pull/486) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the python-packages group across 1 directory with 7 updates. PR [#482](https://github.com/fastapi/fastapi-cli/pull/482) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-cloud-cli from 0.22.1 to 0.22.2. PR [#483](https://github.com/fastapi/fastapi-cli/pull/483) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.26.8 to 0.27.0. PR [#484](https://github.com/fastapi/fastapi-cli/pull/484) by [@dependabot[bot]](https://github.com/apps/dependabot).

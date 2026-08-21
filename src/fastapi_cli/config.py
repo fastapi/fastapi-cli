@@ -13,7 +13,7 @@ class FastAPIConfig(BaseModel):
 
     @classmethod
     def _read_pyproject_toml(cls) -> dict[str, Any]:
-        """Read FastAPI configuration from pyproject.toml in current directory."""
+        """Read FastAPI configuration from pyproject.toml in the current directory."""
         pyproject_path = Path.cwd() / "pyproject.toml"
 
         if not pyproject_path.exists():

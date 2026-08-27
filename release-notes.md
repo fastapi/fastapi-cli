@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Upgrades
+
+* ⬆️ Bump Typer min version to `0.26.1`. PR [#496](https://github.com/fastapi/fastapi-cli/pull/496) by [@YuriiMotov](https://github.com/YuriiMotov).
+
 ### Internal
 
 * ⬆️ Bump setup-uv action to 10.0.1. PR [#495](https://github.com/fastapi/fastapi-cli/pull/495) by [@YuriiMotov](https://github.com/YuriiMotov).

@@ -8,6 +8,7 @@
 
 ### Internal
 
+* ⬆ Bump the python-packages group across 1 directory with 7 updates. PR [#498](https://github.com/fastapi/fastapi-cli/pull/498) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi-cloud-cli from 0.22.2 to 0.23.0. PR [#499](https://github.com/fastapi/fastapi-cli/pull/499) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.27.0 to 0.27.1. PR [#500](https://github.com/fastapi/fastapi-cli/pull/500) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump the github-actions group with 3 updates. PR [#497](https://github.com/fastapi/fastapi-cli/pull/497) by [@dependabot[bot]](https://github.com/apps/dependabot).

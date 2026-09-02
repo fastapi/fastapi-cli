@@ -45,7 +45,7 @@ SOURCE_DESCRIPTIONS: dict[ModuleConfigSource | AppConfigSource, str] = {
 try:
     import uvicorn
 except ImportError:  # pragma: no cover
-    uvicorn = None  # type: ignore[assignment]  # ty: ignore[invalid-assignment]
+    uvicorn = None  # type: ignore[assignment]
 
 
 try:

@@ -8,6 +8,7 @@
 
 ### Internal
 
+* ⬆ Bump the github-actions group with 3 updates. PR [#497](https://github.com/fastapi/fastapi-cli/pull/497) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pre-commit hooks. PR [#501](https://github.com/fastapi/fastapi-cli/pull/501) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
 * ⬆️ Bump setup-uv action to 10.0.1. PR [#495](https://github.com/fastapi/fastapi-cli/pull/495) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 👷 Migrate automatic labels to Latest Changes. PR [#493](https://github.com/fastapi/fastapi-cli/pull/493) by [@tiangolo](https://github.com/tiangolo).

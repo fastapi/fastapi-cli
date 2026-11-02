@@ -1,6 +1,7 @@
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
 import uvicorn
 from typer.testing import CliRunner
 
@@ -10,6 +11,26 @@ from tests.utils import changing_dir
 runner = CliRunner()
 
 assets_path = Path(__file__).parent / "assets"
+
+
+@pytest.mark.parametrize("command", ["dev", "run"])
+@pytest.mark.parametrize(
+    "content",
+    [
+        "[tool.fastapi\n",
+        '[tool.fastapi]\nentrypoint = "main:app"\nentrypoint = "other:app"\n',
+    ],
+)
+def test_pyproject_toml_syntax_error(
+    command: str, content: str, tmp_path: Path
+) -> None:
+    (tmp_path / "pyproject.toml").write_text(content)
+    with changing_dir(tmp_path), patch.object(uvicorn, "run") as mock_run:
+        result = runner.invoke(app, [command])
+
+    assert result.exit_code == 1
+    assert "Invalid TOML in pyproject.toml:" in result.output
+    mock_run.assert_not_called()
 
 
 def test_dev_with_pyproject_app_config_uses() -> None:

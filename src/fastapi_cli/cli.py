@@ -165,6 +165,10 @@ def _run(
 
         try:
             config = FastAPIConfig.resolve(entrypoint=entrypoint)
+        except FastAPICLIException as e:
+            toolkit.print_line()
+            toolkit.print(f"[error]{e}")
+            raise typer.Exit(code=1) from None
         except ValidationError as e:
             toolkit.print_line()
             toolkit.print("[error]Invalid configuration in pyproject.toml:")

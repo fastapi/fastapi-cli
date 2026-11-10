@@ -696,3 +696,22 @@ def test_script() -> None:
         encoding="utf-8",
     )
     assert "Usage" in result.stdout
+
+
+def test_dev_import_error_reports_clean_error(tmp_path: Path) -> None:
+    broken_app = tmp_path / "broken_import_app.py"
+    broken_app.write_text(
+        "import nonexistent_dependency_xyz\n"
+        "from fastapi import FastAPI\n"
+        "app = FastAPI()\n"
+    )
+    module_name = "broken_import_app"
+    sys.modules.pop(module_name, None)
+    try:
+        with changing_dir(tmp_path):
+            result = runner.invoke(app, ["dev", f"{module_name}.py"])
+    finally:
+        sys.modules.pop(module_name, None)
+    assert result.exit_code == 1, result.output
+    assert f"Could not import module {module_name}" in result.output
+    assert "Traceback" not in result.output

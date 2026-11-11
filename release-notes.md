@@ -4,6 +4,7 @@
 
 ### Upgrades
 
+* ⬆️ Add support for Python 3.15 and 3.15t. PR [#515](https://github.com/fastapi/fastapi-cli/pull/515) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️ Bump Typer min version to `0.26.1`. PR [#496](https://github.com/fastapi/fastapi-cli/pull/496) by [@YuriiMotov](https://github.com/YuriiMotov).
 
 ### Internal

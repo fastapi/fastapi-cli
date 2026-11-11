@@ -4,6 +4,8 @@ from typing import Any
 
 from pydantic import BaseModel, StrictStr
 
+from fastapi_cli.exceptions import FastAPICLIException
+
 logger = logging.getLogger(__name__)
 
 
@@ -29,7 +31,10 @@ class FastAPIConfig(BaseModel):
                 return {}
 
         with open(pyproject_path, "rb") as f:
-            data = tomllib.load(f)
+            try:
+                data = tomllib.load(f)
+            except tomllib.TOMLDecodeError as e:
+                raise FastAPICLIException(f"Invalid TOML in pyproject.toml: {e}") from e
 
             return data.get("tool", {}).get("fastapi", {})  # type: ignore[no-any-return]
 

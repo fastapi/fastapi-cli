@@ -5,7 +5,7 @@ description = "Run and manage FastAPI apps from the command line with FastAPI CL
 authors = [
     {name = "Sebastián Ramírez", email = "tiangolo@gmail.com"},
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
@@ -24,7 +24,6 @@ classifiers = [
     "Framework :: FastAPI",
     "Intended Audience :: Developers",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -35,7 +34,6 @@ dependencies = [
     "typer >= 0.26.1",
     "uvicorn[standard] >= 0.15.0",
     "rich-toolkit >= 0.14.8",
-    "tomli >= 2.0.0; python_version < '3.11'"
 ]
 
 [project.optional-dependencies]
@@ -67,7 +65,7 @@ github-actions = [
     "smokeshow>=0.5.0",
 ]
 tests = [
-    "coverage[toml]>=6.2,<8.0",
+    "coverage[toml]>=7.9,<8.0",
     "fastapi>=0.128.0",
     "mypy==2.4.0",
     "pytest>=7.4.0,<10.0.0",

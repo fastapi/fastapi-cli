@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.34 (2026-11-13)
+
 ### Breaking Changes
 
 * 🔥 Drop support for Python 3.10. PR [#517](https://github.com/fastapi/fastapi-cli/pull/517) by [@tiangolo](https://github.com/tiangolo).

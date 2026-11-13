@@ -2,7 +2,7 @@
 
 import re
 from datetime import date
-from enum import Enum
+from enum import StrEnum
 from pathlib import Path
 from typing import Annotated
 
@@ -14,7 +14,7 @@ RELEASE_NOTES_HEADER = "# Release Notes\n\n"
 LATEST_CHANGES_HEADER = "## Latest Changes"
 
 
-class BumpType(str, Enum):
+class BumpType(StrEnum):
     major = "major"
     minor = "minor"
     patch = "patch"

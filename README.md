@@ -5,6 +5,7 @@
 </a>
 <a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/fastapi/fastapi-cli" target="_blank">
     <img src="https://coverage-badge.samuelcolvin.workers.dev/fastapi/fastapi-cli.svg" alt="Coverage">
+</a>
 <a href="https://pypi.org/project/fastapi-cli" target="_blank">
     <img src="https://img.shields.io/pypi/v/fastapi-cli?color=%2334D058&label=pypi%20package" alt="Package version">
 </a>

@@ -53,6 +53,17 @@ def test_single_file_explicit_object(capsys: CaptureFixture[str]) -> None:
     assert import_data.module_data.module_import_str == "single_file_app"
 
 
+def test_single_file_non_fastapi_app_and_api(capsys: CaptureFixture[str]) -> None:
+    """Fallback walks past non-FastAPI `app`/`api` names to find the real app."""
+    with changing_dir(assets_path):
+        import_data = get_import_data(path=Path("single_file_non_app.py"))
+
+    assert import_data.import_string == "single_file_non_app:my_app"
+
+    assert import_data.module_data.extra_sys_path == assets_path
+    assert import_data.module_data.module_import_str == "single_file_non_app"
+
+
 def test_single_non_existing_file() -> None:
     with changing_dir(assets_path):
         with pytest.raises(FastAPICLIException) as e:

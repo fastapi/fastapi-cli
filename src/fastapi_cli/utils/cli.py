@@ -71,6 +71,10 @@ class FastAPIStyle(BaseStyle):
     content_padding = 1
     emoji_column_width = 3
 
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self.console._emoji = False
+
     def render_element(
         self,
         element: Any,

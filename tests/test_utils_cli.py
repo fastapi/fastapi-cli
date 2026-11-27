@@ -7,6 +7,7 @@ from pytest import LogCaptureFixture, MonkeyPatch
 
 from fastapi_cli.utils.cli import (
     CustomFormatter,
+    get_rich_toolkit,
     get_uvicorn_log_config,
     should_use_rich_logs,
 )
@@ -52,6 +53,10 @@ def test_custom_formatter() -> None:
     assert "127.0.0.1" in formatted
     assert "GET / HTTP/1.1" in formatted
     assert "200" in formatted
+
+
+def test_log_formatter_no_emoji() -> None:
+    assert ":100:" in get_rich_toolkit().print_as_string(":100:")
 
 
 def test_custom_formatter_shutdown_prepends_newline() -> None:
